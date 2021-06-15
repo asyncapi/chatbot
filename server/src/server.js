@@ -1,11 +1,10 @@
 import express from 'express';
 
-const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+require('dotenv').config();
 
-io.on('connection', async (client) => {
-    console.log("hello")
-});
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+const server = require('http').Server(app);
 
 export default server;
