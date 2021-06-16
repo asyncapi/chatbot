@@ -20,13 +20,12 @@ socket.on("bot-message", (data) => {
 });
 
 socket.on('message', (data) => {
-    const { cmd } = data;
-    console.log(cmd);
+    console.log(data);
 });
 
 repl.start({
     prompt: '',
     eval: (cmd) => {
-        socket.send({cmd})
+        socket.send(cmd)
     }
 })

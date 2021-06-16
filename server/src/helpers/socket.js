@@ -1,15 +1,15 @@
 import server from '../server';
+import messageHandler from '../controllers/message';
 
 const io = require('socket.io')(server);
 
 export default function startSocket() {
-  io.on('connection', async (client) => {
-    client.on('signIn', (evt) => {
-      client.to(client.id).emit('bot-message', 'jdbdkbkbkbk');
+  io.on('connection', async (socket) => {
+    socket.on('signIn', () => {
+      io.to(socket.id).emit('bot-message', 'Hello I\'m Lukasz');
     });
-    client.on('message', (evt) => {
-      console.log(evt.data);
-      client.to(client.id).emit('message', evt);
+    socket.on('message', (data) => {
+      messageHandler(data, socket, io);
     });
   });
   io.on('disconnect', (evt) => {
