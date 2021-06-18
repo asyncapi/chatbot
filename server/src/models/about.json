@@ -1,3 +1,4 @@
 {
-    "asyncapi spec": "The AsyncAPI Specification is a project used to describe and document message-driven APIs in a machine-readable format"
+    "spec": "The AsyncAPI Specification is a project used to describe and document message-driven APIs in a machine-readable format",
+    "initiative": "AsyncAPI is an open source initiative that seeks to improve the current state of Event-Driven Architectures (EDA)"
 }

@@ -4,12 +4,11 @@ const messageHandler = (data, socket, io) => {
   client
     .message(data, {})
     .then((res) => {
-      console.log(res);
       if (!Object.keys(res.entities).length) {
         return io.to(socket.id).emit('message', 'I don\'t understand what you\'re trying to say');
       }
       console.log(res.entities);
-      console.log(res.traits);
+      console.log(res.traits.question);
     })
     .catch((error) => {
       console.log(error);

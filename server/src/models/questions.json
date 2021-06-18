@@ -1,0 +1,55 @@
+{
+  "info": {
+      "question": "Are you ready to generate your documentation?",
+      "required": true,
+      "title":{
+          "text": "what's the name of your spec?",
+          "type": "string",
+          "required": true
+      },
+      "version":{
+          "text": "what do you want to describe?",
+          "type": "number",
+          "required": true
+      },
+      "description":{
+          "text": "what's the name of your spec?",
+          "type": "string",
+          "required": false
+      }
+  },
+  "messages":{
+      "question": "Is your app consuming or producing any messages?",
+      "title": {
+          "text": "what is the name of your first message?",
+          "required": true,
+          "type": "string"
+      },
+      "messageSchema": {
+          "text": "please paste the schema of your message in JSON format",
+          "required": true,
+          "type": "json"
+      },
+      "canLoop": true
+  },
+  "channels": {
+    "question": "Are you ready to tell me what topics/channels to send or read messages from?",
+    "required": false,
+    "title": {
+      "text": "what is the name of the channel/topic?",
+      "required": true,
+      "type": "string"
+    },
+    "sendMessages": {
+      "text": "what messages do you send there, provide names comma seperated",
+      "required": false,
+      "type": "array"
+    },
+    "readMessages": {
+      "text": "do you read some messages from this channel too?",
+      "required": false,
+      "type": "array"
+    },
+    "canLoop": true
+  }
+}
