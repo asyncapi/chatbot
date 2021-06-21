@@ -2,5 +2,6 @@
     "asyncapi": "2.0.0",
     "info": {},
     "channels":{},
+    "servers":{},
     "components": {} 
 }

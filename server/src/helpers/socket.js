@@ -6,7 +6,10 @@ const io = require('socket.io')(server);
 export default function startSocket() {
   io.on('connection', async (socket) => {
     socket.on('signIn', () => {
-      io.to(socket.id).emit('bot-message', 'Hello I\'m Lukasz');
+      io.to(socket.id).emit(
+        'bot-message',
+        "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!. Would you love to generate an AsyncApi document or ask question about anything related to AsyncAPI?",
+      );
     });
     socket.on('message', (data) => {
       messageHandler(data, socket, io);
