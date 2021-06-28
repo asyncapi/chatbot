@@ -19,22 +19,15 @@ const messageHandler = (data, socket, io) => {
       const wantToGenerate = firstEntityValue(res.entities, 'generator_flow:generator_flow');
       const question = firstEntityValue(res.entities, 'question:question');
       if (wantToGenerate) {
-        if (
-          counter.child >= questions[counter.parent].questions.length
-        ) {
-          counter.parent += 1;
-          counter.child = 0;
-        }
-        const toAsk = questions[counter.parent];
-        const ask = toAsk.questions[counter.child];
-        console.log(counter);
+        let toAsk = questions[counter.parent];
+        let ask = toAsk.questions[counter.child];
         const generateEntities = childEntityValue(
           res.entities,
           'generator_flow:generator_flow',
         );
-        if (generateEntities) {
+        if (generateEntities && generateEntities.name !== 'start') {
           if (
-            generateEntities.name === 'skip'
+            generateEntities.name === 'omit'
                     && generateEntities.confidence > 0.5
           ) {
             if (ask.required) {
@@ -49,7 +42,7 @@ const messageHandler = (data, socket, io) => {
           }
           if (
             ask.type === 'string'
-                        && generateEntities.role !== 'message_body'
+            && generateEntities.role !== 'message_body'
           ) {
             return io
               .to(socket.id)
@@ -58,14 +51,61 @@ const messageHandler = (data, socket, io) => {
                 'A valid application name should be an alphabet',
               );
           }
+          if (
+            ask.type === 'url'
+                      && generateEntities.role !== 'url'
+          ) {
+            return io
+              .to(socket.id)
+              .emit(
+                'message',
+                'A valid application url is required',
+              );
+          }
+          if (
+            ask.type === 'schema'
+                      && generateEntities.role !== 'schema'
+          ) {
+            return io
+              .to(socket.id)
+              .emit(
+                'message',
+                'A valid json schema is required',
+              );
+          }
+          if (
+            ask.type === 'number'
+            && generateEntities.role !== 'number'
+          ) {
+            return io
+              .to(socket.id)
+              .emit(
+                'message',
+                'A valid application version must be a number',
+              );
+          }
+          const { title } = questions[counter.parent];
+          const a = document[title];
+          a[ask.title] = data;
+          console.log(document);
+          counter.child++;
+          ask = toAsk.questions[counter.child];
         }
         if (toAsk.text) {
           io.to(socket.id).emit('message', toAsk.text);
         }
-        io.to(socket.id).emit('message', ask.text);
-        console.log(counter);
-        counter.child++;
-        return;
+        if (ask && ask.text) {
+          io.to(socket.id).emit('message', ask.text);
+        } else {
+          counter.parent += 1;
+          counter.child = 0;
+          toAsk = questions[counter.parent];
+          if (toAsk.text) {
+            io.to(socket.id).emit('message', toAsk.text);
+          }
+          ask = toAsk.questions[counter.child];
+          io.to(socket.id).emit('message', ask.text);
+        }
       }
       if (question) {
         const answer = answers[question.name];

@@ -4,16 +4,19 @@ const questions = [
     required: true,
     questions: [
       {
+        title: 'title',
         text: "what's the name of your application?",
         type: 'string',
         required: true,
       },
       {
+        title: 'version',
         text: "what's the version of your application?",
         type: 'number',
         required: true,
       },
       {
+        title: 'description',
         text: 'how would you describe your application? What is its purpose?',
         type: 'string',
         required: false,
@@ -26,11 +29,13 @@ const questions = [
     required: false,
     questions: [
       {
+        title: 'uri',
         text: 'can you provide a URL of your server?',
         required: false,
-        type: 'string',
+        type: 'url',
       },
       {
+        title: 'protocol',
         text: 'What protocol is your server using?',
         required: false,
         type: 'string',
