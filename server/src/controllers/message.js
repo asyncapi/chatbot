@@ -26,6 +26,9 @@ const messageHandler = (data, socket, io) => {
           'generator_flow:generator_flow',
         );
         if (generateEntities && generateEntities.name !== 'start') {
+          // if (toAsk.canLoop && !ask) {
+          //   console.log('ookk');
+          // }
           if (
             generateEntities.name === 'omit'
                     && generateEntities.confidence > 0.5
@@ -59,7 +62,7 @@ const messageHandler = (data, socket, io) => {
               .to(socket.id)
               .emit(
                 'message',
-                'A valid application url is required',
+                'A valid url is required',
               );
           }
           if (
@@ -87,12 +90,11 @@ const messageHandler = (data, socket, io) => {
           const { title } = questions[counter.parent];
           const a = document[title];
           a[ask.title] = data;
-          console.log(document);
           counter.child++;
           ask = toAsk.questions[counter.child];
-        }
-        if (toAsk.text) {
-          io.to(socket.id).emit('message', toAsk.text);
+          if (ask) {
+            return io.to(socket.id).emit('message', ask.text);
+          }
         }
         if (ask && ask.text) {
           io.to(socket.id).emit('message', ask.text);

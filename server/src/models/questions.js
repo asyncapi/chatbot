@@ -25,7 +25,7 @@ const questions = [
   },
   {
     title: 'servers',
-    text: "Let's describe where is your application available? where to connect to get and send messages?",
+    text: "Let's describe where is your application available and where to connect to get and send messages",
     required: false,
     questions: [
       {
@@ -63,8 +63,8 @@ const questions = [
   {
     title: 'channels',
     text: 'Are you ready to tell me what topics/channels to send or read messages from?',
-    required: false,
     canLoop: true,
+    required: true,
     questions: [
       {
         text: 'what is the name of the channel/topic?',
