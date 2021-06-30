@@ -9,6 +9,7 @@ import answers from '../models/answers.json';
 const counter = {
   parent: 0,
   child: 0,
+  check: false,
 };
 const document = defaultSpec;
 
@@ -33,6 +34,22 @@ const messageHandler = (data, socket, io) => {
             generateEntities.name === 'omit'
                     && generateEntities.confidence > 0.5
           ) {
+            if (toAsk) {
+              if (toAsk.required && counter.check === false) {
+                return io
+                  .to(socket.id)
+                  .emit(
+                    'message',
+                    "You can't skip this aspect because it's required",
+                  );
+              }
+              counter.parent += 1;
+              counter.child = 0;
+              counter.check = true;
+              toAsk = questions[counter.parent];
+              io.to(socket.id).emit('message', "Ok let's move on");
+              return io.to(socket.id).emit('message', toAsk.text);
+            }
             if (ask.required) {
               return io
                 .to(socket.id)
@@ -42,6 +59,23 @@ const messageHandler = (data, socket, io) => {
                 );
             }
             io.to(socket.id).emit('message', "Ok let's move on");
+          }
+          if (generateEntities.name === 'boolean' && generateEntities.confidence > 0.5) {
+            if (toAsk) {
+              if (toAsk.required && counter.check === false && generateEntities.value === 'no') {
+                return io
+                  .to(socket.id)
+                  .emit(
+                    'message',
+                    "You can't skip this aspect because it's required",
+                  );
+              } if (generateEntities.value === 'yes') {
+                console.log('hoola');
+                counter.child = 0;
+                counter.check = true;
+                return io.to(socket.id).emit('message', ask.text);
+              }
+            }
           }
           if (
             ask.type === 'string'
@@ -101,9 +135,10 @@ const messageHandler = (data, socket, io) => {
         } else {
           counter.parent += 1;
           counter.child = 0;
+          counter.check = false;
           toAsk = questions[counter.parent];
           if (toAsk.text) {
-            io.to(socket.id).emit('message', toAsk.text);
+            return io.to(socket.id).emit('message', toAsk.text);
           }
           ask = toAsk.questions[counter.child];
           io.to(socket.id).emit('message', ask.text);
