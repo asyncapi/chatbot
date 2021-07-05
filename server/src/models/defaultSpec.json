@@ -3,5 +3,7 @@
     "info": {},
     "channels":{},
     "servers":{},
-    "components": {} 
+    "components": {
+        "messages": {}
+    } 
 }

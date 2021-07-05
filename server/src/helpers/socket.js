@@ -8,7 +8,7 @@ export default function startSocket() {
     socket.on('signIn', () => {
       io.to(socket.id).emit(
         'bot-message',
-        "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!. Would you love to generate an AsyncApi document or ask question about anything related to AsyncAPI?",
+        "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
       );
     });
     socket.on('message', (data) => {
