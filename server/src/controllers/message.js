@@ -5,7 +5,8 @@ import { firstEntityValue, childEntityValue } from '../utils/entities';
 import questions from '../models/questions';
 import defaultSpec from '../models/defaultSpec.json';
 import answers from '../models/answers.json';
-import { channelMessageValidator, messageSchemaValidator } from '../utils/schemaValidators';
+import { generator } from '../services/generator';
+import { channelMessageValidator, isJson } from '../utils/schemaValidators';
 
 const counter = {
   parent: 0,
@@ -27,6 +28,26 @@ const messageHandler = (data, socket, io) => {
           res.entities,
           'generator_flow:generator_flow',
         );
+        if (ask.type === 'schema') {
+          const validateSchema = isJson(data);
+          if (validateSchema) {
+            // call message schema validation
+            const newData = JSON.parse(data);
+            const newSchema = {
+              [ask.title]: newData,
+            };
+            const spec = document.components.messages;
+            spec[Object.keys(spec)[0]] = newSchema;
+            counter.parent += 1;
+            counter.child = 0;
+            counter.check = false;
+            toAsk = questions[counter.parent];
+            return io.to(socket.id).emit('message', toAsk.text);
+          }
+          return io
+            .to(socket.id)
+            .emit('message', 'A valid json schema is required');
+        }
         if (generateEntities && generateEntities.name !== 'start') {
           if (
             generateEntities.name === 'omit'
@@ -118,34 +139,21 @@ const messageHandler = (data, socket, io) => {
           }
           const { title } = questions[counter.parent];
           if (title === 'messages') {
-            if (ask.title) {
-              console.log(ask);
-              // run payload schema validation
-              const validate = messageSchemaValidator(data);
-              if (validate === 'invalid schema') {
-                return io.to(socket.id).emit('message', 'A valid schema is required');
-              }
-              const test = {
-                [ask.title]: validate,
-              };
-              const a = document.components.messages;
-              a[Object.keys(a)[0]] = test;
-              console.log(a);
-            } else {
+            if (!ask.title) {
               const b = document.components;
               b[title][data] = {};
             }
           } else if (title === 'channels') {
             if (ask.title) {
-              const test = {
-                [ask.title]: data,
-              };
-              const a = document.channels;
-              const c = channelMessageValidator(document.components.messages, data);
-              if (c.includes('message not found')) {
-                return io.to(socket.id).emit('message', `${c}, please input a valid message`);
+              const spec = document.channels;
+              const response = channelMessageValidator(document.components.messages, data);
+              if (typeof response === 'string') {
+                return io.to(socket.id).emit('message', response);
               }
-              a[Object.keys(a)[counter.child]] = test;
+              const a = spec[Object.keys(spec)[0]];
+              a[ask.title] = {
+                message: response,
+              };
             } else {
               const b = document;
               b[title][data] = {};
@@ -168,6 +176,11 @@ const messageHandler = (data, socket, io) => {
           counter.child = 0;
           counter.check = false;
           toAsk = questions[counter.parent];
+          if (!toAsk) {
+            io.to(socket.id).emit('message', 'generating spec');
+            const test = generator(document);
+            return io.to(socket.id).emit('message', test);
+          }
           if (toAsk.text) {
             return io.to(socket.id).emit('message', toAsk.text);
           }

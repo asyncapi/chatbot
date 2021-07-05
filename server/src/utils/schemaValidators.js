@@ -3,14 +3,12 @@
 export const channelMessageValidator = (toValidate, messages) => {
   const msgArray = messages.split(',');
   const channelMessageSchema = {
-    oneOf: {
-
-    },
+    oneOf: [],
   };
   for (let i = 0; i < msgArray.length; i++) {
     if (toValidate[msgArray[i]]) {
       channelMessageSchema.oneOf[i] = {
-        '-$ref': `#/components/messages/${msgArray[i]}`,
+        $ref: `#/components/messages/${msgArray[i]}`,
       };
     } else {
       return `${msgArray[i]} message not found`;
@@ -19,13 +17,18 @@ export const channelMessageValidator = (toValidate, messages) => {
   return channelMessageSchema;
 };
 
-export const messageSchemaValidator = (message) => {
+export const isJson = (text) => {
   try {
-    const schema = JSON.parse(message);
-    // run schama validation test here;
-    console.log(schema);
-    return schema;
+    if (typeof text !== 'string') {
+      return false;
+    }
+    try {
+      JSON.parse(text);
+      return true;
+    } catch (error) {
+      return false;
+    }
   } catch (e) {
-    return 'invalid schema';
+    return false;
   }
 };
