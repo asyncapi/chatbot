@@ -7,6 +7,7 @@ import defaultSpec from '../models/defaultSpec.json';
 import answers from '../models/answers.json';
 import { generator } from '../services/generator';
 import { channelMessageValidator, isJson } from '../utils/schemaValidators';
+import schemaCreator from '../utils/schemaCreator';
 
 const counter = {
   parent: 0,
@@ -33,11 +34,8 @@ const messageHandler = (data, socket, io) => {
           if (validateSchema) {
             // call message schema validation
             const newData = JSON.parse(data);
-            const newSchema = {
-              [ask.title]: newData,
-            };
             const spec = document.components.messages;
-            spec[Object.keys(spec)[0]] = newSchema;
+            schemaCreator(spec, newData, null, 0);
             counter.parent += 1;
             counter.child = 0;
             counter.check = false;
@@ -87,6 +85,17 @@ const messageHandler = (data, socket, io) => {
                     'message',
                     "You can't skip this aspect because it's required",
                   );
+              } if (toAsk.required === false && generateEntities.value === 'no') {
+                counter.parent += 1;
+                counter.child = 0;
+                counter.check = false;
+                io.to(socket.id).emit(
+                  'message',
+                  "Ok let's move on",
+                );
+                return io
+                  .to(socket.id)
+                  .emit('message', toAsk.text);
               }
               if (generateEntities.value === 'yes') {
                 counter.child = 0;
@@ -139,32 +148,32 @@ const messageHandler = (data, socket, io) => {
           }
           const { title } = questions[counter.parent];
           if (title === 'messages') {
-            if (!ask.title) {
-              const b = document.components;
-              b[title][data] = {};
-            }
+            const spec = document.components.messages;
+            schemaCreator(spec, data, ask.title, null);
           } else if (title === 'channels') {
+            const spec = document.channels;
             if (ask.title) {
-              const spec = document.channels;
-              const response = channelMessageValidator(document.components.messages, data);
+              const response = channelMessageValidator(
+                document.components.messages,
+                data,
+              );
               if (typeof response === 'string') {
                 return io.to(socket.id).emit('message', response);
               }
+              // FIXME: needs enhancement
               const a = spec[Object.keys(spec)[0]];
               a[ask.title] = {
                 message: response,
               };
             } else {
-              const b = document;
-              b[title][data] = {};
+              schemaCreator(spec, data, ask.title, null);
             }
           } else {
-            const a = document[title];
-            a[ask.title] = data;
+            const spec = document[title];
+            schemaCreator(spec, data, ask.title);
           }
           counter.child++;
           ask = toAsk.questions[counter.child];
-          console.log(document);
           if (ask) {
             return io.to(socket.id).emit('message', ask.text);
           }

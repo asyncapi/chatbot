@@ -7,9 +7,9 @@ export const channelMessageValidator = (toValidate, messages) => {
   };
   for (let i = 0; i < msgArray.length; i++) {
     if (toValidate[msgArray[i]]) {
-      channelMessageSchema.oneOf[i] = {
+      channelMessageSchema.oneOf.push({
         $ref: `#/components/messages/${msgArray[i]}`,
-      };
+      });
     } else {
       return `${msgArray[i]} message not found`;
     }
