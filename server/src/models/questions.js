@@ -29,7 +29,12 @@ const questions = [
     required: false,
     questions: [
       {
-        title: 'uri',
+        text: 'Is this a production or development server?',
+        required: true,
+        type: 'string',
+      },
+      {
+        title: 'url',
         text: 'can you provide a URL of your server?',
         required: true,
         type: 'url',

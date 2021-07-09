@@ -31,7 +31,7 @@ export default function generatorFlow(
       // call message schema validation
       const newData = JSON.parse(data);
       const spec = document.components.messages;
-      schemaCreator(spec, newData, null, 0);
+      schemaCreator(spec, newData, ask.title, 0);
       counter.parent += 1;
       counter.child = 0;
       counter.check = false;
@@ -135,11 +135,17 @@ export default function generatorFlow(
         .emit('message', 'A valid application version must be a number');
     }
     const { title } = questions[counter.parent];
+    let spec = document[title];
     if (title === 'messages') {
-      const spec = document.components.messages;
+      spec = document.components.messages;
       schemaCreator(spec, data, ask.title, null);
+    } else if (title === 'servers') {
+      if (ask.title) {
+        schemaCreator(spec, data, ask.title, 0);
+      } else {
+        schemaCreator(spec, data, ask.title, null);
+      }
     } else if (title === 'channels') {
-      const spec = document.channels;
       if (ask.title) {
         const response = channelMessageValidator(
           document.components.messages,
@@ -148,16 +154,11 @@ export default function generatorFlow(
         if (typeof response === 'string') {
           return io.to(socket.id).emit('message', response);
         }
-        // FIXME: needs enhancement
-        const a = spec[Object.keys(spec)[0]];
-        a[ask.title] = {
-          message: response,
-        };
+        schemaCreator(spec, response, ask.title, 0);
       } else {
         schemaCreator(spec, data, ask.title, null);
       }
     } else {
-      const spec = document[title];
       schemaCreator(spec, data, ask.title);
     }
     counter.child++;

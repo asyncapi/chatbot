@@ -9,6 +9,6 @@ export default function schemaCreator(data, value, title, index) {
     return newData;
   }
   const newData = data[Object.keys(data)[index]];
-  newData[title] = data;
+  newData[title] = value;
   return newData;
 }

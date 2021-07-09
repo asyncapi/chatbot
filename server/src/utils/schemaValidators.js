@@ -3,11 +3,13 @@
 export const channelMessageValidator = (toValidate, messages) => {
   const msgArray = messages.split(',');
   const channelMessageSchema = {
-    oneOf: [],
+    message: {
+      oneOf: [],
+    },
   };
   for (let i = 0; i < msgArray.length; i++) {
     if (toValidate[msgArray[i]]) {
-      channelMessageSchema.oneOf.push({
+      channelMessageSchema.message.oneOf.push({
         $ref: `#/components/messages/${msgArray[i]}`,
       });
     } else {
