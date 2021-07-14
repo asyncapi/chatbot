@@ -68,7 +68,7 @@ const questions = [
   },
   {
     title: 'channels',
-    text: 'Are you ready to tell me what topics/channels to send or read messages from?',
+    text: 'Are you ready to tell me what channels/topics/events to send or read messages from?',
     canLoop: true,
     required: true,
     questions: [
