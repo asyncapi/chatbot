@@ -2,6 +2,5 @@
 import YAML from 'json2yaml';
 
 export const generator = (jsonObj) => {
-  const yml = YAML.stringify(jsonObj);
-  return yml;
+  return YAML.stringify(jsonObj);
 };
