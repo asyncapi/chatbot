@@ -4,12 +4,11 @@ The project's aim is to develop a chatbot that can help people create spec docum
 ## Getting Started
 To get started with the AsyncApi Chatbot, you need to understand the project structure.
 
-## Folder Structure
-Server --> Contains all operation for the bots knowledge
+## Project Structure
 
-Test-Client --> A quick interface to communicate with the bot via the CLI
-
-Client --> Renders the chatbots interface in a UI
+- **Server** - contains all operations for the bot's knowledge
+- **Test-Client** - quick interface to communicate with the bot via the CLI
+- **Client** - renders the chatbot's interface in a UI
 
 ## To contribute
 
