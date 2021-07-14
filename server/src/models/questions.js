@@ -73,7 +73,7 @@ const questions = [
     required: true,
     questions: [
       {
-        text: 'what is the name of the channel/topic?',
+        text: 'what is the name of the channel/topic/event?',
         required: true,
         type: 'string',
       },
