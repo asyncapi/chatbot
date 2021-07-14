@@ -6,5 +6,5 @@
     "consumer": "A consumer is a type of application, connected to a server via a supported protocol, that is consuming messages from channels.",
     "message": "A message is the mechanism by which information is exchanged via a channel between servers and applications",
     "channel": "A channel is an addressable component, made available by the server, for the organization of messages.",
-    "protocol": "A protocol is the mechanism (wireline protocol OR API) by which messages are exchanged between the application and the channel"
+    "protocol": "A protocol is the mechanism (wireline protocol or API) by which messages are exchanged between the application and the channel"
 }
