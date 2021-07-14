@@ -25,7 +25,7 @@ const questions = [
   },
   {
     title: 'servers',
-    text: 'Would you like to describe where your application is available and where to connect to get and send messages ?',
+    text: 'Would you like to describe where your application is available and where to connect to get and send messages?',
     required: false,
     questions: [
       {
