@@ -60,7 +60,7 @@ const questions = [
       },
       {
         title: 'payload',
-        text: 'please paste the schema of your message in JSON format',
+        text: 'Please paste the shape of your message in JSON Schema format',
         required: true,
         type: 'schema',
       },
