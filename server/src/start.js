@@ -5,7 +5,7 @@ const startServer = async () => {
   startSocket();
   if (process.env.NODE_ENV === 'development') {
     server.listen(PORT, () => {
-      console.log('app now listening to port 5000');
+      console.log(`app now listening in port ${PORT}`);
     });
   }
 };
