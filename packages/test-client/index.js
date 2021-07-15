@@ -7,13 +7,10 @@ socket.on('disconnect', () => {
 });
 
 socket.on('connect', (data) => {
-    console.log(data);
     console.log(chalk.red('--- start chatting ---'))
 });
 
-socket.emit('signIn', () => {
-    console.log('ookk')
-})
+socket.emit('signIn')
 
 socket.on("bot-message", (data) => {
     console.log(data);
@@ -26,6 +23,6 @@ socket.on('message', (data) => {
 repl.start({
     prompt: '',
     eval: (cmd) => {
-        socket.send(cmd)
+        socket.emit(cmd)
     }
 })

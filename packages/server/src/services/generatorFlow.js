@@ -13,14 +13,14 @@ export default function generatorFlow(
   entities,
   socket,
   io,
-  c,
-  b,
+  schemaText,
+  schemaQuestion,
   data,
   count,
 ) {
   const counter = count;
-  let toAsk = c;
-  let ask = b;
+  let toAsk = schemaText;
+  let ask = schemaQuestion;
   const generateEntities = childEntityValue(
     entities,
     'generator_flow:generator_flow',
