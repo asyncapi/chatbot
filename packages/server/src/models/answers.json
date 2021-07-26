@@ -1,0 +1,10 @@
+{
+    "spec": "The AsyncAPI Specification is a project used to describe and document message-driven APIs in a machine-readable format",
+    "initiative": "AsyncAPI Initiative is an open source initiative that seeks to improve the current state of Event-Driven Architectures (EDA)",
+    "application": "An application is any kind of computer program or a group of them. It MUST be a producer, a consumer or both. An application MAY be a microservice, IoT device (sensor), mainframe process, etc.",
+    "producer": "A producer is a type of application, connected to a server, that is creating messages and addressing them to channels.",
+    "consumer": "A consumer is a type of application, connected to a server via a supported protocol, that is consuming messages from channels.",
+    "message": "A message is the mechanism by which information is exchanged via a channel between servers and applications",
+    "channel": "A channel is an addressable component, made available by the server, for the organization of messages.",
+    "protocol": "A protocol is the mechanism (wireline protocol or API) by which messages are exchanged between the application and the channel"
+}
