@@ -5,13 +5,13 @@ const questions = [
     questions: [
       {
         title: 'title',
-        text: "what's the name of your application?",
+        text: 'what\'s the name of your application?',
         type: 'string',
         required: true,
       },
       {
         title: 'version',
-        text: "what's the version of your application?",
+        text: 'what\'s the version of your application?',
         type: 'number',
         required: true,
       },

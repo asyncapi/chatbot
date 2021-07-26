@@ -31,7 +31,7 @@ const messageHandler = (data, socket, io) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       return io.to(socket.id).emit('message', 'ooohh something went wrong');
     });
 };
