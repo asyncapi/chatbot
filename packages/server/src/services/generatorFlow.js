@@ -1,5 +1,5 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable consistent-return */
+/* eslint-disable sonarjs/cognitive-complexity */
+
 import { generator } from './generator';
 import { channelMessageValidator, isJson } from '../utils/schemaValidators';
 import schemaCreator from '../utils/schemaCreator';
@@ -8,6 +8,9 @@ import questions from '../models/questions';
 import { childEntityValue } from '../utils/entities';
 
 const document = defaultSpec;
+const MESSAGES = {
+  moveOn: 'Ok let\'s move on',
+};
 
 export default function generatorFlow(
   entities,
@@ -48,13 +51,13 @@ export default function generatorFlow(
             .to(socket.id)
             .emit(
               'message',
-              "You can't skip this aspect because it's required",
+              'You can\'t skip this aspect because it\'s required',
             );
         }
         counter.parent += 1;
         counter.child = 0;
         toAsk = questions[counter.parent];
-        io.to(socket.id).emit('message', "Ok let's move on");
+        io.to(socket.id).emit('message', MESSAGES.moveOn);
         return io.to(socket.id).emit('message', toAsk.text);
       }
       if (ask.required) {
@@ -62,10 +65,10 @@ export default function generatorFlow(
           .to(socket.id)
           .emit(
             'message',
-            "You can't skip this question because it's required",
+            'You can\'t skip this question because it\'s required',
           );
       }
-      io.to(socket.id).emit('message', "Ok let's move on");
+      io.to(socket.id).emit('message', MESSAGES.moveOn);
     }
     if (
       generateEntities.name === 'boolean'
@@ -77,14 +80,14 @@ export default function generatorFlow(
             .to(socket.id)
             .emit(
               'message',
-              "You can't skip this aspect because it's required",
+              'You can\'t skip this aspect because it\'s required',
             );
         }
         if (toAsk.required === false && generateEntities.value === 'no') {
           counter.parent += 1;
           counter.child = 0;
           counter.check = false;
-          io.to(socket.id).emit('message', "Ok let's move on");
+          io.to(socket.id).emit('message', MESSAGES.moveOn);
           return io.to(socket.id).emit('message', toAsk.text);
         }
         if (generateEntities.value === 'yes') {
@@ -98,28 +101,26 @@ export default function generatorFlow(
           .to(socket.id)
           .emit(
             'message',
-            "You can't skip this question because it's required",
+            'You can\'t skip this question because it\'s required',
           );
       }
-      io.to(socket.id).emit('message', "Ok let's move on");
+      io.to(socket.id).emit('message', MESSAGES.moveOn);
     }
     if (
       generateEntities.name === 'wit$message_body'
           && generateEntities.confidence > 0.5
+          && toAsk.text && counter.check === false
     ) {
-      if (toAsk.text && counter.check === false) {
-        return io.to(socket.id).emit('message', 'A Yes or No/Skip answer is required');
-      }
+      return io.to(socket.id).emit('message', 'A Yes or No/Skip answer is required');
     }
     if (
       generateEntities.name === 'wit$number'
             && generateEntities.confidence > 0.5
+            && toAsk.text && counter.check === false
     ) {
-      if (toAsk.text && counter.check === false) {
-        return io
-          .to(socket.id)
-          .emit('message', 'A Yes or No/Skip answer is required');
-      }
+      return io
+        .to(socket.id)
+        .emit('message', 'A Yes or No/Skip answer is required');
     }
     if (ask.type === 'string' && generateEntities.role !== 'message_body') {
       return io
@@ -135,7 +136,7 @@ export default function generatorFlow(
         .emit('message', 'A valid application version must be a number');
     }
     const { title } = questions[counter.parent];
-    let spec = document[title];
+    let spec = document[String(title)];
     if (title === 'messages') {
       spec = document.components.messages;
       schemaCreator(spec, data, ask.title, null);

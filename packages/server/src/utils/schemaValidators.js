@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable import/prefer-default-export */
 export const channelMessageValidator = (toValidate, messages) => {
   const msgArray = messages.split(',');
   const channelMessageSchema = {

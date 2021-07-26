@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const firstEntityValue = (entities, entity) => {
   const val = entities
     && entities[entity]

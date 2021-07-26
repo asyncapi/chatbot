@@ -3,7 +3,8 @@ export default function schemaCreator(data, value, title, index) {
     const newData = data;
     newData[value] = {};
     return newData;
-  } if (index === null || index === undefined) {
+  } 
+  if (index === null || index === undefined) {
     const newData = data;
     newData[title] = value;
     return newData;
