@@ -8,7 +8,9 @@
     "start": "lerna run start --stream --parallel",
     "test": "lerna run test --stream --parallel",
     "new-version": "lerna version --conventional-commits --yes",
-    "diff": "lerna diff"
+    "diff": "lerna diff",
+    "lint": "eslint --max-warnings 0 --config ./packages/server/.eslintrc.json .",
+    "generate:assets": "echo \"No assets to generate yet\"",
   },
   "devDependencies": {
     "lerna": "^4.0.0",
