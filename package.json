@@ -5,8 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "lerna run start --stream --parallel",
-    "test": "lerna run test --stream --parallel",
+    "start": "lerna run start --stream",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff"
   },

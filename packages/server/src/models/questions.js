@@ -1,7 +1,7 @@
 const questions = [
   {
     title: 'info',
-    required: true,
+    required: false,
     questions: [
       {
         title: 'title',
@@ -49,12 +49,12 @@ const questions = [
   },
   {
     title: 'messages',
-    text: 'Would you like to specify what messages is your application producing or consuming?',
+    text: 'Would you like to specify what messages your application is producing or consuming?',
     required: false,
     canLoop: true,
     questions: [
       {
-        text: 'what is the name of your first message?',
+        text: 'what is the name of your message?',
         required: true,
         type: 'string',
       },
@@ -65,6 +65,7 @@ const questions = [
         type: 'schema',
       },
     ],
+    loopText: 'Would you like to add another message to your application?',
   },
   {
     title: 'channels',
@@ -90,6 +91,7 @@ const questions = [
         type: 'string',
       },
     ],
+    loopText: 'Would you like to add another channel/topic/event to your application?',
   },
 ];
 
