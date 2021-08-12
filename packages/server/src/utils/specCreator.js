@@ -5,6 +5,7 @@ import defaultSpec from '../models/defaultSpec.json';
 const document = defaultSpec;
 let messageIndex = 0;
 let channelIndex = 0;
+let channelChildIndex = 0;
 
 // eslint-disable-next-line consistent-return
 export default function specCreator(title, data, ask) {
@@ -32,9 +33,13 @@ export default function specCreator(title, data, ask) {
       if (typeof response === 'string') {
         return response;
       }
-      schemaCreator(spec, response, ask.title, 0);
+      schemaCreator(spec, response, ask.title, channelIndex, channelChildIndex);
       channelIndex += 1;
+      if (channelIndex > 1) {
+        channelChildIndex += 1;
+      }
     } else {
+      channelIndex = 0;
       schemaCreator(spec, data, ask.title, null);
     }
   } else {
