@@ -30,10 +30,8 @@ const messageHandler = (data, socket, io) => {
         return io.to(socket.id).emit('message', 'I don\'t understand what you\'re trying to say');
       }
     })
-    .catch((error) => {
-      console.log(error);
-      return io.to(socket.id).emit('message', 'ooohh something went wrong');
-    });
+    // eslint-disable-next-line no-unused-vars
+    .catch((error) => io.to(socket.id).emit('message', 'ooohh something went wrong'));
 };
 
 export default messageHandler;
