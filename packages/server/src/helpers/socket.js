@@ -9,7 +9,9 @@ const invalidMessage = 'You passed an invalid API KEY.';
 let passedKey = null;
 export default function startSocket() {
   io.on('connection', async (socket) => {
+    console.log('ok');
     socket.on('signIn', (apiKey) => {
+      console.log(apiKey);
       if (apiKey !== API_KEY) {
         io.to(socket.id).emit(
           'bot-message',
