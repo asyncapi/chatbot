@@ -153,6 +153,12 @@ export default function generatorFlow(
       counter.child++;
       ask = toAsk.questions[counter.child];
       if (ask) {
+        console.log(document);
+        if (title === 'channels') {
+          const { messages } = document.components;
+          const messageKeys = Object.keys(messages);
+          return io.to(socket.id).emit('message', `${ask.text}.The list of messages you have includes: ${messageKeys}`);
+        }
         return io.to(socket.id).emit('message', ask.text);
       }
     }
@@ -160,7 +166,7 @@ export default function generatorFlow(
   if (ask && ask.text) {
     io.to(socket.id).emit('message', ask.text);
   } else {
-    // Check is current spec requires multiple specifications;
+    // Check if current spec requires multiple specifications;
     if (toAsk && toAsk.canLoop) {
       return io.to(socket.id).emit('message', toAsk.loopText);
     }

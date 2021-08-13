@@ -2,7 +2,6 @@
 /* eslint-disable import/prefer-default-export */
 export const channelMessageValidator = (toValidate, messages) => {
   const msgArray = messages.split(',');
-  console.log(msgArray);
   const channelMessageSchema = {
     message: {
       oneOf: [],

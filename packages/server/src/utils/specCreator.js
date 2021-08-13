@@ -10,7 +10,9 @@ let channelChildIndex = 0;
 // eslint-disable-next-line consistent-return
 export default function specCreator(title, data, ask) {
   let spec = document[title];
-  if (title === 'messages') {
+  if (title === 'asyncapi') {
+    document[title] = data;
+  } else if (title === 'messages') {
     spec = document.components.messages;
     if (ask.title) {
       schemaCreator(spec, data, ask.title, messageIndex);

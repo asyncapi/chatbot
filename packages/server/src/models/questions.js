@@ -1,7 +1,19 @@
 const questions = [
   {
+    title: 'asyncapi',
+    required: true,
+    questions: [
+      {
+        title: 'version',
+        text: 'what version of AsyncApi spec are you using?',
+        type: 'number',
+        required: true,
+      },
+    ],
+  },
+  {
     title: 'info',
-    required: false,
+    required: true,
     questions: [
       {
         title: 'title',
@@ -91,7 +103,8 @@ const questions = [
         type: 'string',
       },
     ],
-    loopText: 'Would you like to add another channel/topic/event to your application?',
+    loopText:
+      'Would you like to add another channel/topic/event to your application?',
   },
 ];
 
