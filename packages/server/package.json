@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/start.js"
+    "start": "env NODE_ENV=production pm2-runtime start --interpreter babel-node src/start.js",
+    "start:dev": "nodemon --exec babel-node src/start.js"
   },
   "dependencies": {
+    "pm2": "^5.1.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "dotenv": "^10.0.0",
