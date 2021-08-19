@@ -1,4 +1,4 @@
-import { Wit, interactive } from 'node-wit';
+import { Wit } from 'node-wit';
 
 const client = new Wit({ accessToken: process.env.WIT_TOKEN });
 
