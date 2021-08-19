@@ -1,7 +1,9 @@
 const EventEmitter = require('events');
 
 class CustomEventEmitter extends EventEmitter {
-  names = this.eventNames;
+  names() {
+    return this.eventNames(...arguments);
+  }
 }
 
 module.exports = new CustomEventEmitter();
