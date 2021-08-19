@@ -8,6 +8,10 @@ const startServer = async () => {
     server.listen(PORT, () => {
       console.log(`app now listening in port ${PORT}`);
     });
+  } else {
+        server.listen(PORT, () => {
+          console.log(`app now listening in port ${PORT}`);
+        });
   }
 };
 

@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "lerna run start --stream",
+    "start": "lerna exec -- yarn run start",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff",
     "lint": "eslint --max-warnings 0 --config ./packages/server/.eslintrc.json .",
@@ -21,7 +21,6 @@
     "eslint-plugin-mocha": "^9.0.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-sonarjs": "^0.9.1",
-    "lerna": "^4.0.0",
     "nodemon": "^2.0.7"
   }
 }
