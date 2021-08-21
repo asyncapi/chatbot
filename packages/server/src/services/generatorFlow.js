@@ -153,7 +153,6 @@ export default function generatorFlow(
       counter.child++;
       ask = toAsk.questions[counter.child];
       if (ask) {
-        console.log(document);
         if (title === 'channels') {
           const { messages } = document.components;
           const messageKeys = Object.keys(messages);
