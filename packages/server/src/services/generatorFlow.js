@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-collapsible-if */
 /* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 import { generator } from './generator';
@@ -8,6 +9,7 @@ import { childEntityValue } from '../utils/entities';
 import specCreator from '../utils/specCreator';
 
 const document = defaultSpec;
+const moveOnMessage = "Ok let's move on";
 
 export default function generatorFlow(
   entities,
@@ -47,7 +49,7 @@ export default function generatorFlow(
         counter.parent += 1;
         counter.child = 0;
         toAsk = questions[counter.parent];
-        io.to(socket.id).emit('message', "Ok let's move on");
+        io.to(socket.id).emit('message', moveOnMessage);
         return io.to(socket.id).emit('message', toAsk.text);
       }
       if (ask.required) {
@@ -58,7 +60,7 @@ export default function generatorFlow(
             "You can't skip this question because it's required",
           );
       }
-      io.to(socket.id).emit('message', "Ok let's move on");
+      io.to(socket.id).emit('message', moveOnMessage);
     }
     if (
       generateEntities.name === 'boolean'
@@ -71,10 +73,11 @@ export default function generatorFlow(
           counter.check = false;
           toAsk = questions[counter.parent];
           if (toAsk) {
-            io.to(socket.id).emit('message', "Ok let's move on");
+            io.to(socket.id).emit('message', moveOnMessage);
             return io.to(socket.id).emit('message', toAsk.text);
           }
-        } if (generateEntities.value === 'yes') {
+        }
+        if (generateEntities.value === 'yes') {
           counter.child = 0;
           ask = toAsk.questions[counter.child];
           return io.to(socket.id).emit('message', ask.text);
@@ -93,7 +96,7 @@ export default function generatorFlow(
           counter.parent += 1;
           counter.child = 0;
           counter.check = false;
-          io.to(socket.id).emit('message', "Ok let's move on");
+          io.to(socket.id).emit('message', moveOnMessage);
           return io.to(socket.id).emit('message', toAsk.text);
         }
         if (generateEntities.value === 'yes') {
@@ -110,7 +113,7 @@ export default function generatorFlow(
             "You can't skip this question because it's required",
           );
       }
-      io.to(socket.id).emit('message', "Ok let's move on");
+      io.to(socket.id).emit('message', moveOnMessage);
     }
     if (
       generateEntities.name === 'wit$message_body'
