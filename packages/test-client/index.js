@@ -16,7 +16,9 @@ socket.on('connect', () => {
 
 socket.emit('signIn', process.env.ACCESS_TOKEN);
 
-socket.on('bot-message');
+socket.on('bot-message', (data) => {
+  console.log(data);
+});
 
 socket.on('message', (data) => {
   console.log(data);
