@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 
 const PORT = process.env.PORT || 'http://localhost:5000/';
@@ -15,9 +16,7 @@ socket.on('connect', () => {
 
 socket.emit('signIn', process.env.ACCESS_TOKEN);
 
-socket.on('bot-message', (data) => {
-  console.log(data);
-});
+socket.on('bot-message');
 
 socket.on('message', (data) => {
   console.log(data);

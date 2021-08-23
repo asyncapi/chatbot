@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import { channelMessageValidator } from './schemaValidators';
 import schemaCreator from './schemaCreator';
 import defaultSpec from '../models/defaultSpec.json';
@@ -7,6 +8,7 @@ let messageIndex = 0;
 let channelIndex = 0;
 let channelChildIndex = 0;
 
+// FIXME: Enhance spec creator code
 // eslint-disable-next-line consistent-return
 export default function specCreator(title, data, ask) {
   let spec = document[title];

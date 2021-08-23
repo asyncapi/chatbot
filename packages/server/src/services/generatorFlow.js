@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable sonarjs/no-collapsible-if */
 /* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
@@ -10,7 +11,7 @@ import specCreator from '../utils/specCreator';
 
 const document = defaultSpec;
 const moveOnMessage = "Ok let's move on";
-
+// FIXME: Enhance generator flow code
 export default function generatorFlow(
   entities,
   socket,
@@ -117,15 +118,7 @@ export default function generatorFlow(
     }
     if (
       generateEntities.name === 'wit$message_body'
-          && generateEntities.confidence > 0.5
-    ) {
-      if (toAsk.text && counter.check === false) {
-        return io.to(socket.id).emit('message', 'A Yes or No/Skip answer is required');
-      }
-    }
-    if (
-      generateEntities.name === 'wit$number'
-            && generateEntities.confidence > 0.5
+      && generateEntities.confidence > 0.5
     ) {
       if (toAsk.text && counter.check === false) {
         return io
@@ -133,7 +126,21 @@ export default function generatorFlow(
           .emit('message', 'A Yes or No/Skip answer is required');
       }
     }
-    if (ask && ask.type === 'string' && generateEntities.role !== 'message_body') {
+    if (
+      generateEntities.name === 'wit$number'
+      && generateEntities.confidence > 0.5
+    ) {
+      if (toAsk.text && counter.check === false) {
+        return io
+          .to(socket.id)
+          .emit('message', 'A Yes or No/Skip answer is required');
+      }
+    }
+    if (
+      ask
+      && ask.type === 'string'
+      && generateEntities.role !== 'message_body'
+    ) {
       return io
         .to(socket.id)
         .emit('message', 'A valid application name should be an alphabet');
@@ -159,7 +166,12 @@ export default function generatorFlow(
         if (title === 'channels') {
           const { messages } = document.components;
           const messageKeys = Object.keys(messages);
-          return io.to(socket.id).emit('message', `${ask.text}.The list of messages you have includes: ${messageKeys}`);
+          return io
+            .to(socket.id)
+            .emit(
+              'message',
+              `${ask.text}.The list of messages you have includes: ${messageKeys}`,
+            );
         }
         return io.to(socket.id).emit('message', ask.text);
       }
