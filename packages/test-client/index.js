@@ -1,8 +1,11 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 
-const PORT = process.env.PORT || 'http://localhost:5000/';
-const socket = require('socket.io-client')(PORT);
+let Address = 'http://localhost:5000/';
+if (process.env.NODE_ENV === 'production') {
+  Address = 'http://167.71.46.87/';
+}
+const socket = require('socket.io-client')(Address);
 const repl = require('repl');
 const chalk = require('chalk');
 

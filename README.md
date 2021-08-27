@@ -79,15 +79,14 @@ This folder consists of all interactive User interface code that we'll be used t
 ### Installation
 
 1. cd [chatbots](https://github.com/asyncapi/chatbot) to go into the project root
-2. yarn to install the dependencies
+2. run yarn to install the dependencies
 
 ### Running locally
 
 Follow this step to run the project with the live server
 
-1. cd into packages/test-client
-2. create a .env and add PORT=[http://167.71.46.87/](http://167.71.46.87/) API_KEY="reach out to the maintainers for an API key" to communicate with the live server.  
-3. Run yarn start
+1. cd into packages/test-client 
+2. Run ACCESS_TOKEN="reach out to the maintainers for an API key" yarn start to communicate with the live server.
 
 Follow this step to run the project with local server
 
