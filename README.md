@@ -86,7 +86,7 @@ This folder consists of all interactive User interface code that we'll be used t
 Follow this step to run the project with the live server
 
 1. cd into packages/test-client 
-2. Run ACCESS_TOKEN="reach out to the maintainers for an API key" yarn start to communicate with the live server.
+2. Run yarn start to communicate with the live server.
 
 Follow this step to run the project with local server
 

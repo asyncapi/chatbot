@@ -17,7 +17,7 @@ socket.on('connect', () => {
   console.log(chalk.red('--- start chatting ---'));
 });
 
-socket.emit('signIn', process.env.ACCESS_TOKEN);
+socket.emit('signIn');
 
 socket.on('bot-message', (data) => {
   console.log(data);
