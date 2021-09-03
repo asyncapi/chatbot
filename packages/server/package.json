@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "env NODE_ENV=production pm2-runtime start --interpreter babel-node src/start.js",
+    "build": "babel src -d dist",
+    "start": "env NODE_ENV=production pm2-runtime start --interpreter node dist/start.js",
     "start:dev": "nodemon --exec babel-node src/start.js"
   },
   "dependencies": {

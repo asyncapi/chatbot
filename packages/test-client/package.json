@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "env NODE_ENV=production nodemon index.js",
+    "test-client": "env NODE_ENV=production node index.js",
     "start:dev": "nodemon index.js"
   },
   "dependencies": {

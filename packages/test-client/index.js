@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 
-let Address = 'http://localhost:5000/';
+let Address = 'http://localhost:80/';
 if (process.env.NODE_ENV === 'production') {
-  Address = 'http://localhost:80/';
+  Address = 'http://167.71.46.87/';
 }
 const socket = require('socket.io-client')(Address);
 const repl = require('repl');
@@ -30,6 +30,7 @@ socket.on('message', (data) => {
 repl.start({
   prompt: '',
   eval: (cmd) => {
+    console.log(Address);
     socket.emit('message', cmd);
   },
 });
