@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src -d dist",
-    "start": "env NODE_ENV=production pm2-runtime start --interpreter node dist/start.js",
+    "start": "yarn run build && env NODE_ENV=production pm2-runtime start --interpreter node dist/start.js",
     "start:dev": "nodemon --exec babel-node src/start.js"
   },
   "dependencies": {

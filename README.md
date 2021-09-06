@@ -82,18 +82,20 @@ This folder consists of all interactive User interface code that we'll be used t
 2. run yarn to install the dependencies
 
 ### Running locally
+**Note: Tell the bot "i want to generate" to trigger a conversation with the bot**
 
-Follow this step to run the project with the live server
+Follow this step to run the project with the live server.
 
-1. cd into packages/test-client 
-2. Run yarn start to communicate with the live server.
+1. Run yarn test-client to start the interactive CLI that communicates with the live server.
 
 Follow this step to run the project with local server
 
 1. yarn start:dev to start the project
-2. open [http://localhost:5000](http://localhost:5000/) to see the project server running
+2. open [http://localhost:5000](http://localhost:5000/) to ensure the project server is running.
 3. open [http://localhost:3000](http://localhost:3000/) to open the chatbot's UI in your favorite browser[Not available yet]
 
+### Using Docker
+Coming soon
 # Contributing
 
 ---

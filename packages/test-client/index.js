@@ -30,7 +30,6 @@ socket.on('message', (data) => {
 repl.start({
   prompt: '',
   eval: (cmd) => {
-    console.log(Address);
     socket.emit('message', cmd);
   },
 });
