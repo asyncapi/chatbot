@@ -1,17 +1,29 @@
 const questions = [
   {
+    title: 'asyncapi',
+    required: true,
+    questions: [
+      {
+        title: 'version',
+        text: 'what version of AsyncApi spec are you using?',
+        type: 'number',
+        required: true,
+      },
+    ],
+  },
+  {
     title: 'info',
     required: true,
     questions: [
       {
         title: 'title',
-        text: 'what\'s the name of your application?',
+        text: "what's the name of your application?",
         type: 'string',
         required: true,
       },
       {
         title: 'version',
-        text: 'what\'s the version of your application?',
+        text: "what's the version of your application?",
         type: 'number',
         required: true,
       },
@@ -49,12 +61,12 @@ const questions = [
   },
   {
     title: 'messages',
-    text: 'Would you like to specify what messages is your application producing or consuming?',
+    text: 'Would you like to specify what messages your application is producing or consuming?',
     required: false,
     canLoop: true,
     questions: [
       {
-        text: 'what is the name of your first message?',
+        text: 'what is the name of your message?',
         required: true,
         type: 'string',
       },
@@ -65,6 +77,7 @@ const questions = [
         type: 'schema',
       },
     ],
+    loopText: 'Would you like to add another message to your application?',
   },
   {
     title: 'channels',
@@ -90,6 +103,8 @@ const questions = [
         type: 'string',
       },
     ],
+    loopText:
+      'Would you like to add another channel/topic/event to your application?',
   },
 ];
 

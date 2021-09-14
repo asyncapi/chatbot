@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable import/prefer-default-export */
 export const channelMessageValidator = (toValidate, messages) => {
   const msgArray = messages.split(',');
   const channelMessageSchema = {
@@ -6,7 +8,11 @@ export const channelMessageValidator = (toValidate, messages) => {
     },
   };
   for (let i = 0; i < msgArray.length; i++) {
-    if (toValidate[msgArray[i]]) {
+    let name = msgArray[i];
+    if (msgArray.length > 1 && i < msgArray.length - 1) {
+      name = `${name}\n`;
+    }
+    if (toValidate[name]) {
       channelMessageSchema.message.oneOf.push({
         $ref: `#/components/messages/${msgArray[i]}`,
       });

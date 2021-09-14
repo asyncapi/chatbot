@@ -19,7 +19,7 @@ export default function questionFlow(entities, socket, io, ask) {
       .to(socket.id)
       .emit(
         'message',
-        'I couldn\'t find an answer to this question sorry',
+        "I couldn't find an answer to this question sorry",
       );
   }
 }

@@ -1,17 +1,17 @@
 /* eslint-disable sonarjs/cognitive-complexity */
-
+/* eslint-disable sonarjs/no-collapsible-if */
+/* eslint-disable no-plusplus */
+/* eslint-disable consistent-return */
 import { generator } from './generator';
-import { channelMessageValidator, isJson } from '../utils/schemaValidators';
-import schemaCreator from '../utils/schemaCreator';
+import { isJson } from '../utils/schemaValidators';
 import defaultSpec from '../models/defaultSpec.json';
 import questions from '../models/questions';
 import { childEntityValue } from '../utils/entities';
+import specCreator from '../utils/specCreator';
 
 const document = defaultSpec;
-const MESSAGES = {
-  moveOn: 'Ok let\'s move on',
-};
-
+const moveOnMessage = "Ok let's move on";
+// FIXME: Enhance generator flow code
 export default function generatorFlow(
   entities,
   socket,
@@ -28,20 +28,13 @@ export default function generatorFlow(
     entities,
     'generator_flow:generator_flow',
   );
-  if (ask.type === 'schema') {
+  if (ask && ask.type === 'schema') {
     const validateSchema = isJson(data);
-    if (validateSchema) {
-      // call message schema validation
-      const newData = JSON.parse(data);
-      const spec = document.components.messages;
-      schemaCreator(spec, newData, ask.title, 0);
-      counter.parent += 1;
-      counter.child = 0;
-      counter.check = false;
-      toAsk = questions[counter.parent];
-      return io.to(socket.id).emit('message', toAsk.text);
+    if (!validateSchema) {
+      return io
+        .to(socket.id)
+        .emit('message', 'A valid json schema is required');
     }
-    return io.to(socket.id).emit('message', 'A valid json schema is required');
   }
   if (generateEntities && generateEntities.name !== 'start') {
     if (generateEntities.name === 'omit' && generateEntities.confidence > 0.5) {
@@ -51,13 +44,13 @@ export default function generatorFlow(
             .to(socket.id)
             .emit(
               'message',
-              'You can\'t skip this aspect because it\'s required',
+              "You can't skip this aspect because it's required",
             );
         }
         counter.parent += 1;
         counter.child = 0;
         toAsk = questions[counter.parent];
-        io.to(socket.id).emit('message', MESSAGES.moveOn);
+        io.to(socket.id).emit('message', moveOnMessage);
         return io.to(socket.id).emit('message', toAsk.text);
       }
       if (ask.required) {
@@ -65,29 +58,46 @@ export default function generatorFlow(
           .to(socket.id)
           .emit(
             'message',
-            'You can\'t skip this question because it\'s required',
+            "You can't skip this question because it's required",
           );
       }
-      io.to(socket.id).emit('message', MESSAGES.moveOn);
+      io.to(socket.id).emit('message', moveOnMessage);
     }
     if (
       generateEntities.name === 'boolean'
       && generateEntities.confidence > 0.5
     ) {
+      if (toAsk.canLoop && counter.check) {
+        if (generateEntities.value === 'no') {
+          counter.parent += 1;
+          counter.child = 0;
+          counter.check = false;
+          toAsk = questions[counter.parent];
+          if (toAsk) {
+            io.to(socket.id).emit('message', moveOnMessage);
+            return io.to(socket.id).emit('message', toAsk.text);
+          }
+        }
+        if (generateEntities.value === 'yes') {
+          counter.child = 0;
+          ask = toAsk.questions[counter.child];
+          return io.to(socket.id).emit('message', ask.text);
+        }
+      }
       if (toAsk && counter.check === false) {
         if (toAsk.required && generateEntities.value === 'no') {
           return io
             .to(socket.id)
             .emit(
               'message',
-              'You can\'t skip this aspect because it\'s required',
+              "You can't skip this aspect because it's required",
             );
         }
         if (toAsk.required === false && generateEntities.value === 'no') {
           counter.parent += 1;
           counter.child = 0;
           counter.check = false;
-          io.to(socket.id).emit('message', MESSAGES.moveOn);
+          io.to(socket.id).emit('message', moveOnMessage);
           return io.to(socket.id).emit('message', toAsk.text);
         }
         if (generateEntities.value === 'yes') {
@@ -96,81 +106,84 @@ export default function generatorFlow(
           return io.to(socket.id).emit('message', ask.text);
         }
       }
-      if (ask.required && generateEntities.value === 'no') {
+      if (toAsk && ask.required && generateEntities.value === 'no') {
         return io
           .to(socket.id)
           .emit(
             'message',
-            'You can\'t skip this question because it\'s required',
+            "You can't skip this question because it's required",
           );
       }
-      io.to(socket.id).emit('message', MESSAGES.moveOn);
+      io.to(socket.id).emit('message', moveOnMessage);
     }
     if (
       generateEntities.name === 'wit$message_body'
-          && generateEntities.confidence > 0.5
-          && toAsk.text && counter.check === false
+      && generateEntities.confidence > 0.5
     ) {
-      return io.to(socket.id).emit('message', 'A Yes or No/Skip answer is required');
+      if (toAsk.text && counter.check === false) {
+        return io
+          .to(socket.id)
+          .emit('message', 'A Yes or No/Skip answer is required');
+      }
     }
     if (
       generateEntities.name === 'wit$number'
-            && generateEntities.confidence > 0.5
-            && toAsk.text && counter.check === false
+      && generateEntities.confidence > 0.5
     ) {
-      return io
-        .to(socket.id)
-        .emit('message', 'A Yes or No/Skip answer is required');
+      if (toAsk.text && counter.check === false) {
+        return io
+          .to(socket.id)
+          .emit('message', 'A Yes or No/Skip answer is required');
+      }
     }
-    if (ask.type === 'string' && generateEntities.role !== 'message_body') {
+    if (
+      ask
+      && ask.type === 'string'
+      && generateEntities.role !== 'message_body'
+    ) {
       return io
         .to(socket.id)
         .emit('message', 'A valid application name should be an alphabet');
     }
-    if (ask.type === 'url' && generateEntities.role !== 'url') {
+    if (ask && ask.type === 'url' && generateEntities.role !== 'url') {
       return io.to(socket.id).emit('message', 'A valid url is required');
     }
-    if (ask.type === 'number' && generateEntities.role !== 'number') {
+    if (ask && ask.type === 'number' && generateEntities.role !== 'number') {
       return io
         .to(socket.id)
         .emit('message', 'A valid application version must be a number');
     }
-    const { title } = questions[counter.parent];
-    let spec = document[String(title)];
-    if (title === 'messages') {
-      spec = document.components.messages;
-      schemaCreator(spec, data, ask.title, null);
-    } else if (title === 'servers') {
-      if (ask.title) {
-        schemaCreator(spec, data, ask.title, 0);
-      } else {
-        schemaCreator(spec, data, ask.title, null);
-      }
-    } else if (title === 'channels') {
-      if (ask.title) {
-        const response = channelMessageValidator(
-          document.components.messages,
-          data,
-        );
-        if (typeof response === 'string') {
-          return io.to(socket.id).emit('message', response);
-        }
-        schemaCreator(spec, response, ask.title, 0);
-      } else {
-        schemaCreator(spec, data, ask.title, null);
-      }
-    } else {
-      schemaCreator(spec, data, ask.title);
-    }
-    counter.child++;
-    ask = toAsk.questions[counter.child];
     if (ask) {
-      return io.to(socket.id).emit('message', ask.text);
+      // call the spec creator function
+      const { title } = questions[counter.parent];
+      const callSpec = specCreator(title, data, ask);
+      if (callSpec) {
+        io.to(socket.id).emit('message', callSpec);
+      }
+      counter.child++;
+      ask = toAsk.questions[counter.child];
+      if (ask) {
+        if (title === 'channels') {
+          const { messages } = document.components;
+          const messageKeys = Object.keys(messages);
+          return io
+            .to(socket.id)
+            .emit(
+              'message',
+              `${ask.text}.The list of messages you have includes: ${messageKeys}`,
+            );
+        }
+        return io.to(socket.id).emit('message', ask.text);
+      }
     }
   }
   if (ask && ask.text) {
     io.to(socket.id).emit('message', ask.text);
   } else {
+    // Check if current spec requires multiple specifications;
+    if (toAsk && toAsk.canLoop) {
+      return io.to(socket.id).emit('message', toAsk.loopText);
+    }
     counter.parent += 1;
     counter.child = 0;
     counter.check = false;
