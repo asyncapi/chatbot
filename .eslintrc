@@ -13,9 +13,12 @@ extends:
   - plugin:mocha/recommended
   - plugin:security/recommended
 
+parser:
+  babel-eslint
 parserOptions:
   sourceType: module
   ecmaVersion: 2018
+  allowImportExportEverywhere: true
 
 rules:
   # Ignore Rules
