@@ -7,6 +7,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "start": "lerna exec -- yarn run start",
+    "clean": "lerna clean",
     "start:dev": "lerna exec -- yarn run start:dev",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff",

@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 let Address = 'http://localhost:5000/';
-if (process.env.NODE_ENV === 'production') {
+if (process.env.REACT_APP_NODE_ENV === 'production') {
   Address = 'http://localhost:80/';
 }
 const socket = require('socket.io-client')(Address);

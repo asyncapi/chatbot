@@ -3,7 +3,11 @@
 import server from '../server';
 import messageHandler from '../controllers/message';
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+  },
+});
 
 export default function startSocket() {
   io.on('connection', async (socket) => {

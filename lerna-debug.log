@@ -1,0 +1,22 @@
+0 silly argv {
+0 silly argv   _: [ 'clean' ],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /home/ace/Documents/projects/opensource/chatbot
+3 info Removing the following directories:
+4 info clean packages/server/node_modules
+4 info clean packages/test-client/node_modules
+4 info clean packages/user-interface/node_modules
+5 info clean removing /home/ace/Documents/projects/opensource/chatbot/packages/server/node_modules
+6 silly rimrafDir /home/ace/Documents/projects/opensource/chatbot/packages/server/node_modules
+7 info clean removing /home/ace/Documents/projects/opensource/chatbot/packages/test-client/node_modules
+8 silly rimrafDir /home/ace/Documents/projects/opensource/chatbot/packages/test-client/node_modules
+9 info clean removing /home/ace/Documents/projects/opensource/chatbot/packages/user-interface/node_modules
+10 silly rimrafDir /home/ace/Documents/projects/opensource/chatbot/packages/user-interface/node_modules
+11 verbose rimrafDir removed /home/ace/Documents/projects/opensource/chatbot/packages/test-client/node_modules
+12 error Error: Command failed with exit code 1: /usr/local/bin/node /home/ace/Documents/projects/opensource/chatbot/node_modules/rimraf/bin.js --no-glob /home/ace/Documents/projects/opensource/chatbot/packages/server/node_modules/
+12 error     at makeError (/home/ace/Documents/projects/opensource/chatbot/node_modules/execa/lib/error.js:60:11)
+12 error     at handlePromise (/home/ace/Documents/projects/opensource/chatbot/node_modules/execa/index.js:118:26)
+12 error     at processTicksAndRejections (internal/process/task_queues.js:95:5)
