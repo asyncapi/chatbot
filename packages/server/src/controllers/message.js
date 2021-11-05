@@ -30,7 +30,10 @@ const messageHandler = (data, socket, io) => {
         return io.to(socket.id).emit('message', 'I don\'t understand what you\'re trying to say');
       }
     })
-    .catch(() => io.to(socket.id).emit('message', 'ooohh something went wrong'));
+    .catch((err) => {
+      console.log(err);
+      io.to(socket.id).emit('message', 'ooohh something went wrong');
+    });
 };
 
 export default messageHandler;

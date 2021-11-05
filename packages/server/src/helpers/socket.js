@@ -12,10 +12,13 @@ const io = require('socket.io')(server, {
 export default function startSocket() {
   io.on('connection', async (socket) => {
     socket.on('signIn', () => {
-      io.to(socket.id).emit(
-        'bot-message',
-        "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
-      );
+      io.to(socket.id).emit('bot-message', {
+        type: 'array',
+        multi: false,
+        value:
+          "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
+        items: ['Generate spec'],
+      });
     });
     socket.on('message', (data) => {
       messageHandler(data, socket, io);

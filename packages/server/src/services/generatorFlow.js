@@ -8,9 +8,9 @@ import defaultSpec from '../models/defaultSpec.json';
 import questions from '../models/questions';
 import { childEntityValue } from '../utils/entities';
 import specCreator from '../utils/specCreator';
+import { booleanChecker, omitChecker, textValidator } from '../utils/inputValidators';
 
 const document = defaultSpec;
-const moveOnMessage = "Ok let's move on";
 // FIXME: Enhance generator flow code
 export default function generatorFlow(
   entities,
@@ -38,120 +38,32 @@ export default function generatorFlow(
   }
   if (generateEntities && generateEntities.name !== 'start') {
     if (generateEntities.name === 'omit' && generateEntities.confidence > 0.5) {
-      if (toAsk && counter.check === false) {
-        if (toAsk.required) {
-          return io
-            .to(socket.id)
-            .emit(
-              'message',
-              "You can't skip this aspect because it's required",
-            );
-        }
-        counter.parent += 1;
-        counter.child = 0;
-        toAsk = questions[counter.parent];
-        io.to(socket.id).emit('message', moveOnMessage);
-        return io.to(socket.id).emit('message', toAsk.text);
+      const checkInput = omitChecker(toAsk, ask, counter, socket, io, questions);
+      if (checkInput) {
+        return checkInput;
       }
-      if (ask.required) {
-        return io
-          .to(socket.id)
-          .emit(
-            'message',
-            "You can't skip this question because it's required",
-          );
-      }
-      io.to(socket.id).emit('message', moveOnMessage);
     }
     if (
       generateEntities.name === 'boolean'
       && generateEntities.confidence > 0.5
     ) {
-      if (toAsk.canLoop && counter.check) {
-        if (generateEntities.value === 'no') {
-          counter.parent += 1;
-          counter.child = 0;
-          counter.check = false;
-          toAsk = questions[counter.parent];
-          if (toAsk) {
-            io.to(socket.id).emit('message', moveOnMessage);
-            return io.to(socket.id).emit('message', toAsk.text);
-          }
-        }
-        if (generateEntities.value === 'yes') {
-          counter.child = 0;
-          ask = toAsk.questions[counter.child];
-          return io.to(socket.id).emit('message', ask.text);
-        }
-      }
-      if (toAsk && counter.check === false) {
-        if (toAsk.required && generateEntities.value === 'no') {
-          return io
-            .to(socket.id)
-            .emit(
-              'message',
-              "You can't skip this aspect because it's required",
-            );
-        }
-        if (toAsk.required === false && generateEntities.value === 'no') {
-          counter.parent += 1;
-          counter.child = 0;
-          counter.check = false;
-          io.to(socket.id).emit('message', moveOnMessage);
-          return io.to(socket.id).emit('message', toAsk.text);
-        }
-        if (generateEntities.value === 'yes') {
-          counter.child = 0;
-          counter.check = true;
-          return io.to(socket.id).emit('message', ask.text);
-        }
-      }
-      if (toAsk && ask.required && generateEntities.value === 'no') {
-        return io
-          .to(socket.id)
-          .emit(
-            'message',
-            "You can't skip this question because it's required",
-          );
-      }
-      io.to(socket.id).emit('message', moveOnMessage);
-    }
-    if (
-      generateEntities.name === 'wit$message_body'
-      && generateEntities.confidence > 0.5
-    ) {
-      if (toAsk.text && counter.check === false) {
-        return io
-          .to(socket.id)
-          .emit('message', 'A Yes or No/Skip answer is required');
+      const checkInput = booleanChecker(toAsk, ask, counter, socket,
+        io, questions, generateEntities.value);
+      if (checkInput) {
+        return checkInput;
       }
     }
-    if (
-      generateEntities.name === 'wit$number'
-      && generateEntities.confidence > 0.5
-    ) {
-      if (toAsk.text && counter.check === false) {
-        return io
-          .to(socket.id)
-          .emit('message', 'A Yes or No/Skip answer is required');
-      }
-    }
-    if (
-      ask
-      && ask.type === 'string'
-      && generateEntities.role !== 'message_body'
-    ) {
-      return io
-        .to(socket.id)
-        .emit('message', 'A valid application name should be an alphabet');
-    }
-    if (ask && ask.type === 'url' && generateEntities.role !== 'url') {
-      return io.to(socket.id).emit('message', 'A valid url is required');
-    }
-    if (ask && ask.type === 'number' && generateEntities.role !== 'number') {
-      return io
-        .to(socket.id)
-        .emit('message', 'A valid application version must be a number');
+    // text inpput validator checker
+    const checkInput = textValidator(
+      toAsk,
+      ask,
+      counter,
+      socket,
+      io,
+      generateEntities,
+    );
+    if (checkInput) {
+      return checkInput;
     }
     if (ask) {
       // call the spec creator function
@@ -166,11 +78,14 @@ export default function generatorFlow(
         if (title === 'channels') {
           const { messages } = document.components;
           const messageKeys = Object.keys(messages);
+          if (Object.keys(messages).length > 0) {
+            ask.text += `Existing messages => ${messageKeys}`;
+          }
           return io
             .to(socket.id)
             .emit(
               'message',
-              `${ask.text}.The list of messages you have includes: ${messageKeys}`,
+              ask.text,
             );
         }
         return io.to(socket.id).emit('message', ask.text);
@@ -180,10 +95,6 @@ export default function generatorFlow(
   if (ask && ask.text) {
     io.to(socket.id).emit('message', ask.text);
   } else {
-    // Check if current spec requires multiple specifications;
-    if (toAsk && toAsk.canLoop) {
-      return io.to(socket.id).emit('message', toAsk.loopText);
-    }
     counter.parent += 1;
     counter.child = 0;
     counter.check = false;
