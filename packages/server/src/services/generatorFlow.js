@@ -52,6 +52,7 @@ export default function generatorFlow(
       if (checkInput) {
         return checkInput;
       }
+      toAsk = questions[counter.parent];
     }
     // text inpput validator checker
     const checkInput = textValidator(
@@ -95,6 +96,10 @@ export default function generatorFlow(
   if (ask && ask.text) {
     io.to(socket.id).emit('message', ask.text);
   } else {
+    // Check if current spec requires multiple specifications;
+    if (toAsk && toAsk.canLoop) {
+      return io.to(socket.id).emit('message', toAsk.loopText);
+    }
     counter.parent += 1;
     counter.child = 0;
     counter.check = false;

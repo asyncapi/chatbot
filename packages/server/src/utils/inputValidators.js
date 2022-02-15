@@ -64,6 +64,7 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
       return io.to(socket.id).emit('message', toAsk.text);
     }
     if (value === 'yes') {
+      // counter.parent = -1;
       counter.child = 0;
       counter.check = true;
       return io.to(socket.id).emit('message', ask.text);
@@ -106,7 +107,6 @@ export const textValidator = (toAsk, ask, counter, socket, io, entities) => {
     return io.to(socket.id).emit('message', 'A valid url is required');
   }
   if (ask && ask.type === 'number' && entities.role !== 'number') {
-    console.log(entities);
     return io
       .to(socket.id)
       .emit('message', 'A valid application version must be a number');
