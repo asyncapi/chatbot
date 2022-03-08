@@ -11,14 +11,25 @@ const io = require('socket.io')(server, {
 
 export default function startSocket() {
   io.on('connection', async (socket) => {
-    socket.on('signIn', () => {
-      io.to(socket.id).emit('bot-message', {
-        type: 'array',
-        multi: false,
-        value:
-          "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
-        items: ['Generate spec'],
-      });
+    socket.on('signIn', (data) => {
+      if (data === 'generate') {
+        io.to(socket.id).emit('bot-message', {
+          type: 'array',
+          multi: false,
+          value:
+            "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
+          items: ['Generate spec'],
+        });
+      }
+      if (data === 'read') {
+        io.to(socket.id).emit('bot-message', {
+          type: 'array',
+          multi: false,
+          value:
+            "Hello I'm Lukasz, I can help you out reading your AsyncAPI document.Try me!.",
+          items: ['Upload spec'],
+        });
+      }
     });
     socket.on('message', (data) => {
       messageHandler(data, socket, io);
