@@ -13,6 +13,7 @@ const counter = {
 };
 
 const messageHandler = (data, socket, io) => {
+  console.log(data);
   client
     .message(data, {})
     .then((res) => {

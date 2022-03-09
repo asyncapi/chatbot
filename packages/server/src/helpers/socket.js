@@ -23,7 +23,7 @@ export default function startSocket() {
       }
       if (data === 'read') {
         io.to(socket.id).emit('bot-message', {
-          type: 'array',
+          type: 'file',
           multi: false,
           value:
             "Hello I'm Lukasz, I can help you out reading your AsyncAPI document.Try me!.",
