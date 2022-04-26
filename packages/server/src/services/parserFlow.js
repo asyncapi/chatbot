@@ -1,3 +1,5 @@
-export default function parserFlow(entities, socket, io) {
-    console.log("Hurrauy")
-};
+import defaultSpec from '../models/defaultSpec.json';
+
+export default function parserFlow(entities, socket, io, data) {
+  console.log('Hurrauy');
+}

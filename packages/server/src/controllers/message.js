@@ -17,9 +17,11 @@ const counter = {
 
 const messageHandler = (data, socket, io) => {
   let newData = data;
+  console.log(data);
   // check if data coming from client is encoded...
   const decodedData = Base64.decode(data);
   if (decodedData && isJson(decodedData)) {
+    console.log('oKAYY');
     newData = 'I want to parse';
   }
   client
@@ -46,7 +48,7 @@ const messageHandler = (data, socket, io) => {
         questionFlow(res.entities, socket, io, ask);
       }
       if (wantToParse) {
-        console.log('Hurray');
+        wantToParse(res.entities, socket, io, data);
       }
       if (!Object.keys(res.entities).length) {
         return io
@@ -54,7 +56,8 @@ const messageHandler = (data, socket, io) => {
           .emit('message', "I don't understand what you're trying to say");
       }
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       io.to(socket.id).emit('message', 'ooohh something went wrong');
     });
 };
