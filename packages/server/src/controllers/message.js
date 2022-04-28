@@ -7,6 +7,7 @@ import { firstEntityValue } from '../utils/entities';
 import questions from '../models/questions';
 import generatorFlow from '../services/generatorFlow';
 import questionFlow from '../services/questionFlow';
+import parserFlow from '../services/parserFlow';
 import { isJson } from '../utils/schemaValidators';
 
 const counter = {
@@ -17,11 +18,10 @@ const counter = {
 
 const messageHandler = (data, socket, io) => {
   let newData = data;
-  console.log(data);
   // check if data coming from client is encoded...
   const decodedData = Base64.decode(data);
   if (decodedData && isJson(decodedData)) {
-    console.log('oKAYY');
+    console.log(decodedData);
     newData = 'I want to parse';
   }
   client
@@ -48,7 +48,8 @@ const messageHandler = (data, socket, io) => {
         questionFlow(res.entities, socket, io, ask);
       }
       if (wantToParse) {
-        wantToParse(res.entities, socket, io, data);
+        console.log(wantToParse);
+        parserFlow(res.entities, socket, io, data);
       }
       if (!Object.keys(res.entities).length) {
         return io
