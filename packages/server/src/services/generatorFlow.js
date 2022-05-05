@@ -36,6 +36,7 @@ export default function generatorFlow(
         .emit('message', 'A valid json schema is required');
     }
   }
+  console.log(generateEntities);
   if (generateEntities && generateEntities.name !== 'start') {
     if (generateEntities.name === 'omit' && generateEntities.confidence > 0.5) {
       const checkInput = omitChecker(toAsk, ask, counter, socket, io, questions);

@@ -21,7 +21,6 @@ const messageHandler = (data, socket, io) => {
   // check if data coming from client is encoded...
   const decodedData = Base64.decode(data);
   if (decodedData && isJson(decodedData)) {
-    console.log(decodedData);
     newData = 'I want to parse';
   }
   client
@@ -48,7 +47,6 @@ const messageHandler = (data, socket, io) => {
         questionFlow(res.entities, socket, io, ask);
       }
       if (wantToParse) {
-        console.log(wantToParse);
         parserFlow(res.entities, socket, io, data);
       }
       if (!Object.keys(res.entities).length) {
@@ -57,8 +55,7 @@ const messageHandler = (data, socket, io) => {
           .emit('message', "I don't understand what you're trying to say");
       }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       io.to(socket.id).emit('message', 'ooohh something went wrong');
     });
 };

@@ -11,7 +11,7 @@ const questions = [
           type: 'array',
           items: ['2.0.0', '2.1.0'],
         },
-        type: 'number',
+        type: 'string',
         required: true,
       },
     ],
