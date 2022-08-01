@@ -21,7 +21,7 @@ const messageHandler = (data, socket, io) => {
   // check if data coming from client is encoded...
   const decodedData = Base64.decode(data);
   if (decodedData && isJson(decodedData)) {
-    newData = 'I want to parse';
+    newData = 'i want to parse';
   }
   client
     .message(newData, {})
