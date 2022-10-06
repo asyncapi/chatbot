@@ -1,16 +1,10 @@
 # Asyncapi Chatbot Documentation
 
-# About the project
-
----
+# Overview
 
 The AsyncApi chatbot is a way of exploring how we could help people to write the asyncapi spec document without knowing the specification. So based on a set of questions and answers it will generate an AsyncApi spec document according to the use cases.
 
-*** Project demo video's coming soon ***
-
 # Project Architecture
-
----
 
 The Asyncapi chatbot was built using the following tech stack.
 
@@ -44,10 +38,6 @@ The server structure consists of all the code that allows the bot to communicate
 
 This is an Interactive CLI that can be used to interact with the bot... Nothing much here
 
-### Client
-
-This folder consists of all interactive User interface code that we'll be used to interact with the bot from the browser [Coming soon] 
-
 ## Common bots vocabulary
 
 1. Skip or Not now —> To tell the bot to skip a question
@@ -56,8 +46,6 @@ This folder consists of all interactive User interface code that we'll be used t
 
 # Project's Todo
 
----
-
 - [ ]  An interactive user interface that can be plugged into the asycapi website, playground, and the upcoming studio
 - [ ]  Ability to readout specs and give info about channels that users ask for from the spec
 - [ ]  Handle and understand more vocabulary
@@ -65,8 +53,6 @@ This folder consists of all interactive User interface code that we'll be used t
 - [ ]  Ability to modify an existing spec by parsing an existing spec link. So users can tell the bot they want to modify the specification
 
 # Getting started
-
----
 
 ### Prerequisite
 
@@ -94,10 +80,6 @@ Follow this step to run the project with local server
 2. open [http://localhost:5000](http://localhost:5000/) to ensure the project server is running.
 3. open [http://localhost:3000](http://localhost:3000/) to open the chatbot's UI in your favorite browser[Not available yet]
 
-### Using Docker
-Coming soon
 # Contributing
 
----
-
-Coming soon
+Read more in [CONTRIBUTING.md](CONTRIBUTING.md).
