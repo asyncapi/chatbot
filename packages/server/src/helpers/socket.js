@@ -3,15 +3,25 @@
 import server from '../server';
 import messageHandler from '../controllers/message';
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  },
+});
 
 export default function startSocket() {
   io.on('connection', async (socket) => {
-    socket.on('signIn', () => {
-      io.to(socket.id).emit(
-        'bot-message',
-        "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
-      );
+    socket.on('signIn', (data) => {
+      if (data === 'generate') {
+        io.to(socket.id).emit('bot-message', {
+          type: 'array',
+          multi: false,
+          value:
+            "Hello I'm Lukasz, I can help you out writing an AsyncAPI document.Try me!.",
+          items: ['Create new document'],
+        });
+      }
     });
     socket.on('message', (data) => {
       messageHandler(data, socket, io);
