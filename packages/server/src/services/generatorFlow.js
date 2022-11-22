@@ -17,10 +17,6 @@ export default function generatorFlow(
   const counter = count;
   let toAsk = schemaText;
   let ask = schemaQuestion;
-  // const generateEntities = childEntityValue(
-  //   entities,
-  //   'generator_flow:generator_flow',
-  // );
 
   if (ask && ask.text) {
     io.to(socket.id).emit('message', ask.text);

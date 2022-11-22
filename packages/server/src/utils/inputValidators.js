@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 const moveOnMessage = "Ok let's move on";
+// eslint-disable-next-line consistent-return
 export const omitChecker = (toAsk, ask, counter, socket, io, questions) => {
   if (toAsk && counter.check === false) {
     if (toAsk.required) {
@@ -30,6 +31,7 @@ export const omitChecker = (toAsk, ask, counter, socket, io, questions) => {
   io.to(socket.id).emit('message', moveOnMessage);
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity, consistent-return
 export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value) => {
   if (toAsk.canLoop && counter.check) {
     if (value === 'no') {
@@ -67,7 +69,6 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
       return io.to(socket.id).emit('message', toAsk.text);
     }
     if (value === 'yes') {
-      // counter.parent = -1;
       counter.child = 0;
       counter.check = true;
       return io.to(socket.id).emit('message', ask.text);
@@ -85,19 +86,10 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
   io.to(socket.id).emit('message', moveOnMessage);
 };
 
+// eslint-disable-next-line consistent-return
 export const textValidator = (toAsk, ask, counter, socket, io, entities) => {
   // eslint-disable-next-line sonarjs/no-collapsible-if
   if (entities) {
-    // if (
-    //   entities.name === 'wit$message_body'
-    //  || (entities.name === 'wit$number' && entities.confidence > 0.5)
-    // ) {
-    //   if (toAsk.text && counter.check === false) {
-    //     return io
-    //       .to(socket.id)
-    //       .emit('message', 'A Yes or No/Skip answer is required');
-    //   }
-    // }
     if (
       ask
      && ask.type === 'string'

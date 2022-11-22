@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
-// import Base64 from 'js-base64';
 import client from '../helpers/wit';
 import { firstEntityValue } from '../utils/entities';
 import questions from '../models/questions';
