@@ -8,7 +8,6 @@
     "bootstrap": "lerna bootstrap",
     "start": "lerna exec -- yarn run start",
     "start:dev": "lerna exec -- yarn run start:dev",
-    "test-client": "lerna exec --no-bail yarn run test-client",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff",
     "lint": "eslint --max-warnings 0 --config ./packages/server/.eslintrc.json .",
