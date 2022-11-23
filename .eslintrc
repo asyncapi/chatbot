@@ -16,6 +16,7 @@ extends:
 parserOptions:
   sourceType: module
   ecmaVersion: 2018
+  parser: babel-eslint
 
 rules:
   # Ignore Rules
