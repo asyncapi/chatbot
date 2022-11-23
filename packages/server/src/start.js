@@ -10,6 +10,7 @@ const startServer = async () => {
     PORT = process.env.PORT;
     server.listen(PORT, () => {});
     server.listen(PORT, () => {
+      // eslint-disable-next-line no-console
       console.log(`app now listening in port ${PORT}`);
     });
   }
