@@ -65,13 +65,13 @@ export default function utteranceFlow(
     counter.child++;
     ask = toAsk.questions[counter.child];
     // eslint-disable-next-line no-use-before-define
-    childSupport(socket, io, ask, title);
+    updateChannel(socket, io, ask, title);
   }
   return generatorFlow(socket, io, toAsk, ask, counter);
 }
 
 // eslint-disable-next-line consistent-return
-function childSupport(socket, io, ask, title) {
+function updateChannel(socket, io, ask, title) {
   if (ask && title === 'channels') {
     const { messages } = document.components;
     const messageKeys = Object.keys(messages);
@@ -84,8 +84,7 @@ function childSupport(socket, io, ask, title) {
 }
 
 // eslint-disable-next-line no-shadow, consistent-return
-function triggerInputValidators(toAsk, ask, data, counter, socket, io, questions,
-  generateEntities) {
+function triggerInputValidators(toAsk, ask, data, counter, socket, io, generateEntities) {
   if (ask && ask.type === 'schema') {
     const validateSchema = isJson(data);
     if (!validateSchema) {

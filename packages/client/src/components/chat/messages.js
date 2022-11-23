@@ -11,8 +11,8 @@ function Messages({ messages }) {
   return (
     <div className="w-100 h-78v p-5 overflow-y-auto flex flex-col items-start">
       {Object.keys(messages).length
-        && messages.messages.map((chat) => (
-          <div key={Math.random()} className="pt-5 w-100">
+        && messages.messages.map((chat, i) => (
+          <div key={i} className="pt-5 w-100">
             <div
               className={`flex items-end w-full ${
                 chat.type !== 'bot' && 'items-end justify-end'
