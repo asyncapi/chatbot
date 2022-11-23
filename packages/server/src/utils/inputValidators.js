@@ -2,16 +2,20 @@
 /* eslint-disable import/prefer-default-export */
 const moveOnMessage = "Ok let's move on";
 // eslint-disable-next-line consistent-return
+function requiredMessage(socket, io, message, value) {
+  if (message && message.required && value === 'no') {
+    io.to(socket.id).emit(
+      'message',
+      "You can't skip this aspect because it's required",
+    );
+    return io.to(socket.id).emit('message', message.text);
+  }
+}
+// eslint-disable-next-line consistent-return
 export const omitChecker = (toAsk, ask, counter, socket, io, questions) => {
   if (toAsk && counter.check === false) {
     if (toAsk.required) {
-      io
-        .to(socket.id)
-        .emit(
-          'message',
-          "You can't skip this aspect because it's required",
-        );
-      return io.to(socket.id).emit('message', toAsk.text);
+      requiredMessage(socket, io, toAsk);
     }
     counter.parent += 1;
     counter.child = 0;
@@ -20,18 +24,20 @@ export const omitChecker = (toAsk, ask, counter, socket, io, questions) => {
     return io.to(socket.id).emit('message', toAsk.text);
   }
   if (ask.required) {
-    io
-      .to(socket.id)
-      .emit(
-        'message',
-        "You can't skip this question because it's required",
-      );
-    return io.to(socket.id).emit('message', ask.text);
+    requiredMessage(socket, io, ask);
   }
   io.to(socket.id).emit('message', moveOnMessage);
 };
 
-// eslint-disable-next-line sonarjs/cognitive-complexity, consistent-return
+// eslint-disable-next-line consistent-return
+function moveOn(socket, io, toAsk) {
+  if (toAsk) {
+    io.to(socket.id).emit('message', moveOnMessage);
+    return io.to(socket.id).emit('message', toAsk.text);
+  }
+}
+
+// eslint-disable-next-line consistent-return
 export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value) => {
   if (toAsk.canLoop && counter.check) {
     if (value === 'no') {
@@ -39,10 +45,7 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
       counter.child = 0;
       counter.check = false;
       toAsk = questions[counter.parent];
-      if (toAsk) {
-        io.to(socket.id).emit('message', moveOnMessage);
-        return io.to(socket.id).emit('message', toAsk.text);
-      }
+      moveOn(socket, io, toAsk);
     }
     if (value === 'yes') {
       counter.child = 0;
@@ -51,22 +54,13 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
     }
   }
   if (toAsk && counter.check === false) {
-    if (toAsk.required && value === 'no') {
-      io
-        .to(socket.id)
-        .emit(
-          'message',
-          "You can't skip this aspect because it's required",
-        );
-      return io.to(socket.id).emit('message', toAsk.text);
-    }
+    requiredMessage(socket, io, toAsk, value);
     if (toAsk.required === false && value === 'no') {
       counter.parent += 1;
       counter.child = 0;
       counter.check = false;
       toAsk = questions[counter.parent];
-      io.to(socket.id).emit('message', moveOnMessage);
-      return io.to(socket.id).emit('message', toAsk.text);
+      moveOn(socket, io, toAsk);
     }
     if (value === 'yes') {
       counter.child = 0;
@@ -74,15 +68,7 @@ export const booleanChecker = (toAsk, ask, counter, socket, io, questions, value
       return io.to(socket.id).emit('message', ask.text);
     }
   }
-  if (toAsk && ask.required && value === 'no') {
-    io
-      .to(socket.id)
-      .emit(
-        'message',
-        "You can't skip this question because it's required",
-      );
-    return io.to(socket.id).emit('message', ask.text);
-  }
+  requiredMessage(socket, io, ask, value);
   io.to(socket.id).emit('message', moveOnMessage);
 };
 
