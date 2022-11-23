@@ -25,16 +25,6 @@ export default function utteranceFlow(
   let toAsk = schemaText;
   let ask = schemaQuestion;
   const generateEntities = childEntityValue(entities);
-  // eslint-disable-next-line no-use-before-define
-  triggerInputValidators(
-    toAsk,
-    ask,
-    data,
-    counter,
-    socket,
-    io,
-    generateEntities,
-  );
   if (
     generateEntities && generateEntities.name === 'boolean'
       && generateEntities.confidence > 0.5
@@ -53,6 +43,16 @@ export default function utteranceFlow(
     }
     toAsk = questions[counter.parent];
   }
+  // eslint-disable-next-line no-use-before-define
+  triggerInputValidators(
+    toAsk,
+    ask,
+    data,
+    counter,
+    socket,
+    io,
+    generateEntities,
+  );
   if (ask) {
     // call the spec creator function
     const { title } = questions[counter.parent];

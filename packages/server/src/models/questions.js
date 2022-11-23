@@ -16,40 +16,40 @@ const questions = [
       },
     ],
   },
-  {
-    title: 'info',
-    required: true,
-    questions: [
-      {
-        title: 'title',
-        text: {
-          value: "what's the name of your application?",
-          type: 'string',
-        },
-        type: 'string',
-        required: true,
-      },
-      {
-        title: 'version',
-        text: {
-          value: "what's the version of your application?",
-          type: 'number',
-        },
-        type: 'number',
-        required: true,
-      },
-      {
-        title: 'description',
-        text: {
-          value:
-            'how would you describe your application? What is its purpose?',
-          type: 'string',
-        },
-        type: 'string',
-        required: false,
-      },
-    ],
-  },
+  // {
+  //   title: 'info',
+  //   required: true,
+  //   questions: [
+  //     {
+  //       title: 'title',
+  //       text: {
+  //         value: "what's the name of your application?",
+  //         type: 'string',
+  //       },
+  //       type: 'string',
+  //       required: true,
+  //     },
+  //     {
+  //       title: 'version',
+  //       text: {
+  //         value: "what's the version of your application?",
+  //         type: 'number',
+  //       },
+  //       type: 'number',
+  //       required: true,
+  //     },
+  //     {
+  //       title: 'description',
+  //       text: {
+  //         value:
+  //           'how would you describe your application? What is its purpose?',
+  //         type: 'string',
+  //       },
+  //       type: 'string',
+  //       required: false,
+  //     },
+  //   ],
+  // },
   {
     title: 'servers',
     text: {
