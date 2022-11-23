@@ -8,10 +8,9 @@ import info from '../../config/info.json';
 function Messages({ messages }) {
   useEffect(() => {
   }, []);
-  return (
-    <div className="w-100 h-78v p-5 overflow-y-auto flex flex-col items-start">
-      {Object.keys(messages).length
-        && messages.messages.map((chat, i) => (
+  if (Object.keys(messages).length) {
+    return <div className="w-100 h-78v p-5 overflow-y-auto flex flex-col items-start">
+      {messages.messages.map((chat, i) => (
           <div key={i} className="pt-5 w-100">
             <div
               className={`flex items-end w-full ${
@@ -42,8 +41,11 @@ function Messages({ messages }) {
               </div>
             </div>
           </div>
-        ))}
-    </div>
+      ))}
+    </div>;
+  }
+  return (
+    <div></div>
   );
 }
 
