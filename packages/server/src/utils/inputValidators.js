@@ -14,6 +14,12 @@ function messageMoveOn(io, socket, message) {
   return io.to(socket.id).emit('message', message.text);
 }
 
+function updateCount(counter) {
+  counter.parent += 1;
+  counter.child = 0;
+  counter.check = false;
+}
+
 // eslint-disable-next-line consistent-return
 export const omitChecker = (toAsk, ask, counter, socket, io, questions) => {
   if (toAsk && counter.check === false) {
@@ -39,13 +45,11 @@ export const booleanChecker = (
   io,
   questions,
   value,
-// eslint-disable-next-line consistent-return
+// eslint-disable-next-line consistent-return, sonarjs/cognitive-complexity
 ) => {
   if (toAsk.canLoop && counter.check) {
     if (value === 'no') {
-      counter.parent += 1;
-      counter.child = 0;
-      counter.check = false;
+      updateCount(counter);
       toAsk = questions[counter.parent];
       if (toAsk) {
         return messageMoveOn(io, socket, toAsk);
@@ -62,9 +66,7 @@ export const booleanChecker = (
       return requiredMessage(io, socket, ask);
     }
     if (toAsk.required === false && value === 'no') {
-      counter.parent += 1;
-      counter.child = 0;
-      counter.check = false;
+      updateCount(counter);
       toAsk = questions[counter.parent];
       return messageMoveOn(io, socket, toAsk);
     }
