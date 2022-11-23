@@ -5,7 +5,8 @@ require('dotenv').config();
 
 const app = express();
 const corsOptions = {
-  origin: '*', // Sensitive
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200,
 };
 
 app.use(express.urlencoded({ extended: true }));
