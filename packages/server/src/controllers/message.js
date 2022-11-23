@@ -48,6 +48,7 @@ const messageHandler = (data, socket, io) => {
       );
     })
     .catch((err) => {
+      console.log(err);
       io.to(socket.id).emit('message', 'ooohh something went wrong');
     });
 };

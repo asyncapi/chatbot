@@ -8,7 +8,7 @@ import {
 } from '../utils/inputValidators';
 import defaultSpec from '../models/defaultSpec.json';
 import questions from '../models/questions';
-import { generator } from './generator';
+import generatorFlow from './generatorFlow';
 
 const document = defaultSpec;
 
@@ -24,30 +24,18 @@ export default function utteranceFlow(
   const counter = count;
   let toAsk = schemaText;
   let ask = schemaQuestion;
-
-  if (ask && ask.type === 'schema') {
-    const validateSchema = isJson(data);
-    if (!validateSchema) {
-      return io
-        .to(socket.id)
-        .emit('message', 'A valid json schema is required');
-    }
-  }
   const generateEntities = childEntityValue(entities);
-
-  if (generateEntities && generateEntities.name === 'omit' && generateEntities.confidence > 0.5) {
-    const checkInput = omitChecker(
-      toAsk,
-      ask,
-      counter,
-      socket,
-      io,
-      questions,
-    );
-    if (checkInput) {
-      return checkInput;
-    }
-  }
+  // eslint-disable-next-line no-use-before-define
+  triggerInputValidators(
+    toAsk,
+    ask,
+    data,
+    counter,
+    socket,
+    io,
+    questions,
+    generateEntities,
+  );
   if (
     generateEntities && generateEntities.name === 'boolean'
       && generateEntities.confidence > 0.5
@@ -66,7 +54,57 @@ export default function utteranceFlow(
     }
     toAsk = questions[counter.parent];
   }
-  // text input validator checker
+  if (ask) {
+    // call the spec creator function
+    const { title } = questions[counter.parent];
+    const callSpec = specCreator(title, data, ask);
+    if (callSpec) {
+      io.to(socket.id).emit('message', callSpec);
+    }
+    // eslint-disable-next-line no-plusplus
+    counter.child++;
+    ask = toAsk.questions[counter.child];
+    // eslint-disable-next-line no-use-before-define
+    childSupport(socket, io, ask, title);
+  }
+  return generatorFlow(socket, io, toAsk, ask, counter);
+}
+
+// eslint-disable-next-line consistent-return
+function childSupport(socket, io, ask, title) {
+  if (ask && title === 'channels') {
+    const { messages } = document.components;
+    const messageKeys = Object.keys(messages);
+    if (Object.keys(messages).length > 0) {
+      // eslint-disable-next-line no-param-reassign
+      ask.text.items = messageKeys;
+    }
+    return io.to(socket.id).emit('message', ask.text);
+  }
+}
+
+// eslint-disable-next-line no-shadow, consistent-return
+function triggerInputValidators(toAsk, ask, data, counter, socket, io, questions,
+  generateEntities) {
+  if (ask && ask.type === 'schema') {
+    const validateSchema = isJson(data);
+    if (!validateSchema) {
+      return io
+        .to(socket.id)
+        .emit('message', 'A valid json schema is required');
+    }
+  }
+  if (
+    generateEntities
+    && generateEntities.name === 'omit'
+    && generateEntities.confidence > 0.5
+  ) {
+    const checkInput = omitChecker(toAsk, ask, counter, socket, io, questions);
+    if (checkInput) {
+      return checkInput;
+    }
+  }
+
   const checkInput = textValidator(
     toAsk,
     ask,
@@ -77,47 +115,5 @@ export default function utteranceFlow(
   );
   if (checkInput) {
     return checkInput;
-  }
-  if (ask) {
-    // call the spec creator function
-    const { title } = questions[counter.parent];
-    const callSpec = specCreator(title, data, ask);
-    if (callSpec) {
-      io.to(socket.id).emit('message', callSpec);
-    }
-    counter.child++;
-    ask = toAsk.questions[counter.child];
-    if (ask) {
-      if (title === 'channels') {
-        const { messages } = document.components;
-        const messageKeys = Object.keys(messages);
-        if (Object.keys(messages).length > 0) {
-          ask.text.items = messageKeys;
-        }
-        return io.to(socket.id).emit('message', ask.text);
-      }
-    }
-  }
-  if (ask && ask.text) {
-    io.to(socket.id).emit('message', ask.text);
-  } else {
-    // Check if current spec requires multiple specifications;
-    if (toAsk && toAsk.canLoop) {
-      return io.to(socket.id).emit('message', toAsk.loopText);
-    }
-    counter.parent += 1;
-    counter.child = 0;
-    counter.check = false;
-    toAsk = questions[counter.parent];
-    if (!toAsk) {
-      io.to(socket.id).emit('message', 'generating spec');
-      const test = generator(document);
-      return io.to(socket.id).emit('message', test);
-    }
-    if (toAsk.text) {
-      return io.to(socket.id).emit('message', toAsk.text);
-    }
-    ask = toAsk.questions[counter.child];
-    io.to(socket.id).emit('message', ask.text);
   }
 }
