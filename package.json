@@ -8,7 +8,6 @@
     "bootstrap": "lerna bootstrap",
     "start": "lerna exec -- yarn run start",
     "start:dev": "lerna exec -- yarn run start:dev",
-    "test-client": "lerna exec --no-bail yarn run test-client",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff",
     "lint": "eslint --max-warnings 0 --config ./packages/server/.eslintrc.json .",
@@ -28,6 +27,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-sonarjs": "^0.9.1",
     "lerna": "^4.0.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "babel-eslint": "^10.1.0"
   }
 }
