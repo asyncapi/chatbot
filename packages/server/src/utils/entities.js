@@ -5,7 +5,6 @@ export const firstEntityValue = (entities, entity) => {
     && Array.isArray(entities[entity])
     && entities[entity].length > 0
     && entities[entity][0];
-
   if (!val) {
     return null;
   }
@@ -13,14 +12,8 @@ export const firstEntityValue = (entities, entity) => {
   return val;
 };
 
-export const childEntityValue = (entities, entity) => {
-  const val = entities
-    && entities[entity]
-    && Array.isArray(entities[entity])
-    && entities[entity].length > 0
-    && entities[entity][0].entities.length > 0
-    && entities[entity][0].entities[0];
-
+export const childEntityValue = (entities) => {
+  const val = Object.values(entities)[0][0];
   if (!val) {
     return null;
   }
