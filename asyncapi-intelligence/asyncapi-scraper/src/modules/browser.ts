@@ -4,6 +4,12 @@ import { config } from '../config/config';
 
 puppeteer.use(StealthPlugin());
 
+function getRandomInt(min: number, max: number): number {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return min + (array[0] % (max - min + 1));
+}
+
 export class Browser {
   static async scrapePage(url: string, retryCount = 0): Promise<string | null> {
     try {
@@ -13,7 +19,7 @@ export class Browser {
       });
       const page = await browser.newPage();
       await page.setUserAgent(this.getRandomUserAgent());
-      await page.setViewport({ width: 1280 + Math.floor(Math.random() * 100), height: 720 + Math.floor(Math.random() * 100) });
+      await page.setViewport({ width: 1280 + getRandomInt(0, 100), height: 720 + getRandomInt(0, 100) });
       await page.setRequestInterception(true);
       page.on('request', (request) => request.continue());
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
@@ -33,7 +39,7 @@ export class Browser {
   }
 
   private static getRandomUserAgent(): string {
-    return config.userAgents[Math.floor(Math.random() * config.userAgents.length)];
+    return config.userAgents[getRandomInt(0, config.userAgents.length - 1)];
   }
 
   private static sleep(ms: number): Promise<void> {
