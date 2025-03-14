@@ -4,6 +4,8 @@ const chatRoutes = require('./src/routes/chatRoutes');
 const logger = require('./src/utils/logger');
 
 const app = express();
+app.disable('x-powered-by');
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware
