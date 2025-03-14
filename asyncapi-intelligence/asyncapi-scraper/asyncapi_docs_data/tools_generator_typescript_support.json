@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/typescript-support",
+    "timestamp": "2025-03-12T17:52:43.958Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Typescript Support",
+    "hierarchy": {
+      "sections": {},
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "",
+    "sections": [],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

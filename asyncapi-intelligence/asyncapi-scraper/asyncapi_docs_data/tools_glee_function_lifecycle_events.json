@@ -1,0 +1,468 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events",
+    "timestamp": "2025-03-12T17:55:07.643Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Functions",
+    "hierarchy": {
+      "sections": {
+        "Functions": {
+          "level": 1,
+          "content": "Glee relies on functions to execute your business logic. Functions are files that export a default async Node.js function:1/* onHello.js */\n2export default async function (event) {\n3  // Your business logic here...\n4}Functions take a single argument, which is the event received from a broker or a client, depending on the type of API you're building. The event argument has the following structure:AttributeDescriptionpayloadThe payload/body of the received event.headersThe headers/metadata of the received event.channelThe name of the channel/topic from which the event was read.serverNameThe name of the server/broker from which the event was received.Functions may return an object to instruct Glee on what action to take next. For instance, the following example sends a greeting message to the development server:1/* onHello.js */\n2export default async function (event) {\n3  return {\n4    send: [{\n5      server: 'development',\n6      channel: 'greets',\n7      payload: 'Greetings! How is your day going?'\n8    }]\n9  };\n10}AttributeTypeDescriptionsendarray<OutboundMessage>A list of outbound messages to send after processing the inbound event. All clients subscribed to the given channel/topic will receive the message.Anatomy of an Outbound MessageAttributeTypeDescriptionpayloadstringThe payload/body of the message you want to send.headersobject<string,string>The headers/metadata of the message you want to send.channelstringThe channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event.serverstringThe server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event.How Does Glee Determine Which Function to Execute?Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file."
+        },
+        "Anatomy of an Outbound Message": {
+          "level": 5,
+          "content": "AttributeTypeDescriptionpayloadstringThe payload/body of the message you want to send.headersobject<string,string>The headers/metadata of the message you want to send.channelstringThe channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event.serverstringThe server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event.How Does Glee Determine Which Function to Execute?Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file.Lifecycle EventsGlee allows you to bind incoming messages to functions. However, sometimes it's necessary to initiate communication proactively, not merely as a reaction to another message. Use cases can vary widely: from sending a message to announce that our client is connected, to broadcasting messages at regular intervals.To subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition.List of EventsEventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred.Restricting the Lifecycle EventIn some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+        },
+        "How Does Glee Determine Which Function to Execute?": {
+          "level": 2,
+          "content": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file."
+        },
+        "Lifecycle Events": {
+          "level": 1,
+          "content": "Glee allows you to bind incoming messages to functions. However, sometimes it's necessary to initiate communication proactively, not merely as a reaction to another message. Use cases can vary widely: from sending a message to announce that our client is connected, to broadcasting messages at regular intervals.To subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition.List of EventsEventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred.Restricting the Lifecycle EventIn some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+        },
+        "List of Events": {
+          "level": 2,
+          "content": "EventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred."
+        },
+        "Restricting the Lifecycle Event": {
+          "level": 2,
+          "content": "In some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Functions\nGlee relies on functions to execute your business logic. Functions are files that export a default async Node.js function:\n1/* onHello.js */\n2export default async function (event) {\n3  // Your business logic here...\n4}\nFunctions take a single argument, which is the event received from a broker or a client, depending on the type of API you're building. The event argument has the following structure:\nAttributeDescriptionpayloadThe payload/body of the received event.headersThe headers/metadata of the received event.channelThe name of the channel/topic from which the event was read.serverNameThe name of the server/broker from which the event was received.\nFunctions may return an object to instruct Glee on what action to take next. For instance, the following example sends a greeting message to the development server:\n1/* onHello.js */\n2export default async function (event) {\n3  return {\n4    send: [{\n5      server: 'development',\n6      channel: 'greets',\n7      payload: 'Greetings! How is your day going?'\n8    }]\n9  };\n10}\nAttributeTypeDescriptionsendarray<OutboundMessage>A list of outbound messages to send after processing the inbound event. All clients subscribed to the given channel/topic will receive the message.\nAnatomy of an Outbound Message\nAttributeTypeDescriptionpayloadstringThe payload/body of the message you want to send.headersobject<string,string>The headers/metadata of the message you want to send.channelstringThe channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event.serverstringThe server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event.\nHow Does Glee Determine Which Function to Execute?\nGlee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:\n1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...\nGlee maps the onHello operation to the functions/onHello.js file.\nLifecycle Events\nGlee allows you to bind incoming messages to functions. However, sometimes it's necessary to initiate communication proactively, not merely as a reaction to another message. Use cases can vary widely: from sending a message to announce that our client is connected, to broadcasting messages at regular intervals.\nTo subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:\n1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'\nEach file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition.\nList of Events\nEventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.\nAll of them take a single argument containing information about the event:\nAttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred.\nRestricting the Lifecycle Event\nIn some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:\nexport const servers = ['mosquitto']\nThe above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.\nSimilarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:\nexport const channels = ['user/signedup']\nThe above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup.",
+    "sections": [
+      {
+        "title": "Functions",
+        "level": 1,
+        "text": "Glee relies on functions to execute your business logic. Functions are files that export a default async Node.js function:1/* onHello.js */\n2export default async function (event) {\n3  // Your business logic here...\n4}Functions take a single argument, which is the event received from a broker or a client, depending on the type of API you're building. The event argument has the following structure:AttributeDescriptionpayloadThe payload/body of the received event.headersThe headers/metadata of the received event.channelThe name of the channel/topic from which the event was read.serverNameThe name of the server/broker from which the event was received.Functions may return an object to instruct Glee on what action to take next. For instance, the following example sends a greeting message to the development server:1/* onHello.js */\n2export default async function (event) {\n3  return {\n4    send: [{\n5      server: 'development',\n6      channel: 'greets',\n7      payload: 'Greetings! How is your day going?'\n8    }]\n9  };\n10}AttributeTypeDescriptionsendarray<OutboundMessage>A list of outbound messages to send after processing the inbound event. All clients subscribed to the given channel/topic will receive the message.Anatomy of an Outbound MessageAttributeTypeDescriptionpayloadstringThe payload/body of the message you want to send.headersobject<string,string>The headers/metadata of the message you want to send.channelstringThe channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event.serverstringThe server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event.How Does Glee Determine Which Function to Execute?Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file."
+      },
+      {
+        "title": "Anatomy of an Outbound Message",
+        "level": 5,
+        "text": "AttributeTypeDescriptionpayloadstringThe payload/body of the message you want to send.headersobject<string,string>The headers/metadata of the message you want to send.channelstringThe channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event.serverstringThe server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event.How Does Glee Determine Which Function to Execute?Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file.Lifecycle EventsGlee allows you to bind incoming messages to functions. However, sometimes it's necessary to initiate communication proactively, not merely as a reaction to another message. Use cases can vary widely: from sending a message to announce that our client is connected, to broadcasting messages at regular intervals.To subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition.List of EventsEventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred.Restricting the Lifecycle EventIn some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+      },
+      {
+        "title": "How Does Glee Determine Which Function to Execute?",
+        "level": 2,
+        "text": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...Glee maps the onHello operation to the functions/onHello.js file."
+      },
+      {
+        "title": "Lifecycle Events",
+        "level": 1,
+        "text": "Glee allows you to bind incoming messages to functions. However, sometimes it's necessary to initiate communication proactively, not merely as a reaction to another message. Use cases can vary widely: from sending a message to announce that our client is connected, to broadcasting messages at regular intervals.To subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition.List of EventsEventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred.Restricting the Lifecycle EventIn some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+      },
+      {
+        "title": "List of Events",
+        "level": 2,
+        "text": "EventDescriptiononConnectA connection with a broker has been established.onReconnectGlee reconnected to a broker.onDisconnectA connection with a broker has been closed.onServerReadyYour Glee server is now ready to accept connections.onServerConnectionOpenA client has opened a connection with your Glee server.onServerConnectionCloseA client has closed the connection with your Glee server.All of them take a single argument containing information about the event:AttributeDescriptiongleeA reference to the Glee app.serverNameThe name of the server where the event occurred.serverThe AsyncAPI definition of the server where the event occurred.connectionThe connection where the event occurred."
+      },
+      {
+        "title": "Restricting the Lifecycle Event",
+        "level": 2,
+        "text": "In some cases, it's useful to restrict the lifecycle event to a specific server or set of servers. To do this, add a line like the following to your lifecycle file:export const servers = ['mosquitto']The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server.Similarly, you may want to restrict the lifecycle event to a specific channel/topic. Add a line like this to your lifecycle file:export const channels = ['user/signedup']The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1/* onHello.js */\n2export default async function (event) {\n3  // Your business logic here...\n4}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">/* onHello.js */</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#d6deeb\">event</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#797f8c\">// Your business logic here...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1/* onHello.js */\n2export default async function (event) {\n3  return {\n4    send: [{\n5      server: 'development',\n6      channel: 'greets',\n7      payload: 'Greetings! How is your day going?'\n8    }]\n9  };\n10}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">/* onHello.js */</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#d6deeb\">event</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">send</span><span>: [{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      </span><span style=\"color:#7edcda\">server</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">'development'</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#7edcda\">channel</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">'greets'</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      </span><span style=\"color:#7edcda\">payload</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">'Greetings! How is your day going?'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>    }]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>  };\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1...\n2operations:\n3  onHello: # operation ID\n4    action: receive\n5    channel:\n6      $ref: '#/channels/hello'\n7      ...",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">operations:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">onHello:</span><span> </span><span style=\"color:#797f8c\"># operation ID</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/hello'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">...</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1export default async function ({\n2  glee,\n3  serverName,\n4  server,\n5  connection,\n6}) {\n7  // Your business logic here...\n8}\n9\n10export const lifecycleEvent = 'onConnect'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#d6deeb\">{\n</span></span><span style=\"padding-right:2rem;color:#d6deeb\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  glee,\n</span><span style=\"padding-right:2rem;color:#d6deeb\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>  serverName,\n</span><span style=\"padding-right:2rem;color:#d6deeb\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  server,\n</span><span style=\"padding-right:2rem;color:#d6deeb\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  connection,\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span style=\"color:#d6deeb\">}</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#797f8c\">// Your business logic here...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">const</span><span> lifecycleEvent = </span><span style=\"color:#c0e2a3;font-weight:500\">'onConnect'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "export const servers = ['mosquitto']",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">const</span><span> servers = [</span><span style=\"color:#c0e2a3;font-weight:500\">'mosquitto'</span><span>]</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "export const channels = ['user/signedup']",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">const</span><span> channels = [</span><span style=\"color:#c0e2a3;font-weight:500\">'user/signedup'</span><span>]</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Attribute",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "payload",
+            "Description": "The payload/body of the received event."
+          },
+          {
+            "Attribute": "headers",
+            "Description": "The headers/metadata of the received event."
+          },
+          {
+            "Attribute": "channel",
+            "Description": "The name of the channel/topic from which the event was read."
+          },
+          {
+            "Attribute": "serverName",
+            "Description": "The name of the server/broker from which the event was received."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_1",
+        "headers": [
+          "Attribute",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "send",
+            "Type": "array<OutboundMessage>",
+            "Description": "A list of outbound messages to send after processing the inbound event. All clients subscribed to the given channel/topic will receive the message."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_2",
+        "headers": [
+          "Attribute",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "payload",
+            "Type": "string",
+            "Description": "The payload/body of the message you want to send."
+          },
+          {
+            "Attribute": "headers",
+            "Type": "object<string,string>",
+            "Description": "The headers/metadata of the message you want to send."
+          },
+          {
+            "Attribute": "channel",
+            "Type": "string",
+            "Description": "The channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event."
+          },
+          {
+            "Attribute": "server",
+            "Type": "string",
+            "Description": "The server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_3",
+        "headers": [
+          "Event",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Event": "onConnect",
+            "Description": "A connection with a broker has been established."
+          },
+          {
+            "Event": "onReconnect",
+            "Description": "Glee reconnected to a broker."
+          },
+          {
+            "Event": "onDisconnect",
+            "Description": "A connection with a broker has been closed."
+          },
+          {
+            "Event": "onServerReady",
+            "Description": "Your Glee server is now ready to accept connections."
+          },
+          {
+            "Event": "onServerConnectionOpen",
+            "Description": "A client has opened a connection with your Glee server."
+          },
+          {
+            "Event": "onServerConnectionClose",
+            "Description": "A client has closed the connection with your Glee server."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_4",
+        "headers": [
+          "Attribute",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "glee",
+            "Description": "A reference to the Glee app."
+          },
+          {
+            "Attribute": "serverName",
+            "Description": "The name of the server where the event occurred."
+          },
+          {
+            "Attribute": "server",
+            "Description": "The AsyncAPI definition of the server where the event occurred."
+          },
+          {
+            "Attribute": "connection",
+            "Description": "The connection where the event occurred."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "event",
+        "context": "Functions take a single argument, which is the event received from a broker or a client, depending on the type of API you're building. The event argument has the following structure:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "development",
+        "context": "Functions may return an object to instruct Glee on what action to take next. For instance, the following example sends a greeting message to the development server:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "event.channel",
+        "context": "The channel/topic to which you want to send the message. Defaults to event.channel, i.e., the same channel as the received event."
+      },
+      {
+        "id": "highlight_3",
+        "content": "event.serverName",
+        "context": "The server/broker to which you want to send the message. Defaults to event.serverName, i.e., the same server as the received event."
+      },
+      {
+        "id": "highlight_4",
+        "content": "asyncapi.yaml",
+        "context": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "receive",
+        "context": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "operations",
+        "context": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:"
+      },
+      {
+        "id": "highlight_7",
+        "content": "operations",
+        "context": "Glee reads your asyncapi.yaml file and looks for all the receive actions containing an operations attribute field. The operations field serves as a mechanism to bind a specific operation to a function file. For instance, given the following AsyncAPI definition:"
+      },
+      {
+        "id": "highlight_8",
+        "content": "onHello",
+        "context": "Glee maps the onHello operation to the functions/onHello.js file."
+      },
+      {
+        "id": "highlight_9",
+        "content": "functions/onHello.js",
+        "context": "Glee maps the onHello operation to the functions/onHello.js file."
+      },
+      {
+        "id": "highlight_10",
+        "content": "lifecycle",
+        "context": "To subscribe to a lifecycle event, create a file under the lifecycle directory. It must be structured as follows:"
+      },
+      {
+        "id": "highlight_11",
+        "content": "lifecycle",
+        "context": "Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition."
+      },
+      {
+        "id": "highlight_12",
+        "content": "lifecycleEvent",
+        "context": "Each file in the lifecycle directory must export a default async function and the lifecycleEvent field, indicating the name of the event you wish to subscribe to. Optionally, your function can return an object following the same syntax as described above in the functions definition."
+      },
+      {
+        "id": "highlight_13",
+        "content": "mosquitto",
+        "context": "The above example ensures Glee fires the lifecycle event only if it originates from the mosquitto server."
+      },
+      {
+        "id": "highlight_14",
+        "content": "user/signedup",
+        "context": "The above example ensures Glee fires the lifecycle event only if the connection includes the channel user/signedup."
+      }
+    ]
+  }
+}

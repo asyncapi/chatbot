@@ -1,0 +1,501 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/file-templates",
+    "timestamp": "2025-03-12T17:52:36.189Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "File Templates",
+    "hierarchy": {
+      "sections": {
+        "Generating files with the Nunjucks render engine": {
+          "level": 2,
+          "content": "Note: This section applies only to the Nunjucks render engine. For information on using the React render engine, refer to the Generating files with the React render engine section below.\n\nNote: Nunjucks renderer engine is deprecated and will be removed in the future. Use the React renderer engine instead. For more details read notes from release @asyncapi/generator@2.6.0.\nIt is possible to generate files for each specific object in your AsyncAPI documentation using the Nunjucks render engine. For example, you can specify a filename like $$channel$$.js to generate a file for each channel defined in your AsyncAPI. The following file-template names and extra variables are available:\n$$channel$$, within the template-file you have access to two variables channel and channelName. Where the channel contains the current channel being rendered.\n$$message$$, within the template-file you have access to two variables message and messageName. Where message contains the current message being rendered.\n$$schema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Only schemas from Components object are used.\n$$everySchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Every Schema object from the entire AsyncAPI file is used.\n$$objectSchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. All the Schema objects with type object is used.\n$$parameter$$, within the template-file you have access to two variables parameter and parameterName. Where the parameter contains the current parameter being rendered.\n$$securityScheme$$, within the template-file you have access to two variables securityScheme and securitySchemeName. Where securityScheme contains the current security scheme being rendered.\nThe file name will be equal to *Name variable.ExampleThe file name is $$schema$$.txt, the content of this file is:1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}With the following AsyncAPI:1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integerThe generator creates two files peoplePayload.txt and people.txt with the following content:1Schema name is 'peoplePayload' and properties are:\n2- peopleand1Schema name is 'people' and properties are:\n2- id\nYou can see an example of a file template that uses the Nunjucks render engine here."
+        },
+        "Example": {
+          "level": 3,
+          "content": "The file name is $$schema$$.txt, the content of this file is:1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}With the following AsyncAPI:1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integerThe generator creates two files peoplePayload.txt and people.txt with the following content:1Schema name is 'peoplePayload' and properties are:\n2- peopleand1Schema name is 'people' and properties are:\n2- id\nYou can see an example of a file template that uses the Nunjucks render engine here."
+        },
+        "Generating files with the React render engine": {
+          "level": 2,
+          "content": "The above method of rendering file templates only works for the Nunjucks render engine. To use the React render engine, you need to follow a different approach. The React render engine allows for a more generic way to render multiple files by returning an array of File components in the rendering component. This can be particularly useful for complex templates or when you need to generate a large number of files with varying content.Example 1: Rendering hardcoded filesThe following is a simple hardcoded example of how to render multiple files using the React render engine:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}Example 2: Rendering files based on the AsyncAPI SchemaIn practice, to render the multiple files, that are generated from the data defined in your AsyncAPI, you'll iterate over the array of schemas and generate a file for each schema as shown in the example below:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}Example 3: Rendering files for each channelAdditionally, you can generate multiple files for each channel defined in your AsyncAPI specification using the React render engine as shown in the example below:1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document.\nYou can see an example of a file template that uses the React render engine here."
+        },
+        "Example 1: Rendering hardcoded files": {
+          "level": 3,
+          "content": "The following is a simple hardcoded example of how to render multiple files using the React render engine:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}"
+        },
+        "Example 2: Rendering files based on the AsyncAPI Schema": {
+          "level": 3,
+          "content": "In practice, to render the multiple files, that are generated from the data defined in your AsyncAPI, you'll iterate over the array of schemas and generate a file for each schema as shown in the example below:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}"
+        },
+        "Example 3: Rendering files for each channel": {
+          "level": 3,
+          "content": "Additionally, you can generate multiple files for each channel defined in your AsyncAPI specification using the React render engine as shown in the example below:1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document.\nYou can see an example of a file template that uses the React render engine here."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Generating files with the Nunjucks render engine\n\nNote: This section applies only to the Nunjucks render engine. For information on using the React render engine, refer to the Generating files with the React render engine section below.\n\n\nNote: Nunjucks renderer engine is deprecated and will be removed in the future. Use the React renderer engine instead. For more details read notes from release @asyncapi/generator@2.6.0.\n\nIt is possible to generate files for each specific object in your AsyncAPI documentation using the Nunjucks render engine. For example, you can specify a filename like $$channel$$.js to generate a file for each channel defined in your AsyncAPI. The following file-template names and extra variables are available:\n\n$$channel$$, within the template-file you have access to two variables channel and channelName. Where the channel contains the current channel being rendered.\n$$message$$, within the template-file you have access to two variables message and messageName. Where message contains the current message being rendered.\n$$schema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Only schemas from Components object are used.\n$$everySchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Every Schema object from the entire AsyncAPI file is used.\n$$objectSchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. All the Schema objects with type object is used.\n$$parameter$$, within the template-file you have access to two variables parameter and parameterName. Where the parameter contains the current parameter being rendered.\n$$securityScheme$$, within the template-file you have access to two variables securityScheme and securitySchemeName. Where securityScheme contains the current security scheme being rendered.\n\nThe file name will be equal to *Name variable.\nExample\nThe file name is $$schema$$.txt, the content of this file is:\n1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}\nWith the following AsyncAPI:\n1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integer\nThe generator creates two files peoplePayload.txt and people.txt with the following content:\n1Schema name is 'peoplePayload' and properties are:\n2- people\nand\n1Schema name is 'people' and properties are:\n2- id\n\nYou can see an example of a file template that uses the Nunjucks render engine here.\n\nGenerating files with the React render engine\nThe above method of rendering file templates only works for the Nunjucks render engine. To use the React render engine, you need to follow a different approach. The React render engine allows for a more generic way to render multiple files by returning an array of File components in the rendering component. This can be particularly useful for complex templates or when you need to generate a large number of files with varying content.\nExample 1: Rendering hardcoded files\nThe following is a simple hardcoded example of how to render multiple files using the React render engine:\n1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}\nExample 2: Rendering files based on the AsyncAPI Schema\nIn practice, to render the multiple files, that are generated from the data defined in your AsyncAPI, you'll iterate over the array of schemas and generate a file for each schema as shown in the example below:\n1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}\nExample 3: Rendering files for each channel\nAdditionally, you can generate multiple files for each channel defined in your AsyncAPI specification using the React render engine as shown in the example below:\n1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}\nThe code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document.\n\nYou can see an example of a file template that uses the React render engine here.",
+    "sections": [
+      {
+        "title": "Generating files with the Nunjucks render engine",
+        "level": 2,
+        "text": "Note: This section applies only to the Nunjucks render engine. For information on using the React render engine, refer to the Generating files with the React render engine section below.\n\nNote: Nunjucks renderer engine is deprecated and will be removed in the future. Use the React renderer engine instead. For more details read notes from release @asyncapi/generator@2.6.0.\nIt is possible to generate files for each specific object in your AsyncAPI documentation using the Nunjucks render engine. For example, you can specify a filename like $$channel$$.js to generate a file for each channel defined in your AsyncAPI. The following file-template names and extra variables are available:\n$$channel$$, within the template-file you have access to two variables channel and channelName. Where the channel contains the current channel being rendered.\n$$message$$, within the template-file you have access to two variables message and messageName. Where message contains the current message being rendered.\n$$schema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Only schemas from Components object are used.\n$$everySchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Every Schema object from the entire AsyncAPI file is used.\n$$objectSchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. All the Schema objects with type object is used.\n$$parameter$$, within the template-file you have access to two variables parameter and parameterName. Where the parameter contains the current parameter being rendered.\n$$securityScheme$$, within the template-file you have access to two variables securityScheme and securitySchemeName. Where securityScheme contains the current security scheme being rendered.\nThe file name will be equal to *Name variable.ExampleThe file name is $$schema$$.txt, the content of this file is:1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}With the following AsyncAPI:1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integerThe generator creates two files peoplePayload.txt and people.txt with the following content:1Schema name is 'peoplePayload' and properties are:\n2- peopleand1Schema name is 'people' and properties are:\n2- id\nYou can see an example of a file template that uses the Nunjucks render engine here."
+      },
+      {
+        "title": "Example",
+        "level": 3,
+        "text": "The file name is $$schema$$.txt, the content of this file is:1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}With the following AsyncAPI:1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integerThe generator creates two files peoplePayload.txt and people.txt with the following content:1Schema name is 'peoplePayload' and properties are:\n2- peopleand1Schema name is 'people' and properties are:\n2- id\nYou can see an example of a file template that uses the Nunjucks render engine here."
+      },
+      {
+        "title": "Generating files with the React render engine",
+        "level": 2,
+        "text": "The above method of rendering file templates only works for the Nunjucks render engine. To use the React render engine, you need to follow a different approach. The React render engine allows for a more generic way to render multiple files by returning an array of File components in the rendering component. This can be particularly useful for complex templates or when you need to generate a large number of files with varying content.Example 1: Rendering hardcoded filesThe following is a simple hardcoded example of how to render multiple files using the React render engine:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}Example 2: Rendering files based on the AsyncAPI SchemaIn practice, to render the multiple files, that are generated from the data defined in your AsyncAPI, you'll iterate over the array of schemas and generate a file for each schema as shown in the example below:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}Example 3: Rendering files for each channelAdditionally, you can generate multiple files for each channel defined in your AsyncAPI specification using the React render engine as shown in the example below:1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document.\nYou can see an example of a file template that uses the React render engine here."
+      },
+      {
+        "title": "Example 1: Rendering hardcoded files",
+        "level": 3,
+        "text": "The following is a simple hardcoded example of how to render multiple files using the React render engine:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}"
+      },
+      {
+        "title": "Example 2: Rendering files based on the AsyncAPI Schema",
+        "level": 3,
+        "text": "In practice, to render the multiple files, that are generated from the data defined in your AsyncAPI, you'll iterate over the array of schemas and generate a file for each schema as shown in the example below:1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}"
+      },
+      {
+        "title": "Example 3: Rendering files for each channel",
+        "level": 3,
+        "text": "Additionally, you can generate multiple files for each channel defined in your AsyncAPI specification using the React render engine as shown in the example below:1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document.\nYou can see an example of a file template that uses the React render engine here."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1Schema name is '{{schemaName}}' and properties are:\n2{% for propName, prop in schema.properties() %}\n3- {{prop.uid()}}\n4{% endfor %}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">Schema</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">name</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">is</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'</span><span style=\"color:#d6deeb;font-weight:500\">{{schemaName}}</span><span style=\"color:#c0e2a3;font-weight:500\">'</span><span> </span><span style=\"color:#7edcda\">and properties are:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>{</span><span style=\"color:#c0e2a3;font-weight:500\">%</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">for</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">propName</span><span>, </span><span style=\"color:#c0e2a3;font-weight:500\">prop</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">in</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">schema.properties()</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">%</span><span>}\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">-</span><span> {{</span><span style=\"color:#c0e2a3;font-weight:500\">prop.uid()</span><span>}}\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>{</span><span style=\"color:#c0e2a3;font-weight:500\">%</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">endfor</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">%</span><span>}</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1components:\n2  schemas: \n3    peoplePayload:\n4      type: object\n5      properties:\n6        event:\n7          $ref: \"#/components/schemas/people\"\n8    people:\n9      type: object\n10      properties:\n11        id:\n12          type: integer",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">schemas:</span><span> \n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">peoplePayload:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">object</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      </span><span style=\"color:#7edcda\">properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>        </span><span style=\"color:#7edcda\">event:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"#/components/schemas/people\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">people:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">object</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>        </span><span style=\"color:#7edcda\">id:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>          </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">integer</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1Schema name is 'peoplePayload' and properties are:\n2- people",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">Schema</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">name</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">is</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'peoplePayload'</span><span> </span><span style=\"color:#7edcda\">and properties are:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">people</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1Schema name is 'people' and properties are:\n2- id",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">Schema</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">name</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">is</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'people'</span><span> </span><span style=\"color:#7edcda\">and properties are:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">id</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi }) {\n4  return [\n5    <File name={`file1.html`}>Content</File>,\n6    <File name={`file2.html`}>Content</File>\n7  ]\n8}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File} </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/generator-react-sdk\"</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ asyncapi }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{</span><span class=\"xml\" style=\"color:#64a0dc\">`</span><span class=\"xml\" style=\"color:#7edcda\">file1.html</span><span class=\"xml\" style=\"color:#64a0dc\">`}&gt;</span><span class=\"xml\">Content</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{</span><span class=\"xml\" style=\"color:#64a0dc\">`</span><span class=\"xml\" style=\"color:#7edcda\">file2.html</span><span class=\"xml\" style=\"color:#64a0dc\">`}&gt;</span><span class=\"xml\">Content</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>  ]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1import { File} from \"@asyncapi/generator-react-sdk\";\n2\n3/*\n4 * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n5 */\n6export default function({ asyncapi }) {\n7  const schemas = asyncapi.allSchemas();\n8  const files = [];\n9  // schemas is an instance of the Map\n10  schemas.forEach((schema) => {\n11    \n12    files.push(\n13      // We return a react file component and each time we do it, the name of the generated file will be a schema name\n14      // Content of the file will be a variable representing schema\n15      <File name={`${schema.id()}.js`}>\n16        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n17      </File>\n18    );\n19  });\n20  return files;\n21}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File} </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/generator-react-sdk\"</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#797f8c\">/*\n</span></span><span style=\"padding-right:2rem;color:#797f8c\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span> * To render multiple files, it is enough to return an array of `File` components in the rendering component, like in following example.\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span style=\"color:#797f8c\"> */</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ asyncapi }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#64a0dc\">const</span><span> schemas = asyncapi.allSchemas();\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#64a0dc\">const</span><span> files = [];\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>  </span><span style=\"color:#797f8c\">// schemas is an instance of the Map</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>  schemas.forEach(</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">schema</span><span style=\"color:#74e287\">) =&gt;</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>    \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>    files.push(\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#797f8c\">// We return a react file component and each time we do it, the name of the generated file will be a schema name</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#797f8c\">// Content of the file will be a variable representing schema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{</span><span class=\"xml\" style=\"color:#64a0dc\">`${</span><span class=\"xml\" style=\"color:#7edcda\">schema.id</span><span class=\"xml\" style=\"color:#64a0dc\">()}</span><span class=\"xml\" style=\"color:#7edcda\">.js</span><span class=\"xml\" style=\"color:#64a0dc\">`}&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span>        const { schema.id() } = { JSON.stringify(schema._json, null, 2) }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>    );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span>  });\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> files;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3\n4export default function ({ asyncapi }) {\n5  const files = [];\n6\n7  // Generate files for channels\n8  asyncapi.channels().forEach((channel) => {\n9    const channelName = channel.id();\n10\n11    files.push(\n12      <File name={`${channelName}.md`}>\n13        <Text newLines={2}># Channel: {channelName}</Text>\n14        <Text>\n15          {channel.hasDescription() && `${channel.description()}`}\n16        </Text>\n17      </File>\n18    );\n19  });\n20  return files;\n21}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File, Text } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/generator-react-sdk\"</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#d6deeb\">{ asyncapi }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#64a0dc\">const</span><span> files = [];\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#797f8c\">// Generate files for channels</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  asyncapi.channels().forEach(</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">channel</span><span style=\"color:#74e287\">) =&gt;</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#64a0dc\">const</span><span> channelName = channel.id();\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>    files.push(\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{</span><span class=\"xml\" style=\"color:#64a0dc\">`${</span><span class=\"xml\" style=\"color:#7edcda\">channelName</span><span class=\"xml\" style=\"color:#64a0dc\">}</span><span class=\"xml\" style=\"color:#7edcda\">.md</span><span class=\"xml\" style=\"color:#64a0dc\">`}&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">newLines</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{2}</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\"># Channel: {channelName}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>          {channel.hasDescription() &amp;&amp; `${channel.description()}`}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>    );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span>  });\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> files;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "$$channel$$.js",
+        "context": "It is possible to generate files for each specific object in your AsyncAPI documentation using the Nunjucks render engine. For example, you can specify a filename like $$channel$$.js to generate a file for each channel defined in your AsyncAPI. The following file-template names and extra variables are available:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "$$channel$$",
+        "context": "$$channel$$, within the template-file you have access to two variables channel and channelName. Where the channel contains the current channel being rendered."
+      },
+      {
+        "id": "highlight_2",
+        "content": "channel",
+        "context": "channel"
+      },
+      {
+        "id": "highlight_3",
+        "content": "channelName",
+        "context": "channelName"
+      },
+      {
+        "id": "highlight_4",
+        "content": "channel",
+        "context": "$$channel$$, within the template-file you have access to two variables channel and channelName. Where the channel contains the current channel being rendered."
+      },
+      {
+        "id": "highlight_5",
+        "content": "$$message$$",
+        "context": "$$message$$, within the template-file you have access to two variables message and messageName. Where message contains the current message being rendered."
+      },
+      {
+        "id": "highlight_6",
+        "content": "message",
+        "context": "message"
+      },
+      {
+        "id": "highlight_7",
+        "content": "messageName",
+        "context": "messageName"
+      },
+      {
+        "id": "highlight_8",
+        "content": "message",
+        "context": "$$message$$, within the template-file you have access to two variables message and messageName. Where message contains the current message being rendered."
+      },
+      {
+        "id": "highlight_9",
+        "content": "$$schema$$",
+        "context": "$$schema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Only schemas from Components object are used."
+      },
+      {
+        "id": "highlight_10",
+        "content": "schema",
+        "context": "schema"
+      },
+      {
+        "id": "highlight_11",
+        "content": "schemaName",
+        "context": "schemaName"
+      },
+      {
+        "id": "highlight_12",
+        "content": "schema",
+        "context": "$$schema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Only schemas from Components object are used."
+      },
+      {
+        "id": "highlight_13",
+        "content": "$$everySchema$$",
+        "context": "$$everySchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Every Schema object from the entire AsyncAPI file is used."
+      },
+      {
+        "id": "highlight_14",
+        "content": "schema",
+        "context": "schema"
+      },
+      {
+        "id": "highlight_15",
+        "content": "schemaName",
+        "context": "schemaName"
+      },
+      {
+        "id": "highlight_16",
+        "content": "schema",
+        "context": "$$everySchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. Every Schema object from the entire AsyncAPI file is used."
+      },
+      {
+        "id": "highlight_17",
+        "content": "$$objectSchema$$",
+        "context": "$$objectSchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. All the Schema objects with type object is used."
+      },
+      {
+        "id": "highlight_18",
+        "content": "schema",
+        "context": "schema"
+      },
+      {
+        "id": "highlight_19",
+        "content": "schemaName",
+        "context": "schemaName"
+      },
+      {
+        "id": "highlight_20",
+        "content": "schema",
+        "context": "$$objectSchema$$, within the template-file you have access to two variables schema and schemaName. Where schema contains the current schema being rendered. All the Schema objects with type object is used."
+      },
+      {
+        "id": "highlight_21",
+        "content": "$$parameter$$",
+        "context": "$$parameter$$, within the template-file you have access to two variables parameter and parameterName. Where the parameter contains the current parameter being rendered."
+      },
+      {
+        "id": "highlight_22",
+        "content": "parameter",
+        "context": "parameter"
+      },
+      {
+        "id": "highlight_23",
+        "content": "parameterName",
+        "context": "parameterName"
+      },
+      {
+        "id": "highlight_24",
+        "content": "parameter",
+        "context": "$$parameter$$, within the template-file you have access to two variables parameter and parameterName. Where the parameter contains the current parameter being rendered."
+      },
+      {
+        "id": "highlight_25",
+        "content": "$$securityScheme$$",
+        "context": "$$securityScheme$$, within the template-file you have access to two variables securityScheme and securitySchemeName. Where securityScheme contains the current security scheme being rendered."
+      },
+      {
+        "id": "highlight_26",
+        "content": "securityScheme",
+        "context": "securityScheme"
+      },
+      {
+        "id": "highlight_27",
+        "content": "securitySchemeName",
+        "context": "securitySchemeName"
+      },
+      {
+        "id": "highlight_28",
+        "content": "securityScheme",
+        "context": "$$securityScheme$$, within the template-file you have access to two variables securityScheme and securitySchemeName. Where securityScheme contains the current security scheme being rendered."
+      },
+      {
+        "id": "highlight_29",
+        "content": "*Name",
+        "context": "The file name will be equal to *Name variable."
+      },
+      {
+        "id": "highlight_30",
+        "content": "$$schema$$.txt",
+        "context": "The file name is $$schema$$.txt, the content of this file is:"
+      },
+      {
+        "id": "highlight_31",
+        "content": "peoplePayload.txt",
+        "context": "The generator creates two files peoplePayload.txt and people.txt with the following content:"
+      },
+      {
+        "id": "highlight_32",
+        "content": "people.txt",
+        "context": "The generator creates two files peoplePayload.txt and people.txt with the following content:"
+      },
+      {
+        "id": "highlight_33",
+        "content": "File",
+        "context": "The above method of rendering file templates only works for the Nunjucks render engine. To use the React render engine, you need to follow a different approach. The React render engine allows for a more generic way to render multiple files by returning an array of File components in the rendering component. This can be particularly useful for complex templates or when you need to generate a large number of files with varying content."
+      },
+      {
+        "id": "highlight_34",
+        "content": "Text",
+        "context": "The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document."
+      },
+      {
+        "id": "highlight_35",
+        "content": ".md",
+        "context": "The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document."
+      },
+      {
+        "id": "highlight_36",
+        "content": "newline",
+        "context": "The code snippet above uses the Text component to write file content to the .md markdown file. The newline property is used to ensure that the content isn't all rendered in one line in the markdown file. In summary, the code snippet above is a practical guide on generating properly formatted multiline Markdown files for each channel in an AsyncAPI document."
+      }
+    ]
+  }
+}

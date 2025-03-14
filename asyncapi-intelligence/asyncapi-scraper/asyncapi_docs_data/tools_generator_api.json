@@ -1,0 +1,1073 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/api",
+    "timestamp": "2025-03-12T17:51:40.776Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Api",
+    "hierarchy": {
+      "sections": {
+        "Generator": {
+          "level": 2,
+          "content": "Kind: global class\nGenerator\n\nnew Generator(templateName, targetDir, options)\ninstance\n\n.compile : Boolean\n.registry : Object\n.templateName : String\n.targetDir : String\n.entrypoint : String\n.noOverwriteGlobs : Array.<String>\n.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>\n.output : String\n.forceWrite : Boolean\n.debug : Boolean\n.install : Boolean\n.templateConfig : Object\n.hooks : Object\n.mapBaseUrlToFolder : Object\n.templateParams : Object\n.generate(asyncapiDocument, [parseOptions]) ⇒ Promise.<void>\n.validateAsyncAPIDocument(asyncapiDocument)\n.setupOutput()\n.setupFSOutput() ⇒ Promise.<void>\n.setLogLevel() ⇒ void\n.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>\n.configureTemplateWorkflow(parseOptions) ⇒ Promise.<void>\n.handleEntrypoint() ⇒ Promise.<void>\n.executeAfterHook() ⇒ Promise.<void>\n.parseInput()\n.configureTemplate()\n.generateFromString(asyncapiString, [parseOptions]) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromURL(asyncapiURL) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromFile(asyncapiFile) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.installTemplate([force])\n\n\nstatic\n\n.getTemplateFile(templateName, filePath, [templatesDir]) ⇒ Promise\n\n\n\n\nnew GeneratorInstantiates a new Generator object.Params\ntemplateName String - Name of the template to generate.\ntargetDir String - Path to the directory where the files will be generated.\noptions Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file\n\n\n\n\nExample1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));Example (Passing custom params to the template)1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});\ngenerator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.\nKind: instance property of Generator\ngenerator.registry : Object** :\nNpm registry information.\nKind: instance property of Generator\ngenerator.templateName : String** :\nName of the template to generate.\nKind: instance property of Generator\ngenerator.targetDir : String** :\nPath to the directory where the files will be generated.\nKind: instance property of Generator\ngenerator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\nKind: instance property of Generator\ngenerator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template.\nKind: instance property of Generator\ngenerator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\nKind: instance property of Generator\ngenerator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\nKind: instance property of Generator\ngenerator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\nKind: instance property of Generator\ngenerator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\nKind: instance property of Generator\ngenerator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed.\nKind: instance property of Generator\ngenerator.templateConfig : Object** :\nThe template configuration.\nKind: instance property of Generator\ngenerator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type.\nKind: instance property of Generator\ngenerator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder.\nKind: instance property of Generator\ngenerator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template.\nKind: instance property of Generatorgenerator.generateGenerates files from a given template and an AsyncAPIDocument object.Kind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams\nasyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using.\nExample1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');Example1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.validateAsyncAPIDocumentValidates the provided AsyncAPI document.Kind: instance method of Generator\nThrows:\nError Throws an error if the document is not valid.\nSince: 10/9/2023 - 4:26:33 PM\nParams\nasyncapiDocument * - The AsyncAPI document to be validated.\n\ngenerator.setupOutput()** :\nSets up the output configuration based on the specified output type.\nKind: instance method of Generator\nThrows:\nError If 'output' is set to 'string' without providing 'entrypoint'.\nExample1const generator = new Generator();\n2await generator.setupOutput();\ngenerator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration.\nThis function creates the target directory if it does not exist and verifies\nthe target directory if forceWrite is not enabled.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:\nError If verification of the target directory fails and forceWrite is not enabled.\n\ngenerator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option.\nIf the debug option is enabled, the log level is set to 'debug'.Kind: instance method of Generator\ngenerator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation.\nThis function installs the specified template using the provided installation option,\nsets up the necessary directory paths, loads the template configuration, and returns\ninformation about the installed template.Kind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template.generator.configureTemplateWorkflowConfigures the template workflow based on provided parsing options.This function performs the following steps:\nParses the input AsyncAPI document using the specified parse options.\nValidates the template configuration and parameters.\nConfigures the template based on the parsed AsyncAPI document.\nRegisters filters, hooks, and launches the 'generate:before' hook if applicable.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams\nparseOptions * - Options for parsing the AsyncAPI document.\n\ngenerator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint.\nIf an entrypoint is specified:\nResolves the absolute path of the entrypoint file.\nThrows an error if the entrypoint file doesn't exist.\nGenerates a file or renders content based on the output type.\nLaunches the 'generate:after' hook if the output is 'fs'.\nIf no entrypoint is specified, generates the directory structure.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed.\ngenerator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook.\nLaunches the after-hook to perform additional actions after code generation.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed.\ngenerator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value.\nKind: instance method of Generator\ngenerator.configureTemplate()** :\nConfigure the templates based the desired renderer.\nKind: instance method of Generatorgenerator.generateFromStringDeprecatedGenerates files from a given template and AsyncAPI string.Kind: instance method of Generator\nParams\nasyncapiString String - AsyncAPI string to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information.\nExample1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);Example (Using async/await)1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}generator.generateFromURLGenerates files from a given template and AsyncAPI file stored on external server.Kind: instance method of Generator\nParams\nasyncapiURL String - Link to AsyncAPI file\nExample1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.generateFromFileGenerates files from a given template and AsyncAPI file.Kind: instance method of Generator\nParams\nasyncapiFile String - AsyncAPI file to use as source.\nExample1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.installTemplateDownloads and installs a template and its dependenciesKind: instance method of Generator\nParams\n[force] Boolean  = false - Whether to force installation (and skip cache) or not.\nGenerator.getTemplateFileReturns the content of a given template file.Kind: static method of Generator\nParams\ntemplateName String - Name of the template to generate.\nfilePath String - Path to the file to render. Relative to the template directory.\n[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed.\nExample1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');Example (Using a custom `templatesDir`)1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');"
+        },
+        "new Generator": {
+          "level": 3,
+          "content": "Instantiates a new Generator object.Params\ntemplateName String - Name of the template to generate.\ntargetDir String - Path to the directory where the files will be generated.\noptions Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file\n\n\n\n\nExample1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));Example (Passing custom params to the template)1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});\ngenerator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.\nKind: instance property of Generator\ngenerator.registry : Object** :\nNpm registry information.\nKind: instance property of Generator\ngenerator.templateName : String** :\nName of the template to generate.\nKind: instance property of Generator\ngenerator.targetDir : String** :\nPath to the directory where the files will be generated.\nKind: instance property of Generator\ngenerator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\nKind: instance property of Generator\ngenerator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template.\nKind: instance property of Generator\ngenerator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\nKind: instance property of Generator\ngenerator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\nKind: instance property of Generator\ngenerator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\nKind: instance property of Generator\ngenerator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\nKind: instance property of Generator\ngenerator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed.\nKind: instance property of Generator\ngenerator.templateConfig : Object** :\nThe template configuration.\nKind: instance property of Generator\ngenerator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type.\nKind: instance property of Generator\ngenerator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder.\nKind: instance property of Generator\ngenerator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template.\nKind: instance property of Generator"
+        },
+        "generator.generate": {
+          "level": 3,
+          "content": "Generates files from a given template and an AsyncAPIDocument object.Kind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams\nasyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using.\nExample1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');Example1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+        },
+        "generator.validateAsyncAPIDocument": {
+          "level": 3,
+          "content": "Validates the provided AsyncAPI document.Kind: instance method of Generator\nThrows:\nError Throws an error if the document is not valid.\nSince: 10/9/2023 - 4:26:33 PM\nParams\nasyncapiDocument * - The AsyncAPI document to be validated.\n\ngenerator.setupOutput()** :\nSets up the output configuration based on the specified output type.\nKind: instance method of Generator\nThrows:\nError If 'output' is set to 'string' without providing 'entrypoint'.\nExample1const generator = new Generator();\n2await generator.setupOutput();\ngenerator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration.\nThis function creates the target directory if it does not exist and verifies\nthe target directory if forceWrite is not enabled.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:\nError If verification of the target directory fails and forceWrite is not enabled.\n\ngenerator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option.\nIf the debug option is enabled, the log level is set to 'debug'.Kind: instance method of Generator\ngenerator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation.\nThis function installs the specified template using the provided installation option,\nsets up the necessary directory paths, loads the template configuration, and returns\ninformation about the installed template.Kind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template."
+        },
+        "generator.configureTemplateWorkflow": {
+          "level": 3,
+          "content": "Configures the template workflow based on provided parsing options.This function performs the following steps:\nParses the input AsyncAPI document using the specified parse options.\nValidates the template configuration and parameters.\nConfigures the template based on the parsed AsyncAPI document.\nRegisters filters, hooks, and launches the 'generate:before' hook if applicable.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams\nparseOptions * - Options for parsing the AsyncAPI document.\n\ngenerator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint.\nIf an entrypoint is specified:\nResolves the absolute path of the entrypoint file.\nThrows an error if the entrypoint file doesn't exist.\nGenerates a file or renders content based on the output type.\nLaunches the 'generate:after' hook if the output is 'fs'.\nIf no entrypoint is specified, generates the directory structure.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed.\ngenerator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook.\nLaunches the after-hook to perform additional actions after code generation.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed.\ngenerator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value.\nKind: instance method of Generator\ngenerator.configureTemplate()** :\nConfigure the templates based the desired renderer.\nKind: instance method of Generator"
+        },
+        "generator.generateFromString": {
+          "level": 3,
+          "content": "DeprecatedGenerates files from a given template and AsyncAPI string.Kind: instance method of Generator\nParams\nasyncapiString String - AsyncAPI string to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information.\nExample1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);Example (Using async/await)1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}"
+        },
+        "generator.generateFromURL": {
+          "level": 3,
+          "content": "Generates files from a given template and AsyncAPI file stored on external server.Kind: instance method of Generator\nParams\nasyncapiURL String - Link to AsyncAPI file\nExample1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+        },
+        "generator.generateFromFile": {
+          "level": 3,
+          "content": "Generates files from a given template and AsyncAPI file.Kind: instance method of Generator\nParams\nasyncapiFile String - AsyncAPI file to use as source.\nExample1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+        },
+        "generator.installTemplate": {
+          "level": 3,
+          "content": "Downloads and installs a template and its dependenciesKind: instance method of Generator\nParams\n[force] Boolean  = false - Whether to force installation (and skip cache) or not."
+        },
+        "Generator.getTemplateFile": {
+          "level": 3,
+          "content": "Returns the content of a given template file.Kind: static method of Generator\nParams\ntemplateName String - Name of the template to generate.\nfilePath String - Path to the file to render. Relative to the template directory.\n[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed.\nExample1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');Example (Using a custom `templatesDir`)1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Reference API documentation for AsyncAPI Generator library.\n\nGenerator\nKind: global class\n\nGenerator\n\nnew Generator(templateName, targetDir, options)\ninstance\n\n.compile : Boolean\n.registry : Object\n.templateName : String\n.targetDir : String\n.entrypoint : String\n.noOverwriteGlobs : Array.<String>\n.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>\n.output : String\n.forceWrite : Boolean\n.debug : Boolean\n.install : Boolean\n.templateConfig : Object\n.hooks : Object\n.mapBaseUrlToFolder : Object\n.templateParams : Object\n.generate(asyncapiDocument, [parseOptions]) ⇒ Promise.<void>\n.validateAsyncAPIDocument(asyncapiDocument)\n.setupOutput()\n.setupFSOutput() ⇒ Promise.<void>\n.setLogLevel() ⇒ void\n.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>\n.configureTemplateWorkflow(parseOptions) ⇒ Promise.<void>\n.handleEntrypoint() ⇒ Promise.<void>\n.executeAfterHook() ⇒ Promise.<void>\n.parseInput()\n.configureTemplate()\n.generateFromString(asyncapiString, [parseOptions]) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromURL(asyncapiURL) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromFile(asyncapiFile) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.installTemplate([force])\n\n\nstatic\n\n.getTemplateFile(templateName, filePath, [templatesDir]) ⇒ Promise\n\n\n\n\n\n\nnew Generator\nInstantiates a new Generator object.\nParams\n\ntemplateName String - Name of the template to generate.\ntargetDir String - Path to the directory where the files will be generated.\noptions Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file\n\n\n\n\n\nExample\n1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));\nExample (Passing custom params to the template)\n1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});\n\n\ngenerator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.\n\nKind: instance property of Generator\n\n\ngenerator.registry : Object** :\nNpm registry information.\n\nKind: instance property of Generator\n\n\ngenerator.templateName : String** :\nName of the template to generate.\n\nKind: instance property of Generator\n\n\ngenerator.targetDir : String** :\nPath to the directory where the files will be generated.\n\nKind: instance property of Generator\n\n\ngenerator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n\nKind: instance property of Generator\n\n\ngenerator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template.\n\nKind: instance property of Generator\n\n\ngenerator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n\nKind: instance property of Generator\n\n\ngenerator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n\nKind: instance property of Generator\n\n\ngenerator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n\nKind: instance property of Generator\n\n\ngenerator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n\nKind: instance property of Generator\n\n\ngenerator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed.\n\nKind: instance property of Generator\n\n\ngenerator.templateConfig : Object** :\nThe template configuration.\n\nKind: instance property of Generator\n\n\ngenerator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type.\n\nKind: instance property of Generator\n\n\ngenerator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder.\n\nKind: instance property of Generator\n\n\ngenerator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template.\n\nKind: instance property of Generator\n\ngenerator.generate\nGenerates files from a given template and an AsyncAPIDocument object.\nKind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams\n\nasyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using.\n\nExample\n1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');\nExample\n1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);\nExample (Using async/await)\n1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}\n\ngenerator.validateAsyncAPIDocument\nValidates the provided AsyncAPI document.\nKind: instance method of Generator\nThrows:\n\nError Throws an error if the document is not valid.\n\nSince: 10/9/2023 - 4:26:33 PM\nParams\n\nasyncapiDocument * - The AsyncAPI document to be validated.\n\n\n\ngenerator.setupOutput()** :\nSets up the output configuration based on the specified output type.\n\nKind: instance method of Generator\nThrows:\n\nError If 'output' is set to 'string' without providing 'entrypoint'.\n\nExample\n1const generator = new Generator();\n2await generator.setupOutput();\n\n\ngenerator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration.\n\nThis function creates the target directory if it does not exist and verifies\nthe target directory if forceWrite is not enabled.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:\n\nError If verification of the target directory fails and forceWrite is not enabled.\n\n\n\ngenerator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option.\n\nIf the debug option is enabled, the log level is set to 'debug'.\nKind: instance method of Generator\n\n\ngenerator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation.\n\nThis function installs the specified template using the provided installation option,\nsets up the necessary directory paths, loads the template configuration, and returns\ninformation about the installed template.\nKind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template.\n\ngenerator.configureTemplateWorkflow\nConfigures the template workflow based on provided parsing options.\nThis function performs the following steps:\n\nParses the input AsyncAPI document using the specified parse options.\nValidates the template configuration and parameters.\nConfigures the template based on the parsed AsyncAPI document.\nRegisters filters, hooks, and launches the 'generate:before' hook if applicable.\n\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams\n\nparseOptions * - Options for parsing the AsyncAPI document.\n\n\n\ngenerator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint.\n\nIf an entrypoint is specified:\n\nResolves the absolute path of the entrypoint file.\nThrows an error if the entrypoint file doesn't exist.\nGenerates a file or renders content based on the output type.\nLaunches the 'generate:after' hook if the output is 'fs'.\n\nIf no entrypoint is specified, generates the directory structure.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed.\n\n\ngenerator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook.\n\nLaunches the after-hook to perform additional actions after code generation.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed.\n\n\ngenerator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value.\n\nKind: instance method of Generator\n\n\ngenerator.configureTemplate()** :\nConfigure the templates based the desired renderer.\n\nKind: instance method of Generator\n\ngenerator.generateFromString\nDeprecated\nGenerates files from a given template and AsyncAPI string.\nKind: instance method of Generator\nParams\n\nasyncapiString String - AsyncAPI string to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information.\n\nExample\n1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);\nExample (Using async/await)\n1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}\n\ngenerator.generateFromURL\nGenerates files from a given template and AsyncAPI file stored on external server.\nKind: instance method of Generator\nParams\n\nasyncapiURL String - Link to AsyncAPI file\n\nExample\n1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);\nExample (Using async/await)\n1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}\n\ngenerator.generateFromFile\nGenerates files from a given template and AsyncAPI file.\nKind: instance method of Generator\nParams\n\nasyncapiFile String - AsyncAPI file to use as source.\n\nExample\n1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);\nExample (Using async/await)\n1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}\n\ngenerator.installTemplate\nDownloads and installs a template and its dependencies\nKind: instance method of Generator\nParams\n\n[force] Boolean  = false - Whether to force installation (and skip cache) or not.\n\n\nGenerator.getTemplateFile\nReturns the content of a given template file.\nKind: static method of Generator\nParams\n\ntemplateName String - Name of the template to generate.\nfilePath String - Path to the file to render. Relative to the template directory.\n[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed.\n\nExample\n1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');\nExample (Using a custom `templatesDir`)\n1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');",
+    "sections": [
+      {
+        "title": "Generator",
+        "level": 2,
+        "text": "Kind: global class\nGenerator\n\nnew Generator(templateName, targetDir, options)\ninstance\n\n.compile : Boolean\n.registry : Object\n.templateName : String\n.targetDir : String\n.entrypoint : String\n.noOverwriteGlobs : Array.<String>\n.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>\n.output : String\n.forceWrite : Boolean\n.debug : Boolean\n.install : Boolean\n.templateConfig : Object\n.hooks : Object\n.mapBaseUrlToFolder : Object\n.templateParams : Object\n.generate(asyncapiDocument, [parseOptions]) ⇒ Promise.<void>\n.validateAsyncAPIDocument(asyncapiDocument)\n.setupOutput()\n.setupFSOutput() ⇒ Promise.<void>\n.setLogLevel() ⇒ void\n.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>\n.configureTemplateWorkflow(parseOptions) ⇒ Promise.<void>\n.handleEntrypoint() ⇒ Promise.<void>\n.executeAfterHook() ⇒ Promise.<void>\n.parseInput()\n.configureTemplate()\n.generateFromString(asyncapiString, [parseOptions]) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromURL(asyncapiURL) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.generateFromFile(asyncapiFile) ⇒ Promise.<(TemplateRenderResult|undefined)>\n.installTemplate([force])\n\n\nstatic\n\n.getTemplateFile(templateName, filePath, [templatesDir]) ⇒ Promise\n\n\n\n\nnew GeneratorInstantiates a new Generator object.Params\ntemplateName String - Name of the template to generate.\ntargetDir String - Path to the directory where the files will be generated.\noptions Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file\n\n\n\n\nExample1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));Example (Passing custom params to the template)1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});\ngenerator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.\nKind: instance property of Generator\ngenerator.registry : Object** :\nNpm registry information.\nKind: instance property of Generator\ngenerator.templateName : String** :\nName of the template to generate.\nKind: instance property of Generator\ngenerator.targetDir : String** :\nPath to the directory where the files will be generated.\nKind: instance property of Generator\ngenerator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\nKind: instance property of Generator\ngenerator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template.\nKind: instance property of Generator\ngenerator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\nKind: instance property of Generator\ngenerator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\nKind: instance property of Generator\ngenerator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\nKind: instance property of Generator\ngenerator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\nKind: instance property of Generator\ngenerator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed.\nKind: instance property of Generator\ngenerator.templateConfig : Object** :\nThe template configuration.\nKind: instance property of Generator\ngenerator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type.\nKind: instance property of Generator\ngenerator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder.\nKind: instance property of Generator\ngenerator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template.\nKind: instance property of Generatorgenerator.generateGenerates files from a given template and an AsyncAPIDocument object.Kind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams\nasyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using.\nExample1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');Example1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.validateAsyncAPIDocumentValidates the provided AsyncAPI document.Kind: instance method of Generator\nThrows:\nError Throws an error if the document is not valid.\nSince: 10/9/2023 - 4:26:33 PM\nParams\nasyncapiDocument * - The AsyncAPI document to be validated.\n\ngenerator.setupOutput()** :\nSets up the output configuration based on the specified output type.\nKind: instance method of Generator\nThrows:\nError If 'output' is set to 'string' without providing 'entrypoint'.\nExample1const generator = new Generator();\n2await generator.setupOutput();\ngenerator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration.\nThis function creates the target directory if it does not exist and verifies\nthe target directory if forceWrite is not enabled.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:\nError If verification of the target directory fails and forceWrite is not enabled.\n\ngenerator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option.\nIf the debug option is enabled, the log level is set to 'debug'.Kind: instance method of Generator\ngenerator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation.\nThis function installs the specified template using the provided installation option,\nsets up the necessary directory paths, loads the template configuration, and returns\ninformation about the installed template.Kind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template.generator.configureTemplateWorkflowConfigures the template workflow based on provided parsing options.This function performs the following steps:\nParses the input AsyncAPI document using the specified parse options.\nValidates the template configuration and parameters.\nConfigures the template based on the parsed AsyncAPI document.\nRegisters filters, hooks, and launches the 'generate:before' hook if applicable.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams\nparseOptions * - Options for parsing the AsyncAPI document.\n\ngenerator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint.\nIf an entrypoint is specified:\nResolves the absolute path of the entrypoint file.\nThrows an error if the entrypoint file doesn't exist.\nGenerates a file or renders content based on the output type.\nLaunches the 'generate:after' hook if the output is 'fs'.\nIf no entrypoint is specified, generates the directory structure.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed.\ngenerator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook.\nLaunches the after-hook to perform additional actions after code generation.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed.\ngenerator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value.\nKind: instance method of Generator\ngenerator.configureTemplate()** :\nConfigure the templates based the desired renderer.\nKind: instance method of Generatorgenerator.generateFromStringDeprecatedGenerates files from a given template and AsyncAPI string.Kind: instance method of Generator\nParams\nasyncapiString String - AsyncAPI string to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information.\nExample1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);Example (Using async/await)1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}generator.generateFromURLGenerates files from a given template and AsyncAPI file stored on external server.Kind: instance method of Generator\nParams\nasyncapiURL String - Link to AsyncAPI file\nExample1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.generateFromFileGenerates files from a given template and AsyncAPI file.Kind: instance method of Generator\nParams\nasyncapiFile String - AsyncAPI file to use as source.\nExample1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}generator.installTemplateDownloads and installs a template and its dependenciesKind: instance method of Generator\nParams\n[force] Boolean  = false - Whether to force installation (and skip cache) or not.\nGenerator.getTemplateFileReturns the content of a given template file.Kind: static method of Generator\nParams\ntemplateName String - Name of the template to generate.\nfilePath String - Path to the file to render. Relative to the template directory.\n[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed.\nExample1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');Example (Using a custom `templatesDir`)1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');"
+      },
+      {
+        "title": "new Generator",
+        "level": 3,
+        "text": "Instantiates a new Generator object.Params\ntemplateName String - Name of the template to generate.\ntargetDir String - Path to the directory where the files will be generated.\noptions Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file\n\n\n\n\nExample1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));Example (Passing custom params to the template)1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});\ngenerator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder.\nKind: instance property of Generator\ngenerator.registry : Object** :\nNpm registry information.\nKind: instance property of Generator\ngenerator.templateName : String** :\nName of the template to generate.\nKind: instance property of Generator\ngenerator.targetDir : String** :\nPath to the directory where the files will be generated.\nKind: instance property of Generator\ngenerator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\nKind: instance property of Generator\ngenerator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template.\nKind: instance property of Generator\ngenerator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\nKind: instance property of Generator\ngenerator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\nKind: instance property of Generator\ngenerator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\nKind: instance property of Generator\ngenerator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\nKind: instance property of Generator\ngenerator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed.\nKind: instance property of Generator\ngenerator.templateConfig : Object** :\nThe template configuration.\nKind: instance property of Generator\ngenerator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type.\nKind: instance property of Generator\ngenerator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder.\nKind: instance property of Generator\ngenerator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template.\nKind: instance property of Generator"
+      },
+      {
+        "title": "generator.generate",
+        "level": 3,
+        "text": "Generates files from a given template and an AsyncAPIDocument object.Kind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams\nasyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using.\nExample1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');Example1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+      },
+      {
+        "title": "generator.validateAsyncAPIDocument",
+        "level": 3,
+        "text": "Validates the provided AsyncAPI document.Kind: instance method of Generator\nThrows:\nError Throws an error if the document is not valid.\nSince: 10/9/2023 - 4:26:33 PM\nParams\nasyncapiDocument * - The AsyncAPI document to be validated.\n\ngenerator.setupOutput()** :\nSets up the output configuration based on the specified output type.\nKind: instance method of Generator\nThrows:\nError If 'output' is set to 'string' without providing 'entrypoint'.\nExample1const generator = new Generator();\n2await generator.setupOutput();\ngenerator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration.\nThis function creates the target directory if it does not exist and verifies\nthe target directory if forceWrite is not enabled.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:\nError If verification of the target directory fails and forceWrite is not enabled.\n\ngenerator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option.\nIf the debug option is enabled, the log level is set to 'debug'.Kind: instance method of Generator\ngenerator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation.\nThis function installs the specified template using the provided installation option,\nsets up the necessary directory paths, loads the template configuration, and returns\ninformation about the installed template.Kind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template."
+      },
+      {
+        "title": "generator.configureTemplateWorkflow",
+        "level": 3,
+        "text": "Configures the template workflow based on provided parsing options.This function performs the following steps:\nParses the input AsyncAPI document using the specified parse options.\nValidates the template configuration and parameters.\nConfigures the template based on the parsed AsyncAPI document.\nRegisters filters, hooks, and launches the 'generate:before' hook if applicable.\nKind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams\nparseOptions * - Options for parsing the AsyncAPI document.\n\ngenerator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint.\nIf an entrypoint is specified:\nResolves the absolute path of the entrypoint file.\nThrows an error if the entrypoint file doesn't exist.\nGenerates a file or renders content based on the output type.\nLaunches the 'generate:after' hook if the output is 'fs'.\nIf no entrypoint is specified, generates the directory structure.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed.\ngenerator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook.\nLaunches the after-hook to perform additional actions after code generation.Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed.\ngenerator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value.\nKind: instance method of Generator\ngenerator.configureTemplate()** :\nConfigure the templates based the desired renderer.\nKind: instance method of Generator"
+      },
+      {
+        "title": "generator.generateFromString",
+        "level": 3,
+        "text": "DeprecatedGenerates files from a given template and AsyncAPI string.Kind: instance method of Generator\nParams\nasyncapiString String - AsyncAPI string to use as source.\n[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information.\nExample1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);Example (Using async/await)1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}"
+      },
+      {
+        "title": "generator.generateFromURL",
+        "level": 3,
+        "text": "Generates files from a given template and AsyncAPI file stored on external server.Kind: instance method of Generator\nParams\nasyncapiURL String - Link to AsyncAPI file\nExample1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+      },
+      {
+        "title": "generator.generateFromFile",
+        "level": 3,
+        "text": "Generates files from a given template and AsyncAPI file.Kind: instance method of Generator\nParams\nasyncapiFile String - AsyncAPI file to use as source.\nExample1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);Example (Using async/await)1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}"
+      },
+      {
+        "title": "generator.installTemplate",
+        "level": 3,
+        "text": "Downloads and installs a template and its dependenciesKind: instance method of Generator\nParams\n[force] Boolean  = false - Whether to force installation (and skip cache) or not."
+      },
+      {
+        "title": "Generator.getTemplateFile",
+        "level": 3,
+        "text": "Returns the content of a given template file.Kind: static method of Generator\nParams\ntemplateName String - Name of the template to generate.\nfilePath String - Path to the file to render. Relative to the template directory.\n[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed.\nExample1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');Example (Using a custom `templatesDir`)1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_8",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_9",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_10",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_11",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_12",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_13",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const </span><span style=\"color:#7edcda\">path</span><span> = require(</span><span style=\"color:#c0e2a3;font-weight:500\">'path'</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const </span><span style=\"color:#7edcda\">generator</span><span> = new Generator(</span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/html-template'</span><span>, path.resolve(__dirname, </span><span style=\"color:#c0e2a3;font-weight:500\">'example'</span><span>))</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'), {\n3  templateParams: {\n4    sidebarOrganization: 'byTags'\n5  }\n6});",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const path = require(</span><span style=\"color:#64a0dc\">'path</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const generator = new Generator(</span><span style=\"color:#64a0dc\">'@asyncapi/html-template</span><span>', path.resolve(</span><span style=\"color:#64a0dc\">__dirname</span><span>, </span><span style=\"color:#64a0dc\">'example</span><span>'), {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>  templateParams: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    sidebarOrganization: </span><span style=\"color:#64a0dc\">'byTags</span><span>'\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>})</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1await generator.generate(myAsyncAPIdocument);\n2console.log('Done!');",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>await generator.generate(</span><span style=\"color:#64a0dc\">myAsyncAPIdocument</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1generator\n2  .generate(myAsyncAPIdocument)\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>generator\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  .generate(myAsyncAPIdocument)\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  .</span><span style=\"color:#64a0dc\">then</span><span>(</span><span style=\"color:#d6deeb\">()</span><span style=\"color:#74e287\"> =&gt;</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">console</span><span>.log(</span><span style=\"color:#c0e2a3;font-weight:500\">'Done!'</span><span>);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  })\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  .</span><span style=\"color:#64a0dc\">catch</span><span>(</span><span style=\"color:#7edcda\">console</span><span>.error);</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1try {\n2  await generator.generate(myAsyncAPIdocument);\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>try {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  await generator.generate(</span><span style=\"color:#64a0dc\">myAsyncAPIdocument</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  console.log(</span><span style=\"color:#64a0dc\">'Done!'</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>} catch (</span><span style=\"color:#64a0dc\">e</span><span>) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  console.error(</span><span style=\"color:#64a0dc\">e</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1const generator = new Generator();\n2await generator.setupOutput();",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">const</span><span> </span><span style=\"color:#7edcda\">generator</span><span> = </span><span style=\"color:#64a0dc\">new</span><span> </span><span style=\"color:#7edcda\">Generator</span><span>();\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>await </span><span style=\"color:#7edcda\">generator</span><span>.setupOutput();</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8generator\n9  .generateFromString(asyncapiString)\n10  .then(() => {\n11    console.log('Done!');\n12  })\n13  .catch(console.error);",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const asyncapiString = `\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>asyncapi: </span><span style=\"color:#64a0dc\">'2.0.0</span><span>'\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>info:\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  title: Example\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  version: </span><span style=\"color:#d8da68\">1.0</span><span>.</span><span style=\"color:#d8da68\">0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>...\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>generator\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>  .generateFromString(</span><span style=\"color:#64a0dc\">asyncapiString</span><span>)\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>  .then(() =&gt; {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>  })\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>  .catch(</span><span style=\"color:#64a0dc\">console.error</span><span>)</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "1const asyncapiString = `\n2asyncapi: '2.0.0'\n3info:\n4  title: Example\n5  version: 1.0.0\n6...\n7`;\n8\n9try {\n10  await generator.generateFromString(asyncapiString);\n11  console.log('Done!');\n12} catch (e) {\n13  console.error(e);\n14}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const asyncapiString = `\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>asyncapi: </span><span style=\"color:#64a0dc\">'2.0.0</span><span>'\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>info:\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  title: Example\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  version: </span><span style=\"color:#d8da68\">1.0</span><span>.</span><span style=\"color:#d8da68\">0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>...\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>try {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>  await generator.generateFromString(</span><span style=\"color:#64a0dc\">asyncapiString</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>  console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>} catch (</span><span style=\"color:#64a0dc\">e</span><span>) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>  console.error(</span><span style=\"color:#64a0dc\">e</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_8",
+        "content": "1generator\n2  .generateFromURL('https://example.com/asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>generator\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  .generateFromURL(</span><span style=\"color:#64a0dc\">'https://example.com/asyncapi.yaml</span><span>')\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>  .then(() =&gt; {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  })\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  .catch(</span><span style=\"color:#64a0dc\">console.error</span><span>)</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_9",
+        "content": "1try {\n2  await generator.generateFromURL('https://example.com/asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>try {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  await generator.generateFromURL(</span><span style=\"color:#64a0dc\">'https://example.com/asyncapi.yaml</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>} catch (</span><span style=\"color:#64a0dc\">e</span><span>) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  console.error(</span><span style=\"color:#64a0dc\">e</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_10",
+        "content": "1generator\n2  .generateFromFile('asyncapi.yaml')\n3  .then(() => {\n4    console.log('Done!');\n5  })\n6  .catch(console.error);",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>generator\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  .generateFromFile(</span><span style=\"color:#64a0dc\">'asyncapi.yaml</span><span>')\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>  .then(() =&gt; {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  })\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  .catch(</span><span style=\"color:#64a0dc\">console.error</span><span>)</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_11",
+        "content": "1try {\n2  await generator.generateFromFile('asyncapi.yaml');\n3  console.log('Done!');\n4} catch (e) {\n5  console.error(e);\n6}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>try {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  await generator.generateFromFile(</span><span style=\"color:#64a0dc\">'asyncapi.yaml</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  console.log(</span><span style=\"color:#64a0dc\">'Done!</span><span>')</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>} catch (</span><span style=\"color:#64a0dc\">e</span><span>) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  console.error(</span><span style=\"color:#64a0dc\">e</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_12",
+        "content": "1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html');",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const </span><span style=\"color:#7edcda\">Generator</span><span> = require(</span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/generator'</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const </span><span style=\"color:#7edcda\">content</span><span> = await Generator.getTemplateFile(</span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/html-template'</span><span>, </span><span style=\"color:#c0e2a3;font-weight:500\">'partials/content.html'</span><span>)</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_13",
+        "content": "1const Generator = require('@asyncapi/generator');\n2const content = await Generator.getTemplateFile('@asyncapi/html-template', 'partials/content.html', '~/my-templates');",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const Generator = require('@asyncapi/generator');\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const content = await </span><span class=\"hljs-module-access hljs-module hljs-identifier\">Generator</span><span class=\"hljs-module-access hljs-module\">.</span><span>get</span><span class=\"hljs-constructor\">TemplateFile('@</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">asyncapi</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">html</span><span class=\"hljs-constructor\">-</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">template</span><span class=\"hljs-constructor\">', '</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">partials</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">content</span><span class=\"hljs-constructor\">.</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">html</span><span class=\"hljs-constructor\">', '~</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">my</span><span class=\"hljs-constructor\">-</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">templates</span><span class=\"hljs-constructor\">')</span><span>;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "Boolean",
+        "context": ".compile : Boolean"
+      },
+      {
+        "id": "highlight_1",
+        "content": "Object",
+        "context": ".registry : Object"
+      },
+      {
+        "id": "highlight_2",
+        "content": "String",
+        "context": ".templateName : String"
+      },
+      {
+        "id": "highlight_3",
+        "content": "String",
+        "context": ".targetDir : String"
+      },
+      {
+        "id": "highlight_4",
+        "content": "String",
+        "context": ".entrypoint : String"
+      },
+      {
+        "id": "highlight_5",
+        "content": "Array.<String>",
+        "context": ".noOverwriteGlobs : Array.<String>"
+      },
+      {
+        "id": "highlight_6",
+        "content": "Object.<String, (Boolean|String|Array.<String>)>",
+        "context": ".disabledHooks : Object.<String, (Boolean|String|Array.<String>)>"
+      },
+      {
+        "id": "highlight_7",
+        "content": "String",
+        "context": ".output : String"
+      },
+      {
+        "id": "highlight_8",
+        "content": "Boolean",
+        "context": ".forceWrite : Boolean"
+      },
+      {
+        "id": "highlight_9",
+        "content": "Boolean",
+        "context": ".debug : Boolean"
+      },
+      {
+        "id": "highlight_10",
+        "content": "Boolean",
+        "context": ".install : Boolean"
+      },
+      {
+        "id": "highlight_11",
+        "content": "Object",
+        "context": ".templateConfig : Object"
+      },
+      {
+        "id": "highlight_12",
+        "content": "Object",
+        "context": ".hooks : Object"
+      },
+      {
+        "id": "highlight_13",
+        "content": "Object",
+        "context": ".mapBaseUrlToFolder : Object"
+      },
+      {
+        "id": "highlight_14",
+        "content": "Object",
+        "context": ".templateParams : Object"
+      },
+      {
+        "id": "highlight_15",
+        "content": "Promise.<void>",
+        "context": ".generate(asyncapiDocument, [parseOptions]) ⇒ Promise.<void>"
+      },
+      {
+        "id": "highlight_16",
+        "content": "Promise.<void>",
+        "context": ".setupFSOutput() ⇒ Promise.<void>"
+      },
+      {
+        "id": "highlight_17",
+        "content": "void",
+        "context": ".setLogLevel() ⇒ void"
+      },
+      {
+        "id": "highlight_18",
+        "content": "Promise.<{templatePkgName: string, templatePkgPath: string}>",
+        "context": ".installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>"
+      },
+      {
+        "id": "highlight_19",
+        "content": "Promise.<void>",
+        "context": ".configureTemplateWorkflow(parseOptions) ⇒ Promise.<void>"
+      },
+      {
+        "id": "highlight_20",
+        "content": "Promise.<void>",
+        "context": ".handleEntrypoint() ⇒ Promise.<void>"
+      },
+      {
+        "id": "highlight_21",
+        "content": "Promise.<void>",
+        "context": ".executeAfterHook() ⇒ Promise.<void>"
+      },
+      {
+        "id": "highlight_22",
+        "content": "Promise.<(TemplateRenderResult|undefined)>",
+        "context": ".generateFromString(asyncapiString, [parseOptions]) ⇒ Promise.<(TemplateRenderResult|undefined)>"
+      },
+      {
+        "id": "highlight_23",
+        "content": "Promise.<(TemplateRenderResult|undefined)>",
+        "context": ".generateFromURL(asyncapiURL) ⇒ Promise.<(TemplateRenderResult|undefined)>"
+      },
+      {
+        "id": "highlight_24",
+        "content": "Promise.<(TemplateRenderResult|undefined)>",
+        "context": ".generateFromFile(asyncapiFile) ⇒ Promise.<(TemplateRenderResult|undefined)>"
+      },
+      {
+        "id": "highlight_25",
+        "content": "Promise",
+        "context": ".getTemplateFile(templateName, filePath, [templatesDir]) ⇒ Promise"
+      },
+      {
+        "id": "highlight_26",
+        "content": "String",
+        "context": "templateName String - Name of the template to generate."
+      },
+      {
+        "id": "highlight_27",
+        "content": "String",
+        "context": "targetDir String - Path to the directory where the files will be generated."
+      },
+      {
+        "id": "highlight_28",
+        "content": "Object",
+        "context": "options Object\n\n[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params.\n[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template.\n[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template.\n[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array.\n[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set.\n[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false.\n[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed.\n[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive.\n[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder\n[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ .\n[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file"
+      },
+      {
+        "id": "highlight_29",
+        "content": "Object.<string, string>",
+        "context": "[.templateParams] Object.<string, string> - Optional parameters to pass to the template. Each template define their own params."
+      },
+      {
+        "id": "highlight_30",
+        "content": "String",
+        "context": "[.entrypoint] String - Name of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template."
+      },
+      {
+        "id": "highlight_31",
+        "content": "Array.<String>",
+        "context": "[.noOverwriteGlobs] Array.<String> - List of globs to skip when regenerating the template."
+      },
+      {
+        "id": "highlight_32",
+        "content": "Object.<String, (Boolean|String|Array.<String>)>",
+        "context": "[.disabledHooks] Object.<String, (Boolean|String|Array.<String>)> - Object with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array."
+      },
+      {
+        "id": "highlight_33",
+        "content": "String",
+        "context": "[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set."
+      },
+      {
+        "id": "highlight_34",
+        "content": "= 'fs'",
+        "context": "[.output] String  = 'fs' - Type of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set."
+      },
+      {
+        "id": "highlight_35",
+        "content": "Boolean",
+        "context": "[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false."
+      },
+      {
+        "id": "highlight_36",
+        "content": "= false",
+        "context": "[.forceWrite] Boolean  = false - Force writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false."
+      },
+      {
+        "id": "highlight_37",
+        "content": "Boolean",
+        "context": "[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed."
+      },
+      {
+        "id": "highlight_38",
+        "content": "= false",
+        "context": "[.install] Boolean  = false - Install the template and its dependencies, even when the template has already been installed."
+      },
+      {
+        "id": "highlight_39",
+        "content": "Boolean",
+        "context": "[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive."
+      },
+      {
+        "id": "highlight_40",
+        "content": "= false",
+        "context": "[.debug] Boolean  = false - Enable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive."
+      },
+      {
+        "id": "highlight_41",
+        "content": "Boolean",
+        "context": "[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder"
+      },
+      {
+        "id": "highlight_42",
+        "content": "= true",
+        "context": "[.compile] Boolean  = true - Whether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder"
+      },
+      {
+        "id": "highlight_43",
+        "content": "Object.<String, String>",
+        "context": "[.mapBaseUrlToFolder] Object.<String, String> - Optional parameter to map schema references from a base url to a local base folder e.g. url=https://schema.example.com/crm/  folder=./test/docs/ ."
+      },
+      {
+        "id": "highlight_44",
+        "content": "Object",
+        "context": "[.registry] Object - Optional parameter with private registry configuration\n\n[.url] String - Parameter to pass npm registry url\n[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded\n[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file"
+      },
+      {
+        "id": "highlight_45",
+        "content": "String",
+        "context": "[.url] String - Parameter to pass npm registry url"
+      },
+      {
+        "id": "highlight_46",
+        "content": "String",
+        "context": "[.auth] String - Optional parameter to pass npm registry username and password encoded with base64, formatted like username:password value should be encoded"
+      },
+      {
+        "id": "highlight_47",
+        "content": "String",
+        "context": "[.token] String - Optional parameter to pass npm registry auth token that you can grab from .npmrc file"
+      },
+      {
+        "id": "highlight_48",
+        "content": "Boolean",
+        "context": "generator.compile : Boolean** :\nWhether to compile the template or use the cached transpiled version provided by template in '__transpiled' folder."
+      },
+      {
+        "id": "highlight_49",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_50",
+        "content": "Object",
+        "context": "generator.registry : Object** :\nNpm registry information."
+      },
+      {
+        "id": "highlight_51",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_52",
+        "content": "String",
+        "context": "generator.templateName : String** :\nName of the template to generate."
+      },
+      {
+        "id": "highlight_53",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_54",
+        "content": "String",
+        "context": "generator.targetDir : String** :\nPath to the directory where the files will be generated."
+      },
+      {
+        "id": "highlight_55",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_56",
+        "content": "String",
+        "context": "generator.entrypoint : String** :\nName of the file to use as the entry point for the rendering process. Use in case you want to use only a specific template file. Note: this potentially avoids rendering every file in the template."
+      },
+      {
+        "id": "highlight_57",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_58",
+        "content": "Array.<String>",
+        "context": "generator.noOverwriteGlobs : Array.<String>** :\nList of globs to skip when regenerating the template."
+      },
+      {
+        "id": "highlight_59",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_60",
+        "content": "Object.<String, (Boolean|String|Array.<String>)>",
+        "context": "generator.disabledHooks : Object.<String, (Boolean|String|Array.<String>)>** :\nObject with hooks to disable. The key is a hook type. If key has \"true\" value, then the generator skips all hooks from the given type. If the value associated with a key is a string with the name of a single hook, then the generator skips only this single hook name. If the value associated with a key is an array of strings, then the generator skips only hooks from the array."
+      },
+      {
+        "id": "highlight_61",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_62",
+        "content": "String",
+        "context": "generator.output : String** :\nType of output. Can be either 'fs' (default) or 'string'. Only available when entrypoint is set."
+      },
+      {
+        "id": "highlight_63",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_64",
+        "content": "Boolean",
+        "context": "generator.forceWrite : Boolean** :\nForce writing of the generated files to given directory even if it is a git repo with unstaged files or not empty dir. Default is set to false."
+      },
+      {
+        "id": "highlight_65",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_66",
+        "content": "Boolean",
+        "context": "generator.debug : Boolean** :\nEnable more specific errors in the console. At the moment it only shows specific errors about filters. Keep in mind that as a result errors about template are less descriptive."
+      },
+      {
+        "id": "highlight_67",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_68",
+        "content": "Boolean",
+        "context": "generator.install : Boolean** :\nInstall the template and its dependencies, even when the template has already been installed."
+      },
+      {
+        "id": "highlight_69",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_70",
+        "content": "Object",
+        "context": "generator.templateConfig : Object** :\nThe template configuration."
+      },
+      {
+        "id": "highlight_71",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_72",
+        "content": "Object",
+        "context": "generator.hooks : Object** :\nHooks object with hooks functions grouped by the hook type."
+      },
+      {
+        "id": "highlight_73",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_74",
+        "content": "Object",
+        "context": "generator.mapBaseUrlToFolder : Object** :\nMaps schema URL to folder."
+      },
+      {
+        "id": "highlight_75",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_76",
+        "content": "Object",
+        "context": "generator.templateParams : Object** :\nThe template parameters. The structure for this object is based on each individual template."
+      },
+      {
+        "id": "highlight_77",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_78",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_79",
+        "content": "Promise.<void>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<void> - A Promise that resolves when the generation is completed.\nParams"
+      },
+      {
+        "id": "highlight_80",
+        "content": "AsyncAPIDocument",
+        "context": "asyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source."
+      },
+      {
+        "id": "highlight_81",
+        "content": "string",
+        "context": "asyncapiDocument AsyncAPIDocument | string - AsyncAPIDocument object to use as source."
+      },
+      {
+        "id": "highlight_82",
+        "content": "Object",
+        "context": "[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using."
+      },
+      {
+        "id": "highlight_83",
+        "content": "= {}",
+        "context": "[parseOptions] Object  = {} - AsyncAPI Parser parse options.\nCheck out @asyncapi/parser for more information.\nRemember to use the right options for the right parser depending on the template you are using."
+      },
+      {
+        "id": "highlight_84",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_85",
+        "content": "Error",
+        "context": "Error Throws an error if the document is not valid."
+      },
+      {
+        "id": "highlight_86",
+        "content": "*",
+        "context": "asyncapiDocument * - The AsyncAPI document to be validated."
+      },
+      {
+        "id": "highlight_87",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_88",
+        "content": "Error",
+        "context": "Error If 'output' is set to 'string' without providing 'entrypoint'."
+      },
+      {
+        "id": "highlight_89",
+        "content": "Promise.<void>",
+        "context": "generator.setupFSOutput() ⇒ Promise.<void>** :\nSets up the file system (FS) output configuration."
+      },
+      {
+        "id": "highlight_90",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_91",
+        "content": "Promise.<void>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<void> - A promise that fulfills when the setup is complete.\nThrows:"
+      },
+      {
+        "id": "highlight_92",
+        "content": "Error",
+        "context": "Error If verification of the target directory fails and forceWrite is not enabled."
+      },
+      {
+        "id": "highlight_93",
+        "content": "void",
+        "context": "generator.setLogLevel() ⇒ void** :\nSets the log level based on the debug option."
+      },
+      {
+        "id": "highlight_94",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_95",
+        "content": "Promise.<{templatePkgName: string, templatePkgPath: string}>",
+        "context": "generator.installAndSetupTemplate() ⇒ Promise.<{templatePkgName: string, templatePkgPath: string}>** :\nInstalls and sets up the template for code generation."
+      },
+      {
+        "id": "highlight_96",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_97",
+        "content": "Promise.<{templatePkgName: string, templatePkgPath: string}>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<{templatePkgName: string, templatePkgPath: string}> - A promise that resolves to an object containing the name and path of the installed template."
+      },
+      {
+        "id": "highlight_98",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_99",
+        "content": "Promise.<void>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the configuration is completed.\nParams"
+      },
+      {
+        "id": "highlight_100",
+        "content": "*",
+        "context": "parseOptions * - Options for parsing the AsyncAPI document."
+      },
+      {
+        "id": "highlight_101",
+        "content": "Promise.<void>",
+        "context": "generator.handleEntrypoint() ⇒ Promise.<void>** :\nHandles the logic for the template entrypoint."
+      },
+      {
+        "id": "highlight_102",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_103",
+        "content": "Promise.<void>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the entrypoint logic is completed."
+      },
+      {
+        "id": "highlight_104",
+        "content": "Promise.<void>",
+        "context": "generator.executeAfterHook() ⇒ Promise.<void>** :\nExecutes the 'generate:after' hook."
+      },
+      {
+        "id": "highlight_105",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_106",
+        "content": "Promise.<void>",
+        "context": "Kind: instance method of Generator\nReturns: Promise.<void> - A promise that resolves when the after-hook execution is completed."
+      },
+      {
+        "id": "highlight_107",
+        "content": "templateConfig.apiVersion",
+        "context": "generator.parseInput()** :\nParse the generator input based on the template templateConfig.apiVersion value."
+      },
+      {
+        "id": "highlight_108",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_109",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_110",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_111",
+        "content": "String",
+        "context": "asyncapiString String - AsyncAPI string to use as source."
+      },
+      {
+        "id": "highlight_112",
+        "content": "Object",
+        "context": "[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information."
+      },
+      {
+        "id": "highlight_113",
+        "content": "= {}",
+        "context": "[parseOptions] Object  = {} - AsyncAPI Parser parse options. Check out @asyncapi/parser for more information."
+      },
+      {
+        "id": "highlight_114",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_115",
+        "content": "String",
+        "context": "asyncapiURL String - Link to AsyncAPI file"
+      },
+      {
+        "id": "highlight_116",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_117",
+        "content": "String",
+        "context": "asyncapiFile String - AsyncAPI file to use as source."
+      },
+      {
+        "id": "highlight_118",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_119",
+        "content": "Boolean",
+        "context": "[force] Boolean  = false - Whether to force installation (and skip cache) or not."
+      },
+      {
+        "id": "highlight_120",
+        "content": "= false",
+        "context": "[force] Boolean  = false - Whether to force installation (and skip cache) or not."
+      },
+      {
+        "id": "highlight_121",
+        "content": "Generator",
+        "context": "Generator"
+      },
+      {
+        "id": "highlight_122",
+        "content": "String",
+        "context": "templateName String - Name of the template to generate."
+      },
+      {
+        "id": "highlight_123",
+        "content": "String",
+        "context": "filePath String - Path to the file to render. Relative to the template directory."
+      },
+      {
+        "id": "highlight_124",
+        "content": "String",
+        "context": "[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed."
+      },
+      {
+        "id": "highlight_125",
+        "content": "= DEFAULT_TEMPLATES_DIR",
+        "context": "[templatesDir] String  = DEFAULT_TEMPLATES_DIR - Path to the directory where the templates are installed."
+      }
+    ]
+  }
+}

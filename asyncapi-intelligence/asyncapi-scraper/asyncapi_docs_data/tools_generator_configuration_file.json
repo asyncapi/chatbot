@@ -1,0 +1,533 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/configuration-file",
+    "timestamp": "2025-03-12T17:51:55.808Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Configuration File",
+    "hierarchy": {
+      "sections": {
+        "Example": {
+          "level": 3,
+          "content": "1\"generator\":\n2{\n3  \"renderer\": \"react\",\n4  \"apiVersion\": \"v3\",\n5  \"supportedProtocols\": [\"amqp\", \"mqtt\"],\n6  \"parameters\": {\n7    \"server\": {\n8      \"description\": \"The server you want to use in the code.\",\n9      \"required\": true\n10    },\n11    \"dummyParameter\": {\n12      \"description\": \"Example of parameter with default value.\",\n13      \"default\": \"just a string\",\n14      \"required\": false\n15    }\n16  },\n17  \"conditionalFiles\": {\n18    \"path/to/file/that/is/relative/to/template/dir/test-amqp.js\": {\n19      \"subject\": \"server.protocol\",\n20      \"validation\": {\n21        \"const\": \"amqp\"\n22      }\n23    },\n24    \"path/to/file/that/is/relative/to/template/dir/support.html\": {\n25      \"subject\": \"info.contact\",\n26        \"validation\": {\n27          \"required\": [\"url\"]\n28        }\n29    }\n30  },\n31  \"nonRenderableFiles\": [\n32    \"src/api/middlewares/*.*\",\n33    \"lib/lib/config.js\"\n34  ],\n35  \"generator\": \"<2.0.0\",\n36  \"filters\":[\n37    \"my-package-with-filters\"\n38  ],\n39  \"hooks\": {\n40    \"@asyncapi/generator-hooks\": \"hookFunctionName\",\n41    \"my-custom-hooks-package\": [\"myHook\", \"andAnotherOne\"]\n42  }\n43}"
+        },
+        "Special parameters": {
+          "level": 2,
+          "content": "There are some template parameters that have a special meaning:NameDescriptionserverIt is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "The generator property from package.json file must contain a JSON object that may have the following information:\nNameTypeDescriptionrendererStringIts value can be either react or nunjucks (default).apiVersionStringDetermines which major version of the Parser-API the template uses. For example, v2 for v2.x.x. If not specified, the Generator assumes the template is not compatible with the Parser-API so it will use the Parser-JS v1 API. For templates that need to support AsyncAPI specification v3 make sure to use v3 Parser-API. If the template uses a version of the Parser-API that is not supported by the Generator, the Generator will throw an error.supportedProtocols[String]A list with all the protocols this template supports.parametersObject[String, Object]An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value.parameters[param].descriptionStringA user-friendly description about the parameter.parameters[param].defaultAnyDefault value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters.parameters[param].requiredBooleanWhether the parameter is required or not.conditionalFilesObject[String, Object]An object containing all the file paths that should be conditionally rendered. Each key represents a file path and each value must be an object with the keys subject and validation. The file path should be relative to the template directory inside the template.conditionalFiles[filePath].subjectStringThe subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters.conditionalFiles[filePath].validationObjectThe validation is a JSON Schema Draft 07 object. This JSON Schema definition will be applied to the JSON value resulting from the subject query. If validation doesn't have errors, the condition is met, and therefore the given file will be rendered. Otherwise, the file is ignored. Check JSON Schema Validation document for a list of all possible validation keywords.nonRenderableFiles[String]A list of file paths or globs that must be copied \"as-is\" to the target directory, i.e., without performing any rendering process. This is useful when you want to copy binary files.generator[String]A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver.filters[String]A list of modules containing functions that can be used as Nunjucks filters. In case of external modules, remember they need to be added as a dependency in package.json of your template.hooksObject[String, String] or Object[String, Array[String]]A list of modules containing hooks, except for the ones you keep locally in your template in the default location. For each module you must specify the exact name of the hook that should be used in the template. For a single hook, you can specify it as a string; for more hooks, you must pass an array of strings. In the case of external modules, remember they need to be added as a dependency in package.json of your template. There is also an official hooks library always included in the generator. As this is a library of multiple hooks, you still need to explicitly specify in the configuration which one you want to use. Use @asyncapi/generator-hooks as the library name.\nExample\n1\"generator\":\n2{\n3  \"renderer\": \"react\",\n4  \"apiVersion\": \"v3\",\n5  \"supportedProtocols\": [\"amqp\", \"mqtt\"],\n6  \"parameters\": {\n7    \"server\": {\n8      \"description\": \"The server you want to use in the code.\",\n9      \"required\": true\n10    },\n11    \"dummyParameter\": {\n12      \"description\": \"Example of parameter with default value.\",\n13      \"default\": \"just a string\",\n14      \"required\": false\n15    }\n16  },\n17  \"conditionalFiles\": {\n18    \"path/to/file/that/is/relative/to/template/dir/test-amqp.js\": {\n19      \"subject\": \"server.protocol\",\n20      \"validation\": {\n21        \"const\": \"amqp\"\n22      }\n23    },\n24    \"path/to/file/that/is/relative/to/template/dir/support.html\": {\n25      \"subject\": \"info.contact\",\n26        \"validation\": {\n27          \"required\": [\"url\"]\n28        }\n29    }\n30  },\n31  \"nonRenderableFiles\": [\n32    \"src/api/middlewares/*.*\",\n33    \"lib/lib/config.js\"\n34  ],\n35  \"generator\": \"<2.0.0\",\n36  \"filters\":[\n37    \"my-package-with-filters\"\n38  ],\n39  \"hooks\": {\n40    \"@asyncapi/generator-hooks\": \"hookFunctionName\",\n41    \"my-custom-hooks-package\": [\"myHook\", \"andAnotherOne\"]\n42  }\n43}\nSpecial parameters\nThere are some template parameters that have a special meaning:\nNameDescriptionserverIt is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory.",
+    "sections": [
+      {
+        "title": "Example",
+        "level": 3,
+        "text": "1\"generator\":\n2{\n3  \"renderer\": \"react\",\n4  \"apiVersion\": \"v3\",\n5  \"supportedProtocols\": [\"amqp\", \"mqtt\"],\n6  \"parameters\": {\n7    \"server\": {\n8      \"description\": \"The server you want to use in the code.\",\n9      \"required\": true\n10    },\n11    \"dummyParameter\": {\n12      \"description\": \"Example of parameter with default value.\",\n13      \"default\": \"just a string\",\n14      \"required\": false\n15    }\n16  },\n17  \"conditionalFiles\": {\n18    \"path/to/file/that/is/relative/to/template/dir/test-amqp.js\": {\n19      \"subject\": \"server.protocol\",\n20      \"validation\": {\n21        \"const\": \"amqp\"\n22      }\n23    },\n24    \"path/to/file/that/is/relative/to/template/dir/support.html\": {\n25      \"subject\": \"info.contact\",\n26        \"validation\": {\n27          \"required\": [\"url\"]\n28        }\n29    }\n30  },\n31  \"nonRenderableFiles\": [\n32    \"src/api/middlewares/*.*\",\n33    \"lib/lib/config.js\"\n34  ],\n35  \"generator\": \"<2.0.0\",\n36  \"filters\":[\n37    \"my-package-with-filters\"\n38  ],\n39  \"hooks\": {\n40    \"@asyncapi/generator-hooks\": \"hookFunctionName\",\n41    \"my-custom-hooks-package\": [\"myHook\", \"andAnotherOne\"]\n42  }\n43}"
+      },
+      {
+        "title": "Special parameters",
+        "level": 2,
+        "text": "There are some template parameters that have a special meaning:NameDescriptionserverIt is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1\"generator\":\n2{\n3  \"renderer\": \"react\",\n4  \"apiVersion\": \"v3\",\n5  \"supportedProtocols\": [\"amqp\", \"mqtt\"],\n6  \"parameters\": {\n7    \"server\": {\n8      \"description\": \"The server you want to use in the code.\",\n9      \"required\": true\n10    },\n11    \"dummyParameter\": {\n12      \"description\": \"Example of parameter with default value.\",\n13      \"default\": \"just a string\",\n14      \"required\": false\n15    }\n16  },\n17  \"conditionalFiles\": {\n18    \"path/to/file/that/is/relative/to/template/dir/test-amqp.js\": {\n19      \"subject\": \"server.protocol\",\n20      \"validation\": {\n21        \"const\": \"amqp\"\n22      }\n23    },\n24    \"path/to/file/that/is/relative/to/template/dir/support.html\": {\n25      \"subject\": \"info.contact\",\n26        \"validation\": {\n27          \"required\": [\"url\"]\n28        }\n29    }\n30  },\n31  \"nonRenderableFiles\": [\n32    \"src/api/middlewares/*.*\",\n33    \"lib/lib/config.js\"\n34  ],\n35  \"generator\": \"<2.0.0\",\n36  \"filters\":[\n37    \"my-package-with-filters\"\n38  ],\n39  \"hooks\": {\n40    \"@asyncapi/generator-hooks\": \"hookFunctionName\",\n41    \"my-custom-hooks-package\": [\"myHook\", \"andAnotherOne\"]\n42  }\n43}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">\"generator\"</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>{\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"renderer\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"react\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">\"apiVersion\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"v3\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">\"supportedProtocols\"</span><span>: [</span><span style=\"color:#c0e2a3;font-weight:500\">\"amqp\"</span><span>, </span><span style=\"color:#c0e2a3;font-weight:500\">\"mqtt\"</span><span>],\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">\"parameters\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">\"server\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>      </span><span style=\"color:#7edcda\">\"description\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"The server you want to use in the code.\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>      </span><span style=\"color:#7edcda\">\"required\"</span><span>: </span><span style=\"color:#64a0dc\">true</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">\"dummyParameter\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>      </span><span style=\"color:#7edcda\">\"description\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"Example of parameter with default value.\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#7edcda\">\"default\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"just a string\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#7edcda\">\"required\"</span><span>: </span><span style=\"color:#64a0dc\">false</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>    }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span>  },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">\"conditionalFiles\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">\"path/to/file/that/is/relative/to/template/dir/test-amqp.js\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>      </span><span style=\"color:#7edcda\">\"subject\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"server.protocol\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>      </span><span style=\"color:#7edcda\">\"validation\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>        </span><span style=\"color:#7edcda\">\"const\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"amqp\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span>      }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span>    </span><span style=\"color:#7edcda\">\"path/to/file/that/is/relative/to/template/dir/support.html\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span>      </span><span style=\"color:#7edcda\">\"subject\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"info.contact\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>        </span><span style=\"color:#7edcda\">\"validation\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>          </span><span style=\"color:#7edcda\">\"required\"</span><span>: [</span><span style=\"color:#c0e2a3;font-weight:500\">\"url\"</span><span>]\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span>        }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span>    }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span>  },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">31</span><span>  </span><span style=\"color:#7edcda\">\"nonRenderableFiles\"</span><span>: [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">32</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">\"src/api/middlewares/*.*\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">33</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">\"lib/lib/config.js\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">34</span>  ],\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">35</span><span>  </span><span style=\"color:#7edcda\">\"generator\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"&lt;2.0.0\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">36</span><span>  </span><span style=\"color:#7edcda\">\"filters\"</span><span>:[\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">37</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">\"my-package-with-filters\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">38</span>  ],\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">39</span><span>  </span><span style=\"color:#7edcda\">\"hooks\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">40</span><span>    </span><span style=\"color:#7edcda\">\"@asyncapi/generator-hooks\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"hookFunctionName\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">41</span><span>    </span><span style=\"color:#7edcda\">\"my-custom-hooks-package\"</span><span>: [</span><span style=\"color:#c0e2a3;font-weight:500\">\"myHook\"</span><span>, </span><span style=\"color:#c0e2a3;font-weight:500\">\"andAnotherOne\"</span><span>]\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">42</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">43</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Name": "renderer",
+            "Type": "String",
+            "Description": "Its value can be either react or nunjucks (default)."
+          },
+          {
+            "Name": "apiVersion",
+            "Type": "String",
+            "Description": "Determines which major version of the Parser-API the template uses. For example, v2 for v2.x.x. If not specified, the Generator assumes the template is not compatible with the Parser-API so it will use the Parser-JS v1 API. For templates that need to support AsyncAPI specification v3 make sure to use v3 Parser-API. If the template uses a version of the Parser-API that is not supported by the Generator, the Generator will throw an error."
+          },
+          {
+            "Name": "supportedProtocols",
+            "Type": "[String]",
+            "Description": "A list with all the protocols this template supports."
+          },
+          {
+            "Name": "parameters",
+            "Type": "Object[String, Object]",
+            "Description": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+          },
+          {
+            "Name": "parameters[param].description",
+            "Type": "String",
+            "Description": "A user-friendly description about the parameter."
+          },
+          {
+            "Name": "parameters[param].default",
+            "Type": "Any",
+            "Description": "Default value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters."
+          },
+          {
+            "Name": "parameters[param].required",
+            "Type": "Boolean",
+            "Description": "Whether the parameter is required or not."
+          },
+          {
+            "Name": "conditionalFiles",
+            "Type": "Object[String, Object]",
+            "Description": "An object containing all the file paths that should be conditionally rendered. Each key represents a file path and each value must be an object with the keys subject and validation. The file path should be relative to the template directory inside the template."
+          },
+          {
+            "Name": "conditionalFiles[filePath].subject",
+            "Type": "String",
+            "Description": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+          },
+          {
+            "Name": "conditionalFiles[filePath].validation",
+            "Type": "Object",
+            "Description": "The validation is a JSON Schema Draft 07 object. This JSON Schema definition will be applied to the JSON value resulting from the subject query. If validation doesn't have errors, the condition is met, and therefore the given file will be rendered. Otherwise, the file is ignored. Check JSON Schema Validation document for a list of all possible validation keywords."
+          },
+          {
+            "Name": "nonRenderableFiles",
+            "Type": "[String]",
+            "Description": "A list of file paths or globs that must be copied \"as-is\" to the target directory, i.e., without performing any rendering process. This is useful when you want to copy binary files."
+          },
+          {
+            "Name": "generator",
+            "Type": "[String]",
+            "Description": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+          },
+          {
+            "Name": "filters",
+            "Type": "[String]",
+            "Description": "A list of modules containing functions that can be used as Nunjucks filters. In case of external modules, remember they need to be added as a dependency in package.json of your template."
+          },
+          {
+            "Name": "hooks",
+            "Type": "Object[String, String] or Object[String, Array[String]]",
+            "Description": "A list of modules containing hooks, except for the ones you keep locally in your template in the default location. For each module you must specify the exact name of the hook that should be used in the template. For a single hook, you can specify it as a string; for more hooks, you must pass an array of strings. In the case of external modules, remember they need to be added as a dependency in package.json of your template. There is also an official hooks library always included in the generator. As this is a library of multiple hooks, you still need to explicitly specify in the configuration which one you want to use. Use @asyncapi/generator-hooks as the library name."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_1",
+        "headers": [
+          "Name",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Name": "server",
+            "Description": "It is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "generator",
+        "context": "The generator property from package.json file must contain a JSON object that may have the following information:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "package.json",
+        "context": "The generator property from package.json file must contain a JSON object that may have the following information:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "renderer",
+        "context": "renderer"
+      },
+      {
+        "id": "highlight_3",
+        "content": "react",
+        "context": "Its value can be either react or nunjucks (default)."
+      },
+      {
+        "id": "highlight_4",
+        "content": "nunjucks",
+        "context": "Its value can be either react or nunjucks (default)."
+      },
+      {
+        "id": "highlight_5",
+        "content": "apiVersion",
+        "context": "apiVersion"
+      },
+      {
+        "id": "highlight_6",
+        "content": "v2",
+        "context": "Determines which major version of the Parser-API the template uses. For example, v2 for v2.x.x. If not specified, the Generator assumes the template is not compatible with the Parser-API so it will use the Parser-JS v1 API. For templates that need to support AsyncAPI specification v3 make sure to use v3 Parser-API. If the template uses a version of the Parser-API that is not supported by the Generator, the Generator will throw an error."
+      },
+      {
+        "id": "highlight_7",
+        "content": "v2.x.x",
+        "context": "Determines which major version of the Parser-API the template uses. For example, v2 for v2.x.x. If not specified, the Generator assumes the template is not compatible with the Parser-API so it will use the Parser-JS v1 API. For templates that need to support AsyncAPI specification v3 make sure to use v3 Parser-API. If the template uses a version of the Parser-API that is not supported by the Generator, the Generator will throw an error."
+      },
+      {
+        "id": "highlight_8",
+        "content": "v3",
+        "context": "Determines which major version of the Parser-API the template uses. For example, v2 for v2.x.x. If not specified, the Generator assumes the template is not compatible with the Parser-API so it will use the Parser-JS v1 API. For templates that need to support AsyncAPI specification v3 make sure to use v3 Parser-API. If the template uses a version of the Parser-API that is not supported by the Generator, the Generator will throw an error."
+      },
+      {
+        "id": "highlight_9",
+        "content": "supportedProtocols",
+        "context": "supportedProtocols"
+      },
+      {
+        "id": "highlight_10",
+        "content": "parameters",
+        "context": "parameters"
+      },
+      {
+        "id": "highlight_11",
+        "content": "--param name=value",
+        "context": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+      },
+      {
+        "id": "highlight_12",
+        "content": "-p name=value",
+        "context": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+      },
+      {
+        "id": "highlight_13",
+        "content": "parameters[param].description",
+        "context": "parameters[param].description"
+      },
+      {
+        "id": "highlight_14",
+        "content": "parameters[param].default",
+        "context": "parameters[param].default"
+      },
+      {
+        "id": "highlight_15",
+        "content": "required=true",
+        "context": "Default value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters."
+      },
+      {
+        "id": "highlight_16",
+        "content": "parameters[param].required",
+        "context": "parameters[param].required"
+      },
+      {
+        "id": "highlight_17",
+        "content": "conditionalFiles",
+        "context": "conditionalFiles"
+      },
+      {
+        "id": "highlight_18",
+        "content": "subject",
+        "context": "An object containing all the file paths that should be conditionally rendered. Each key represents a file path and each value must be an object with the keys subject and validation. The file path should be relative to the template directory inside the template."
+      },
+      {
+        "id": "highlight_19",
+        "content": "validation",
+        "context": "An object containing all the file paths that should be conditionally rendered. Each key represents a file path and each value must be an object with the keys subject and validation. The file path should be relative to the template directory inside the template."
+      },
+      {
+        "id": "highlight_20",
+        "content": "template",
+        "context": "An object containing all the file paths that should be conditionally rendered. Each key represents a file path and each value must be an object with the keys subject and validation. The file path should be relative to the template directory inside the template."
+      },
+      {
+        "id": "highlight_21",
+        "content": "conditionalFiles[filePath].subject",
+        "context": "conditionalFiles[filePath].subject"
+      },
+      {
+        "id": "highlight_22",
+        "content": "subject",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_23",
+        "content": "{ asyncapi: { ... }, server: { ... } }",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_24",
+        "content": "server",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_25",
+        "content": "server.protocol",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_26",
+        "content": "conditionalFiles",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_27",
+        "content": "server",
+        "context": "The subject is a JMESPath query to grab the value you want to apply the condition to. It queries an object with the whole AsyncAPI document and, when specified, the given server. The object looks like this: { asyncapi: { ... }, server: { ... } }. If the template supports server parameter, you can access server details like for example protocol this way: server.protocol. During validation with conditionalFiles only the server that template user selected is available in the specification file. For more information about server parameter read about special parameters."
+      },
+      {
+        "id": "highlight_28",
+        "content": "conditionalFiles[filePath].validation",
+        "context": "conditionalFiles[filePath].validation"
+      },
+      {
+        "id": "highlight_29",
+        "content": "validation",
+        "context": "The validation is a JSON Schema Draft 07 object. This JSON Schema definition will be applied to the JSON value resulting from the subject query. If validation doesn't have errors, the condition is met, and therefore the given file will be rendered. Otherwise, the file is ignored. Check JSON Schema Validation document for a list of all possible validation keywords."
+      },
+      {
+        "id": "highlight_30",
+        "content": "subject",
+        "context": "The validation is a JSON Schema Draft 07 object. This JSON Schema definition will be applied to the JSON value resulting from the subject query. If validation doesn't have errors, the condition is met, and therefore the given file will be rendered. Otherwise, the file is ignored. Check JSON Schema Validation document for a list of all possible validation keywords."
+      },
+      {
+        "id": "highlight_31",
+        "content": "nonRenderableFiles",
+        "context": "nonRenderableFiles"
+      },
+      {
+        "id": "highlight_32",
+        "content": "generator",
+        "context": "generator"
+      },
+      {
+        "id": "highlight_33",
+        "content": ">=1.0.0",
+        "context": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+      },
+      {
+        "id": "highlight_34",
+        "content": ">=1.0.0 <=2.0.0",
+        "context": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+      },
+      {
+        "id": "highlight_35",
+        "content": "~1.0.0",
+        "context": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+      },
+      {
+        "id": "highlight_36",
+        "content": "^1.0.0",
+        "context": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+      },
+      {
+        "id": "highlight_37",
+        "content": "1.0.0",
+        "context": "A string representing the generator version-range the template is compatible with. This value must follow the semver syntax. E.g., >=1.0.0, >=1.0.0 <=2.0.0, ~1.0.0, ^1.0.0, 1.0.0, etc. Read more about semver."
+      },
+      {
+        "id": "highlight_38",
+        "content": "filters",
+        "context": "filters"
+      },
+      {
+        "id": "highlight_39",
+        "content": "package.json",
+        "context": "A list of modules containing functions that can be used as Nunjucks filters. In case of external modules, remember they need to be added as a dependency in package.json of your template."
+      },
+      {
+        "id": "highlight_40",
+        "content": "hooks",
+        "context": "hooks"
+      },
+      {
+        "id": "highlight_41",
+        "content": "package.json",
+        "context": "A list of modules containing hooks, except for the ones you keep locally in your template in the default location. For each module you must specify the exact name of the hook that should be used in the template. For a single hook, you can specify it as a string; for more hooks, you must pass an array of strings. In the case of external modules, remember they need to be added as a dependency in package.json of your template. There is also an official hooks library always included in the generator. As this is a library of multiple hooks, you still need to explicitly specify in the configuration which one you want to use. Use @asyncapi/generator-hooks as the library name."
+      },
+      {
+        "id": "highlight_42",
+        "content": "@asyncapi/generator-hooks",
+        "context": "A list of modules containing hooks, except for the ones you keep locally in your template in the default location. For each module you must specify the exact name of the hook that should be used in the template. For a single hook, you can specify it as a string; for more hooks, you must pass an array of strings. In the case of external modules, remember they need to be added as a dependency in package.json of your template. There is also an official hooks library always included in the generator. As this is a library of multiple hooks, you still need to explicitly specify in the configuration which one you want to use. Use @asyncapi/generator-hooks as the library name."
+      },
+      {
+        "id": "highlight_43",
+        "content": "server",
+        "context": "server"
+      },
+      {
+        "id": "highlight_44",
+        "content": "server.protocol",
+        "context": "It is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+      },
+      {
+        "id": "highlight_45",
+        "content": "conditionalFiles",
+        "context": "It is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+      },
+      {
+        "id": "highlight_46",
+        "content": "conditionalFiles",
+        "context": "It is used to let the template know which server from the AsyncAPI specification file you want to use. In some cases, this may be required. For instance, when generating code that connects to a specific server. Use this parameter in case your template relies on users' information about what server from the specification file they want to use during generation. You also need this parameter if you want to use server.protocol notation within conditionalFiles configuration option. Once you decide to specify this parameter for your template, it is recommended you make it a mandatory parameter otherwise a feature like conditionalFiles is not going to work if your users do not use this parameter obligatory."
+      }
+    ]
+  }
+}

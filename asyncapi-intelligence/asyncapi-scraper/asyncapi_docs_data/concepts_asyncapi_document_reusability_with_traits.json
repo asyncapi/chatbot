@@ -1,0 +1,354 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits",
+    "timestamp": "2025-03-12T17:47:59.700Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Reusability With Traits",
+    "hierarchy": {
+      "sections": {
+        "Defining traits": {
+          "level": 2,
+          "content": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$ref$refchannelsmessagesmessageTraitscomponentsoperationTraitsoperationsMessage traits do not fully cover all fields that a normal message has, such as the payload. The same is true with Operation traits which represent only selected fields usually used in an operation.Here is a part of a message that has a trait defined inline in a message:1description: Example description.\n2traits:\n3  - name: UserSignup\n4    description: Trait description.\n5  - tags:\n6      - name: userWhen traits are combined with a message object, the resulting message will look like the example shown below:1name: UserSignup\n2description: Example description.\n3tags:\n4  - name: userNotice that the trait description didn't override the already defined description in a message outside the trait."
+        },
+        "Applying traits from components": {
+          "level": 2,
+          "content": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section.For example, let's say we have a trait named commonHeaders defined in messageTraits:1components:\n2  messageTraits:\n3    commonHeaders:\n4      headers:\n5        type: object\n6        properties:\n7          content-type:\n8            type: integerTo apply the above trait to a message object, you can do:1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    custom-header:\n8      type: string\n9traits:\n10  - $ref: '#/components/messageTraits/commonHeaders'Notice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    content-type:\n8      type: integer\n9    custom-header:\n10      type: string"
+        },
+        "Trait merging mechanism": {
+          "level": 2,
+          "content": "In the AsyncAPI document, traits are merged into the operation or message object in the order they are defined, without overriding any properties. For detailed information on how this merging works, refer to the specification's section on the traits merge mechanism."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Traits work only with the operations and messages fields. Traits allow the definition of properties to be reused across multiple messages and operations within the specification. Reusing traits promotes code maintainability and reduces duplication while making your AsyncAPI documents cleaner to manage.\nDefining traits\nTraits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$ref$refchannelsmessagesmessageTraitscomponentsoperationTraitsoperations\nMessage traits do not fully cover all fields that a normal message has, such as the payload. The same is true with Operation traits which represent only selected fields usually used in an operation.\nHere is a part of a message that has a trait defined inline in a message:\n1description: Example description.\n2traits:\n3  - name: UserSignup\n4    description: Trait description.\n5  - tags:\n6      - name: user\nWhen traits are combined with a message object, the resulting message will look like the example shown below:\n1name: UserSignup\n2description: Example description.\n3tags:\n4  - name: user\nNotice that the trait description didn't override the already defined description in a message outside the trait.\nApplying traits from components\nOnce a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section.\nFor example, let's say we have a trait named commonHeaders defined in messageTraits:\n1components:\n2  messageTraits:\n3    commonHeaders:\n4      headers:\n5        type: object\n6        properties:\n7          content-type:\n8            type: integer\nTo apply the above trait to a message object, you can do:\n1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    custom-header:\n8      type: string\n9traits:\n10  - $ref: '#/components/messageTraits/commonHeaders'\nNotice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:\n1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    content-type:\n8      type: integer\n9    custom-header:\n10      type: string\nTrait merging mechanism\nIn the AsyncAPI document, traits are merged into the operation or message object in the order they are defined, without overriding any properties. For detailed information on how this merging works, refer to the specification's section on the traits merge mechanism.",
+    "sections": [
+      {
+        "title": "Defining traits",
+        "level": 2,
+        "text": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$ref$refchannelsmessagesmessageTraitscomponentsoperationTraitsoperationsMessage traits do not fully cover all fields that a normal message has, such as the payload. The same is true with Operation traits which represent only selected fields usually used in an operation.Here is a part of a message that has a trait defined inline in a message:1description: Example description.\n2traits:\n3  - name: UserSignup\n4    description: Trait description.\n5  - tags:\n6      - name: userWhen traits are combined with a message object, the resulting message will look like the example shown below:1name: UserSignup\n2description: Example description.\n3tags:\n4  - name: userNotice that the trait description didn't override the already defined description in a message outside the trait."
+      },
+      {
+        "title": "Applying traits from components",
+        "level": 2,
+        "text": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section.For example, let's say we have a trait named commonHeaders defined in messageTraits:1components:\n2  messageTraits:\n3    commonHeaders:\n4      headers:\n5        type: object\n6        properties:\n7          content-type:\n8            type: integerTo apply the above trait to a message object, you can do:1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    custom-header:\n8      type: string\n9traits:\n10  - $ref: '#/components/messageTraits/commonHeaders'Notice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    content-type:\n8      type: integer\n9    custom-header:\n10      type: string"
+      },
+      {
+        "title": "Trait merging mechanism",
+        "level": 2,
+        "text": "In the AsyncAPI document, traits are merged into the operation or message object in the order they are defined, without overriding any properties. For detailed information on how this merging works, refer to the specification's section on the traits merge mechanism."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 505.1875px;\" viewBox=\"-8 -8 505.1875 242\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M91.664,21L95.831,21C99.997,21,108.331,21,118.267,21C128.203,21,139.742,21,145.512,21L151.281,21\" id=\"L-A-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M252.688,21L261.389,21C270.091,21,287.495,21,303.641,22.099C319.786,23.198,334.674,25.397,342.118,26.496L349.563,27.595\" id=\"L-F-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M262.305,130.144L269.404,132.162C276.503,134.179,290.701,138.215,308.075,144.399C325.449,150.583,346,158.917,356.276,163.083L366.551,167.25\" id=\"L-B-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M262.305,95.856L269.404,93.838C276.503,91.821,290.701,87.785,308.075,81.601C325.449,75.417,346,67.083,356.276,62.917L366.551,58.75\" id=\"L-B-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M254.672,205L263.043,205C271.414,205,288.156,205,303.626,203.952C319.096,202.904,333.294,200.807,340.393,199.759L347.492,198.711\" id=\"L-E-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(304.8984375, 21)\"><g class=\"label\" transform=\"translate(-17.59375, -13.5)\"><foreignObject width=\"35.1875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">$ref</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(304.8984375, 205)\"><g class=\"label\" transform=\"translate(-17.59375, -13.5)\"><foreignObject width=\"35.1875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">$ref</span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-A-26\" transform=\"translate(45.83203125, 21)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#47BCEE;\" rx=\"0\" ry=\"0\" x=\"-45.83203125\" y=\"-21\" width=\"91.6640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.33203125, -13.5)\"><foreignObject width=\"76.6640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channels</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-27\" transform=\"translate(201.984375, 21)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#47BCEE;\" rx=\"0\" ry=\"0\" x=\"-50.703125\" y=\"-21\" width=\"101.40625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-43.203125, -13.5)\"><foreignObject width=\"86.40625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">messages</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-29\" transform=\"translate(418.33984375, 37.75)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-68.77734375\" y=\"-21\" width=\"137.5546875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-61.27734375, -13.5)\"><foreignObject width=\"122.5546875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">messageTraits</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-30\" transform=\"translate(201.984375, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-60.3203125\" y=\"-21\" width=\"120.640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-52.8203125, -13.5)\"><foreignObject width=\"105.640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">components</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-C-31\" transform=\"translate(418.33984375, 188.25)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-70.84765625\" y=\"-21\" width=\"141.6953125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-63.34765625, -13.5)\"><foreignObject width=\"126.6953125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">operationTraits</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-34\" transform=\"translate(201.984375, 205)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#47BCEE;\" rx=\"0\" ry=\"0\" x=\"-52.6875\" y=\"-21\" width=\"105.375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-45.1875, -13.5)\"><foreignObject width=\"90.375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">operations</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$ref$refchannelsmessagesmessageTraitscomponentsoperationTraitsoperations",
+        "description": "SVG containing 9 paths, 2 circles, and 6 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1description: Example description.\n2traits:\n3  - name: UserSignup\n4    description: Trait description.\n5  - tags:\n6      - name: user",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Example</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">description.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">traits:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">UserSignup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Trait</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">description.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">tags:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1name: UserSignup\n2description: Example description.\n3tags:\n4  - name: user",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">UserSignup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Example</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">description.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">tags:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1components:\n2  messageTraits:\n3    commonHeaders:\n4      headers:\n5        type: object\n6        properties:\n7          content-type:\n8            type: integer",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#d6deeb\">components</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#d6deeb\">  messageTraits</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#d6deeb\">    commonHeaders</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#d6deeb\">      headers</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#d6deeb\">        type</span><span>: object\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#d6deeb\">        properties</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#d6deeb\">          content-type</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#d6deeb\">            type</span><span>: integer</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    custom-header:\n8      type: string\n9traits:\n10  - $ref: '#/components/messageTraits/commonHeaders'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">name:</span><span> lightMeasured\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">title:</span><span> Light measured\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">summary:</span><span> Inform about environmental lighting conditions of a particular streetlight.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">headers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#64a0dc\">  type:</span><span> object\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#64a0dc\">  properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>    custom-header:\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#64a0dc\">      type:</span><span> string\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#64a0dc\">traits:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>  - $ref: </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/messageTraits/commonHeaders'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1name: lightMeasured\n2title: Light measured\n3summary: Inform about environmental lighting conditions of a particular streetlight.\n4headers:\n5  type: object\n6  properties:\n7    content-type:\n8      type: integer\n9    custom-header:\n10      type: string",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">lightMeasured</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Light</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">measured</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">summary:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Inform</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">about</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">environmental</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">lighting</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">conditions</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">of</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">a</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">particular</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">streetlight.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#7edcda\">headers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">object</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">content-type:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">integer</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">custom-header:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">string</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "operations",
+        "context": "Traits work only with the operations and messages fields. Traits allow the definition of properties to be reused across multiple messages and operations within the specification. Reusing traits promotes code maintainability and reduces duplication while making your AsyncAPI documents cleaner to manage."
+      },
+      {
+        "id": "highlight_1",
+        "content": "messages",
+        "context": "Traits work only with the operations and messages fields. Traits allow the definition of properties to be reused across multiple messages and operations within the specification. Reusing traits promotes code maintainability and reduces duplication while making your AsyncAPI documents cleaner to manage."
+      },
+      {
+        "id": "highlight_2",
+        "content": "components",
+        "context": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document."
+      },
+      {
+        "id": "highlight_3",
+        "content": "operationTraits",
+        "context": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document."
+      },
+      {
+        "id": "highlight_4",
+        "content": "messageTraits",
+        "context": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document."
+      },
+      {
+        "id": "highlight_5",
+        "content": "$ref",
+        "context": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document."
+      },
+      {
+        "id": "highlight_6",
+        "content": "$ref",
+        "context": "Traits are meant to be reused, so it's best to define them in the components section of your AsyncAPI document, either under operationTraits or messageTraits. Choose depending on whether they're for operations or messages. Give each trait a unique name and list the properties it includes. You can reference these traits with the $ref keyword, allowing you to keep traits in a separate file outside the AsyncAPI document. For more on using $ref and reusability, check out the reusable parts document."
+      },
+      {
+        "id": "highlight_7",
+        "content": "payload",
+        "context": "Message traits do not fully cover all fields that a normal message has, such as the payload. The same is true with Operation traits which represent only selected fields usually used in an operation."
+      },
+      {
+        "id": "highlight_8",
+        "content": "$ref",
+        "context": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section."
+      },
+      {
+        "id": "highlight_9",
+        "content": "traits",
+        "context": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section."
+      },
+      {
+        "id": "highlight_10",
+        "content": "$ref",
+        "context": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section."
+      },
+      {
+        "id": "highlight_11",
+        "content": "components",
+        "context": "Once a trait is defined, you can apply it to an operation or a message using the $ref keyword in the traits section. The $ref value should point to the path of the trait within the components section."
+      },
+      {
+        "id": "highlight_12",
+        "content": "commonHeaders",
+        "context": "For example, let's say we have a trait named commonHeaders defined in messageTraits:"
+      },
+      {
+        "id": "highlight_13",
+        "content": "messageTraits",
+        "context": "For example, let's say we have a trait named commonHeaders defined in messageTraits:"
+      },
+      {
+        "id": "highlight_14",
+        "content": "commonHeaders",
+        "context": "Notice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:"
+      },
+      {
+        "id": "highlight_15",
+        "content": "content-type",
+        "context": "Notice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:"
+      },
+      {
+        "id": "highlight_16",
+        "content": "headers",
+        "context": "Notice how the commonHeaders trait includes a content-type header and is merged into the headers object in a message:"
+      }
+    ]
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address",
+    "timestamp": "2025-03-12T17:47:30.323Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Dynamic Channel Address",
+    "hierarchy": {
+      "sections": {
+        "Add parameters": {
+          "level": 2,
+          "content": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels.The diagram below describes how to use reusable parameters in AsyncAPI.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$refchannelsaddressmessagescomponentsparametersparametersFirst, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref.Channels sectionHere is an example of a parametrized channel address:1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured.parameters sectionIn your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.You can reuse parameters using the Reference Object like in the following example:1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'Here's the complete AsyncAPI document with the channels' parameters for the address field:1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight."
+        },
+        "Channels section": {
+          "level": 3,
+          "content": "Here is an example of a parametrized channel address:1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+        },
+        "parameters section": {
+          "level": 3,
+          "content": "In your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.You can reuse parameters using the Reference Object like in the following example:1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'Here's the complete AsyncAPI document with the channels' parameters for the address field:1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "In the context of channel addresses within AsyncAPI documents, parameters play a crucial role in defining the dynamic components of an address. That aspect is particularly beneficial in setups like IoT, where topics are often assigned per device or device segment. In this scenario, your AsyncAPI document would describe a system composed of multiple channels. While these channels share the same definition, messages, and purpose, they differ in their channel addresses, which vary according to each device's identifier. To efficiently manage this setup, you provide a singular channel definition. The dynamic segment of each channel address, which corresponds to the device identifier, is then articulated through the use of parameters.\nAdd parameters\nYou can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels.\nThe diagram below describes how to use reusable parameters in AsyncAPI.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$refchannelsaddressmessagescomponentsparametersparameters\nFirst, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref.\nChannels section\nHere is an example of a parametrized channel address:\n1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.\nIn the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured.\nparameters section\nIn your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:\n1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.\nYou can reuse parameters using the Reference Object like in the following example:\n1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'\nHere's the complete AsyncAPI document with the channels' parameters for the address field:\n1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight.",
+    "sections": [
+      {
+        "title": "Add parameters",
+        "level": 2,
+        "text": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels.The diagram below describes how to use reusable parameters in AsyncAPI.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$refchannelsaddressmessagescomponentsparametersparametersFirst, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref.Channels sectionHere is an example of a parametrized channel address:1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured.parameters sectionIn your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.You can reuse parameters using the Reference Object like in the following example:1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'Here's the complete AsyncAPI document with the channels' parameters for the address field:1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight."
+      },
+      {
+        "title": "Channels section",
+        "level": 3,
+        "text": "Here is an example of a parametrized channel address:1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+      },
+      {
+        "title": "parameters section",
+        "level": 3,
+        "text": "In your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.You can reuse parameters using the Reference Object like in the following example:1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'Here's the complete AsyncAPI document with the channels' parameters for the address field:1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 475.4296875px;\" viewBox=\"-8 -8 475.4296875 334\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M62,92L71.111,80.167C80.221,68.333,98.443,44.667,114.846,32.833C131.25,21,145.836,21,153.129,21L160.422,21\" id=\"L-C-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M91.664,113L95.831,113C99.997,113,108.331,113,118.267,113C128.203,113,139.742,113,145.512,113L151.281,113\" id=\"L-C-I-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-I\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M62,134L71.111,145.833C80.221,157.667,98.443,181.333,112.445,193.167C126.448,205,136.232,205,141.124,205L146.016,205\" id=\"L-C-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M257.953,205L265.777,205C273.602,205,289.25,205,306.002,209.167C322.754,213.333,340.609,221.667,349.537,225.833L358.465,230\" id=\"L-D-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M262.305,297L269.404,297C276.503,297,290.701,297,306.727,292.833C322.754,288.667,340.609,280.333,349.537,276.167L358.465,272\" id=\"L-A-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(304.8984375, 205)\"><g class=\"label\" transform=\"translate(-17.59375, -13.5)\"><foreignObject width=\"35.1875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">$ref</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-C-38\" transform=\"translate(45.83203125, 113)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#000;\" rx=\"0\" ry=\"0\" x=\"-45.83203125\" y=\"-21\" width=\"91.6640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.33203125, -13.5)\"><foreignObject width=\"76.6640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channels</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-39\" transform=\"translate(201.984375, 21)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#000;\" rx=\"0\" ry=\"0\" x=\"-41.5625\" y=\"-21\" width=\"83.125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-34.0625, -13.5)\"><foreignObject width=\"68.125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">address</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-I-40\" transform=\"translate(201.984375, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-50.703125\" y=\"-21\" width=\"101.40625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-43.203125, -13.5)\"><foreignObject width=\"86.40625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">messages</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-A-41\" transform=\"translate(201.984375, 297)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-60.3203125\" y=\"-21\" width=\"120.640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-52.8203125, -13.5)\"><foreignObject width=\"105.640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">components</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-42\" transform=\"translate(403.4609375, 251)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-55.96875\" y=\"-21\" width=\"111.9375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-48.46875, -13.5)\"><foreignObject width=\"96.9375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">parameters</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-43\" transform=\"translate(201.984375, 205)\"><rect class=\"basic label-container\" style=\"fill:#47BCEE;stroke:#000;\" rx=\"0\" ry=\"0\" x=\"-55.96875\" y=\"-21\" width=\"111.9375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-48.46875, -13.5)\"><foreignObject width=\"96.9375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">parameters</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}$refchannelsaddressmessagescomponentsparametersparameters",
+        "description": "SVG containing 9 paths, 2 circles, and 6 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1  lightingMeasured:\n2    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n3    description: The topic on which measured values may be produced and consumed.\n4    parameters:\n5      streetlightId:\n6        description: The ID of the streetlight.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">  lightingMeasured:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">    address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">    description:</span><span> The topic on which measured values may be produced and consumed.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">    parameters:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#64a0dc\">      streetlightId:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#64a0dc\">        description:</span><span> The ID of the streetlight.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1components:\n2  parameters:\n3    streetlightId:\n4      description: The ID of the streetlight.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">parameters:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">streetlightId:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>      </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">The</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ID</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">of</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">streetlight.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1    parameters:\n2      streetlightId:\n3        $ref: '#/components/parameters/streetlightId'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">    parameters:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">      streetlightId:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>        $ref: </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/parameters/streetlightId'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1asyncapi: 3.0.0\n2info:\n3  title: Example API\n4  version: '1.0.0'\n5channels:\n6  lightingMeasured:\n7    address: 'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'\n8    description: The topic on which measured values may be produced and consumed.\n9    parameters:\n10      streetlightId:\n11        $ref: '#/components/parameters/streetlightId'\n12components:\n13  parameters:\n14    streetlightId:\n15      description: The ID of the streetlight.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#d8da68\">3.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">info:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Example</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">API</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'1.0.0'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">lightingMeasured:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'smartylighting/streetlights/1/0/event/{streetlightId}/lighting/measured'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">The</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">topic</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">on</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">which</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">measured</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">values</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">may</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">be</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">produced</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">and</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">consumed.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">parameters:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">streetlightId:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/parameters/streetlightId'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>  </span><span style=\"color:#7edcda\">parameters:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>    </span><span style=\"color:#7edcda\">streetlightId:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">The</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ID</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">of</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">streetlight.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "channel.address",
+        "context": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels."
+      },
+      {
+        "id": "highlight_1",
+        "content": "{braces}",
+        "context": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels."
+      },
+      {
+        "id": "highlight_2",
+        "content": "channel.parameters",
+        "context": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels."
+      },
+      {
+        "id": "highlight_3",
+        "content": "components.parameters",
+        "context": "You can add parameters to the channel.address by adding a parameter between curly braces like {braces}. Next, use channel.parameters to define your parameters. Finally, leverage the components.parameters to enable reusable parameters' definitions across multiple channels."
+      },
+      {
+        "id": "highlight_4",
+        "content": "address",
+        "context": "First, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref."
+      },
+      {
+        "id": "highlight_5",
+        "content": "components.parameters",
+        "context": "First, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref."
+      },
+      {
+        "id": "highlight_6",
+        "content": "channel.parameters",
+        "context": "First, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref."
+      },
+      {
+        "id": "highlight_7",
+        "content": "components.parameters",
+        "context": "First, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref."
+      },
+      {
+        "id": "highlight_8",
+        "content": "$ref",
+        "context": "First, configure the variables in address. Next, define reusable variables in components.parameters. Finally, ensure that your channel.parameters references definitions in the components.parameters using $ref."
+      },
+      {
+        "id": "highlight_9",
+        "content": "lightingMeasured",
+        "context": "In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+      },
+      {
+        "id": "highlight_10",
+        "content": "streetlight",
+        "context": "In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+      },
+      {
+        "id": "highlight_11",
+        "content": "smartylighting/streetlights/1/0/event/2/lighting/measured",
+        "context": "In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+      },
+      {
+        "id": "highlight_12",
+        "content": "smartylighting/streetlights/1/0/event/1/lighting/measured",
+        "context": "In the above example, you can see a definition of a lightingMeasured channel that contains a streetlight parameter. During runtime, there can be two or more channels serving the same purpose, but with different devices. For example, you could have channels for  smartylighting/streetlights/1/0/event/2/lighting/measured and smartylighting/streetlights/1/0/event/1/lighting/measured."
+      },
+      {
+        "id": "highlight_13",
+        "content": "parameters",
+        "context": "parameters section"
+      },
+      {
+        "id": "highlight_14",
+        "content": "components.parameters",
+        "context": "In your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:"
+      },
+      {
+        "id": "highlight_15",
+        "content": "address",
+        "context": "In your AsyncAPI document, it's important to carefully define the components.parameters section. For each parameter utilized in the channel address, provide a comprehensive description along with other pertinent details. Avoid repeating the parameter definitions. For example:"
+      },
+      {
+        "id": "highlight_16",
+        "content": "address",
+        "context": "Here's the complete AsyncAPI document with the channels' parameters for the address field:"
+      }
+    ]
+  }
+}

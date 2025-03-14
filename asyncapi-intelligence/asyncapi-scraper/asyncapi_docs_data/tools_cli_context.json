@@ -1,0 +1,434 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/cli/context",
+    "timestamp": "2025-03-12T17:54:25.105Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Context",
+    "hierarchy": {
+      "sections": {
+        "Overview": {
+          "level": 2,
+          "content": "AsyncAPI CLI provides functionality called context. It's purpose is to help to work with AsyncAPI CLI in large projects where you do not have just one service exposing AsyncAPI document, but multiple.Event driven architecture involves multiple actors, subscribers and publishers. One time you want to validate document A and the other time you want to generate models from document B. Every time you do it, you need to provide to AsyncAPI CLI the location of the AsyncAPI document, which might be time consuming. You can workaround it with aliases in bash profiles or with other solutions but it is better to use context feature, as you can then store it in your repository and share with other team members.In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+        },
+        "Context File location": {
+          "level": 2,
+          "content": "You can have a global context for your workstation, and a project specific context.If your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project."
+        },
+        "How to add context to a project": {
+          "level": 2,
+          "content": "Manually\nCreate file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory\n\n\nUsing CLI's init commandasyncapi config context init [CONTEXT-FILE-PATH]Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:\ncurrent directory: asyncapi config context init . (default)\nroot of current repository: asyncapi config context init ./\nuser's home directory: asyncapi config context init ~\n(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)Make use of newly created .asyncapi-cli by executing command:asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]Setup example in a real projectBelow you can see an example of context setup for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents.1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml"
+        },
+        "Manually": {
+          "level": 3,
+          "content": "Create file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory"
+        },
+        "Using CLI's init command": {
+          "level": 3,
+          "content": "asyncapi config context init [CONTEXT-FILE-PATH]Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:\ncurrent directory: asyncapi config context init . (default)\nroot of current repository: asyncapi config context init ./\nuser's home directory: asyncapi config context init ~\n(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)Make use of newly created .asyncapi-cli by executing command:asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]"
+        },
+        "Setup example in a real project": {
+          "level": 3,
+          "content": "Below you can see an example of context setup for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents.1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml"
+        },
+        "Context File structure": {
+          "level": 2,
+          "content": "Fixed FieldsField NameTypeDescriptioncurrentstringAn optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context.storeStore ObjectREQUIRED. Map of filesystem paths to target AsyncAPI documents.Store ObjectMap of filesystem paths to target AsyncAPI documents.Patterned FieldsField PatternTypeDescription{contextName}stringAn optional string value representing filesystem path to the target AsyncAPI document.Minimal Empty Context FileRaw JSON:1{\n2  \"store\": {}\n3}Stringified JSON:{\"store\":{}}Context File ExampleExample of a context file for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents:1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}"
+        },
+        "Fixed Fields": {
+          "level": 3,
+          "content": "Field NameTypeDescriptioncurrentstringAn optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context.storeStore ObjectREQUIRED. Map of filesystem paths to target AsyncAPI documents."
+        },
+        "Store Object": {
+          "level": 3,
+          "content": "Map of filesystem paths to target AsyncAPI documents.Patterned FieldsField PatternTypeDescription{contextName}stringAn optional string value representing filesystem path to the target AsyncAPI document."
+        },
+        "Minimal Empty Context File": {
+          "level": 3,
+          "content": "Raw JSON:1{\n2  \"store\": {}\n3}Stringified JSON:{\"store\":{}}"
+        },
+        "Context File Example": {
+          "level": 3,
+          "content": "Example of a context file for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents:1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}"
+        },
+        "More context related CLI options": {
+          "level": 2,
+          "content": "All commands for managing contexts are available under asyncapi config context CLI commands group."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/cli/installation"
+            },
+            {
+              "text": "CLI Architecture",
+              "href": "https://www.asyncapi.com/docs/tools/cli/architecture"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/cli/usage"
+            },
+            {
+              "text": "GitHub Action for CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli/github-action"
+            },
+            {
+              "text": "Context concept",
+              "href": "https://www.asyncapi.com/docs/tools/cli/context"
+            },
+            {
+              "text": "Metrics Collection",
+              "href": "https://www.asyncapi.com/docs/tools/cli/metrics_collection"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Overview\nAsyncAPI CLI provides functionality called context. It's purpose is to help to work with AsyncAPI CLI in large projects where you do not have just one service exposing AsyncAPI document, but multiple.\nEvent driven architecture involves multiple actors, subscribers and publishers. One time you want to validate document A and the other time you want to generate models from document B. Every time you do it, you need to provide to AsyncAPI CLI the location of the AsyncAPI document, which might be time consuming. You can workaround it with aliases in bash profiles or with other solutions but it is better to use context feature, as you can then store it in your repository and share with other team members.\nIn short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync.\nContext File location\nYou can have a global context for your workstation, and a project specific context.\nIf your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project.\nHow to add context to a project\nManually\n\nCreate file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory\n\n\n\nUsing CLI's init command\nasyncapi config context init [CONTEXT-FILE-PATH]\nWhere [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:\n\ncurrent directory: asyncapi config context init . (default)\nroot of current repository: asyncapi config context init ./\nuser's home directory: asyncapi config context init ~\n\n(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)\nMake use of newly created .asyncapi-cli by executing command:\nasyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]\nSetup example in a real project\nBelow you can see an example of context setup for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents.\n1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml\nContext File structure\nFixed Fields\nField NameTypeDescriptioncurrentstringAn optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context.storeStore ObjectREQUIRED. Map of filesystem paths to target AsyncAPI documents.\nStore Object\nMap of filesystem paths to target AsyncAPI documents.\nPatterned Fields\nField PatternTypeDescription{contextName}stringAn optional string value representing filesystem path to the target AsyncAPI document.\nMinimal Empty Context File\nRaw JSON:\n1{\n2  \"store\": {}\n3}\nStringified JSON:\n{\"store\":{}}\nContext File Example\nExample of a context file for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents:\n1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}\nMore context related CLI options\nAll commands for managing contexts are available under asyncapi config context CLI commands group.",
+    "sections": [
+      {
+        "title": "Overview",
+        "level": 2,
+        "text": "AsyncAPI CLI provides functionality called context. It's purpose is to help to work with AsyncAPI CLI in large projects where you do not have just one service exposing AsyncAPI document, but multiple.Event driven architecture involves multiple actors, subscribers and publishers. One time you want to validate document A and the other time you want to generate models from document B. Every time you do it, you need to provide to AsyncAPI CLI the location of the AsyncAPI document, which might be time consuming. You can workaround it with aliases in bash profiles or with other solutions but it is better to use context feature, as you can then store it in your repository and share with other team members.In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+      },
+      {
+        "title": "Context File location",
+        "level": 2,
+        "text": "You can have a global context for your workstation, and a project specific context.If your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project."
+      },
+      {
+        "title": "How to add context to a project",
+        "level": 2,
+        "text": "Manually\nCreate file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory\n\n\nUsing CLI's init commandasyncapi config context init [CONTEXT-FILE-PATH]Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:\ncurrent directory: asyncapi config context init . (default)\nroot of current repository: asyncapi config context init ./\nuser's home directory: asyncapi config context init ~\n(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)Make use of newly created .asyncapi-cli by executing command:asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]Setup example in a real projectBelow you can see an example of context setup for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents.1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml"
+      },
+      {
+        "title": "Manually",
+        "level": 3,
+        "text": "Create file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory"
+      },
+      {
+        "title": "Using CLI's init command",
+        "level": 3,
+        "text": "asyncapi config context init [CONTEXT-FILE-PATH]Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:\ncurrent directory: asyncapi config context init . (default)\nroot of current repository: asyncapi config context init ./\nuser's home directory: asyncapi config context init ~\n(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)Make use of newly created .asyncapi-cli by executing command:asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]"
+      },
+      {
+        "title": "Setup example in a real project",
+        "level": 3,
+        "text": "Below you can see an example of context setup for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents.1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml"
+      },
+      {
+        "title": "Context File structure",
+        "level": 2,
+        "text": "Fixed FieldsField NameTypeDescriptioncurrentstringAn optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context.storeStore ObjectREQUIRED. Map of filesystem paths to target AsyncAPI documents.Store ObjectMap of filesystem paths to target AsyncAPI documents.Patterned FieldsField PatternTypeDescription{contextName}stringAn optional string value representing filesystem path to the target AsyncAPI document.Minimal Empty Context FileRaw JSON:1{\n2  \"store\": {}\n3}Stringified JSON:{\"store\":{}}Context File ExampleExample of a context file for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents:1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}"
+      },
+      {
+        "title": "Fixed Fields",
+        "level": 3,
+        "text": "Field NameTypeDescriptioncurrentstringAn optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context.storeStore ObjectREQUIRED. Map of filesystem paths to target AsyncAPI documents."
+      },
+      {
+        "title": "Store Object",
+        "level": 3,
+        "text": "Map of filesystem paths to target AsyncAPI documents.Patterned FieldsField PatternTypeDescription{contextName}stringAn optional string value representing filesystem path to the target AsyncAPI document."
+      },
+      {
+        "title": "Minimal Empty Context File",
+        "level": 3,
+        "text": "Raw JSON:1{\n2  \"store\": {}\n3}Stringified JSON:{\"store\":{}}"
+      },
+      {
+        "title": "Context File Example",
+        "level": 3,
+        "text": "Example of a context file for Event Driven Flight status notification service of the Amadeus Airline Platform, with multiple microservices and their AsyncAPI documents:1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}"
+      },
+      {
+        "title": "More context related CLI options",
+        "level": 2,
+        "text": "All commands for managing contexts are available under asyncapi config context CLI commands group."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1# One-time initialization of '.asyncapi-cli' file\n2(main)$ asyncapi config context init\n3Initialized context /amadeus-async-flight-status/.asyncapi-cli\n4\n5# Adding first context\n6(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n7Added context \"subscriber\".\n8You can set it as your current context: asyncapi config context use subscriber\n9You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n10\n11# Adding more contexts\n12(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n13Added context \"notifier\".\n14You can set it as your current context: asyncapi config context use notifier\n15You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n16\n17(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n18Added context \"monitor\".\n19You can set it as your current context: asyncapi config context use monitor\n20You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n21\n22# Setting monitor as default context\n23(main)$ asyncapi config context use monitor\n24monitor is set as current\n25\n26# Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated\n27(main)$ asyncapi validate\n28File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n29monitor/asyncapi.yaml\n30  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n31  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n32  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n33  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n34  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n35 19:15      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.subscribe\n36 26:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/queue.publish\n37✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n38\n39# You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'\n40(main)$ asyncapi validate notifier\n41File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n42notifier/asyncapi.yaml\n43  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have \"defaultContentType\" field.\n44  1:1       warning  asyncapi-id                      AsyncAPI document should have \"id\" field.\n45  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty \"tags\" array.\n46  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the \"2.6.0\" version.  asyncapi\n47  2:6       warning  asyncapi-info-contact            Info object should have \"contact\" object.                                                     info\n48 18:13      warning  asyncapi2-operation-operationId  Operation should have an \"operationId\" field defined.                                         channels.flight/update.publish\n49✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n50\n51# Switch default context \n52(main)$ asyncapi config context use notifier\n53notifier is set as current\n54\n55# List all contexts\n56(main)$ asyncapi config context list\n57monitor: monitor/asyncapi.yaml\n58notifier: notifier/asyncapi.yaml\n59subscriber: subscriber/asyncapi.yaml",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># One-time initialization of '.asyncapi-cli' file</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>(main)$ asyncapi config context init\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>Initialized context /amadeus-async-flight-status/.asyncapi-cli\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#797f8c\"># Adding first context</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>(main)$ asyncapi config context add subscriber subscriber/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>Added context </span><span style=\"color:#c0e2a3;font-weight:500\">\"subscriber\"</span><span>.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>You can </span><span style=\"color:#7edcda\">set</span><span> it as your current context: asyncapi config context use subscriber\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>You can use this context when needed by passing subscriber as a parameter: asyncapi validate subscriber\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span></span><span style=\"color:#797f8c\"># Adding more contexts</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>(main)$ asyncapi config context add notifier notifier/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>Added context </span><span style=\"color:#c0e2a3;font-weight:500\">\"notifier\"</span><span>.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>You can </span><span style=\"color:#7edcda\">set</span><span> it as your current context: asyncapi config context use notifier\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>You can use this context when needed by passing notifier as a parameter: asyncapi validate notifier\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span>(main)$ asyncapi config context add monitor monitor/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>Added context </span><span style=\"color:#c0e2a3;font-weight:500\">\"monitor\"</span><span>.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>You can </span><span style=\"color:#7edcda\">set</span><span> it as your current context: asyncapi config context use monitor\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span>You can use this context when needed by passing monitor as a parameter: asyncapi validate monitor\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span></span><span style=\"color:#797f8c\"># Setting monitor as default context</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span>(main)$ asyncapi config context use monitor\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span>monitor is </span><span style=\"color:#7edcda\">set</span><span> as current\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span></span><span style=\"color:#797f8c\"># Now you do not even have to remember the context name, and default 'monitor/asyncapi.yaml' will be validated</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span>(main)$ asyncapi validate\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span>File monitor/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span>monitor/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span><span>  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"defaultContentType\"</span><span> field.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">31</span><span>  1:1       warning  asyncapi-id                      AsyncAPI document should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"id\"</span><span> field.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">32</span><span>  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty </span><span style=\"color:#c0e2a3;font-weight:500\">\"tags\"</span><span> array.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">33</span><span>  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the </span><span style=\"color:#c0e2a3;font-weight:500\">\"2.6.0\"</span><span> version.  asyncapi\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">34</span><span>  2:6       warning  asyncapi-info-contact            Info object should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"contact\"</span><span> object.                                                     info\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">35</span><span> 19:15      warning  asyncapi2-operation-operationId  Operation should have an </span><span style=\"color:#c0e2a3;font-weight:500\">\"operationId\"</span><span> field defined.                                         channels.flight/update.subscribe\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">36</span><span> 26:13      warning  asyncapi2-operation-operationId  Operation should have an </span><span style=\"color:#c0e2a3;font-weight:500\">\"operationId\"</span><span> field defined.                                         channels.flight/queue.publish\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">37</span>✖ 7 problems (0 errors, 6 warnings, 1 info, 0 hints)\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">38</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">39</span><span></span><span style=\"color:#797f8c\"># You can now use context name when running AsyncAPI commands, no need to remember file location like 'notifier/asyncapi.yaml'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">40</span>(main)$ asyncapi validate notifier\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">41</span>File notifier/asyncapi.yaml is valid but has (itself and/or referenced documents) governance issues.\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">42</span>notifier/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">43</span><span>  1:1       warning  asyncapi-defaultContentType      AsyncAPI document should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"defaultContentType\"</span><span> field.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">44</span><span>  1:1       warning  asyncapi-id                      AsyncAPI document should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"id\"</span><span> field.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">45</span><span>  1:1       warning  asyncapi2-tags                   AsyncAPI object should have non-empty </span><span style=\"color:#c0e2a3;font-weight:500\">\"tags\"</span><span> array.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">46</span><span>  1:11  information  asyncapi-latest-version          The latest version of AsyncAPi is not used. It is recommended update to the </span><span style=\"color:#c0e2a3;font-weight:500\">\"2.6.0\"</span><span> version.  asyncapi\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">47</span><span>  2:6       warning  asyncapi-info-contact            Info object should have </span><span style=\"color:#c0e2a3;font-weight:500\">\"contact\"</span><span> object.                                                     info\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">48</span><span> 18:13      warning  asyncapi2-operation-operationId  Operation should have an </span><span style=\"color:#c0e2a3;font-weight:500\">\"operationId\"</span><span> field defined.                                         channels.flight/update.publish\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">49</span>✖ 6 problems (0 errors, 5 warnings, 1 info, 0 hints)\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">50</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">51</span><span></span><span style=\"color:#797f8c\"># Switch default context </span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">52</span>(main)$ asyncapi config context use notifier\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">53</span><span>notifier is </span><span style=\"color:#7edcda\">set</span><span> as current\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">54</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">55</span><span></span><span style=\"color:#797f8c\"># List all contexts</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">56</span>(main)$ asyncapi config context list\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">57</span>monitor: monitor/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">58</span>notifier: notifier/asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">59</span>subscriber: subscriber/asyncapi.yaml</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1{\n2  \"store\": {}\n3}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"store\":</span><span> {}\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "{\"store\":{}}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>{</span><span style=\"color:#c0e2a3;font-weight:500\">\"store\"</span><span style=\"color:#c0e2a3;font-weight:500\">:</span><span>{}}</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1{\n2  \"current\": \"monitor\",\n3  \"store\": {\n4    \"monitor\": \"monitor/asyncapi.yaml\",\n5    \"notifier\": \"notifier/asyncapi.yaml\",\n6    \"subscriber\": \"subscriber/asyncapi.yaml\"\n7  }\n8}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"current\":</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"monitor\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"store\":</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">\"monitor\":</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"monitor/asyncapi.yaml\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">\"notifier\":</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"notifier/asyncapi.yaml\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span style=\"color:#7edcda\">\"subscriber\":</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"subscriber/asyncapi.yaml\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Field Name",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Field Name": "current",
+            "Type": "string",
+            "Description": "An optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context."
+          },
+          {
+            "Field Name": "store",
+            "Type": "Store Object",
+            "Description": "REQUIRED. Map of filesystem paths to target AsyncAPI documents."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_1",
+        "headers": [
+          "Field Pattern",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Field Pattern": "{contextName}",
+            "Type": "string",
+            "Description": "An optional string value representing filesystem path to the target AsyncAPI document."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "context",
+        "context": "AsyncAPI CLI provides functionality called context. It's purpose is to help to work with AsyncAPI CLI in large projects where you do not have just one service exposing AsyncAPI document, but multiple."
+      },
+      {
+        "id": "highlight_1",
+        "content": "context",
+        "context": "Event driven architecture involves multiple actors, subscribers and publishers. One time you want to validate document A and the other time you want to generate models from document B. Every time you do it, you need to provide to AsyncAPI CLI the location of the AsyncAPI document, which might be time consuming. You can workaround it with aliases in bash profiles or with other solutions but it is better to use context feature, as you can then store it in your repository and share with other team members."
+      },
+      {
+        "id": "highlight_2",
+        "content": "asyncapi validate /some/folder/my-asyncapi.yml",
+        "context": "In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+      },
+      {
+        "id": "highlight_3",
+        "content": "myasync",
+        "context": "In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+      },
+      {
+        "id": "highlight_4",
+        "content": "/some/folder/my-asyncapi.yml",
+        "context": "In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+      },
+      {
+        "id": "highlight_5",
+        "content": "asyncapi validate myasync",
+        "context": "In short it means that for example instead of writing asyncapi validate /some/folder/my-asyncapi.yml you can create a context called myasync that will be an alias for and point to /some/folder/my-asyncapi.yml. This way next time you use the CLI you can do asyncapi validate myasync."
+      },
+      {
+        "id": "highlight_6",
+        "content": ".asyncapi-cli",
+        "context": "If your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project."
+      },
+      {
+        "id": "highlight_7",
+        "content": ".asyncapi-cli",
+        "context": "If your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project."
+      },
+      {
+        "id": "highlight_8",
+        "content": "asyncapi config context add",
+        "context": "If your use case is that you work with multiple repositories, you might want to use a global context. The .asyncapi-cli context file is then located in your home directory. You can also store your custom .asyncapi-cli file in your project with custom configuration. This way when you run asyncapi config context add inside your project, the new context is added to the context file under your project."
+      },
+      {
+        "id": "highlight_9",
+        "content": ".asyncapi-cli",
+        "context": "Create file .asyncapi-cli containing minimal empty context file in:\n\ncurrent directory\nroot of current repository\nuser's home directory"
+      },
+      {
+        "id": "highlight_10",
+        "content": "init",
+        "context": "Using CLI's init command"
+      },
+      {
+        "id": "highlight_11",
+        "content": "asyncapi config context init [CONTEXT-FILE-PATH]",
+        "context": "asyncapi config context init [CONTEXT-FILE-PATH]"
+      },
+      {
+        "id": "highlight_12",
+        "content": "[CONTEXT-FILE-PATH]",
+        "context": "Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:"
+      },
+      {
+        "id": "highlight_13",
+        "content": ".asyncapi-cli",
+        "context": "Where [CONTEXT-FILE-PATH] instructs CLI what directory should the file .asyncapi-cli containing minimal empty context file be created in:"
+      },
+      {
+        "id": "highlight_14",
+        "content": "asyncapi config context init .",
+        "context": "current directory: asyncapi config context init . (default)"
+      },
+      {
+        "id": "highlight_15",
+        "content": "asyncapi config context init ./",
+        "context": "root of current repository: asyncapi config context init ./"
+      },
+      {
+        "id": "highlight_16",
+        "content": "asyncapi config context init ~",
+        "context": "user's home directory: asyncapi config context init ~"
+      },
+      {
+        "id": "highlight_17",
+        "content": "[CONTEXT-FILE-PATH]",
+        "context": "(if [CONTEXT-FILE-PATH] is omitted, empty context file is created in current directory)"
+      },
+      {
+        "id": "highlight_18",
+        "content": ".asyncapi-cli",
+        "context": "Make use of newly created .asyncapi-cli by executing command:"
+      },
+      {
+        "id": "highlight_19",
+        "content": "asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]",
+        "context": "asyncapi config context add [CONTEXT-NAME] [SPEC-FILE-PATH]"
+      },
+      {
+        "id": "highlight_20",
+        "content": "string",
+        "context": "string"
+      },
+      {
+        "id": "highlight_21",
+        "content": "asyncapi validate",
+        "context": "An optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context."
+      },
+      {
+        "id": "highlight_22",
+        "content": "current",
+        "context": "An optional string value representing one of context names, which is used as default in CLI. Default means you can run CLI commands without providing context name, like asyncapi validate, and it will run against the default - current - context."
+      },
+      {
+        "id": "highlight_23",
+        "content": "string",
+        "context": "string"
+      },
+      {
+        "id": "highlight_24",
+        "content": "asyncapi config context",
+        "context": "All commands for managing contexts are available under asyncapi config context CLI commands group."
+      }
+    ]
+  }
+}

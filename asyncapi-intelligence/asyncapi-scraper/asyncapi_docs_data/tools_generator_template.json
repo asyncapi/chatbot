@@ -1,0 +1,340 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/template",
+    "timestamp": "2025-03-12T17:51:20.683Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Template",
+    "hierarchy": {
+      "sections": {
+        "Template": {
+          "level": 2,
+          "content": "A template is a project that specifies the generation process output by using the AsyncAPI generator and an AsyncAPI document. These files describe the generation results depending on the AsyncAPI document's content.Examples outputs:\nCode\nDocumentation\nMarkdown diagrams\nPython and Java applications\nA template is an independent Node.js project unrelated to the generator repository. AsyncAPI templates are managed, released, and published separately. You can also create templates and manage templates on your own.The generator uses the official Arborist NPM library. (This means templates do not have to be published to package managers to use them.) Arborist helps the generator fetch the template's source code and use it for the generation process. By default, this library pulls data from the default NPM registry, which is https://registry.npmjs.org. You can also configure the generator to fetch templates that are private or hosted in different NPM registryYou can store template projects on a local drive or as a git repository during the development process."
+        },
+        "Template generation process": {
+          "level": 2,
+          "content": "Template is provided as input to the Generator.\nasyncapi is the original AsyncAPI document injected into your template file by default.\nparams are the parameters you pass to the AsyncAPI CLI. Later, you can also pass these params further to other components.\nThe generator passes both the original asyncapi, the original AsyncAPI document, and the params to the Template Context.\nConcurrently, the generator passes Template files to the Render engine as well. AsyncAPI uses two render engines — react and nunjucks.\nOnce the Render Engine receives both the Template Files and the Template Context, it injects all the dynamic values into your react or nunjucks engine, based on the Template Files using the Template Context.\nThe render engine generates whatever output you may have specified in your template. (i.e. code, documentation, diagrams, pdfs, applications, etc.)"
+        },
+        "Generator templates list": {
+          "level": 2,
+          "content": "AsyncAPI has a list of available templates to enhance your generation process. Templates are stored as repositories on AsyncAPI's official GitHub profile.Template NameDescriptionSource code@asyncapi/nodejs-templateGenerates Node.js service that uses Hermes packageNode.js template@asyncapi/nodejs-ws-templateGenerates Node.js service that supports WebSocket protocol onlyNode.js WebSocket template@asyncapi/java-templateGenerates Java JMS applicationJava template@asyncapi/java-spring-templateGenerates Java Spring serviceJava spring template@asyncapi/java-spring-cloud-stream-templateGenerates Java Spring Cloud Stream serviceJava spring cloud stream template@asyncapi/python-paho-templateGenerates Python service that uses Paho libraryPython paho template@asyncapi/html-templateGenerates HTML documentation siteHTML template@asyncapi/markdown-templateGenerates documentation in Markdown fileMarkdown template@asyncapi/ts-nats-templateGenerates TypeScript NATS clientTypeScript/Node.js NATS template@asyncapi/go-watermill-templateGenerates Go client using WatermillGO watermill template@asyncapi/dotnet-nats-templateGenerates .NET C# client using NATS.NET C# NATS template\nSome of these templates are maintained by various third-party organizations. The README file usually contains this information and more, such as configuration options the user can pass to the template, usage, technical requirements, etc.\n\nCheck out all our community generator templates"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Template\nA template is a project that specifies the generation process output by using the AsyncAPI generator and an AsyncAPI document. These files describe the generation results depending on the AsyncAPI document's content.\nExamples outputs:\n\nCode\nDocumentation\nMarkdown diagrams\nPython and Java applications\n\nA template is an independent Node.js project unrelated to the generator repository. AsyncAPI templates are managed, released, and published separately. You can also create templates and manage templates on your own.\nThe generator uses the official Arborist NPM library. (This means templates do not have to be published to package managers to use them.) Arborist helps the generator fetch the template's source code and use it for the generation process. By default, this library pulls data from the default NPM registry, which is https://registry.npmjs.org. You can also configure the generator to fetch templates that are private or hosted in different NPM registry\nYou can store template projects on a local drive or as a git repository during the development process.\nTemplate generation process\n\nTemplate is provided as input to the Generator.\nasyncapi is the original AsyncAPI document injected into your template file by default.\nparams are the parameters you pass to the AsyncAPI CLI. Later, you can also pass these params further to other components.\nThe generator passes both the original asyncapi, the original AsyncAPI document, and the params to the Template Context.\nConcurrently, the generator passes Template files to the Render engine as well. AsyncAPI uses two render engines — react and nunjucks.\nOnce the Render Engine receives both the Template Files and the Template Context, it injects all the dynamic values into your react or nunjucks engine, based on the Template Files using the Template Context.\nThe render engine generates whatever output you may have specified in your template. (i.e. code, documentation, diagrams, pdfs, applications, etc.)\n\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Generator LibraryasyncapiparamsTemplate FilesTemplate ContextGeneratorRender EngineTemplate\nGenerator templates list\nAsyncAPI has a list of available templates to enhance your generation process. Templates are stored as repositories on AsyncAPI's official GitHub profile.\n\n\nTemplate NameDescriptionSource code@asyncapi/nodejs-templateGenerates Node.js service that uses Hermes packageNode.js template@asyncapi/nodejs-ws-templateGenerates Node.js service that supports WebSocket protocol onlyNode.js WebSocket template@asyncapi/java-templateGenerates Java JMS applicationJava template@asyncapi/java-spring-templateGenerates Java Spring serviceJava spring template@asyncapi/java-spring-cloud-stream-templateGenerates Java Spring Cloud Stream serviceJava spring cloud stream template@asyncapi/python-paho-templateGenerates Python service that uses Paho libraryPython paho template@asyncapi/html-templateGenerates HTML documentation siteHTML template@asyncapi/markdown-templateGenerates documentation in Markdown fileMarkdown template@asyncapi/ts-nats-templateGenerates TypeScript NATS clientTypeScript/Node.js NATS template@asyncapi/go-watermill-templateGenerates Go client using WatermillGO watermill template@asyncapi/dotnet-nats-templateGenerates .NET C# client using NATS.NET C# NATS template\n\n\nSome of these templates are maintained by various third-party organizations. The README file usually contains this information and more, such as configuration options the user can pass to the template, usage, technical requirements, etc.\n\n\nCheck out all our community generator templates",
+    "sections": [
+      {
+        "title": "Template",
+        "level": 2,
+        "text": "A template is a project that specifies the generation process output by using the AsyncAPI generator and an AsyncAPI document. These files describe the generation results depending on the AsyncAPI document's content.Examples outputs:\nCode\nDocumentation\nMarkdown diagrams\nPython and Java applications\nA template is an independent Node.js project unrelated to the generator repository. AsyncAPI templates are managed, released, and published separately. You can also create templates and manage templates on your own.The generator uses the official Arborist NPM library. (This means templates do not have to be published to package managers to use them.) Arborist helps the generator fetch the template's source code and use it for the generation process. By default, this library pulls data from the default NPM registry, which is https://registry.npmjs.org. You can also configure the generator to fetch templates that are private or hosted in different NPM registryYou can store template projects on a local drive or as a git repository during the development process."
+      },
+      {
+        "title": "Template generation process",
+        "level": 2,
+        "text": "Template is provided as input to the Generator.\nasyncapi is the original AsyncAPI document injected into your template file by default.\nparams are the parameters you pass to the AsyncAPI CLI. Later, you can also pass these params further to other components.\nThe generator passes both the original asyncapi, the original AsyncAPI document, and the params to the Template Context.\nConcurrently, the generator passes Template files to the Render engine as well. AsyncAPI uses two render engines — react and nunjucks.\nOnce the Render Engine receives both the Template Files and the Template Context, it injects all the dynamic values into your react or nunjucks engine, based on the Template Files using the Template Context.\nThe render engine generates whatever output you may have specified in your template. (i.e. code, documentation, diagrams, pdfs, applications, etc.)"
+      },
+      {
+        "title": "Generator templates list",
+        "level": 2,
+        "text": "AsyncAPI has a list of available templates to enhance your generation process. Templates are stored as repositories on AsyncAPI's official GitHub profile.Template NameDescriptionSource code@asyncapi/nodejs-templateGenerates Node.js service that uses Hermes packageNode.js template@asyncapi/nodejs-ws-templateGenerates Node.js service that supports WebSocket protocol onlyNode.js WebSocket template@asyncapi/java-templateGenerates Java JMS applicationJava template@asyncapi/java-spring-templateGenerates Java Spring serviceJava spring template@asyncapi/java-spring-cloud-stream-templateGenerates Java Spring Cloud Stream serviceJava spring cloud stream template@asyncapi/python-paho-templateGenerates Python service that uses Paho libraryPython paho template@asyncapi/html-templateGenerates HTML documentation siteHTML template@asyncapi/markdown-templateGenerates documentation in Markdown fileMarkdown template@asyncapi/ts-nats-templateGenerates TypeScript NATS clientTypeScript/Node.js NATS template@asyncapi/go-watermill-templateGenerates Go client using WatermillGO watermill template@asyncapi/dotnet-nats-templateGenerates .NET C# client using NATS.NET C# NATS template\nSome of these templates are maintained by various third-party organizations. The README file usually contains this information and more, such as configuration options the user can pass to the template, usage, technical requirements, etc.\n\nCheck out all our community generator templates"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 831.171875px;\" viewBox=\"-8 -8 831.171875 237.9140625\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster default\" id=\"subGraph0\"><rect style=\"\" rx=\"0\" ry=\"0\" x=\"143.171875\" y=\"0\" width=\"672\" height=\"221.9140625\"></rect><g class=\"cluster-label\" transform=\"translate(404.22265625, 0)\"><foreignObject width=\"149.8984375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator Library</span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M93.172,115.805L97.339,115.805C101.505,115.805,109.839,115.805,118.172,115.805C126.505,115.805,134.839,115.805,143.255,115.888C151.672,115.971,160.172,116.138,164.422,116.221L168.672,116.305\" id=\"L-F-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M286.637,92.051L301.122,84.426C315.607,76.802,344.577,61.553,369.588,56.556C394.599,51.558,415.651,56.811,426.177,59.437L436.703,62.064\" id=\"L-B-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M306.102,111.516L317.343,110.615C328.583,109.714,351.065,107.911,372.832,105.31C394.599,102.709,415.651,99.309,426.177,97.609L436.703,95.909\" id=\"L-B-A-1\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M601.383,82.609L605.549,82.609C609.716,82.609,618.049,82.609,627.996,84.642C637.942,86.674,649.502,90.74,655.282,92.772L661.062,94.805\" id=\"L-A-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M288.587,138.609L302.747,145.035C316.907,151.461,345.227,164.312,383.636,170.738C422.046,177.164,470.544,177.164,512.684,177.164C554.823,177.164,590.603,177.164,618.841,170.438C647.079,163.711,667.775,150.258,678.123,143.531L688.471,136.805\" id=\"L-B-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(373.546875, 46.3046875)\"><g class=\"label\" transform=\"translate(-38.15625, -13.5)\"><foreignObject width=\"76.3125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">asyncapi</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(373.546875, 106.109375)\"><g class=\"label\" transform=\"translate(-31.73046875, -13.5)\"><foreignObject width=\"63.4609375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">params</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(519.04296875, 177.1640625)\"><g class=\"label\" transform=\"translate(-61.2890625, -13.5)\"><foreignObject width=\"122.578125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Template Files</span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-A-26\" transform=\"translate(519.04296875, 82.609375)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-82.33984375\" y=\"-21\" width=\"164.6796875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-74.83984375, -13.5)\"><foreignObject width=\"149.6796875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Template Context</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-27\" transform=\"translate(239.28125, 115.8046875)\"><polygon points=\"71.109375,0 142.21875,-71.109375 71.109375,-142.21875 0,-71.109375\" class=\"label-container\" transform=\"translate(-71.109375,71.109375)\" style=\"\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-42.609375, -13.5)\"><foreignObject width=\"85.21875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-28\" transform=\"translate(720.77734375, 115.8046875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-69.39453125\" y=\"-21\" width=\"138.7890625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-61.89453125, -13.5)\"><foreignObject width=\"123.7890625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Render Engine</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-29\" transform=\"translate(46.5859375, 115.8046875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.5859375\" y=\"-21\" width=\"93.171875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-39.0859375, -13.5)\"><foreignObject width=\"78.171875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Template</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Generator LibraryasyncapiparamsTemplate FilesTemplate ContextGeneratorRender EngineTemplate",
+        "description": "SVG containing 9 paths, 2 circles, and 4 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Template Name",
+          "Description",
+          "Source code"
+        ],
+        "rows": [
+          {
+            "Template Name": "@asyncapi/nodejs-template",
+            "Description": "Generates Node.js service that uses Hermes package",
+            "Source code": "Node.js template"
+          },
+          {
+            "Template Name": "@asyncapi/nodejs-ws-template",
+            "Description": "Generates Node.js service that supports WebSocket protocol only",
+            "Source code": "Node.js WebSocket template"
+          },
+          {
+            "Template Name": "@asyncapi/java-template",
+            "Description": "Generates Java JMS application",
+            "Source code": "Java template"
+          },
+          {
+            "Template Name": "@asyncapi/java-spring-template",
+            "Description": "Generates Java Spring service",
+            "Source code": "Java spring template"
+          },
+          {
+            "Template Name": "@asyncapi/java-spring-cloud-stream-template",
+            "Description": "Generates Java Spring Cloud Stream service",
+            "Source code": "Java spring cloud stream template"
+          },
+          {
+            "Template Name": "@asyncapi/python-paho-template",
+            "Description": "Generates Python service that uses Paho library",
+            "Source code": "Python paho template"
+          },
+          {
+            "Template Name": "@asyncapi/html-template",
+            "Description": "Generates HTML documentation site",
+            "Source code": "HTML template"
+          },
+          {
+            "Template Name": "@asyncapi/markdown-template",
+            "Description": "Generates documentation in Markdown file",
+            "Source code": "Markdown template"
+          },
+          {
+            "Template Name": "@asyncapi/ts-nats-template",
+            "Description": "Generates TypeScript NATS client",
+            "Source code": "TypeScript/Node.js NATS template"
+          },
+          {
+            "Template Name": "@asyncapi/go-watermill-template",
+            "Description": "Generates Go client using Watermill",
+            "Source code": "GO watermill template"
+          },
+          {
+            "Template Name": "@asyncapi/dotnet-nats-template",
+            "Description": "Generates .NET C# client using NATS",
+            "Source code": ".NET C# NATS template"
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "generator",
+        "context": "A template is an independent Node.js project unrelated to the generator repository. AsyncAPI templates are managed, released, and published separately. You can also create templates and manage templates on your own."
+      },
+      {
+        "id": "highlight_1",
+        "content": "git",
+        "context": "You can store template projects on a local drive or as a git repository during the development process."
+      },
+      {
+        "id": "highlight_2",
+        "content": "templates",
+        "context": "Generator templates list"
+      },
+      {
+        "id": "highlight_3",
+        "content": "@asyncapi/nodejs-template",
+        "context": "@asyncapi/nodejs-template"
+      },
+      {
+        "id": "highlight_4",
+        "content": "@asyncapi/nodejs-ws-template",
+        "context": "@asyncapi/nodejs-ws-template"
+      },
+      {
+        "id": "highlight_5",
+        "content": "@asyncapi/java-template",
+        "context": "@asyncapi/java-template"
+      },
+      {
+        "id": "highlight_6",
+        "content": "@asyncapi/java-spring-template",
+        "context": "@asyncapi/java-spring-template"
+      },
+      {
+        "id": "highlight_7",
+        "content": "@asyncapi/java-spring-cloud-stream-template",
+        "context": "@asyncapi/java-spring-cloud-stream-template"
+      },
+      {
+        "id": "highlight_8",
+        "content": "@asyncapi/python-paho-template",
+        "context": "@asyncapi/python-paho-template"
+      },
+      {
+        "id": "highlight_9",
+        "content": "@asyncapi/html-template",
+        "context": "@asyncapi/html-template"
+      },
+      {
+        "id": "highlight_10",
+        "content": "@asyncapi/markdown-template",
+        "context": "@asyncapi/markdown-template"
+      },
+      {
+        "id": "highlight_11",
+        "content": "@asyncapi/ts-nats-template",
+        "context": "@asyncapi/ts-nats-template"
+      },
+      {
+        "id": "highlight_12",
+        "content": "@asyncapi/go-watermill-template",
+        "context": "@asyncapi/go-watermill-template"
+      },
+      {
+        "id": "highlight_13",
+        "content": "@asyncapi/dotnet-nats-template",
+        "context": "@asyncapi/dotnet-nats-template"
+      }
+    ]
+  }
+}

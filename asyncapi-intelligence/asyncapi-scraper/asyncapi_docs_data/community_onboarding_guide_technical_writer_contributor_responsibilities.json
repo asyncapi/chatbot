@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities",
+    "timestamp": "2025-03-12T17:56:44.823Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Technical Writer Contributor Responsibilities",
+    "hierarchy": {
+      "sections": {},
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "",
+    "sections": [],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

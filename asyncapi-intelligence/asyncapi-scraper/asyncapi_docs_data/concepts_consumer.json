@@ -1,0 +1,171 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/consumer",
+    "timestamp": "2025-03-12T17:43:39.837Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Consumer",
+    "hierarchy": {
+      "sections": {
+        "What is a consumer?": {
+          "level": 2,
+          "content": "A consumer is an application that subscribes to a specific event from a broker and responds accordingly."
+        },
+        "Why do we need consumers?": {
+          "level": 2,
+          "content": "Unlike traditional REST APIs, in Event-Driven Architecture (EDA), event consumers are asynchronous, which means they are not required to respond immediately on the same connection. In this architecture, consumers are unaware of the producers or other consumers. All they know is that when a broker sends them an event, it is because they have subscribed to it.When you want your application to process events asynchronously, the consumer plays a crucial role in completing the event data flow through the event channel."
+        },
+        "Remember": {
+          "level": 5,
+          "content": "Subscribers can also be producers."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "What is a consumer?\nA consumer is an application that subscribes to a specific event from a broker and responds accordingly.\nWhy do we need consumers?\nUnlike traditional REST APIs, in Event-Driven Architecture (EDA), event consumers are asynchronous, which means they are not required to respond immediately on the same connection. In this architecture, consumers are unaware of the producers or other consumers. All they know is that when a broker sends them an event, it is because they have subscribed to it.\nWhen you want your application to process events asynchronously, the consumer plays a crucial role in completing the event data flow through the event channel.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}ConsumersEvent AEvent BEvent AEvent AEvent BEvent BConsumer AConsumer BConsumer CProducerBroker\nThe diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events.\nRememberSubscribers can also be producers.",
+    "sections": [
+      {
+        "title": "What is a consumer?",
+        "level": 2,
+        "text": "A consumer is an application that subscribes to a specific event from a broker and responds accordingly."
+      },
+      {
+        "title": "Why do we need consumers?",
+        "level": 2,
+        "text": "Unlike traditional REST APIs, in Event-Driven Architecture (EDA), event consumers are asynchronous, which means they are not required to respond immediately on the same connection. In this architecture, consumers are unaware of the producers or other consumers. All they know is that when a broker sends them an event, it is because they have subscribed to it.When you want your application to process events asynchronously, the consumer plays a crucial role in completing the event data flow through the event channel."
+      },
+      {
+        "title": "Remember",
+        "level": 5,
+        "text": "Subscribers can also be producers."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 680.9375px;\" viewBox=\"-8 -8 680.9375 314\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster default\" id=\"Consumers\"><rect style=\"\" rx=\"0\" ry=\"0\" x=\"493.9609375\" y=\"0\" width=\"170.9765625\" height=\"298\"></rect><g class=\"cluster-label\" transform=\"translate(530.81640625, 0)\"><foreignObject width=\"97.265625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Consumers</span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M92.992,133.717L97.159,132.348C101.326,130.978,109.659,128.239,123.416,126.87C137.173,125.5,156.354,125.5,175.535,125.5C194.716,125.5,213.897,125.5,227.654,127.121C241.411,128.742,249.745,131.985,253.911,133.606L258.078,135.227\" id=\"L-a-c-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-a LE-c\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M92.992,164.283L97.159,165.652C101.326,167.022,109.659,169.761,123.416,171.13C137.173,172.5,156.354,172.5,175.535,172.5C194.716,172.5,213.897,172.5,227.654,170.879C241.411,169.258,249.745,166.015,253.911,164.394L258.078,162.773\" id=\"L-a-c-1\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-a LE-c\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M315.921,116.49L322.247,106.408C328.572,96.327,341.224,76.163,357.14,66.082C373.056,56,392.237,56,411.418,56C430.599,56,449.78,56,463.537,56C477.294,56,485.628,56,494.022,56C502.417,56,510.872,56,515.1,56L519.328,56\" id=\"L-c-d-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-c LE-d\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M328.875,135.227L333.042,133.606C337.208,131.985,345.542,128.742,359.299,127.121C373.056,125.5,392.237,125.5,411.418,125.5C430.599,125.5,449.78,125.5,463.537,125.5C477.294,125.5,485.628,125.5,494.076,126.677C502.523,127.854,511.086,130.208,515.367,131.384L519.648,132.561\" id=\"L-c-e-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-c LE-e\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M328.875,162.773L333.042,164.394C337.208,166.015,345.542,169.258,359.299,170.879C373.056,172.5,392.237,172.5,411.418,172.5C430.599,172.5,449.78,172.5,463.537,172.5C477.294,172.5,485.628,172.5,494.076,171.323C502.523,170.146,511.086,167.792,515.367,166.616L519.648,165.439\" id=\"L-c-e-1\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-c LE-e\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M315.921,181.51L322.247,191.592C328.572,201.673,341.224,221.837,357.14,231.918C373.056,242,392.237,242,411.418,242C430.599,242,449.78,242,463.537,242C477.294,242,485.628,242,493.961,242C502.294,242,510.628,242,514.794,242L518.961,242\" id=\"L-c-f-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-c LE-f\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\" transform=\"translate(175.53515625, 125.5)\"><g class=\"label\" transform=\"translate(-32.54296875, -13.5)\"><foreignObject width=\"65.0859375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event A</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(175.53515625, 172.5)\"><g class=\"label\" transform=\"translate(-32.22265625, -13.5)\"><foreignObject width=\"64.4453125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event B</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(411.41796875, 56)\"><g class=\"label\" transform=\"translate(-32.54296875, -13.5)\"><foreignObject width=\"65.0859375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event A</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(411.41796875, 125.5)\"><g class=\"label\" transform=\"translate(-32.54296875, -13.5)\"><foreignObject width=\"65.0859375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event A</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(411.41796875, 172.5)\"><g class=\"label\" transform=\"translate(-32.22265625, -13.5)\"><foreignObject width=\"64.4453125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event B</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(411.41796875, 242)\"><g class=\"label\" transform=\"translate(-32.22265625, -13.5)\"><foreignObject width=\"64.4453125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Event B</span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-d-35\" transform=\"translate(579.44921875, 56)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-60.12109375\" y=\"-21\" width=\"120.2421875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-52.62109375, -13.5)\"><foreignObject width=\"105.2421875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Consumer A</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-e-37\" transform=\"translate(579.44921875, 149)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-59.80078125\" y=\"-21\" width=\"119.6015625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-52.30078125, -13.5)\"><foreignObject width=\"104.6015625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Consumer B</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-f-41\" transform=\"translate(579.44921875, 242)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-60.48828125\" y=\"-21\" width=\"120.9765625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-52.98828125, -13.5)\"><foreignObject width=\"105.9765625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Consumer C</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-a-30\" transform=\"translate(46.49609375, 149)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.49609375\" y=\"-21\" width=\"92.9921875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.99609375, -13.5)\"><foreignObject width=\"77.9921875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Producer</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-c-31\" label-offset-y=\"9.03958183704413\" transform=\"translate(293.4765625, 149)\"><path style=\"\" d=\"M 0,9.03958183704413 a 35.3984375,9.03958183704413 0,0,0 70.796875 0 a 35.3984375,9.03958183704413 0,0,0 -70.796875 0 l 0,51.03958183704413 a 35.3984375,9.03958183704413 0,0,0 70.796875 0 l 0,-51.03958183704413\" transform=\"translate(-35.3984375,-34.559372755566194)\"></path><g class=\"label\" style=\"\" transform=\"translate(-27.8984375, -13.5)\"><foreignObject width=\"55.796875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Broker</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}ConsumersEvent AEvent BEvent AEvent AEvent BEvent BConsumer AConsumer BConsumer CProducerBroker",
+        "description": "SVG containing 11 paths, 2 circles, and 5 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 mr-2 inline-block h-8\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" fill=\"currentColor\" clip-rule=\"evenodd\" viewBox=\"0 0 22 25\"><path d=\"M13 24h-2c-.288 0-.563-.125-.753-.341l-.576-.659h4.658l-.576.659c-.19.216-.465.341-.753.341zm1.867-3c.287 0 .52.224.52.5s-.233.5-.52.5h-5.734c-.287 0-.52-.224-.52-.5s.233-.5.52-.5h5.734zm-2.871-17c2.983 0 6.004 1.97 6.004 5.734 0 1.937-.97 3.622-1.907 5.252-.907 1.574-1.843 3.201-1.844 5.014h1.001c0-3.286 3.75-6.103 3.75-10.266 0-4.34-3.502-6.734-7.004-6.734-3.498 0-6.996 2.391-6.996 6.734 0 4.163 3.75 6.98 3.75 10.266h.999c.001-1.813-.936-3.44-1.841-5.014-.938-1.63-1.908-3.315-1.908-5.252 0-3.764 3.017-5.734 5.996-5.734zm9.428 7.958c.251.114.362.411.248.662-.114.251-.41.363-.662.249l-.91-.414c-.252-.114-.363-.41-.249-.662.114-.251.411-.362.662-.248l.911.413zm-18.848 0c-.251.114-.362.411-.248.662.114.251.41.363.662.249l.91-.414c.252-.114.363-.41.249-.662-.114-.251-.411-.362-.662-.248l-.911.413zm18.924-2.958h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1c.276 0 .5.224.5.5s-.224.5-.5.5zm-18-1c.276 0 .5.224.5.5s-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1zm16.818-3.089c.227-.158.284-.469.126-.696-.157-.227-.469-.283-.696-.126l-.821.57c-.227.158-.283.469-.126.696.157.227.469.283.696.126l.821-.57zm-16.636 0c-.227-.158-.284-.469-.126-.696.157-.227.469-.283.696-.126l.821.57c.227.158.283.469.126.696-.157.227-.469.283-.696.126l-.821-.57zm13.333-3.033c.134-.241.048-.546-.193-.68-.241-.135-.546-.048-.68.192l-.488.873c-.135.241-.048.546.192.681.241.134.546.048.681-.193l.488-.873zm-10.03 0c-.134-.241-.048-.546.193-.68.241-.135.546-.048.68.192l.488.873c.135.241.048.546-.192.681-.241.134-.546.048-.681-.193l-.488-.873zm5.515-1.378c0-.276-.224-.5-.5-.5s-.5.224-.5.5v1c0 .276.224.5.5.5s.5-.224.5-.5v-1z\"></path></svg>",
+        "context": "Remember",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "producer",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      },
+      {
+        "id": "highlight_1",
+        "content": "broker",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      },
+      {
+        "id": "highlight_2",
+        "content": "consumers",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      },
+      {
+        "id": "highlight_3",
+        "content": "producer",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      },
+      {
+        "id": "highlight_4",
+        "content": "broker",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      },
+      {
+        "id": "highlight_5",
+        "content": "consumer",
+        "context": "The diagram above illustrates a sample flow of events from the producer to the broker to the consumers. In this scenario, the producer publishes two events (A and B) and sends them to the broker. Subsequently, each consumer subscribes to receive those events."
+      }
+    ]
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tutorials/generate-code",
+    "timestamp": "2025-03-12T17:44:44.864Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Generate Code",
+    "hierarchy": {
+      "sections": {
+        "Introduction": {
+          "level": 2,
+          "content": "In this tutorial, you'll learn how to generate an application that uses the Glee framework. You'll do it with an AsyncAPI document and the AsyncAPI CLI."
+        },
+        "Background context": {
+          "level": 2,
+          "content": "Glee is a TypeScript/JavaScript framework that enables you to create APIs and messaging clients based on your AsyncAPI document. Instead of generating code, this framework tightly integrates with your AsyncAPI document and binds functions to specific AsyncAPI operations. You only have to provide the code for these functions and Glee handles the rest.Glee is often used with the AsyncAPI CLI for a better development experience.In the previous tutorial, you created an AsyncAPI document that is used in this tutorial.RememberIf you did not follow the previous tutorial and do not have an asyncapi.yaml file for overview, then generate one by running the following command using the AsyncAPI CLI:\nasyncapi new --example=tutorial.yml --no-tty."
+        },
+        "Remember": {
+          "level": 5,
+          "content": "It is important to have Node.js installed which will enable the installation of the required dependencies using npm."
+        },
+        "Installation guide": {
+          "level": 2,
+          "content": "RememberIt is important to have Node.js installed which will enable the installation of the required dependencies using npm.CLI InstallationFollow the AsyncAPI CLI installation instructions below, based on your computer’s operating system.brew\n\nYou can install in MacOS via brew: brew install asyncapi.pkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application.1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /You can install in Linux via dpkg, a debian package manager:\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nsudo dpkg -i asyncapi.deb\nFor Windows, install the appropriate installer and follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and asyncapi.x86.exe for 32-bit Windows.Read further AsyncAPI CLI installation instructions for different operating systems.Using NPM and Node.jsAlternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}"
+        },
+        "CLI Installation": {
+          "level": 3,
+          "content": "Follow the AsyncAPI CLI installation instructions below, based on your computer’s operating system.brew\n\nYou can install in MacOS via brew: brew install asyncapi.pkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application.1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /You can install in Linux via dpkg, a debian package manager:\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nsudo dpkg -i asyncapi.deb\nFor Windows, install the appropriate installer and follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and asyncapi.x86.exe for 32-bit Windows.Read further AsyncAPI CLI installation instructions for different operating systems.Using NPM and Node.jsAlternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}"
+        },
+        "Using NPM and Node.js": {
+          "level": 4,
+          "content": "Alternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}Create a Glee project\n\nTrigger the creation of the Glee project:\n1asyncapi new glee --name=tutorial --template=tutorial\nLet's break down the previous command:\n\nasyncapi new glee is how you use Glee via the AsyncAPI CLI.\n--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project.\n--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial.\n\n\n\nList all files in the directory and confirm your Glee project creation:\n1cd tutorial && ls\nUpon execution of the command above, the following is an example of the expected result:\n1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json\n\nStart generated application\n\nInstall dependencies of the newly generated application:\n1npm install\n\n\nStart the application:\n1npm run dev\n\nSend message to broker\n\nIn another terminal install the MQTT.js library:\n1npm install mqtt -g\n\n\nSend a message to the MQTT broker that's connected to your generated application. Run the following MQTT client command:\n1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'\n\n\nGo back to the previous terminal to check if your application logged the streetlight condition you just sent. You should see something like this displayed in the terminal:\n1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z.\n\nSummaryIn this tutorial, you learned how to create a Glee project from the Streetlights API specification document created in a previous tutorial.Additionally, you've learned how to run your code by installing the project's dependencies and sending several test messages to the Streelights application using the MQTT client.Next stepsNow that you've completed this tutorial, go ahead and learn how to validate your AsyncAPI messages (events) through the message validation techniques supported by AsyncAPI."
+        },
+        "Create a Glee project": {
+          "level": 2,
+          "content": "Trigger the creation of the Glee project:\n1asyncapi new glee --name=tutorial --template=tutorial\nLet's break down the previous command:\n\nasyncapi new glee is how you use Glee via the AsyncAPI CLI.\n--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project.\n--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial.\n\n\n\nList all files in the directory and confirm your Glee project creation:\n1cd tutorial && ls\nUpon execution of the command above, the following is an example of the expected result:\n1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json"
+        },
+        "Start generated application": {
+          "level": 2,
+          "content": "Install dependencies of the newly generated application:\n1npm install\n\n\nStart the application:\n1npm run dev"
+        },
+        "Send message to broker": {
+          "level": 2,
+          "content": "In another terminal install the MQTT.js library:\n1npm install mqtt -g\n\n\nSend a message to the MQTT broker that's connected to your generated application. Run the following MQTT client command:\n1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'\n\n\nGo back to the previous terminal to check if your application logged the streetlight condition you just sent. You should see something like this displayed in the terminal:\n1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z."
+        },
+        "Summary": {
+          "level": 2,
+          "content": "In this tutorial, you learned how to create a Glee project from the Streetlights API specification document created in a previous tutorial.Additionally, you've learned how to run your code by installing the project's dependencies and sending several test messages to the Streelights application using the MQTT client."
+        },
+        "Next steps": {
+          "level": 2,
+          "content": "Now that you've completed this tutorial, go ahead and learn how to validate your AsyncAPI messages (events) through the message validation techniques supported by AsyncAPI."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tutorials"
+            },
+            {
+              "text": "Getting Started",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Create AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tutorials/create-asyncapi-document"
+            },
+            {
+              "text": "Generate code",
+              "href": "https://www.asyncapi.com/docs/tutorials/generate-code"
+            },
+            {
+              "text": "Validate AsyncAPI document with Studio",
+              "href": "https://www.asyncapi.com/docs/tutorials/studio-document-validation"
+            },
+            {
+              "text": "Message validation in runtime",
+              "href": "https://www.asyncapi.com/docs/tutorials/message-validation"
+            },
+            {
+              "text": "Streetlights - Interactive",
+              "href": "https://www.asyncapi.com/docs/tutorials/streetlights-interactive"
+            },
+            {
+              "text": "WebSocket",
+              "href": "https://www.asyncapi.com/docs/tutorials/websocket"
+            },
+            {
+              "text": "Kafka",
+              "href": "https://www.asyncapi.com/docs/tutorials/kafka"
+            }
+          ]
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Introduction\nIn this tutorial, you'll learn how to generate an application that uses the Glee framework. You'll do it with an AsyncAPI document and the AsyncAPI CLI.\nBackground context\nGlee is a TypeScript/JavaScript framework that enables you to create APIs and messaging clients based on your AsyncAPI document. Instead of generating code, this framework tightly integrates with your AsyncAPI document and binds functions to specific AsyncAPI operations. You only have to provide the code for these functions and Glee handles the rest.\nGlee is often used with the AsyncAPI CLI for a better development experience.\nIn the previous tutorial, you created an AsyncAPI document that is used in this tutorial.\nRememberIf you did not follow the previous tutorial and do not have an asyncapi.yaml file for overview, then generate one by running the following command using the AsyncAPI CLI:\nasyncapi new --example=tutorial.yml --no-tty.\nInstallation guide\nRememberIt is important to have Node.js installed which will enable the installation of the required dependencies using npm.\n\nCLI Installation\nFollow the AsyncAPI CLI installation instructions below, based on your computer’s operating system.\n\nbrew\n\nYou can install in MacOS via brew: brew install asyncapi.\npkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application.\n1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /\n\n\nYou can install in Linux via dpkg, a debian package manager:\n\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nsudo dpkg -i asyncapi.deb\n\n\n\nFor Windows, install the appropriate installer and follow the default installation steps to complete the installation process.\nDownload asyncapi.x64.exe for 64-bit Windows and asyncapi.x86.exe for 32-bit Windows.\n\n\nRead further AsyncAPI CLI installation instructions for different operating systems.\n\nUsing NPM and Node.js\nAlternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.\n\nInstall AsyncAPI CLI globally with the following command:\nnpm install -g @asyncapi/cli\n\n\nTo install a specific version of the AsyncAPI CLI, pass the verion during installation:\nnpm install -g @asyncapi/cli@{version}\nCreate a Glee project\n\n\nTrigger the creation of the Glee project:\n1asyncapi new glee --name=tutorial --template=tutorial\nLet's break down the previous command:\n\nasyncapi new glee is how you use Glee via the AsyncAPI CLI.\n--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project.\n--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial.\n\n\n\nList all files in the directory and confirm your Glee project creation:\n1cd tutorial && ls\nUpon execution of the command above, the following is an example of the expected result:\n1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json\n\n\nStart generated application\n\n\nInstall dependencies of the newly generated application:\n1npm install\n\n\nStart the application:\n1npm run dev\n\n\nSend message to broker\n\n\nIn another terminal install the MQTT.js library:\n1npm install mqtt -g\n\n\nSend a message to the MQTT broker that's connected to your generated application. Run the following MQTT client command:\n1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'\n\n\nGo back to the previous terminal to check if your application logged the streetlight condition you just sent. You should see something like this displayed in the terminal:\n1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z.\n\n\nSummary\nIn this tutorial, you learned how to create a Glee project from the Streetlights API specification document created in a previous tutorial.\nAdditionally, you've learned how to run your code by installing the project's dependencies and sending several test messages to the Streelights application using the MQTT client.\nNext steps\nNow that you've completed this tutorial, go ahead and learn how to validate your AsyncAPI messages (events) through the message validation techniques supported by AsyncAPI.",
+    "sections": [
+      {
+        "title": "Introduction",
+        "level": 2,
+        "text": "In this tutorial, you'll learn how to generate an application that uses the Glee framework. You'll do it with an AsyncAPI document and the AsyncAPI CLI."
+      },
+      {
+        "title": "Background context",
+        "level": 2,
+        "text": "Glee is a TypeScript/JavaScript framework that enables you to create APIs and messaging clients based on your AsyncAPI document. Instead of generating code, this framework tightly integrates with your AsyncAPI document and binds functions to specific AsyncAPI operations. You only have to provide the code for these functions and Glee handles the rest.Glee is often used with the AsyncAPI CLI for a better development experience.In the previous tutorial, you created an AsyncAPI document that is used in this tutorial.RememberIf you did not follow the previous tutorial and do not have an asyncapi.yaml file for overview, then generate one by running the following command using the AsyncAPI CLI:\nasyncapi new --example=tutorial.yml --no-tty."
+      },
+      {
+        "title": "Remember",
+        "level": 5,
+        "text": "It is important to have Node.js installed which will enable the installation of the required dependencies using npm."
+      },
+      {
+        "title": "Installation guide",
+        "level": 2,
+        "text": "RememberIt is important to have Node.js installed which will enable the installation of the required dependencies using npm.CLI InstallationFollow the AsyncAPI CLI installation instructions below, based on your computer’s operating system.brew\n\nYou can install in MacOS via brew: brew install asyncapi.pkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application.1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /You can install in Linux via dpkg, a debian package manager:\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nsudo dpkg -i asyncapi.deb\nFor Windows, install the appropriate installer and follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and asyncapi.x86.exe for 32-bit Windows.Read further AsyncAPI CLI installation instructions for different operating systems.Using NPM and Node.jsAlternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}"
+      },
+      {
+        "title": "CLI Installation",
+        "level": 3,
+        "text": "Follow the AsyncAPI CLI installation instructions below, based on your computer’s operating system.brew\n\nYou can install in MacOS via brew: brew install asyncapi.pkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application.1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /You can install in Linux via dpkg, a debian package manager:\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nsudo dpkg -i asyncapi.deb\nFor Windows, install the appropriate installer and follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and asyncapi.x86.exe for 32-bit Windows.Read further AsyncAPI CLI installation instructions for different operating systems.Using NPM and Node.jsAlternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}"
+      },
+      {
+        "title": "Using NPM and Node.js",
+        "level": 4,
+        "text": "Alternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM.Install AsyncAPI CLI globally with the following command:npm install -g @asyncapi/cliTo install a specific version of the AsyncAPI CLI, pass the verion during installation:npm install -g @asyncapi/cli@{version}Create a Glee project\n\nTrigger the creation of the Glee project:\n1asyncapi new glee --name=tutorial --template=tutorial\nLet's break down the previous command:\n\nasyncapi new glee is how you use Glee via the AsyncAPI CLI.\n--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project.\n--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial.\n\n\n\nList all files in the directory and confirm your Glee project creation:\n1cd tutorial && ls\nUpon execution of the command above, the following is an example of the expected result:\n1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json\n\nStart generated application\n\nInstall dependencies of the newly generated application:\n1npm install\n\n\nStart the application:\n1npm run dev\n\nSend message to broker\n\nIn another terminal install the MQTT.js library:\n1npm install mqtt -g\n\n\nSend a message to the MQTT broker that's connected to your generated application. Run the following MQTT client command:\n1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'\n\n\nGo back to the previous terminal to check if your application logged the streetlight condition you just sent. You should see something like this displayed in the terminal:\n1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z.\n\nSummaryIn this tutorial, you learned how to create a Glee project from the Streetlights API specification document created in a previous tutorial.Additionally, you've learned how to run your code by installing the project's dependencies and sending several test messages to the Streelights application using the MQTT client.Next stepsNow that you've completed this tutorial, go ahead and learn how to validate your AsyncAPI messages (events) through the message validation techniques supported by AsyncAPI."
+      },
+      {
+        "title": "Create a Glee project",
+        "level": 2,
+        "text": "Trigger the creation of the Glee project:\n1asyncapi new glee --name=tutorial --template=tutorial\nLet's break down the previous command:\n\nasyncapi new glee is how you use Glee via the AsyncAPI CLI.\n--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project.\n--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial.\n\n\n\nList all files in the directory and confirm your Glee project creation:\n1cd tutorial && ls\nUpon execution of the command above, the following is an example of the expected result:\n1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json"
+      },
+      {
+        "title": "Start generated application",
+        "level": 2,
+        "text": "Install dependencies of the newly generated application:\n1npm install\n\n\nStart the application:\n1npm run dev"
+      },
+      {
+        "title": "Send message to broker",
+        "level": 2,
+        "text": "In another terminal install the MQTT.js library:\n1npm install mqtt -g\n\n\nSend a message to the MQTT broker that's connected to your generated application. Run the following MQTT client command:\n1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'\n\n\nGo back to the previous terminal to check if your application logged the streetlight condition you just sent. You should see something like this displayed in the terminal:\n1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z."
+      },
+      {
+        "title": "Summary",
+        "level": 2,
+        "text": "In this tutorial, you learned how to create a Glee project from the Streetlights API specification document created in a previous tutorial.Additionally, you've learned how to run your code by installing the project's dependencies and sending several test messages to the Streelights application using the MQTT client."
+      },
+      {
+        "title": "Next steps",
+        "level": 2,
+        "text": "Now that you've completed this tutorial, go ahead and learn how to validate your AsyncAPI messages (events) through the message validation techniques supported by AsyncAPI."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 mr-2 inline-block h-8\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" fill=\"currentColor\" clip-rule=\"evenodd\" viewBox=\"0 0 22 25\"><path d=\"M13 24h-2c-.288 0-.563-.125-.753-.341l-.576-.659h4.658l-.576.659c-.19.216-.465.341-.753.341zm1.867-3c.287 0 .52.224.52.5s-.233.5-.52.5h-5.734c-.287 0-.52-.224-.52-.5s.233-.5.52-.5h5.734zm-2.871-17c2.983 0 6.004 1.97 6.004 5.734 0 1.937-.97 3.622-1.907 5.252-.907 1.574-1.843 3.201-1.844 5.014h1.001c0-3.286 3.75-6.103 3.75-10.266 0-4.34-3.502-6.734-7.004-6.734-3.498 0-6.996 2.391-6.996 6.734 0 4.163 3.75 6.98 3.75 10.266h.999c.001-1.813-.936-3.44-1.841-5.014-.938-1.63-1.908-3.315-1.908-5.252 0-3.764 3.017-5.734 5.996-5.734zm9.428 7.958c.251.114.362.411.248.662-.114.251-.41.363-.662.249l-.91-.414c-.252-.114-.363-.41-.249-.662.114-.251.411-.362.662-.248l.911.413zm-18.848 0c-.251.114-.362.411-.248.662.114.251.41.363.662.249l.91-.414c.252-.114.363-.41.249-.662-.114-.251-.411-.362-.662-.248l-.911.413zm18.924-2.958h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1c.276 0 .5.224.5.5s-.224.5-.5.5zm-18-1c.276 0 .5.224.5.5s-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1zm16.818-3.089c.227-.158.284-.469.126-.696-.157-.227-.469-.283-.696-.126l-.821.57c-.227.158-.283.469-.126.696.157.227.469.283.696.126l.821-.57zm-16.636 0c-.227-.158-.284-.469-.126-.696.157-.227.469-.283.696-.126l.821.57c.227.158.283.469.126.696-.157.227-.469.283-.696.126l-.821-.57zm13.333-3.033c.134-.241.048-.546-.193-.68-.241-.135-.546-.048-.68.192l-.488.873c-.135.241-.048.546.192.681.241.134.546.048.681-.193l.488-.873zm-10.03 0c-.134-.241-.048-.546.193-.68.241-.135.546-.048.68.192l.488.873c.135.241.048.546-.192.681-.241.134-.546.048-.681-.193l-.488-.873zm5.515-1.378c0-.276-.224-.5-.5-.5s-.5.224-.5.5v1c0 .276.224.5.5.5s.5-.224.5-.5v-1z\"></path></svg>",
+        "context": "Remember",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 mr-2 inline-block h-8\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" fill=\"currentColor\" clip-rule=\"evenodd\" viewBox=\"0 0 22 25\"><path d=\"M13 24h-2c-.288 0-.563-.125-.753-.341l-.576-.659h4.658l-.576.659c-.19.216-.465.341-.753.341zm1.867-3c.287 0 .52.224.52.5s-.233.5-.52.5h-5.734c-.287 0-.52-.224-.52-.5s.233-.5.52-.5h5.734zm-2.871-17c2.983 0 6.004 1.97 6.004 5.734 0 1.937-.97 3.622-1.907 5.252-.907 1.574-1.843 3.201-1.844 5.014h1.001c0-3.286 3.75-6.103 3.75-10.266 0-4.34-3.502-6.734-7.004-6.734-3.498 0-6.996 2.391-6.996 6.734 0 4.163 3.75 6.98 3.75 10.266h.999c.001-1.813-.936-3.44-1.841-5.014-.938-1.63-1.908-3.315-1.908-5.252 0-3.764 3.017-5.734 5.996-5.734zm9.428 7.958c.251.114.362.411.248.662-.114.251-.41.363-.662.249l-.91-.414c-.252-.114-.363-.41-.249-.662.114-.251.411-.362.662-.248l.911.413zm-18.848 0c-.251.114-.362.411-.248.662.114.251.41.363.662.249l.91-.414c.252-.114.363-.41.249-.662-.114-.251-.411-.362-.662-.248l-.911.413zm18.924-2.958h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1c.276 0 .5.224.5.5s-.224.5-.5.5zm-18-1c.276 0 .5.224.5.5s-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1zm16.818-3.089c.227-.158.284-.469.126-.696-.157-.227-.469-.283-.696-.126l-.821.57c-.227.158-.283.469-.126.696.157.227.469.283.696.126l.821-.57zm-16.636 0c-.227-.158-.284-.469-.126-.696.157-.227.469-.283.696-.126l.821.57c.227.158.283.469.126.696-.157.227-.469.283-.696.126l-.821-.57zm13.333-3.033c.134-.241.048-.546-.193-.68-.241-.135-.546-.048-.68.192l-.488.873c-.135.241-.048.546.192.681.241.134.546.048.681-.193l.488-.873zm-10.03 0c-.134-.241-.048-.546.193-.68.241-.135.546-.048.68.192l.488.873c.135.241.048.546-.192.681-.241.134-.546.048-.681-.193l-.488-.873zm5.515-1.378c0-.276-.224-.5-.5-.5s-.5.224-.5.5v1c0 .276.224.5.5.5s.5-.224.5-.5v-1z\"></path></svg>",
+        "context": "Remember",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_8",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_9",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_10",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_11",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_12",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1# Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg\n3# Install AsyncAPI CLI\n4sudo installer -pkg asyncapi.pkg -target /",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># Download latest release. To download specific release, your link should look similar to https://github.com/asyncapi/cli/releases/download/v0.13.0/asyncapi.pkg. All releases are listed in https://github.com/asyncapi/cli/releases</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">curl</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-OL</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">https://github.com/asyncapi/cli/releases/latest/download/asyncapi.pkg</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#797f8c\"># Install AsyncAPI CLI</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">sudo</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">installer</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-pkg</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi.pkg</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-target</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">/</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "npm install -g @asyncapi/cli",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-g</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">@asyncapi/cli</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "npm install -g @asyncapi/cli@{version}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-g</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">@asyncapi/cli@{version}</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1asyncapi new glee --name=tutorial --template=tutorial",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>asyncapi new glee --name=tutorial --template=tutorial</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1cd tutorial && ls",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">cd</span><span> tutorial &amp;&amp; ls</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1$ ls\n2 LICENSE\n3 README.md\n4 asyncapi.yaml\n5 functions\n6 package.json",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>$ ls\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span> LICENSE\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span> README.md\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span> asyncapi.yaml\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span> </span><span style=\"color:#7edcda\">functions</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span> package.json</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "1npm install",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>npm install</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "1npm run dev",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>npm run dev</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_8",
+        "content": "1npm install mqtt -g",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>npm install mqtt -g</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_9",
+        "content": "1mqtt pub -t 'light/measured' -h 'test.mosquitto.org' -m '{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>mqtt pub -t </span><span style=\"color:#c0e2a3;font-weight:500\">'light/measured'</span><span> -h </span><span style=\"color:#c0e2a3;font-weight:500\">'test.mosquitto.org'</span><span> -m </span><span style=\"color:#c0e2a3;font-weight:500\">'{\"id\": 1, \"lumens\": 3, \"sentAt\": \"2017-06-07T12:34:32.000Z\"}'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_10",
+        "content": "1lightMeasured was received from mosquitto:\n2 { id: 1, lumens: 3, sentAt: '2017-06-07T12:34:32.000Z' }\n3 Streetlight with id \"1\" updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>lightMeasured was received from mosquitto:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span> { id: 1, lumens: 3, sentAt: </span><span style=\"color:#c0e2a3;font-weight:500\">'2017-06-07T12:34:32.000Z'</span><span> }\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span> Streetlight with id </span><span style=\"color:#c0e2a3;font-weight:500\">\"1\"</span><span> updated its lighting information to 3 lumens at 2017-06-07T12:34:32.000Z.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "asyncapi.yaml",
+        "context": "If you did not follow the previous tutorial and do not have an asyncapi.yaml file for overview, then generate one by running the following command using the AsyncAPI CLI:\nasyncapi new --example=tutorial.yml --no-tty."
+      },
+      {
+        "id": "highlight_1",
+        "content": "asyncapi new --example=tutorial.yml --no-tty",
+        "context": "If you did not follow the previous tutorial and do not have an asyncapi.yaml file for overview, then generate one by running the following command using the AsyncAPI CLI:\nasyncapi new --example=tutorial.yml --no-tty."
+      },
+      {
+        "id": "highlight_2",
+        "content": "brew",
+        "context": "brew\n\nYou can install in MacOS via brew: brew install asyncapi."
+      },
+      {
+        "id": "highlight_3",
+        "content": "brew install asyncapi",
+        "context": "brew\n\nYou can install in MacOS via brew: brew install asyncapi."
+      },
+      {
+        "id": "highlight_4",
+        "content": "pkg",
+        "context": "pkg\n\nEach release of CLI produces a MacOS dedicated pkg file that enables you to install this CLI as MacOS application."
+      },
+      {
+        "id": "highlight_5",
+        "content": "dpkg",
+        "context": "You can install in Linux via dpkg, a debian package manager:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb",
+        "context": "curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb"
+      },
+      {
+        "id": "highlight_7",
+        "content": "sudo dpkg -i asyncapi.deb",
+        "context": "sudo dpkg -i asyncapi.deb"
+      },
+      {
+        "id": "highlight_8",
+        "content": ">=v10",
+        "context": "Alternitavely, you can install the AsyncAPI CLI with Node.js >=v10 and NPM."
+      },
+      {
+        "id": "highlight_9",
+        "content": "verion",
+        "context": "To install a specific version of the AsyncAPI CLI, pass the verion during installation:"
+      },
+      {
+        "id": "highlight_10",
+        "content": "asyncapi new glee",
+        "context": "asyncapi new glee is how you use Glee via the AsyncAPI CLI."
+      },
+      {
+        "id": "highlight_11",
+        "content": "--name=tutorial",
+        "context": "--name=tutorial is how you tell the AsyncAPI CLI to name your new Glee project."
+      },
+      {
+        "id": "highlight_12",
+        "content": "--template=tutorial",
+        "context": "--template=tutorial is how you tell the AsyncAPI CLI to use the template of a Glee project that was created specifically for this tutorial."
+      }
+    ]
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories",
+    "timestamp": "2025-03-12T17:57:30.846Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Create New Docs Directories",
+    "hierarchy": {
+      "sections": {
+        "Create new docs directories": {
+          "level": 3,
+          "content": "Create a new docs directory (folder) via the following steps:\nIdentify the content bucket under which your document falls.\nOpen the project locally in your code editor of choice and navigate to the parent folder.\nRight-click on the parent folder and click \"new folder\".\nGive an appropriate name to the new folder.\nAdd the following two files to the new folder:\n\nindex.md: Used as the main content for a website's directory or specific webpage. It's named index because many web servers are configured to automatically look for an index file when accessing a directory. When you access a directory on a web server, if an index.md file is present, it will be displayed as the default page for that directory.\n_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed.\n\n\nYou can edit the index page after successfully creating these pages.\nparent Foldernew Folderindex.md_section.mdexample-doc-1.mdexample-doc-2.md"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "Create new docs directories\nCreate a new docs directory (folder) via the following steps:\n\nIdentify the content bucket under which your document falls.\nOpen the project locally in your code editor of choice and navigate to the parent folder.\nRight-click on the parent folder and click \"new folder\".\nGive an appropriate name to the new folder.\nAdd the following two files to the new folder:\n\nindex.md: Used as the main content for a website's directory or specific webpage. It's named index because many web servers are configured to automatically look for an index file when accessing a directory. When you access a directory on a web server, if an index.md file is present, it will be displayed as the default page for that directory.\n_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed.\n\n\nYou can edit the index page after successfully creating these pages.\n\nparent Foldernew Folderindex.md_section.mdexample-doc-1.mdexample-doc-2.md",
+    "sections": [
+      {
+        "title": "Create new docs directories",
+        "level": 3,
+        "text": "Create a new docs directory (folder) via the following steps:\nIdentify the content bucket under which your document falls.\nOpen the project locally in your code editor of choice and navigate to the parent folder.\nRight-click on the parent folder and click \"new folder\".\nGive an appropriate name to the new folder.\nAdd the following two files to the new folder:\n\nindex.md: Used as the main content for a website's directory or specific webpage. It's named index because many web servers are configured to automatically look for an index file when accessing a directory. When you access a directory on a web server, if an index.md file is present, it will be displayed as the default page for that directory.\n_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed.\n\n\nYou can edit the index page after successfully creating these pages.\nparent Foldernew Folderindex.md_section.mdexample-doc-1.mdexample-doc-2.md"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 530.859375px;\" viewBox=\"-8 -8 530.859375 334\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M128.227,159L132.393,159C136.56,159,144.893,159,153.227,159C161.56,159,169.893,159,174.06,159L178.227,159\" id=\"L-A-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M244.802,138L256.033,118.5C267.264,99,289.726,60,312.187,40.5C334.648,21,357.109,21,368.34,21L379.57,21\" id=\"L-B-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M268.992,138L276.191,133.833C283.39,129.667,297.789,121.333,314.199,117.167C330.609,113,349.031,113,358.242,113L367.453,113\" id=\"L-B-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M268.992,180L276.191,184.167C283.39,188.333,297.789,196.667,309.409,200.833C321.029,205,329.87,205,334.29,205L338.711,205\" id=\"L-B-E-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-E\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M244.802,180L256.033,199.5C267.264,219,289.726,258,305.123,277.5C320.521,297,328.854,297,333.021,297L337.188,297\" id=\"L-B-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-A-20\" transform=\"translate(64.11328125, 159)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-64.11328125\" y=\"-21\" width=\"128.2265625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-56.61328125, -13.5)\"><foreignObject width=\"113.2265625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">parent Folder</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-21\" transform=\"translate(232.70703125, 159)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-54.48046875\" y=\"-21\" width=\"108.9609375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-46.98046875, -13.5)\"><foreignObject width=\"93.9609375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">new Folder</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-C-23\" transform=\"translate(426.0234375, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.453125\" y=\"-21\" width=\"92.90625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.953125, -13.5)\"><foreignObject width=\"77.90625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">index.md</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-25\" transform=\"translate(426.0234375, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-58.5703125\" y=\"-21\" width=\"117.140625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-51.0703125, -13.5)\"><foreignObject width=\"102.140625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">_section.md</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-27\" transform=\"translate(426.0234375, 205)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-87.3125\" y=\"-21\" width=\"174.625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-79.8125, -13.5)\"><foreignObject width=\"159.625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">example-doc-1.md</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-29\" transform=\"translate(426.0234375, 297)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-88.8359375\" y=\"-21\" width=\"177.671875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-81.3359375, -13.5)\"><foreignObject width=\"162.671875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">example-doc-2.md</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}parent Foldernew Folderindex.md_section.mdexample-doc-1.mdexample-doc-2.md",
+        "description": "SVG containing 9 paths, 2 circles, and 6 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "index.md",
+        "context": "index.md: Used as the main content for a website's directory or specific webpage. It's named index because many web servers are configured to automatically look for an index file when accessing a directory. When you access a directory on a web server, if an index.md file is present, it will be displayed as the default page for that directory."
+      },
+      {
+        "id": "highlight_1",
+        "content": "index.md",
+        "context": "index.md: Used as the main content for a website's directory or specific webpage. It's named index because many web servers are configured to automatically look for an index file when accessing a directory. When you access a directory on a web server, if an index.md file is present, it will be displayed as the default page for that directory."
+      },
+      {
+        "id": "highlight_2",
+        "content": "_section.md",
+        "context": "_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed."
+      },
+      {
+        "id": "highlight_3",
+        "content": "title",
+        "context": "_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed."
+      },
+      {
+        "id": "highlight_4",
+        "content": "weight",
+        "context": "_section.md: Used for reusable components or partial content within a website's structure. It defines the page's title and weight. The title defines a human-readable title, and weight controls the order in which sections (directories) are displayed."
+      }
+    ]
+  }
+}

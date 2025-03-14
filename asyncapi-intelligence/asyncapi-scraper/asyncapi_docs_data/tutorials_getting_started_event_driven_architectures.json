@@ -1,0 +1,201 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tutorials/getting-started/event-driven-architectures",
+    "timestamp": "2025-03-12T17:49:19.805Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Event Driven Architectures",
+    "hierarchy": {
+      "sections": {
+        "Core concepts": {
+          "level": 2,
+          "content": "In most cases, EDAs are broker-centric, as seen in the diagram above. There are some new concepts in that diagram, so let's go through them now.Message brokerA message broker (or \"broker\") is a piece of infrastructure in charge of receiving messages and delivering them to those who have shown interest. They often store messages until they are delivered, which makes EDAs very resilient to failures. Examples of brokers are RabbitMQ, Apache Kafka, Solace, etc.Publisher/SubscriberA publisher (a.k.a. producer) is an application that sends messages to the broker.A subscriber (a.k.a. consumer) is an application that connects to the broker, manifests an interest in a certain type of message, and leaves the connection open so the broker can push messages to them.MessageA message is a piece of information that is sent by publishers to the broker, and received by all interested subscribers. Messages can contain anything and are frequently cataloged as events and commands. As you saw above, events communicate a fact that occurred. On the other hand, commands are very similar to requests in REST APIs. They instruct the subscribers to \"do this.\"To be precise, events and commands share the same structure but differ conceptually.ChannelsOne detail that might pass unnoticed from the diagram above is the existence of channels. All brokers support communication through multiple channels. The industry doesn't have a common term for them, so you may see them referred to as topics, routing keys, event types, etc.A channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference."
+        },
+        "Message broker": {
+          "level": 3,
+          "content": "A message broker (or \"broker\") is a piece of infrastructure in charge of receiving messages and delivering them to those who have shown interest. They often store messages until they are delivered, which makes EDAs very resilient to failures. Examples of brokers are RabbitMQ, Apache Kafka, Solace, etc."
+        },
+        "Publisher/Subscriber": {
+          "level": 3,
+          "content": "A publisher (a.k.a. producer) is an application that sends messages to the broker.A subscriber (a.k.a. consumer) is an application that connects to the broker, manifests an interest in a certain type of message, and leaves the connection open so the broker can push messages to them."
+        },
+        "Message": {
+          "level": 3,
+          "content": "A message is a piece of information that is sent by publishers to the broker, and received by all interested subscribers. Messages can contain anything and are frequently cataloged as events and commands. As you saw above, events communicate a fact that occurred. On the other hand, commands are very similar to requests in REST APIs. They instruct the subscribers to \"do this.\"To be precise, events and commands share the same structure but differ conceptually."
+        },
+        "Channels": {
+          "level": 3,
+          "content": "One detail that might pass unnoticed from the diagram above is the existence of channels. All brokers support communication through multiple channels. The industry doesn't have a common term for them, so you may see them referred to as topics, routing keys, event types, etc.A channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference."
+        },
+        "Why \"event-driven\" and not \"message-driven\"?": {
+          "level": 2,
+          "content": "You will find both used interchangeably, although they are not the same. You will even find \"message-based\" and \"event-based\". In practice, chances are they all refer to the same thing.Theoretically, \"message-driven\" is the most generic term -meaning you may use events and commands- while event-driven means that it's purely about events.However, that's not always the case, as Martin Fowler explains in his\ntalk \"the many meanings of Event-Driven Architecture\"."
+        },
+        "Conclusion": {
+          "level": 2,
+          "content": "We've seen what an Event-Driven Architecture is, how it works, and explained its components. AsyncAPI defines and documents each of these components. We'll cover each of the components during the rest of this guide. To continue, choose your next step:"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tutorials"
+            },
+            {
+              "text": "Getting Started",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Event-Driven Architectures",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/event-driven-architectures"
+            },
+            {
+              "text": "Coming from OpenAPI",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/coming-from-openapi"
+            },
+            {
+              "text": "Hello world",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/hello-world"
+            },
+            {
+              "text": "Request/reply pattern",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/request-reply"
+            },
+            {
+              "text": "AsyncAPI documents",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/asyncapi-documents"
+            },
+            {
+              "text": "Servers",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/servers"
+            },
+            {
+              "text": "Adding security",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/security"
+            },
+            {
+              "text": "Create AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tutorials/create-asyncapi-document"
+            },
+            {
+              "text": "Generate code",
+              "href": "https://www.asyncapi.com/docs/tutorials/generate-code"
+            },
+            {
+              "text": "Validate AsyncAPI document with Studio",
+              "href": "https://www.asyncapi.com/docs/tutorials/studio-document-validation"
+            },
+            {
+              "text": "Message validation in runtime",
+              "href": "https://www.asyncapi.com/docs/tutorials/message-validation"
+            },
+            {
+              "text": "Streetlights - Interactive",
+              "href": "https://www.asyncapi.com/docs/tutorials/streetlights-interactive"
+            },
+            {
+              "text": "WebSocket",
+              "href": "https://www.asyncapi.com/docs/tutorials/websocket"
+            },
+            {
+              "text": "Kafka",
+              "href": "https://www.asyncapi.com/docs/tutorials/kafka"
+            }
+          ]
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Many developers, architects, and product managers have used REST APIs and are familiar with the synchronous communication paradigm. You make a request and wait for the response. This is exactly how the world wide web works. You enter a URL (e.g., www.google.com) in the browser's address bar and it sends a request to the server. The server then sends the response with the website content. The web is the greatest implementation of a REST API.\nHowever, there are certain situations where you don't need a response from the server. In most cases, it's only important to have some confirmation that the request was received. This is also called \"fire and forget\", and it's very useful when you just want to communicate or inform that \"something happened.\" You're not requesting or asking for anything, thus you don't need a response.\nSome examples of this can be:\n\nA user just signed up.\nYou have a new follower.\nYour fridge is almost empty.\n\nAlong with the event, you may also want to send extra information. For instance:\n\nA user just signed up: here's the user information (e.g., name, email, age, etc.)\nYou have a new follower: here are the follower details (e.g., username, name, picture, etc.)\nYour fridge is almost empty: here's the percentage of \"emptiness\" or available volume (e.g. 23%)\n\nThis extra information is often referred to as the event payload or message payload.\nAn Event-Driven Architecture (EDA) uses events to trigger and communicate between services and is common in modern applications built with microservices. An event is a state change, or an update, like adding a shopping item to a cart on an e-commerce website.\nCore concepts\n\nIn most cases, EDAs are broker-centric, as seen in the diagram above. There are some new concepts in that diagram, so let's go through them now.\nMessage broker\nA message broker (or \"broker\") is a piece of infrastructure in charge of receiving messages and delivering them to those who have shown interest. They often store messages until they are delivered, which makes EDAs very resilient to failures. Examples of brokers are RabbitMQ, Apache Kafka, Solace, etc.\nPublisher/Subscriber\nA publisher (a.k.a. producer) is an application that sends messages to the broker.\nA subscriber (a.k.a. consumer) is an application that connects to the broker, manifests an interest in a certain type of message, and leaves the connection open so the broker can push messages to them.\nMessage\nA message is a piece of information that is sent by publishers to the broker, and received by all interested subscribers. Messages can contain anything and are frequently cataloged as events and commands. As you saw above, events communicate a fact that occurred. On the other hand, commands are very similar to requests in REST APIs. They instruct the subscribers to \"do this.\"\nTo be precise, events and commands share the same structure but differ conceptually.\nChannels\nOne detail that might pass unnoticed from the diagram above is the existence of channels. All brokers support communication through multiple channels. The industry doesn't have a common term for them, so you may see them referred to as topics, routing keys, event types, etc.\nA channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference.\nWhy \"event-driven\" and not \"message-driven\"?\nYou will find both used interchangeably, although they are not the same. You will even find \"message-based\" and \"event-based\". In practice, chances are they all refer to the same thing.\nTheoretically, \"message-driven\" is the most generic term -meaning you may use events and commands- while event-driven means that it's purely about events.\nHowever, that's not always the case, as Martin Fowler explains in his\ntalk \"the many meanings of Event-Driven Architecture\".\nConclusion\nWe've seen what an Event-Driven Architecture is, how it works, and explained its components. AsyncAPI defines and documents each of these components. We'll cover each of the components during the rest of this guide. To continue, choose your next step:",
+    "sections": [
+      {
+        "title": "Core concepts",
+        "level": 2,
+        "text": "In most cases, EDAs are broker-centric, as seen in the diagram above. There are some new concepts in that diagram, so let's go through them now.Message brokerA message broker (or \"broker\") is a piece of infrastructure in charge of receiving messages and delivering them to those who have shown interest. They often store messages until they are delivered, which makes EDAs very resilient to failures. Examples of brokers are RabbitMQ, Apache Kafka, Solace, etc.Publisher/SubscriberA publisher (a.k.a. producer) is an application that sends messages to the broker.A subscriber (a.k.a. consumer) is an application that connects to the broker, manifests an interest in a certain type of message, and leaves the connection open so the broker can push messages to them.MessageA message is a piece of information that is sent by publishers to the broker, and received by all interested subscribers. Messages can contain anything and are frequently cataloged as events and commands. As you saw above, events communicate a fact that occurred. On the other hand, commands are very similar to requests in REST APIs. They instruct the subscribers to \"do this.\"To be precise, events and commands share the same structure but differ conceptually.ChannelsOne detail that might pass unnoticed from the diagram above is the existence of channels. All brokers support communication through multiple channels. The industry doesn't have a common term for them, so you may see them referred to as topics, routing keys, event types, etc.A channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference."
+      },
+      {
+        "title": "Message broker",
+        "level": 3,
+        "text": "A message broker (or \"broker\") is a piece of infrastructure in charge of receiving messages and delivering them to those who have shown interest. They often store messages until they are delivered, which makes EDAs very resilient to failures. Examples of brokers are RabbitMQ, Apache Kafka, Solace, etc."
+      },
+      {
+        "title": "Publisher/Subscriber",
+        "level": 3,
+        "text": "A publisher (a.k.a. producer) is an application that sends messages to the broker.A subscriber (a.k.a. consumer) is an application that connects to the broker, manifests an interest in a certain type of message, and leaves the connection open so the broker can push messages to them."
+      },
+      {
+        "title": "Message",
+        "level": 3,
+        "text": "A message is a piece of information that is sent by publishers to the broker, and received by all interested subscribers. Messages can contain anything and are frequently cataloged as events and commands. As you saw above, events communicate a fact that occurred. On the other hand, commands are very similar to requests in REST APIs. They instruct the subscribers to \"do this.\"To be precise, events and commands share the same structure but differ conceptually."
+      },
+      {
+        "title": "Channels",
+        "level": 3,
+        "text": "One detail that might pass unnoticed from the diagram above is the existence of channels. All brokers support communication through multiple channels. The industry doesn't have a common term for them, so you may see them referred to as topics, routing keys, event types, etc.A channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference."
+      },
+      {
+        "title": "Why \"event-driven\" and not \"message-driven\"?",
+        "level": 2,
+        "text": "You will find both used interchangeably, although they are not the same. You will even find \"message-based\" and \"event-based\". In practice, chances are they all refer to the same thing.Theoretically, \"message-driven\" is the most generic term -meaning you may use events and commands- while event-driven means that it's purely about events.However, that's not always the case, as Martin Fowler explains in his\ntalk \"the many meanings of Event-Driven Architecture\"."
+      },
+      {
+        "title": "Conclusion",
+        "level": 2,
+        "text": "We've seen what an Event-Driven Architecture is, how it works, and explained its components. AsyncAPI defines and documents each of these components. We'll cover each of the components during the rest of this guide. To continue, choose your next step:"
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "user_signed_up",
+        "context": "A channel is usually assigned a name or identifier (e.g., user_signed_up) and it is often good practice to send a single type of message through a particular channel. Think about TV or radio channels; the BBC only broadcasts its information through an assigned channel. If the broadcasters (publishers) didn't respect that rule, you (the subscriber) would only see and hear interference."
+      }
+    ]
+  }
+}

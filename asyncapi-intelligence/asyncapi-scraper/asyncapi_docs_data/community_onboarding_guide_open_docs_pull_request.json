@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request",
+    "timestamp": "2025-03-12T17:57:38.896Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Open Docs Pull Request",
+    "hierarchy": {
+      "sections": {
+        "Create a new docs pull request": {
+          "level": 2,
+          "content": "Create and submit a docs pull request (PR) via the following steps:\nA Docs’ PR should solve one documentation problem.\nIf there is no current issue for the docs task you want to accomplish, please open a docs issue before creating a PR.\nUse the conventional commit style when creating PRs. Always create a docs issue or PR with the docs: prefix in the title.\nPlease check your contribution and ensure it follows the AsyncAPI style guide.\nTag other technical writers to review your document.\nTag an engineer or subject matter expert (SME) to review the technical details.\nAfter implementing all the feedback you requested, please update your PR and wait for further feedback before it can be merged."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "Create a new docs pull request\nCreate and submit a docs pull request (PR) via the following steps:\n\nA Docs’ PR should solve one documentation problem.\nIf there is no current issue for the docs task you want to accomplish, please open a docs issue before creating a PR.\nUse the conventional commit style when creating PRs. Always create a docs issue or PR with the docs: prefix in the title.\nPlease check your contribution and ensure it follows the AsyncAPI style guide.\nTag other technical writers to review your document.\nTag an engineer or subject matter expert (SME) to review the technical details.\nAfter implementing all the feedback you requested, please update your PR and wait for further feedback before it can be merged.",
+    "sections": [
+      {
+        "title": "Create a new docs pull request",
+        "level": 2,
+        "text": "Create and submit a docs pull request (PR) via the following steps:\nA Docs’ PR should solve one documentation problem.\nIf there is no current issue for the docs task you want to accomplish, please open a docs issue before creating a PR.\nUse the conventional commit style when creating PRs. Always create a docs issue or PR with the docs: prefix in the title.\nPlease check your contribution and ensure it follows the AsyncAPI style guide.\nTag other technical writers to review your document.\nTag an engineer or subject matter expert (SME) to review the technical details.\nAfter implementing all the feedback you requested, please update your PR and wait for further feedback before it can be merged."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "docs:",
+        "context": "Use the conventional commit style when creating PRs. Always create a docs issue or PR with the docs: prefix in the title."
+      }
+    ]
+  }
+}

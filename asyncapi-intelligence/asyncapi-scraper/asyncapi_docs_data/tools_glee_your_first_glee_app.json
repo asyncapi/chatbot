@@ -1,0 +1,290 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app",
+    "timestamp": "2025-03-12T17:54:41.880Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Your First Glee App",
+    "hierarchy": {
+      "sections": {
+        "Crafting Your API Specification": {
+          "level": 4,
+          "content": "Let's start with a straightforward WebSocket API using Glee. Imagine a WebSocket server that receives the current time from a client and responds with a greeting like \"good morning\", \"good evening\", or \"good night\" based on the time provided.In Glee, which is a spec-first framework, the journey begins with defining your API specification. If you're unfamiliar with what an API spec is or how to create one, we recommend going through the tutorials available here before proceeding. For this project, here's how we define our API:1asyncapi: 3.0.0\n2info:\n3  title: Greet Bot\n4  version: 1.0.0\n5servers:\n6  websockets:\n7    host: localhost:3000\n8    protocol: ws\n9channels:\n10  greet:\n11    address: /greet\n12    messages:\n13      greet:\n14        payload:\n15          type: string\n16      time:\n17        payload:\n18          type: object\n19          properties:\n20            currentTime:\n21              type: number\n22            name:\n23              type: string\n24operations:\n25  receiveTime:\n26    action: receive\n27    channel:\n28      $ref: '#/channels/greet'\n29    messages:\n30      - $ref: \"#/channels/greet/messages/time\"\n31  sendGreet:\n32    action: send\n33    channel:\n34      $ref: '#/channels/greet'\n35    messages:\n36      - $ref: \"#/channels/greet/messages/greet\"Store this in a file named asyncapi.yml.This spec shows that our app can perform two operations on a single channel: receiving time and sending a greeting. We've used JSON Schema to define what time and greet messages look like.Note the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message.\nTip: Including a send operation isn't mandatory but is recommended for validating outgoing messages against your spec."
+        },
+        "Initiating Your Glee Project": {
+          "level": 3,
+          "content": "For ease and efficiency, start your Glee app with our CLI, which automates the setup. In your asyncapi.yml file's directory, execute: asyncapi new glee --name GreetBot --file asyncapi.ymlIt will prompt you with a list of server names and let you select which servers you want Glee to create a server for. select the websockets and continue.Then, navigate to your application's folder and install the dependencies:1cd GreetBot\n2npm install --ignore-scriptsYou now have a Glee app scaffolded and ready for development.Implementing the Operation FunctionNavigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response.1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;\nNote: Want to know more about functions? Click Here!\nEach file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details.Running and Evaluating Your AppTo launch and test the app's functionality, follow these steps:Run your Glee application using:1npm run dev\n2# or \n3npm run startTo test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+        },
+        "Implementing the Operation Function": {
+          "level": 4,
+          "content": "Navigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response.1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;\nNote: Want to know more about functions? Click Here!\nEach file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details."
+        },
+        "Running and Evaluating Your App": {
+          "level": 4,
+          "content": "To launch and test the app's functionality, follow these steps:Run your Glee application using:1npm run dev\n2# or \n3npm run startTo test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Crafting Your API Specification\nLet's start with a straightforward WebSocket API using Glee. Imagine a WebSocket server that receives the current time from a client and responds with a greeting like \"good morning\", \"good evening\", or \"good night\" based on the time provided.\nIn Glee, which is a spec-first framework, the journey begins with defining your API specification. If you're unfamiliar with what an API spec is or how to create one, we recommend going through the tutorials available here before proceeding. For this project, here's how we define our API:\n1asyncapi: 3.0.0\n2info:\n3  title: Greet Bot\n4  version: 1.0.0\n5servers:\n6  websockets:\n7    host: localhost:3000\n8    protocol: ws\n9channels:\n10  greet:\n11    address: /greet\n12    messages:\n13      greet:\n14        payload:\n15          type: string\n16      time:\n17        payload:\n18          type: object\n19          properties:\n20            currentTime:\n21              type: number\n22            name:\n23              type: string\n24operations:\n25  receiveTime:\n26    action: receive\n27    channel:\n28      $ref: '#/channels/greet'\n29    messages:\n30      - $ref: \"#/channels/greet/messages/time\"\n31  sendGreet:\n32    action: send\n33    channel:\n34      $ref: '#/channels/greet'\n35    messages:\n36      - $ref: \"#/channels/greet/messages/greet\"\nStore this in a file named asyncapi.yml.\nThis spec shows that our app can perform two operations on a single channel: receiving time and sending a greeting. We've used JSON Schema to define what time and greet messages look like.\nNote the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message.\n\nTip: Including a send operation isn't mandatory but is recommended for validating outgoing messages against your spec.\n\nInitiating Your Glee Project\nFor ease and efficiency, start your Glee app with our CLI, which automates the setup. In your asyncapi.yml file's directory, execute: asyncapi new glee --name GreetBot --file asyncapi.yml\nIt will prompt you with a list of server names and let you select which servers you want Glee to create a server for. select the websockets and continue.\nThen, navigate to your application's folder and install the dependencies:\n1cd GreetBot\n2npm install --ignore-scripts\nYou now have a Glee app scaffolded and ready for development.\nImplementing the Operation Function\nNavigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response.\n1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;\n\nNote: Want to know more about functions? Click Here!\n\nEach file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details.\nRunning and Evaluating Your App\nTo launch and test the app's functionality, follow these steps:\nRun your Glee application using:\n1npm run dev\n2# or \n3npm run start\nTo test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately.",
+    "sections": [
+      {
+        "title": "Crafting Your API Specification",
+        "level": 4,
+        "text": "Let's start with a straightforward WebSocket API using Glee. Imagine a WebSocket server that receives the current time from a client and responds with a greeting like \"good morning\", \"good evening\", or \"good night\" based on the time provided.In Glee, which is a spec-first framework, the journey begins with defining your API specification. If you're unfamiliar with what an API spec is or how to create one, we recommend going through the tutorials available here before proceeding. For this project, here's how we define our API:1asyncapi: 3.0.0\n2info:\n3  title: Greet Bot\n4  version: 1.0.0\n5servers:\n6  websockets:\n7    host: localhost:3000\n8    protocol: ws\n9channels:\n10  greet:\n11    address: /greet\n12    messages:\n13      greet:\n14        payload:\n15          type: string\n16      time:\n17        payload:\n18          type: object\n19          properties:\n20            currentTime:\n21              type: number\n22            name:\n23              type: string\n24operations:\n25  receiveTime:\n26    action: receive\n27    channel:\n28      $ref: '#/channels/greet'\n29    messages:\n30      - $ref: \"#/channels/greet/messages/time\"\n31  sendGreet:\n32    action: send\n33    channel:\n34      $ref: '#/channels/greet'\n35    messages:\n36      - $ref: \"#/channels/greet/messages/greet\"Store this in a file named asyncapi.yml.This spec shows that our app can perform two operations on a single channel: receiving time and sending a greeting. We've used JSON Schema to define what time and greet messages look like.Note the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message.\nTip: Including a send operation isn't mandatory but is recommended for validating outgoing messages against your spec."
+      },
+      {
+        "title": "Initiating Your Glee Project",
+        "level": 3,
+        "text": "For ease and efficiency, start your Glee app with our CLI, which automates the setup. In your asyncapi.yml file's directory, execute: asyncapi new glee --name GreetBot --file asyncapi.ymlIt will prompt you with a list of server names and let you select which servers you want Glee to create a server for. select the websockets and continue.Then, navigate to your application's folder and install the dependencies:1cd GreetBot\n2npm install --ignore-scriptsYou now have a Glee app scaffolded and ready for development.Implementing the Operation FunctionNavigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response.1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;\nNote: Want to know more about functions? Click Here!\nEach file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details.Running and Evaluating Your AppTo launch and test the app's functionality, follow these steps:Run your Glee application using:1npm run dev\n2# or \n3npm run startTo test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+      },
+      {
+        "title": "Implementing the Operation Function",
+        "level": 4,
+        "text": "Navigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response.1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;\nNote: Want to know more about functions? Click Here!\nEach file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details."
+      },
+      {
+        "title": "Running and Evaluating Your App",
+        "level": 4,
+        "text": "To launch and test the app's functionality, follow these steps:Run your Glee application using:1npm run dev\n2# or \n3npm run startTo test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1asyncapi: 3.0.0\n2info:\n3  title: Greet Bot\n4  version: 1.0.0\n5servers:\n6  websockets:\n7    host: localhost:3000\n8    protocol: ws\n9channels:\n10  greet:\n11    address: /greet\n12    messages:\n13      greet:\n14        payload:\n15          type: string\n16      time:\n17        payload:\n18          type: object\n19          properties:\n20            currentTime:\n21              type: number\n22            name:\n23              type: string\n24operations:\n25  receiveTime:\n26    action: receive\n27    channel:\n28      $ref: '#/channels/greet'\n29    messages:\n30      - $ref: \"#/channels/greet/messages/time\"\n31  sendGreet:\n32    action: send\n33    channel:\n34      $ref: '#/channels/greet'\n35    messages:\n36      - $ref: \"#/channels/greet/messages/greet\"",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#d8da68\">3.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">info:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Greet</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Bot</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#d8da68\">1.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">websockets:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">localhost:3000</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ws</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>  </span><span style=\"color:#7edcda\">greet:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">/greet</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#7edcda\">greet:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>        </span><span style=\"color:#7edcda\">payload:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>          </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">string</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>      </span><span style=\"color:#7edcda\">time:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>        </span><span style=\"color:#7edcda\">payload:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>          </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">object</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>          </span><span style=\"color:#7edcda\">properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>            </span><span style=\"color:#7edcda\">currentTime:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>              </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">number</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span>            </span><span style=\"color:#7edcda\">name:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span><span>              </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">string</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span></span><span style=\"color:#7edcda\">operations:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span>  </span><span style=\"color:#7edcda\">receiveTime:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/greet'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"#/channels/greet/messages/time\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">31</span><span>  </span><span style=\"color:#7edcda\">sendGreet:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">32</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">send</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">33</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">34</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/greet'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">35</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">36</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"#/channels/greet/messages/greet\"</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1cd GreetBot\n2npm install --ignore-scripts",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>cd GreetBot\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>npm install --ignore-scripts</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1import { GleeFunction } from '@asyncapi/glee';\n2\n3const receiveTime: GleeFunction = async (event) => {\n4  const { name, time } = event.payload;\n5  const t = new Date(time);\n6  const curHr = t.getHours();\n7  let response = '';\n8  if (curHr < 12) {\n9    response = `Good Morning, ${name}!`;\n10  } else if (curHr < 18) {\n11    response = `Good Afternoon, ${name}!`;\n12  } else {\n13    response = `Good Evening, ${name}!`;\n14  }\n15  return {\n16    send: [\n17      {\n18        server: 'websockets',\n19        channel: 'greet',\n20        payload: response,\n21      },\n22    ],\n23  };\n24};\n25\n26export default receiveTime;",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>import { GleeFunction } from '@asyncapi/glee'</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>const receiveTime: </span><span style=\"color:#7edcda\">GleeFunction</span><span> = async (event) =&gt; {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  const { name, time } = event.payload</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  const </span><span style=\"color:#7edcda\">t</span><span> = new Date(time)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  const </span><span style=\"color:#7edcda\">curHr</span><span> = t.getHours()</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  let </span><span style=\"color:#7edcda\">response</span><span> = </span><span style=\"color:#c0e2a3;font-weight:500\">''</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  if (curHr &lt; 12) {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">response</span><span> = `Good Morning, </span><span style=\"color:#d6deeb\">${name}</span><span>!`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>  } else if (curHr &lt; 18) {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">response</span><span> = `Good Afternoon, </span><span style=\"color:#d6deeb\">${name}</span><span>!`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>  } else {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>    </span><span style=\"color:#7edcda\">response</span><span> = `Good Evening, </span><span style=\"color:#d6deeb\">${name}</span><span>!`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>  return {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>    send: </span><span style=\"color:#74e287\">[\n</span></span><span style=\"padding-right:2rem;color:#74e287\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span>      {\n</span><span style=\"padding-right:2rem;color:#74e287\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>        server: 'websockets',\n</span><span style=\"padding-right:2rem;color:#74e287\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span>        channel: 'greet',\n</span><span style=\"padding-right:2rem;color:#74e287\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span>        payload: response,\n</span><span style=\"padding-right:2rem;color:#74e287\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span>      },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span style=\"color:#74e287\">    ]</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span><span>  }</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span>}</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>export default receiveTime</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1npm run dev\n2# or \n3npm run start",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">run</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">dev</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#797f8c\"># or </span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">run</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">start</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "asyncapi.yml",
+        "context": "Store this in a file named asyncapi.yml."
+      },
+      {
+        "id": "highlight_1",
+        "content": "time",
+        "context": "This spec shows that our app can perform two operations on a single channel: receiving time and sending a greeting. We've used JSON Schema to define what time and greet messages look like."
+      },
+      {
+        "id": "highlight_2",
+        "content": "greet",
+        "context": "This spec shows that our app can perform two operations on a single channel: receiving time and sending a greeting. We've used JSON Schema to define what time and greet messages look like."
+      },
+      {
+        "id": "highlight_3",
+        "content": "operations",
+        "context": "Note the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message."
+      },
+      {
+        "id": "highlight_4",
+        "content": "receiveTime",
+        "context": "Note the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message."
+      },
+      {
+        "id": "highlight_5",
+        "content": "/greet",
+        "context": "Note the operations section. It's essential in Glee, linking your business logic to your spec. For instance, receiveTime is the function invoked when the /greet channel receives a message."
+      },
+      {
+        "id": "highlight_6",
+        "content": "send",
+        "context": "Tip: Including a send operation isn't mandatory but is recommended for validating outgoing messages against your spec."
+      },
+      {
+        "id": "highlight_7",
+        "content": "asyncapi.yml",
+        "context": "For ease and efficiency, start your Glee app with our CLI, which automates the setup. In your asyncapi.yml file's directory, execute: asyncapi new glee --name GreetBot --file asyncapi.yml"
+      },
+      {
+        "id": "highlight_8",
+        "content": "asyncapi new glee --name GreetBot --file asyncapi.yml",
+        "context": "For ease and efficiency, start your Glee app with our CLI, which automates the setup. In your asyncapi.yml file's directory, execute: asyncapi new glee --name GreetBot --file asyncapi.yml"
+      },
+      {
+        "id": "highlight_9",
+        "content": "websockets",
+        "context": "It will prompt you with a list of server names and let you select which servers you want Glee to create a server for. select the websockets and continue."
+      },
+      {
+        "id": "highlight_10",
+        "content": "functions/receiveTime.js",
+        "context": "Navigate to functions/receiveTime.js and input the logic to analyze the time and generate the appropriate response."
+      },
+      {
+        "id": "highlight_11",
+        "content": "functions",
+        "context": "Each file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details."
+      },
+      {
+        "id": "highlight_12",
+        "content": "event",
+        "context": "Each file in the functions directory is a handler where you can craft your business logic. Every handler should export an asynchronous function that takes an event parameter, giving you access to the payload and server details."
+      },
+      {
+        "id": "highlight_13",
+        "content": "ws://localhost:3000/greet",
+        "context": "To test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+      },
+      {
+        "id": "highlight_14",
+        "content": "{\"name\":\"John\",\"time\":\"1567906535\"}",
+        "context": "To test, open a WebSocket connection to ws://localhost:3000/greet in Postman and send {\"name\":\"John\",\"time\":\"1567906535\"}. Watch as your Glee app responds appropriately."
+      }
+    ]
+  }
+}

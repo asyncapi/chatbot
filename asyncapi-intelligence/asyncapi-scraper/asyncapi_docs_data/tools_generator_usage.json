@@ -1,0 +1,501 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/usage",
+    "timestamp": "2025-03-12T17:51:00.947Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Usage",
+    "hierarchy": {
+      "sections": {
+        "AsyncAPI CLI": {
+          "level": 2,
+          "content": "asyncapi generate fromTemplate ASYNCAPI TEMPLATEGenerates whatever you want using templates compatible with AsyncAPI Generator. For complete command usage and options, refer to the official AsyncAPI CLI documentation.All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>Global templates installed with yarn or npmYou can preinstall templates globally before installing the AsyncAPI CLI. The generator first tries to locate the template in local dependencies; if absent it checks where the global generator packages are installed.1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version.CLI usage examplesThe shortest possible syntax:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generatorGenerating from a URL:asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generatorSpecify where to put the result:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docsPassing parameters to templates:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'In the template you can use it like this:  {{ params.title }}Disabling the hooks:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,barThe generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type.Installing the template from a folder:asyncapi generate fromTemplate asyncapi.yaml ~/my-templateIt creates a symbolic link to the target directory (~/my-template in this case).Installing the template from a git URL:asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.gitMap schema references from baseUrl to local folder:asyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/The parameter --map-base-url maps external schema references to local folders.CLI usage with DockerWhen using our docker image that we regularly update, you don't need to install Node.js or Npm, even though the generator is written with it since the Docker image has the generator installed.Install Docker first, then use docker to pull and run the image using the following command:1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-writeNote: Use ` instead of \\ for Windows.CLI usage with npx instead of npmnpx is very useful when you want to run the generator in a CI/CD environment. In such a scenario, do not install the generator globally because most environments that provide Node.js and Npm, also provide npx out of the box.Use the following npx command on your terminal:npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator"
+        },
+        "asyncapi generate fromTemplate ASYNCAPI TEMPLATE": {
+          "level": 3,
+          "content": "Generates whatever you want using templates compatible with AsyncAPI Generator. For complete command usage and options, refer to the official AsyncAPI CLI documentation.All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>"
+        },
+        "Global templates installed with yarn or npm": {
+          "level": 3,
+          "content": "You can preinstall templates globally before installing the AsyncAPI CLI. The generator first tries to locate the template in local dependencies; if absent it checks where the global generator packages are installed.1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version."
+        },
+        "CLI usage examples": {
+          "level": 3,
+          "content": "The shortest possible syntax:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generatorGenerating from a URL:asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generatorSpecify where to put the result:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docsPassing parameters to templates:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'In the template you can use it like this:  {{ params.title }}Disabling the hooks:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,barThe generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type.Installing the template from a folder:asyncapi generate fromTemplate asyncapi.yaml ~/my-templateIt creates a symbolic link to the target directory (~/my-template in this case).Installing the template from a git URL:asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.gitMap schema references from baseUrl to local folder:asyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/The parameter --map-base-url maps external schema references to local folders."
+        },
+        "CLI usage with Docker": {
+          "level": 3,
+          "content": "When using our docker image that we regularly update, you don't need to install Node.js or Npm, even though the generator is written with it since the Docker image has the generator installed.Install Docker first, then use docker to pull and run the image using the following command:1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-writeNote: Use ` instead of \\ for Windows."
+        },
+        "CLI usage with npx instead of npm": {
+          "level": 3,
+          "content": "npx is very useful when you want to run the generator in a CI/CD environment. In such a scenario, do not install the generator globally because most environments that provide Node.js and Npm, also provide npx out of the box.Use the following npx command on your terminal:npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator"
+        },
+        "Using as a module/package": {
+          "level": 2,
+          "content": "Once you install the generator in your project, you can use it to generate whatever you want. The following code snippet is an example of HTML generation using the official @asyncapi/html-template template and fetching the spec document from the server using:https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));\n3\n4try {\n5  await generator.generateFromURL('https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml');\n6  console.log('Done!');\n7} catch (e) {\n8  console.error(e);\n9}See the API documentation for more examples and full API reference information."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "There are two ways to use the generator:\n\nAsyncAPI CLI\nGenerator library\n\nAsyncAPI CLI\nasyncapi generate fromTemplate ASYNCAPI TEMPLATE\nGenerates whatever you want using templates compatible with AsyncAPI Generator. For complete command usage and options, refer to the official AsyncAPI CLI documentation.\nAll templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:\n1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>\nGlobal templates installed with yarn or npm\nYou can preinstall templates globally before installing the AsyncAPI CLI. The generator first tries to locate the template in local dependencies; if absent it checks where the global generator packages are installed.\n1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version.\nCLI usage examples\nThe shortest possible syntax:\nasyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator\nGenerating from a URL:\nasyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generator\nSpecify where to put the result:\nasyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs\nPassing parameters to templates:\nasyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'\nIn the template you can use it like this:  {{ params.title }}\nDisabling the hooks:\nasyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,bar\nThe generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type.\nInstalling the template from a folder:\nasyncapi generate fromTemplate asyncapi.yaml ~/my-template\nIt creates a symbolic link to the target directory (~/my-template in this case).\nInstalling the template from a git URL:\nasyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.git\nMap schema references from baseUrl to local folder:\nasyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/\nThe parameter --map-base-url maps external schema references to local folders.\nCLI usage with Docker\nWhen using our docker image that we regularly update, you don't need to install Node.js or Npm, even though the generator is written with it since the Docker image has the generator installed.\nInstall Docker first, then use docker to pull and run the image using the following command:\n1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-write\nNote: Use ` instead of \\ for Windows.\nCLI usage with npx instead of npm\nnpx is very useful when you want to run the generator in a CI/CD environment. In such a scenario, do not install the generator globally because most environments that provide Node.js and Npm, also provide npx out of the box.\nUse the following npx command on your terminal:\nnpx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator\nUsing as a module/package\nOnce you install the generator in your project, you can use it to generate whatever you want. The following code snippet is an example of HTML generation using the official @asyncapi/html-template template and fetching the spec document from the server using:\nhttps://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml\n1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));\n3\n4try {\n5  await generator.generateFromURL('https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml');\n6  console.log('Done!');\n7} catch (e) {\n8  console.error(e);\n9}\nSee the API documentation for more examples and full API reference information.",
+    "sections": [
+      {
+        "title": "AsyncAPI CLI",
+        "level": 2,
+        "text": "asyncapi generate fromTemplate ASYNCAPI TEMPLATEGenerates whatever you want using templates compatible with AsyncAPI Generator. For complete command usage and options, refer to the official AsyncAPI CLI documentation.All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>Global templates installed with yarn or npmYou can preinstall templates globally before installing the AsyncAPI CLI. The generator first tries to locate the template in local dependencies; if absent it checks where the global generator packages are installed.1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version.CLI usage examplesThe shortest possible syntax:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generatorGenerating from a URL:asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generatorSpecify where to put the result:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docsPassing parameters to templates:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'In the template you can use it like this:  {{ params.title }}Disabling the hooks:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,barThe generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type.Installing the template from a folder:asyncapi generate fromTemplate asyncapi.yaml ~/my-templateIt creates a symbolic link to the target directory (~/my-template in this case).Installing the template from a git URL:asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.gitMap schema references from baseUrl to local folder:asyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/The parameter --map-base-url maps external schema references to local folders.CLI usage with DockerWhen using our docker image that we regularly update, you don't need to install Node.js or Npm, even though the generator is written with it since the Docker image has the generator installed.Install Docker first, then use docker to pull and run the image using the following command:1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-writeNote: Use ` instead of \\ for Windows.CLI usage with npx instead of npmnpx is very useful when you want to run the generator in a CI/CD environment. In such a scenario, do not install the generator globally because most environments that provide Node.js and Npm, also provide npx out of the box.Use the following npx command on your terminal:npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator"
+      },
+      {
+        "title": "asyncapi generate fromTemplate ASYNCAPI TEMPLATE",
+        "level": 3,
+        "text": "Generates whatever you want using templates compatible with AsyncAPI Generator. For complete command usage and options, refer to the official AsyncAPI CLI documentation.All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>"
+      },
+      {
+        "title": "Global templates installed with yarn or npm",
+        "level": 3,
+        "text": "You can preinstall templates globally before installing the AsyncAPI CLI. The generator first tries to locate the template in local dependencies; if absent it checks where the global generator packages are installed.1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version."
+      },
+      {
+        "title": "CLI usage examples",
+        "level": 3,
+        "text": "The shortest possible syntax:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generatorGenerating from a URL:asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generatorSpecify where to put the result:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docsPassing parameters to templates:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'In the template you can use it like this:  {{ params.title }}Disabling the hooks:asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,barThe generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type.Installing the template from a folder:asyncapi generate fromTemplate asyncapi.yaml ~/my-templateIt creates a symbolic link to the target directory (~/my-template in this case).Installing the template from a git URL:asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.gitMap schema references from baseUrl to local folder:asyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/The parameter --map-base-url maps external schema references to local folders."
+      },
+      {
+        "title": "CLI usage with Docker",
+        "level": 3,
+        "text": "When using our docker image that we regularly update, you don't need to install Node.js or Npm, even though the generator is written with it since the Docker image has the generator installed.Install Docker first, then use docker to pull and run the image using the following command:1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-writeNote: Use ` instead of \\ for Windows."
+      },
+      {
+        "title": "CLI usage with npx instead of npm",
+        "level": 3,
+        "text": "npx is very useful when you want to run the generator in a CI/CD environment. In such a scenario, do not install the generator globally because most environments that provide Node.js and Npm, also provide npx out of the box.Use the following npx command on your terminal:npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator"
+      },
+      {
+        "title": "Using as a module/package",
+        "level": 2,
+        "text": "Once you install the generator in your project, you can use it to generate whatever you want. The following code snippet is an example of HTML generation using the official @asyncapi/html-template template and fetching the spec document from the server using:https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));\n3\n4try {\n5  await generator.generateFromURL('https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml');\n6  console.log('Done!');\n7} catch (e) {\n8  console.error(e);\n9}See the API documentation for more examples and full API reference information."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_8",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_9",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_10",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_11",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_12",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_13",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1npm install [<@scope>/]<name>\n2npm install [<@scope>/]<name>@<tag>\n3npm install [<@scope>/]<name>@<version>\n4npm install [<@scope>/]<name>@<version range>\n5npm install <git-host>:<git-user>/<repo-name>\n6npm install <git repo url>\n7npm install <tarball file>\n8npm install <tarball url>\n9npm install <folder>",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> [</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;@scope&gt;/</span><span>]</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;name&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> [</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;@scope&gt;/</span><span>]</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;name&gt;@&lt;tag&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> [</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;@scope&gt;/</span><span>]</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;name&gt;@&lt;version&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> [</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;@scope&gt;/</span><span>]</span><span style=\"color:#c0e2a3;font-weight:500\">&lt;name&gt;@&lt;version</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">range&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">&lt;git-host&gt;:&lt;git-user&gt;/&lt;repo-name&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">&lt;git</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">repo</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">url&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">&lt;tarball</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">file&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">&lt;tarball</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">url&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">&lt;folder&gt;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1npm install -g @asyncapi/html-template@0.16.0\n2asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n3# The generator uses html-template version 0.16.0 and not the latest version.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>npm install -g @asyncapi/html-template@0.16.0\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#797f8c\"># The generator uses html-template version 0.16.0 and not the latest version.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generator",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate https://bit.ly/asyncapi @asyncapi/html-template@3.0.0 --use-new-generator</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title='Hello from param'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -p title=</span><span style=\"color:#c0e2a3;font-weight:500\">'Hello from param'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,bar",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator -o ./docs -d generate:before generate:after=foo,bar</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml ~/my-template",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml ~/my-template</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_8",
+        "content": "asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.git",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate asyncapi.yaml https://github.com/asyncapi/html-template.git</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_9",
+        "content": "asyncapi generate fromTemplate test/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./test/docs/",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi generate fromTemplate </span><span style=\"color:#7edcda\">test</span><span>/docs/apiwithref.json @asyncapi/html-template@3.0.0 --use-new-generator -o ./build/ --force-write --map-base-url https://schema.example.com/crm/:./</span><span style=\"color:#7edcda\">test</span><span>/docs/</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_10",
+        "content": "1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli # docker image [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-write",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>docker run --rm -it \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>--user=root \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>-v [GENERATED FILES LOCATION]:/app/output \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>asyncapi/cli </span><span style=\"color:#797f8c\"># docker image [COMMAND HERE]</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#797f8c\"># Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>docker run --rm -it \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>   --user=root \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>   -v </span><span style=\"color:#d6deeb\">${PWD}</span><span>/</span><span style=\"color:#7edcda\">test</span><span>/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>   -v </span><span style=\"color:#d6deeb\">${PWD}</span><span>/output:/app/output \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-write</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_11",
+        "content": "npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>npx -p @asyncapi/cli asyncapi generate fromTemplate ./asyncapi.yaml @asyncapi/html-template@3.0.0 --use-new-generator</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_12",
+        "content": "https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_13",
+        "content": "1const path = require('path');\n2const generator = new Generator('@asyncapi/html-template', path.resolve(__dirname, 'example'));\n3\n4try {\n5  await generator.generateFromURL('https://raw.githubusercontent.com/asyncapi/asyncapi/2.0.0/examples/2.0.0/streetlights.yml');\n6  console.log('Done!');\n7} catch (e) {\n8  console.error(e);\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const path = require('path');\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const generator = </span><span style=\"color:#64a0dc\">new</span><span> </span><span class=\"hljs-constructor\">Generator('@</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">asyncapi</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">html</span><span class=\"hljs-constructor\">-</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">template</span><span class=\"hljs-constructor\">', </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">path</span><span class=\"hljs-constructor\">.</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">resolve</span><span class=\"hljs-constructor\">(</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">__dirname</span><span class=\"hljs-constructor\">, '</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">example</span><span class=\"hljs-constructor\">')</span><span>);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">try</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  await generator.generate</span><span class=\"hljs-constructor\">FromURL('</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">https</span><span class=\"hljs-constructor\">:</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">raw</span><span class=\"hljs-constructor\">.</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">githubusercontent</span><span class=\"hljs-constructor\">.</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">com</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">asyncapi</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">asyncapi</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\">2.0.0</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">examples</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\">2.0.0</span><span class=\"hljs-constructor hljs-operator\">/</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">streetlights</span><span class=\"hljs-constructor\">.</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">yml</span><span class=\"hljs-constructor\">')</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>  console.log('Done!');\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>} catch (e) {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  console.error(e);\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "asyncapi generate fromTemplate ASYNCAPI TEMPLATE",
+        "context": "asyncapi generate fromTemplate ASYNCAPI TEMPLATE"
+      },
+      {
+        "id": "highlight_1",
+        "content": "template",
+        "context": "All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "npm install",
+        "context": "All templates are installable npm packages. Therefore, the value of template can be anything supported by npm install. Here's a summary of the possibilities:"
+      },
+      {
+        "id": "highlight_3",
+        "content": "yarn",
+        "context": "Global templates installed with yarn or npm"
+      },
+      {
+        "id": "highlight_4",
+        "content": "npm",
+        "context": "Global templates installed with yarn or npm"
+      },
+      {
+        "id": "highlight_5",
+        "content": "{{ params.title }}",
+        "context": "In the template you can use it like this:  {{ params.title }}"
+      },
+      {
+        "id": "highlight_6",
+        "content": "generate:before",
+        "context": "The generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type."
+      },
+      {
+        "id": "highlight_7",
+        "content": "foo",
+        "context": "The generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type."
+      },
+      {
+        "id": "highlight_8",
+        "content": "bar",
+        "context": "The generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type."
+      },
+      {
+        "id": "highlight_9",
+        "content": "generate:after",
+        "context": "The generator skips all hooks of the generate:before type and foo, bar hooks of the generate:after type."
+      },
+      {
+        "id": "highlight_10",
+        "content": "~/my-template",
+        "context": "It creates a symbolic link to the target directory (~/my-template in this case)."
+      },
+      {
+        "id": "highlight_11",
+        "content": "--map-base-url",
+        "context": "The parameter --map-base-url maps external schema references to local folders."
+      },
+      {
+        "id": "highlight_12",
+        "content": "`",
+        "context": "Note: Use ` instead of \\ for Windows."
+      },
+      {
+        "id": "highlight_13",
+        "content": "\\",
+        "context": "Note: Use ` instead of \\ for Windows."
+      },
+      {
+        "id": "highlight_14",
+        "content": "npx",
+        "context": "CLI usage with npx instead of npm"
+      },
+      {
+        "id": "highlight_15",
+        "content": "npm",
+        "context": "CLI usage with npx instead of npm"
+      },
+      {
+        "id": "highlight_16",
+        "content": "@asyncapi/html-template",
+        "context": "Once you install the generator in your project, you can use it to generate whatever you want. The following code snippet is an example of HTML generation using the official @asyncapi/html-template template and fetching the spec document from the server using:"
+      }
+    ]
+  }
+}

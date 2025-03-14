@@ -1,0 +1,218 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator",
+    "timestamp": "2025-03-12T17:45:35.003Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Generator",
+    "hierarchy": {
+      "sections": {
+        "Generator use cases": {
+          "level": 3,
+          "content": "Generation of interactive and understandable API documentation\nGeneration of APIs' client libraries\nGeneration of APIs' boilerplate code"
+        },
+        "Generator advantages": {
+          "level": 3,
+          "content": "Quick to setup and easy to use on a regular basis\nEffortless generation of complex documents\nNumber of community maintained AsyncAPI templates"
+        },
+        "Generation process": {
+          "level": 3,
+          "content": "The Generator receives the Template and AsyncAPI Document as inputs.\nThe Generator sends to the Parser the asyncapiString which is a stringified version of the original AsyncAPI Document.\nThe Parser uses additional plugins such as the OpenAPI, RAML, or Avro schemas to validate custom schemas of message payloads defined in the AsyncAPI Document.\nIf the Parser determines that the original AsyncAPI Document is valid, it manipulates the document and returns a set of helper functions and properties and bundles them together into an asyncapi variable that is an instance of AsyncAPIDocument. The asyncapi helper functions make it easier to access the contents of the AsyncAPI Document.\nAt this point, the Generator passes the asyncapi, the originalAsyncAPI, and the params which collectively make up the Template Context to the Render Engine.\nAsyncAPI has two Render Engines(react and nunjucks). Depending on which one you've specified in your package.json, the Generator knows the right Render Engine to pass both the Template Files and the Template Context.\nOnce the Render Engine receives the Template Files and the Template Context, it injects all the dynamic values in your react or nunjucks based Template Files using the Template Context. As a result, the Render Engine generates markdown, pdf, boilerplate code, and anything else you specified to be generated as output.\n\nYou can generate anything you want using the generator as long as it can be defined in a Template.\nThe diagram below depicts the entire process of passing the Template and AsyncAPI Document to the AsyncAPI generator tool, how the generator uses these inputs to generate the desired output, and example outputs you can get from the render engine."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "The AsyncAPI generator is a tool that generates anything you want using the AsyncAPI Document and Template that are supplied as inputs to the AsyncAPI CLI. The generator was built with extensibility in mind; you can use the generator to generate anything you want, provided that it can be defined in a template, such as code, diagrams, markdown files, microservices, and applications. A number of community-maintained templates are now available for immediate usage.\n\nNote:\nIf your primary objective is to generate models/classes for your event-driven architecture apps, use AsyncAPI Modelina, which is supported in the AsyncAPI CLI, instead of using the AsyncAPI Generator. Modelina is specifically designed for model generation and provides utilities for working with the AsyncAPI document.\n\nGenerator use cases\n\nGeneration of interactive and understandable API documentation\nGeneration of APIs' client libraries\nGeneration of APIs' boilerplate code\n\nGenerator advantages\n\nQuick to setup and easy to use on a regular basis\nEffortless generation of complex documents\nNumber of community maintained AsyncAPI templates\n\nGeneration process\n\nThe Generator receives the Template and AsyncAPI Document as inputs.\nThe Generator sends to the Parser the asyncapiString which is a stringified version of the original AsyncAPI Document.\nThe Parser uses additional plugins such as the OpenAPI, RAML, or Avro schemas to validate custom schemas of message payloads defined in the AsyncAPI Document.\nIf the Parser determines that the original AsyncAPI Document is valid, it manipulates the document and returns a set of helper functions and properties and bundles them together into an asyncapi variable that is an instance of AsyncAPIDocument. The asyncapi helper functions make it easier to access the contents of the AsyncAPI Document.\nAt this point, the Generator passes the asyncapi, the originalAsyncAPI, and the params which collectively make up the Template Context to the Render Engine.\nAsyncAPI has two Render Engines(react and nunjucks). Depending on which one you've specified in your package.json, the Generator knows the right Render Engine to pass both the Template Files and the Template Context.\nOnce the Render Engine receives the Template Files and the Template Context, it injects all the dynamic values in your react or nunjucks based Template Files using the Template Context. As a result, the Render Engine generates markdown, pdf, boilerplate code, and anything else you specified to be generated as output.\n\n\nYou can generate anything you want using the generator as long as it can be defined in a Template.\n\nThe diagram below depicts the entire process of passing the Template and AsyncAPI Document to the AsyncAPI generator tool, how the generator uses these inputs to generate the desired output, and example outputs you can get from the render engine.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Generator LibraryasyncapiStringasyncapioriginalAsyncAPIparamsTemplate FilesParserGeneratorTemplate ContextRender EngineAsyncAPI DocumentTemplateHTMLMarkdownNode.jsJava Spring BootAnything else\nparams are template-specific options passed to the asyncapi generate fromTemplate CLI command to customize the generated output.",
+    "sections": [
+      {
+        "title": "Generator use cases",
+        "level": 3,
+        "text": "Generation of interactive and understandable API documentation\nGeneration of APIs' client libraries\nGeneration of APIs' boilerplate code"
+      },
+      {
+        "title": "Generator advantages",
+        "level": 3,
+        "text": "Quick to setup and easy to use on a regular basis\nEffortless generation of complex documents\nNumber of community maintained AsyncAPI templates"
+      },
+      {
+        "title": "Generation process",
+        "level": 3,
+        "text": "The Generator receives the Template and AsyncAPI Document as inputs.\nThe Generator sends to the Parser the asyncapiString which is a stringified version of the original AsyncAPI Document.\nThe Parser uses additional plugins such as the OpenAPI, RAML, or Avro schemas to validate custom schemas of message payloads defined in the AsyncAPI Document.\nIf the Parser determines that the original AsyncAPI Document is valid, it manipulates the document and returns a set of helper functions and properties and bundles them together into an asyncapi variable that is an instance of AsyncAPIDocument. The asyncapi helper functions make it easier to access the contents of the AsyncAPI Document.\nAt this point, the Generator passes the asyncapi, the originalAsyncAPI, and the params which collectively make up the Template Context to the Render Engine.\nAsyncAPI has two Render Engines(react and nunjucks). Depending on which one you've specified in your package.json, the Generator knows the right Render Engine to pass both the Template Files and the Template Context.\nOnce the Render Engine receives the Template Files and the Template Context, it injects all the dynamic values in your react or nunjucks based Template Files using the Template Context. As a result, the Render Engine generates markdown, pdf, boilerplate code, and anything else you specified to be generated as output.\n\nYou can generate anything you want using the generator as long as it can be defined in a Template.\nThe diagram below depicts the entire process of passing the Template and AsyncAPI Document to the AsyncAPI generator tool, how the generator uses these inputs to generate the desired output, and example outputs you can get from the render engine."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 1503.546875px;\" viewBox=\"-8 -8 1503.546875 447.25\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster default\" id=\"subGraph0\"><rect style=\"\" rx=\"0\" ry=\"0\" x=\"238.65625\" y=\"0\" width=\"1038.703125\" height=\"430.25\"></rect><g class=\"cluster-label\" transform=\"translate(683.05859375, 0)\"><foreignObject width=\"149.8984375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator Library</span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M188.656,73.055L192.823,73.055C196.99,73.055,205.323,73.055,213.656,73.055C221.99,73.055,230.323,73.055,246.314,93.93C262.305,114.804,285.954,156.554,297.778,177.429L309.602,198.304\" id=\"L-E-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M140.914,367.195L153.038,367.195C165.161,367.195,189.409,367.195,205.699,367.195C221.99,367.195,230.323,367.195,245.415,353.296C260.507,339.398,282.358,311.6,293.283,297.701L304.208,283.802\" id=\"L-F-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M370.52,207.895L391.14,186.755C411.761,165.615,453.001,123.335,494.479,102.195C535.956,81.055,577.669,81.055,598.526,81.055L619.383,81.055\" id=\"L-B-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M689.539,81.055L710.049,81.055C730.56,81.055,771.581,81.055,813.85,93.055C856.119,105.055,899.636,129.055,921.394,141.055L943.153,153.055\" id=\"L-C-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M380.236,217.611L399.237,206.435C418.238,195.259,456.24,172.907,501.944,161.731C547.648,150.555,601.055,150.555,654.115,150.555C707.174,150.555,759.888,150.555,800.626,152.559C841.365,154.563,870.128,158.571,884.509,160.576L898.891,162.58\" id=\"L-B-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M397.242,252.883L413.409,255.194C429.576,257.505,461.909,262.128,504.779,264.439C547.648,266.75,601.055,266.75,654.115,266.75C707.174,266.75,759.888,266.75,807.983,254.801C856.077,242.852,899.552,218.953,921.29,207.004L943.028,195.055\" id=\"L-B-A-1\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1063.57,174.055L1067.737,174.055C1071.904,174.055,1080.237,174.055,1093.806,179.254C1107.376,184.453,1126.181,194.852,1135.584,200.051L1144.987,205.25\" id=\"L-A-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M376.254,273.871L395.919,288.3C415.583,302.729,454.913,331.587,501.281,346.016C547.648,360.445,601.055,360.445,654.115,360.445C707.174,360.445,759.888,360.445,814.35,360.445C868.811,360.445,925.021,360.445,971.016,360.445C1017.01,360.445,1052.79,360.445,1083.951,341.579C1115.111,322.714,1141.652,284.982,1154.923,266.116L1168.193,247.25\" id=\"L-B-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1193.608,205.25L1207.567,177.708C1221.525,150.167,1249.442,95.083,1267.567,67.542C1285.693,40,1294.026,40,1310.172,40C1326.318,40,1350.276,40,1362.255,40L1374.234,40\" id=\"L-D-O-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-O\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1203.997,205.25L1216.224,193.042C1228.451,180.833,1252.905,156.417,1269.299,144.208C1285.693,132,1294.026,132,1306.979,132C1319.931,132,1337.503,132,1346.288,132L1355.074,132\" id=\"L-D-M-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-M\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1252.359,226.25L1256.526,226.25C1260.693,226.25,1269.026,226.25,1277.359,226.25C1285.693,226.25,1294.026,226.25,1309.048,226.25C1324.07,226.25,1345.781,226.25,1356.637,226.25L1367.492,226.25\" id=\"L-D-N-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-N\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1204.511,247.25L1216.653,259.083C1228.794,270.917,1253.077,294.583,1269.385,306.417C1285.693,318.25,1294.026,318.25,1302.359,318.25C1310.693,318.25,1319.026,318.25,1323.193,318.25L1327.359,318.25\" id=\"L-D-J-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-J\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1193.738,247.25L1207.675,274.417C1221.612,301.583,1249.486,355.917,1267.589,383.083C1285.693,410.25,1294.026,410.25,1304.821,410.25C1315.616,410.25,1328.872,410.25,1335.501,410.25L1342.129,410.25\" id=\"L-D-K-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-K\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(494.2421875, 81.0546875)\"><g class=\"label\" transform=\"translate(-63.3671875, -13.5)\"><foreignObject width=\"126.734375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">asyncapiString</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(812.6015625, 81.0546875)\"><g class=\"label\" transform=\"translate(-38.15625, -13.5)\"><foreignObject width=\"76.3125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">asyncapi</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(654.4609375, 150.5546875)\"><g class=\"label\" transform=\"translate(-71.8515625, -13.5)\"><foreignObject width=\"143.703125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">originalAsyncAPI</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(654.4609375, 266.75)\"><g class=\"label\" transform=\"translate(-31.73046875, -13.5)\"><foreignObject width=\"63.4609375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">params</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(812.6015625, 360.4453125)\"><g class=\"label\" transform=\"translate(-61.2890625, -13.5)\"><foreignObject width=\"122.578125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">Template Files</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-C-62\" transform=\"translate(654.4609375, 81.0546875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-35.078125\" y=\"-21\" width=\"70.15625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-27.578125, -13.5)\"><foreignObject width=\"55.15625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Parser</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-61\" transform=\"translate(334.765625, 243.25)\"><polygon points=\"71.109375,0 142.21875,-71.109375 71.109375,-142.21875 0,-71.109375\" class=\"label-container\" transform=\"translate(-71.109375,71.109375)\" style=\"\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-42.609375, -13.5)\"><foreignObject width=\"85.21875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-A-60\" transform=\"translate(981.23046875, 174.0546875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-82.33984375\" y=\"-21\" width=\"164.6796875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-74.83984375, -13.5)\"><foreignObject width=\"149.6796875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Template Context</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-63\" transform=\"translate(1182.96484375, 226.25)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-69.39453125\" y=\"-21\" width=\"138.7890625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-61.89453125, -13.5)\"><foreignObject width=\"123.7890625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Render Engine</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-64\" transform=\"translate(94.328125, 73.0546875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-94.328125\" y=\"-21\" width=\"188.65625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-86.828125, -13.5)\"><foreignObject width=\"173.65625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">AsyncAPI Document</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-66\" transform=\"translate(94.328125, 367.1953125)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.5859375\" y=\"-21\" width=\"93.171875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-39.0859375, -13.5)\"><foreignObject width=\"78.171875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Template</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-O-81\" transform=\"translate(1407.453125, 40)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-33.21875\" y=\"-21\" width=\"66.4375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-25.71875, -13.5)\"><foreignObject width=\"51.4375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">HTML</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-M-83\" transform=\"translate(1407.453125, 132)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-52.37890625\" y=\"-21\" width=\"104.7578125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-44.87890625, -13.5)\"><foreignObject width=\"89.7578125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Markdown</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-N-85\" transform=\"translate(1407.453125, 226.25)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-39.9609375\" y=\"-21\" width=\"79.921875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-32.4609375, -13.5)\"><foreignObject width=\"64.921875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Node.js</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-J-87\" transform=\"translate(1407.453125, 318.25)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-80.09375\" y=\"-21\" width=\"160.1875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-72.59375, -13.5)\"><foreignObject width=\"145.1875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Java Spring Boot</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-K-89\" transform=\"translate(1407.453125, 410.25)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-65.32421875\" y=\"-21\" width=\"130.6484375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-57.82421875, -13.5)\"><foreignObject width=\"115.6484375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Anything else</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Generator LibraryasyncapiStringasyncapioriginalAsyncAPIparamsTemplate FilesParserGeneratorTemplate ContextRender EngineAsyncAPI DocumentTemplateHTMLMarkdownNode.jsJava Spring BootAnything else",
+        "description": "SVG containing 17 paths, 2 circles, and 11 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "package.json",
+        "context": "AsyncAPI has two Render Engines(react and nunjucks). Depending on which one you've specified in your package.json, the Generator knows the right Render Engine to pass both the Template Files and the Template Context."
+      },
+      {
+        "id": "highlight_1",
+        "content": "params",
+        "context": "params"
+      },
+      {
+        "id": "highlight_2",
+        "content": "asyncapi generate fromTemplate",
+        "context": "params are template-specific options passed to the asyncapi generate fromTemplate CLI command to customize the generated output."
+      }
+    ]
+  }
+}

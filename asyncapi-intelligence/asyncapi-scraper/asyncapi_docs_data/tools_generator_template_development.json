@@ -1,0 +1,585 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/template-development",
+    "timestamp": "2025-03-12T17:51:48.264Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Template Development",
+    "hierarchy": {
+      "sections": {
+        "Minimum template requirements": {
+          "level": 2,
+          "content": "Let's break down the minimum template requirements: the template directory and a package.json file.\nYou can also check Template for Generator Templates project to see show-case template based on the AsyncAPI Generator.\ntemplate directoryThe template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory.The following code is an example of an index.js file inside the template folder.1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated.package.json fileBefore the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name.The following block shows an example package.json file that points to the React Render Engine and necessary dependencies:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}Every template must depend on the @asyncapi/generator-react-sdk package, which contains a template file's basic components."
+        },
+        "template directory": {
+          "level": 3,
+          "content": "The template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory.The following code is an example of an index.js file inside the template folder.1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated."
+        },
+        "package.json file": {
+          "level": 3,
+          "content": "Before the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name.The following block shows an example package.json file that points to the React Render Engine and necessary dependencies:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}Every template must depend on the @asyncapi/generator-react-sdk package, which contains a template file's basic components."
+        },
+        "Additional configuration options": {
+          "level": 2,
+          "content": "You must configure the generator's package.json file to contain JSON objects with the required parameters for template configuration, such as:NameTypeDescriptionrendererStringIts value can be either react or nunjucks (default).supportedProtocols[String]A list with all the protocols this template supports.parametersObject[String, Object]An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value.parameters[param].descriptionStringA user-friendly description about the parameter.parameters[param].defaultAnyDefault value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters.parameters[param].requiredBooleanWhether the parameter is required or not.The above table lists some configuration options that help the generator achieve a specific set of tasks throughout the generation process. The generator property from 'package.json' contains all the configuration information. To learn more about template configuration and various supported parameters, read the generator configuration file.\nWhenever you make a change to the package.json, make sure you perform an update by running npm install;  this command synchronizes with the package-lock.json and validates the file.\npackage.json configuration optionsThe following examples show some advanced configurations that we can use in our package.json file:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template.For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt.Accessing template parametersAdditionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}The default version of your application is always fetched from your AsyncAPI document. The above configuration helps the template user override the existing version with a new one on the command line.The changes done in the template will be as follows:Original:<Text>App name: **{ asyncapi.info().title() }**</Text>Newer:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+        },
+        "package.json configuration options": {
+          "level": 3,
+          "content": "The following examples show some advanced configurations that we can use in our package.json file:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template.For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt."
+        },
+        "Accessing template parameters": {
+          "level": 3,
+          "content": "Additionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}The default version of your application is always fetched from your AsyncAPI document. The above configuration helps the template user override the existing version with a new one on the command line.The changes done in the template will be as follows:Original:<Text>App name: **{ asyncapi.info().title() }**</Text>Newer:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+        },
+        "Hooks": {
+          "level": 2,
+          "content": "Hooks enable templates to perform multiple tasks. You can add Hooks to your template as fractions of code. In the template, you must store it in the hooks directory under the template directory. You can also store it in other modules and external libraries or configure it inside the template. The generation process can perform multiple actions.Templates can perform multiple actions before or after the generation process with the help of hooks.Hooks help you change the specification version with the new version that you can pass before the generation process even begins:1module.exports = {\n2  'generate:before': ({ asyncapi, templateParams = {} }) => {\n3    const version = templateParams.version || asyncapi.info().version();\n4    asyncapi._json.info.version = version;\n5  }\n6};This can be an even better alternative to overriding the version parameter we discussed in the previous section. A markdown document will be generated, and the AsyncAPI document passed to the generator will be returned with the overwritten version.The updated template looks like the following:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version: **{asyncapi.info.version()}**</Text>"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Note\nIt is advised against attempting to manually template types and models from scratch using the AsyncAPI templating engines such as Nunjucks and React render engines. Instead, it is recommended to use AsyncAPI Modelina a dedicated library for model generation.\n\nMinimum template requirements\nLet's break down the minimum template requirements: the template directory and a package.json file.\n\nYou can also check Template for Generator Templates project to see show-case template based on the AsyncAPI Generator.\n\ntemplate directory\nThe template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory.\nThe following code is an example of an index.js file inside the template folder.\n1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}\nThe above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated.\npackage.json file\nBefore the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name.\nThe following block shows an example package.json file that points to the React Render Engine and necessary dependencies:\n1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}\nEvery template must depend on the @asyncapi/generator-react-sdk package, which contains a template file's basic components.\nAdditional configuration options\nYou must configure the generator's package.json file to contain JSON objects with the required parameters for template configuration, such as:\nNameTypeDescriptionrendererStringIts value can be either react or nunjucks (default).supportedProtocols[String]A list with all the protocols this template supports.parametersObject[String, Object]An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value.parameters[param].descriptionStringA user-friendly description about the parameter.parameters[param].defaultAnyDefault value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters.parameters[param].requiredBooleanWhether the parameter is required or not.\nThe above table lists some configuration options that help the generator achieve a specific set of tasks throughout the generation process. The generator property from 'package.json' contains all the configuration information. To learn more about template configuration and various supported parameters, read the generator configuration file.\n\nWhenever you make a change to the package.json, make sure you perform an update by running npm install;  this command synchronizes with the package-lock.json and validates the file.\n\npackage.json configuration options\nThe following examples show some advanced configurations that we can use in our package.json file:\n1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}\nThe above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template.\nFor example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt.\nAccessing template parameters\nAdditionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:\n1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}\nThe default version of your application is always fetched from your AsyncAPI document. The above configuration helps the template user override the existing version with a new one on the command line.\nThe changes done in the template will be as follows:\nOriginal:\n<Text>App name: **{ asyncapi.info().title() }**</Text>\nNewer:\n1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>\nNow that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)\nHooks\nHooks enable templates to perform multiple tasks. You can add Hooks to your template as fractions of code. In the template, you must store it in the hooks directory under the template directory. You can also store it in other modules and external libraries or configure it inside the template. The generation process can perform multiple actions.\nTemplates can perform multiple actions before or after the generation process with the help of hooks.\nHooks help you change the specification version with the new version that you can pass before the generation process even begins:\n1module.exports = {\n2  'generate:before': ({ asyncapi, templateParams = {} }) => {\n3    const version = templateParams.version || asyncapi.info().version();\n4    asyncapi._json.info.version = version;\n5  }\n6};\nThis can be an even better alternative to overriding the version parameter we discussed in the previous section. A markdown document will be generated, and the AsyncAPI document passed to the generator will be returned with the overwritten version.\nThe updated template looks like the following:\n1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version: **{asyncapi.info.version()}**</Text>",
+    "sections": [
+      {
+        "title": "Minimum template requirements",
+        "level": 2,
+        "text": "Let's break down the minimum template requirements: the template directory and a package.json file.\nYou can also check Template for Generator Templates project to see show-case template based on the AsyncAPI Generator.\ntemplate directoryThe template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory.The following code is an example of an index.js file inside the template folder.1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated.package.json fileBefore the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name.The following block shows an example package.json file that points to the React Render Engine and necessary dependencies:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}Every template must depend on the @asyncapi/generator-react-sdk package, which contains a template file's basic components."
+      },
+      {
+        "title": "template directory",
+        "level": 3,
+        "text": "The template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory.The following code is an example of an index.js file inside the template folder.1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated."
+      },
+      {
+        "title": "package.json file",
+        "level": 3,
+        "text": "Before the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name.The following block shows an example package.json file that points to the React Render Engine and necessary dependencies:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}Every template must depend on the @asyncapi/generator-react-sdk package, which contains a template file's basic components."
+      },
+      {
+        "title": "Additional configuration options",
+        "level": 2,
+        "text": "You must configure the generator's package.json file to contain JSON objects with the required parameters for template configuration, such as:NameTypeDescriptionrendererStringIts value can be either react or nunjucks (default).supportedProtocols[String]A list with all the protocols this template supports.parametersObject[String, Object]An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value.parameters[param].descriptionStringA user-friendly description about the parameter.parameters[param].defaultAnyDefault value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters.parameters[param].requiredBooleanWhether the parameter is required or not.The above table lists some configuration options that help the generator achieve a specific set of tasks throughout the generation process. The generator property from 'package.json' contains all the configuration information. To learn more about template configuration and various supported parameters, read the generator configuration file.\nWhenever you make a change to the package.json, make sure you perform an update by running npm install;  this command synchronizes with the package-lock.json and validates the file.\npackage.json configuration optionsThe following examples show some advanced configurations that we can use in our package.json file:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template.For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt.Accessing template parametersAdditionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}The default version of your application is always fetched from your AsyncAPI document. The above configuration helps the template user override the existing version with a new one on the command line.The changes done in the template will be as follows:Original:<Text>App name: **{ asyncapi.info().title() }**</Text>Newer:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+      },
+      {
+        "title": "package.json configuration options",
+        "level": 3,
+        "text": "The following examples show some advanced configurations that we can use in our package.json file:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template.For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt."
+      },
+      {
+        "title": "Accessing template parameters",
+        "level": 3,
+        "text": "Additionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}The default version of your application is always fetched from your AsyncAPI document. The above configuration helps the template user override the existing version with a new one on the command line.The changes done in the template will be as follows:Original:<Text>App name: **{ asyncapi.info().title() }**</Text>Newer:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+      },
+      {
+        "title": "Hooks",
+        "level": 2,
+        "text": "Hooks enable templates to perform multiple tasks. You can add Hooks to your template as fractions of code. In the template, you must store it in the hooks directory under the template directory. You can also store it in other modules and external libraries or configure it inside the template. The generation process can perform multiple actions.Templates can perform multiple actions before or after the generation process with the help of hooks.Hooks help you change the specification version with the new version that you can pass before the generation process even begins:1module.exports = {\n2  'generate:before': ({ asyncapi, templateParams = {} }) => {\n3    const version = templateParams.version || asyncapi.info().version();\n4    asyncapi._json.info.version = version;\n5  }\n6};This can be an even better alternative to overriding the version parameter we discussed in the previous section. A markdown document will be generated, and the AsyncAPI document passed to the generator will be returned with the overwritten version.The updated template looks like the following:1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version: **{asyncapi.info.version()}**</Text>"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function ({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>My application's markdown file.</Text>\n7      <Text>App name: **{asyncapi.info().title()}**</Text>\n8    </File>\n9  );\n10}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File, Text } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/generator-react-sdk\"</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#d6deeb\">{ asyncapi, params, originalAsyncAPI }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> (\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"asyncapi.md\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">My application's markdown file.</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">App name: **{asyncapi.info().title()}**</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>  );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\"\n5  },\n6  \"dependencies\": {\n7    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n8  }\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"name\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"myTemplate\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"generator\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">\"renderer\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"react\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">\"dependencies\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">\"@asyncapi/generator-react-sdk\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"^0.2.25\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ]\n8  },\n9  \"dependencies\": {\n10    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n11  }\n12}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"name\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"myTemplate\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"generator\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">\"renderer\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"react\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">\"supportedProtocols\"</span><span>: [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">\"mqtt\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>    ]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>  </span><span style=\"color:#7edcda\">\"dependencies\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">\"@asyncapi/generator-react-sdk\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"^0.2.25\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1{\n2  \"name\": \"myTemplate\",\n3  \"generator\": {\n4    \"renderer\": \"react\",\n5    \"supportedProtocols\": [\n6      \"mqtt\"\n7    ],\n8    \"parameters\": {\n9        \"version\": {\n10          \"description\": \"Overrides application version under `info.version` in the AsyncAPI document.\",\n11          \"required\": false\n12        }\n13    }\n14  },\n15  \"dependencies\": {\n16    \"@asyncapi/generator-react-sdk\": \"^0.2.25\"\n17  }\n18}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"name\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"myTemplate\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"generator\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">\"renderer\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"react\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">\"supportedProtocols\"</span><span>: [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">\"mqtt\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>    ],\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">\"parameters\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>        </span><span style=\"color:#7edcda\">\"version\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>          </span><span style=\"color:#7edcda\">\"description\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"Overrides application version under `info.version` in the AsyncAPI document.\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>          </span><span style=\"color:#7edcda\">\"required\"</span><span>: </span><span style=\"color:#64a0dc\">false</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>        }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>    }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>  },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>  </span><span style=\"color:#7edcda\">\"dependencies\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>    </span><span style=\"color:#7edcda\">\"@asyncapi/generator-react-sdk\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"^0.2.25\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "<Text>App name: **{ asyncapi.info().title() }**</Text>",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>&lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;App </span><span style=\"color:#7edcda\">name</span><span>: **{ asyncapi.</span><span style=\"color:#64a0dc\">info</span><span>().title() }**&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version is: **{params.version || asyncapi.info.version()}**</Text>",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>&lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;App </span><span style=\"color:#7edcda\">name</span><span>: **{ asyncapi.</span><span style=\"color:#64a0dc\">info</span><span>().title() }**&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>&lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span><span style=\"color:#64a0dc\">Version</span><span> </span><span style=\"color:#64a0dc\">is</span><span>: **{params.</span><span style=\"color:#64a0dc\">version</span><span> || asyncapi.</span><span style=\"color:#64a0dc\">info</span><span>.version()}**&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "1module.exports = {\n2  'generate:before': ({ asyncapi, templateParams = {} }) => {\n3    const version = templateParams.version || asyncapi.info().version();\n4    asyncapi._json.info.version = version;\n5  }\n6};",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">module.exports</span><span> = {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  'generate:before': ({ asyncapi, </span><span style=\"color:#7edcda\">templateParams</span><span> = {} }) =&gt; {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    const </span><span style=\"color:#7edcda\">version</span><span> = templateParams.version || asyncapi.info().version()</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">asyncapi._json.info.version</span><span> = version</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>}</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "1<Text>App name: **{ asyncapi.info().title() }**</Text>\n2<Text>Version: **{asyncapi.info.version()}**</Text>",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>&lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;App </span><span style=\"color:#7edcda\">name</span><span>: **{ asyncapi.</span><span style=\"color:#64a0dc\">info</span><span>().title() }**&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>&lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span><span style=\"color:#64a0dc\">Version</span><span>: **{asyncapi.</span><span style=\"color:#64a0dc\">info</span><span>.version()}**&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Name",
+          "Type",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Name": "renderer",
+            "Type": "String",
+            "Description": "Its value can be either react or nunjucks (default)."
+          },
+          {
+            "Name": "supportedProtocols",
+            "Type": "[String]",
+            "Description": "A list with all the protocols this template supports."
+          },
+          {
+            "Name": "parameters",
+            "Type": "Object[String, Object]",
+            "Description": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+          },
+          {
+            "Name": "parameters[param].description",
+            "Type": "String",
+            "Description": "A user-friendly description about the parameter."
+          },
+          {
+            "Name": "parameters[param].default",
+            "Type": "Any",
+            "Description": "Default value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters."
+          },
+          {
+            "Name": "parameters[param].required",
+            "Type": "Boolean",
+            "Description": "Whether the parameter is required or not."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "template",
+        "context": "Let's break down the minimum template requirements: the template directory and a package.json file."
+      },
+      {
+        "id": "highlight_1",
+        "content": "package.json",
+        "context": "Let's break down the minimum template requirements: the template directory and a package.json file."
+      },
+      {
+        "id": "highlight_2",
+        "content": "template",
+        "context": "template directory"
+      },
+      {
+        "id": "highlight_3",
+        "content": "template",
+        "context": "The template directory holds all the files that will be used for generating the output. The generator will process all the files stored in this directory."
+      },
+      {
+        "id": "highlight_4",
+        "content": "index.js",
+        "context": "The following code is an example of an index.js file inside the template folder."
+      },
+      {
+        "id": "highlight_5",
+        "content": "template",
+        "context": "The following code is an example of an index.js file inside the template folder."
+      },
+      {
+        "id": "highlight_6",
+        "content": "asyncapi.md",
+        "context": "The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated."
+      },
+      {
+        "id": "highlight_7",
+        "content": "title",
+        "context": "The above example will produce an asyncapi.md file where usage of the AsyncAPI document information (i.e. the title) is demonstrated."
+      },
+      {
+        "id": "highlight_8",
+        "content": "package.json",
+        "context": "package.json file"
+      },
+      {
+        "id": "highlight_9",
+        "content": "package.json",
+        "context": "Before the generation process begins, the generator installs the template into its dependencies. A package.json file is necessary to identify the template name."
+      },
+      {
+        "id": "highlight_10",
+        "content": "package.json",
+        "context": "The following block shows an example package.json file that points to the React Render Engine and necessary dependencies:"
+      },
+      {
+        "id": "highlight_11",
+        "content": "@asyncapi/generator-react-sdk",
+        "context": "@asyncapi/generator-react-sdk package"
+      },
+      {
+        "id": "highlight_12",
+        "content": "package.json",
+        "context": "You must configure the generator's package.json file to contain JSON objects with the required parameters for template configuration, such as:"
+      },
+      {
+        "id": "highlight_13",
+        "content": "renderer",
+        "context": "renderer"
+      },
+      {
+        "id": "highlight_14",
+        "content": "react",
+        "context": "Its value can be either react or nunjucks (default)."
+      },
+      {
+        "id": "highlight_15",
+        "content": "nunjucks",
+        "context": "Its value can be either react or nunjucks (default)."
+      },
+      {
+        "id": "highlight_16",
+        "content": "supportedProtocols",
+        "context": "supportedProtocols"
+      },
+      {
+        "id": "highlight_17",
+        "content": "parameters",
+        "context": "parameters"
+      },
+      {
+        "id": "highlight_18",
+        "content": "--param name=value",
+        "context": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+      },
+      {
+        "id": "highlight_19",
+        "content": "-p name=value",
+        "context": "An object with all the parameters that can be passed when generating the template. When using the command line, it's done by indicating --param name=value or -p name=value."
+      },
+      {
+        "id": "highlight_20",
+        "content": "parameters[param].description",
+        "context": "parameters[param].description"
+      },
+      {
+        "id": "highlight_21",
+        "content": "parameters[param].default",
+        "context": "parameters[param].default"
+      },
+      {
+        "id": "highlight_22",
+        "content": "required=true",
+        "context": "Default value of the parameter if not specified. Shouldn't be used for mandatory required=true parameters."
+      },
+      {
+        "id": "highlight_23",
+        "content": "parameters[param].required",
+        "context": "parameters[param].required"
+      },
+      {
+        "id": "highlight_24",
+        "content": "generator",
+        "context": "The above table lists some configuration options that help the generator achieve a specific set of tasks throughout the generation process. The generator property from 'package.json' contains all the configuration information. To learn more about template configuration and various supported parameters, read the generator configuration file."
+      },
+      {
+        "id": "highlight_25",
+        "content": "npm install",
+        "context": "Whenever you make a change to the package.json, make sure you perform an update by running npm install;  this command synchronizes with the package-lock.json and validates the file."
+      },
+      {
+        "id": "highlight_26",
+        "content": "package-lock.json",
+        "context": "Whenever you make a change to the package.json, make sure you perform an update by running npm install;  this command synchronizes with the package-lock.json and validates the file."
+      },
+      {
+        "id": "highlight_27",
+        "content": "package.json",
+        "context": "package.json configuration options"
+      },
+      {
+        "id": "highlight_28",
+        "content": "package.json",
+        "context": "The following examples show some advanced configurations that we can use in our package.json file:"
+      },
+      {
+        "id": "highlight_29",
+        "content": "package.json",
+        "context": "The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template."
+      },
+      {
+        "id": "highlight_30",
+        "content": "supportedProtocols",
+        "context": "The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template."
+      },
+      {
+        "id": "highlight_31",
+        "content": "mqtt",
+        "context": "The above package.json file has a newly added configuration called supportedProtocols which is set to a list containing only mqtt. This configuration displays all the protocols that this template supports. You can have multiple supported protocols in our template."
+      },
+      {
+        "id": "highlight_32",
+        "content": "mqtt",
+        "context": "For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt."
+      },
+      {
+        "id": "highlight_33",
+        "content": "kafka",
+        "context": "For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt."
+      },
+      {
+        "id": "highlight_34",
+        "content": "mqtt",
+        "context": "For example, if you want to generate an output using the above template, you need to have an AsyncAPI document with servers that use mqtt to generate your desired output. If your AsyncAPI document has server connections with kafka, the generation process will be terminated since the only supported protocol mentioned is mqtt."
+      },
+      {
+        "id": "highlight_35",
+        "content": "parameters",
+        "context": "Additionally, we can also have a configuration called parameters, which is an object with all the parameters that can be passed when generating the template:"
+      },
+      {
+        "id": "highlight_36",
+        "content": "--param name=value or -p name=value",
+        "context": "Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+      },
+      {
+        "id": "highlight_37",
+        "content": "-p version=2.0.0",
+        "context": "Now that you have added all the configuration options, you can start the generation process using the AsyncAPI CLI. You can pass these parameters via the CLI: --param name=value or -p name=value.\nThe above configuration helps template users override the existing version with a new version on the command line. (Example: -p version=2.0.0)"
+      },
+      {
+        "id": "highlight_38",
+        "content": "hooks",
+        "context": "Hooks enable templates to perform multiple tasks. You can add Hooks to your template as fractions of code. In the template, you must store it in the hooks directory under the template directory. You can also store it in other modules and external libraries or configure it inside the template. The generation process can perform multiple actions."
+      },
+      {
+        "id": "highlight_39",
+        "content": "version",
+        "context": "Hooks help you change the specification version with the new version that you can pass before the generation process even begins:"
+      },
+      {
+        "id": "highlight_40",
+        "content": "version",
+        "context": "This can be an even better alternative to overriding the version parameter we discussed in the previous section. A markdown document will be generated, and the AsyncAPI document passed to the generator will be returned with the overwritten version."
+      }
+    ]
+  }
+}

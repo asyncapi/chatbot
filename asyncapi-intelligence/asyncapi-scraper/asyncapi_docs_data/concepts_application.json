@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/application",
+    "timestamp": "2025-03-12T17:44:00.035Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Application",
+    "hierarchy": {
+      "sections": {
+        "What is an application?": {
+          "level": 2,
+          "content": "An application is a computer program or a group of them.An application can be a micro-service, IoT (Internet of things) device (for example, a sensor), mainframe process, and more. Users can create applications using various programming languages that support the chosen protocols."
+        },
+        "Why do we need applications?": {
+          "level": 2,
+          "content": "In Event-Driven Architecture (EDA), an application can either be a producer, a consumer, or both. Additionally, if an application wants to connect and exchange messages with the server, it must adhere to the protocols supported by the server.Applications: producers and consumersPRODUCER applicationmessagechannelmessageCONSUMER applicationThe diagram above illustrates a message transmission between a Producer application and a Consumer application through a channel."
+        },
+        "Applications: producers and consumers": {
+          "level": 3,
+          "content": "PRODUCER applicationmessagechannelmessageCONSUMER applicationThe diagram above illustrates a message transmission between a Producer application and a Consumer application through a channel."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "What is an application?\nAn application is a computer program or a group of them.\nAn application can be a micro-service, IoT (Internet of things) device (for example, a sensor), mainframe process, and more. Users can create applications using various programming languages that support the chosen protocols.\nWhy do we need applications?\nIn Event-Driven Architecture (EDA), an application can either be a producer, a consumer, or both. Additionally, if an application wants to connect and exchange messages with the server, it must adhere to the protocols supported by the server.\nApplications: producers and consumers\nPRODUCER applicationmessagechannelmessageCONSUMER application\nThe diagram above illustrates a message transmission between a Producer application and a Consumer application through a channel.",
+    "sections": [
+      {
+        "title": "What is an application?",
+        "level": 2,
+        "text": "An application is a computer program or a group of them.An application can be a micro-service, IoT (Internet of things) device (for example, a sensor), mainframe process, and more. Users can create applications using various programming languages that support the chosen protocols."
+      },
+      {
+        "title": "Why do we need applications?",
+        "level": 2,
+        "text": "In Event-Driven Architecture (EDA), an application can either be a producer, a consumer, or both. Additionally, if an application wants to connect and exchange messages with the server, it must adhere to the protocols supported by the server.Applications: producers and consumersPRODUCER applicationmessagechannelmessageCONSUMER applicationThe diagram above illustrates a message transmission between a Producer application and a Consumer application through a channel."
+      },
+      {
+        "title": "Applications: producers and consumers",
+        "level": 3,
+        "text": "PRODUCER applicationmessagechannelmessageCONSUMER applicationThe diagram above illustrates a message transmission between a Producer application and a Consumer application through a channel."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 233.2578125px;\" viewBox=\"-8 -8 233.2578125 426\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M108.629,42L108.629,46.167C108.629,50.333,108.629,58.667,108.629,67C108.629,75.333,108.629,83.667,108.629,87.833L108.629,92\" id=\"L-A-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M108.629,134L108.629,138.167C108.629,142.333,108.629,150.667,108.629,159C108.629,167.333,108.629,175.667,108.629,179.833L108.629,184\" id=\"L-B-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M108.629,226L108.629,230.167C108.629,234.333,108.629,242.667,108.629,251C108.629,259.333,108.629,267.667,108.629,271.833L108.629,276\" id=\"L-C-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M108.629,318L108.629,322.167C108.629,326.333,108.629,334.667,108.629,343C108.629,351.333,108.629,359.667,108.629,363.833L108.629,368\" id=\"L-D-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-A-16\" transform=\"translate(108.62890625, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-105.98046875\" y=\"-21\" width=\"211.9609375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-98.48046875, -13.5)\"><foreignObject width=\"196.9609375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">PRODUCER application</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-17\" transform=\"translate(108.62890625, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-45.953125\" y=\"-21\" width=\"91.90625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.453125, -13.5)\"><foreignObject width=\"76.90625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">message</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-C-19\" transform=\"translate(108.62890625, 205)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-41.08203125\" y=\"-21\" width=\"82.1640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-33.58203125, -13.5)\"><foreignObject width=\"67.1640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channel</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-21\" transform=\"translate(108.62890625, 297)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-45.953125\" y=\"-21\" width=\"91.90625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.453125, -13.5)\"><foreignObject width=\"76.90625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">message</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-23\" transform=\"translate(108.62890625, 389)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-108.62890625\" y=\"-21\" width=\"217.2578125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-101.12890625, -13.5)\"><foreignObject width=\"202.2578125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">CONSUMER application</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}PRODUCER applicationmessagechannelmessageCONSUMER application",
+        "description": "SVG containing 8 paths, 2 circles, and 5 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

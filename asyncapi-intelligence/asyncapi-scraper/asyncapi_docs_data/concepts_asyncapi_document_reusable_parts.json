@@ -1,0 +1,310 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts",
+    "timestamp": "2025-03-12T17:48:59.286Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Reusable Parts",
+    "hierarchy": {
+      "sections": {
+        "Same document": {
+          "level": 2,
+          "content": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword.1channels:\n2  myChannel:\n3    message:\n4      myMessage:\n5        payload:\n6          $ref: '#/components/schemas/MyMessageSchema'\n7components:\n8  schemas:\n9    MyMessageSchema:\n10      type: object\n11      properties:\n12        message:\n13          type: string"
+        },
+        "Another local file": {
+          "level": 2,
+          "content": "You can reference another local document using the $ref keyword. Ensure the path to the local file is correct and accessible from your main AsyncAPI document.In the code below, you reference the component from another local document, such as message-schema.yaml.1UserSignup:\n2  name: UserSignup\n3  title: User signup\n4  summary: Action to sign a user up.\n5  description: A longer description\n6  contentType: application/json\n7  payload: nullIn the code below, you use another local document, message-schema.yaml, through a reference inside the AsyncAPI document.1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: './message-schema.yaml#/UserSignup'\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'"
+        },
+        "External URL": {
+          "level": 2,
+          "content": "You can reference an external URL using the $ref keyword. Ensure the external URL provides the referenced component in a compatible format, such as YAML or JSON. In the example below, you reference the component from an external URL. The $ref value specifies the full URL to the external resource and the component's location.1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: https://example.com/my-components.yaml#/schemas/MySchema\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Reusable parts in AsyncAPI provide flexibility, modularity, and code reusability. You can reuse the majority of document sections like messages, schema definitions, channels, operations, and more.\nReusable parts allow you to split up the AsyncAPI document into many files and reference them using the Reference Object. You can use the $ref keyword to reference the same document, another local file, or an external URL. The diagram below describes how to reuse parts in AsyncAPI:\nSame document\nYou can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword.\n1channels:\n2  myChannel:\n3    message:\n4      myMessage:\n5        payload:\n6          $ref: '#/components/schemas/MyMessageSchema'\n7components:\n8  schemas:\n9    MyMessageSchema:\n10      type: object\n11      properties:\n12        message:\n13          type: string\nAnother local file\nYou can reference another local document using the $ref keyword. Ensure the path to the local file is correct and accessible from your main AsyncAPI document.\nIn the code below, you reference the component from another local document, such as message-schema.yaml.\n1UserSignup:\n2  name: UserSignup\n3  title: User signup\n4  summary: Action to sign a user up.\n5  description: A longer description\n6  contentType: application/json\n7  payload: null\nIn the code below, you use another local document, message-schema.yaml, through a reference inside the AsyncAPI document.\n1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: './message-schema.yaml#/UserSignup'\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'\nExternal URL\nYou can reference an external URL using the $ref keyword. Ensure the external URL provides the referenced component in a compatible format, such as YAML or JSON. In the example below, you reference the component from an external URL. The $ref value specifies the full URL to the external resource and the component's location.\n1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: https://example.com/my-components.yaml#/schemas/MySchema\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'",
+    "sections": [
+      {
+        "title": "Same document",
+        "level": 2,
+        "text": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword.1channels:\n2  myChannel:\n3    message:\n4      myMessage:\n5        payload:\n6          $ref: '#/components/schemas/MyMessageSchema'\n7components:\n8  schemas:\n9    MyMessageSchema:\n10      type: object\n11      properties:\n12        message:\n13          type: string"
+      },
+      {
+        "title": "Another local file",
+        "level": 2,
+        "text": "You can reference another local document using the $ref keyword. Ensure the path to the local file is correct and accessible from your main AsyncAPI document.In the code below, you reference the component from another local document, such as message-schema.yaml.1UserSignup:\n2  name: UserSignup\n3  title: User signup\n4  summary: Action to sign a user up.\n5  description: A longer description\n6  contentType: application/json\n7  payload: nullIn the code below, you use another local document, message-schema.yaml, through a reference inside the AsyncAPI document.1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: './message-schema.yaml#/UserSignup'\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'"
+      },
+      {
+        "title": "External URL",
+        "level": 2,
+        "text": "You can reference an external URL using the $ref keyword. Ensure the external URL provides the referenced component in a compatible format, such as YAML or JSON. In the example below, you reference the component from an external URL. The $ref value specifies the full URL to the external resource and the component's location.1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: https://example.com/my-components.yaml#/schemas/MySchema\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1channels:\n2  myChannel:\n3    message:\n4      myMessage:\n5        payload:\n6          $ref: '#/components/schemas/MyMessageSchema'\n7components:\n8  schemas:\n9    MyMessageSchema:\n10      type: object\n11      properties:\n12        message:\n13          type: string",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">myChannel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">message:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>      </span><span style=\"color:#7edcda\">myMessage:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>        </span><span style=\"color:#7edcda\">payload:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/schemas/MyMessageSchema'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">schemas:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">MyMessageSchema:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">object</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>      </span><span style=\"color:#7edcda\">properties:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>        </span><span style=\"color:#7edcda\">message:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>          </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">string</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1UserSignup:\n2  name: UserSignup\n3  title: User signup\n4  summary: Action to sign a user up.\n5  description: A longer description\n6  contentType: application/json\n7  payload: null",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">UserSignup:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">UserSignup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">User</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">signup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">summary:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Action</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">to</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">sign</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">a</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">up.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">A</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">longer</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">description</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">contentType:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">application/json</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#7edcda\">payload:</span><span> </span><span style=\"color:#64a0dc\">null</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: './message-schema.yaml#/UserSignup'\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">signUp:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user/signedup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      </span><span style=\"color:#7edcda\">UserSignup:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'./message-schema.yaml#/UserSignup'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">operations:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">user/signedup.publish:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/signUp'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/signUp/messages/UserSignup'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1channels:\n2  signUp:\n3    address: user/signedup\n4    messages:\n5      UserSignup:\n6        $ref: https://example.com/my-components.yaml#/schemas/MySchema\n7operations:\n8  user/signedup.publish:\n9    action: receive\n10    channel:\n11      $ref: '#/channels/signUp'\n12    messages:\n13      - $ref: '#/channels/signUp/messages/UserSignup'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">signUp:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user/signedup</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      </span><span style=\"color:#7edcda\">UserSignup:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">https://example.com/my-components.yaml#/schemas/MySchema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">operations:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">user/signedup.publish:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/signUp'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/signUp/messages/UserSignup'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "$ref",
+        "context": "Reusable parts allow you to split up the AsyncAPI document into many files and reference them using the Reference Object. You can use the $ref keyword to reference the same document, another local file, or an external URL. The diagram below describes how to reuse parts in AsyncAPI:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "$ref",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_2",
+        "content": "MyMessageSchema",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_3",
+        "content": "schemas",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_4",
+        "content": "myChannel",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_5",
+        "content": "MyMessageSchema",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_6",
+        "content": "$ref",
+        "context": "You can use the $ref keyword to reference a component in an AsyncAPI document. In the example below, you define a component called MyMessageSchema under the schemas section to describe the structure of a message. Under the myChannel channel, you have a message with a payload definition that's represented as a reference to the MyMessageSchema schema via the $ref keyword."
+      },
+      {
+        "id": "highlight_7",
+        "content": "$ref",
+        "context": "You can reference another local document using the $ref keyword. Ensure the path to the local file is correct and accessible from your main AsyncAPI document."
+      },
+      {
+        "id": "highlight_8",
+        "content": "message-schema.yaml",
+        "context": "In the code below, you reference the component from another local document, such as message-schema.yaml."
+      },
+      {
+        "id": "highlight_9",
+        "content": "message-schema.yaml",
+        "context": "In the code below, you use another local document, message-schema.yaml, through a reference inside the AsyncAPI document."
+      },
+      {
+        "id": "highlight_10",
+        "content": "$ref",
+        "context": "You can reference an external URL using the $ref keyword. Ensure the external URL provides the referenced component in a compatible format, such as YAML or JSON. In the example below, you reference the component from an external URL. The $ref value specifies the full URL to the external resource and the component's location."
+      },
+      {
+        "id": "highlight_11",
+        "content": "$ref",
+        "context": "You can reference an external URL using the $ref keyword. Ensure the external URL provides the referenced component in a compatible format, such as YAML or JSON. In the example below, you reference the component from an external URL. The $ref value specifies the full URL to the external resource and the component's location."
+      }
+    ]
+  }
+}

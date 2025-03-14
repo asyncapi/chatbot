@@ -1,0 +1,262 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels",
+    "timestamp": "2025-03-12T17:47:22.535Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Adding Channels",
+    "hierarchy": {
+      "sections": {
+        "Channel availability on specific servers": {
+          "level": 3,
+          "content": "When you add a channel to the AsyncAPI document, by default it is expected to be available on any server described in the document. In other words, if you have two servers, production-kafka-secure and development-kafka, the channel described in the AsyncAPI document must be present on both servers.It's possible to encounter a scenario where an AsyncAPI document describes an application communicating in a production environment through multiple servers, each utilizing distinct protocols. For example, the application might receive messages from a channel on an MQTT server while concurrently sending messages to a different channel on a Kafka server. In such cases, it's imperative to distinctly specify the exclusive availability of one channel on the MQTT server and another channel solely on the Kafka server.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}receivesendMQTT ServerApplicationKafka ServerHere is an example of how you might specify that a channel is available only on specific servers:1channels:\n2  lightTurnOn:\n3    address: light.on\n4    messages:\n5      lightOn:\n6        description: An event describing that lights are on\n7    servers:\n8      - $ref: '#/servers/serverA'\n9  lightTurnOnOff:\n10    address: light/onoff\n11    messages:\n12      lightOnOff:\n13        description: An event describing that light is either on or off\n14    servers:\n15      - $ref: '#/servers/serverB'\n16servers:\n17  serverA:\n18    host: serverA.example.com\n19    protocol: kafka\n20  serverB:\n21    host: serverB.example.com\n22    protocol: mqttThe above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Incorporating channels in the AsyncAPI document facilitates message organization and categorization, streamlining message routing to suitable consumers. It also enables the decoupling of producers and consumers, which contributes to the API's scalability and extensibility. Moreover, it offers comprehensive documentation and transparent communication about the API's communication patterns. Additionally, alternative names for channels can be user-defined to suit specific contexts and preferences.\nHere is an example of how to define channels:\n1userSignedUp:\n2  address: 'user.signedup'\n3  messages:\n4    userSignedUp:\n5      $ref: '#/components/messages/userSignedUp'\nThe previous AsyncAPI document sets up an interface for a userSignedUp channel, where the address field holds the actual address of the channel (user.signedup).\nChannel availability on specific servers\nWhen you add a channel to the AsyncAPI document, by default it is expected to be available on any server described in the document. In other words, if you have two servers, production-kafka-secure and development-kafka, the channel described in the AsyncAPI document must be present on both servers.\nIt's possible to encounter a scenario where an AsyncAPI document describes an application communicating in a production environment through multiple servers, each utilizing distinct protocols. For example, the application might receive messages from a channel on an MQTT server while concurrently sending messages to a different channel on a Kafka server. In such cases, it's imperative to distinctly specify the exclusive availability of one channel on the MQTT server and another channel solely on the Kafka server.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}receivesendMQTT ServerApplicationKafka Server\nHere is an example of how you might specify that a channel is available only on specific servers:\n1channels:\n2  lightTurnOn:\n3    address: light.on\n4    messages:\n5      lightOn:\n6        description: An event describing that lights are on\n7    servers:\n8      - $ref: '#/servers/serverA'\n9  lightTurnOnOff:\n10    address: light/onoff\n11    messages:\n12      lightOnOff:\n13        description: An event describing that light is either on or off\n14    servers:\n15      - $ref: '#/servers/serverB'\n16servers:\n17  serverA:\n18    host: serverA.example.com\n19    protocol: kafka\n20  serverB:\n21    host: serverB.example.com\n22    protocol: mqtt\nThe above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol.",
+    "sections": [
+      {
+        "title": "Channel availability on specific servers",
+        "level": 3,
+        "text": "When you add a channel to the AsyncAPI document, by default it is expected to be available on any server described in the document. In other words, if you have two servers, production-kafka-secure and development-kafka, the channel described in the AsyncAPI document must be present on both servers.It's possible to encounter a scenario where an AsyncAPI document describes an application communicating in a production environment through multiple servers, each utilizing distinct protocols. For example, the application might receive messages from a channel on an MQTT server while concurrently sending messages to a different channel on a Kafka server. In such cases, it's imperative to distinctly specify the exclusive availability of one channel on the MQTT server and another channel solely on the Kafka server.#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}receivesendMQTT ServerApplicationKafka ServerHere is an example of how you might specify that a channel is available only on specific servers:1channels:\n2  lightTurnOn:\n3    address: light.on\n4    messages:\n5      lightOn:\n6        description: An event describing that lights are on\n7    servers:\n8      - $ref: '#/servers/serverA'\n9  lightTurnOnOff:\n10    address: light/onoff\n11    messages:\n12      lightOnOff:\n13        description: An event describing that light is either on or off\n14    servers:\n15      - $ref: '#/servers/serverB'\n16servers:\n17  serverA:\n18    host: serverA.example.com\n19    protocol: kafka\n20  serverB:\n21    host: serverB.example.com\n22    protocol: mqttThe above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 584.4375px;\" viewBox=\"-8 -8 584.4375 58\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M128.93,21L138.294,21C147.658,21,166.385,21,185.113,21C203.841,21,222.569,21,231.933,21L241.297,21\" id=\"L-D-E-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-E\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M351.727,21L359.365,21C367.003,21,382.279,21,397.555,21C412.831,21,428.107,21,435.745,21L443.383,21\" id=\"L-E-G-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-G\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\" transform=\"translate(185.11328125, 21)\"><g class=\"label\" transform=\"translate(-31.18359375, -13.5)\"><foreignObject width=\"62.3671875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">receive</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(397.5546875, 21)\"><g class=\"label\" transform=\"translate(-20.828125, -13.5)\"><foreignObject width=\"41.65625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">send</span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-D-8\" transform=\"translate(64.46484375, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-64.46484375\" y=\"-21\" width=\"128.9296875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-56.96484375, -13.5)\"><foreignObject width=\"113.9296875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">MQTT Server</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-9\" transform=\"translate(296.51171875, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-55.21484375\" y=\"-21\" width=\"110.4296875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-47.71484375, -13.5)\"><foreignObject width=\"95.4296875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Application</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-G-11\" transform=\"translate(505.91015625, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-62.52734375\" y=\"-21\" width=\"125.0546875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-55.02734375, -13.5)\"><foreignObject width=\"110.0546875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Kafka Server</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}receivesendMQTT ServerApplicationKafka Server",
+        "description": "SVG containing 6 paths, 2 circles, and 3 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1userSignedUp:\n2  address: 'user.signedup'\n3  messages:\n4    userSignedUp:\n5      $ref: '#/components/messages/userSignedUp'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">userSignedUp:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">  address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'user.signedup'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">  messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">    userSignedUp:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      $ref: </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/messages/userSignedUp'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1channels:\n2  lightTurnOn:\n3    address: light.on\n4    messages:\n5      lightOn:\n6        description: An event describing that lights are on\n7    servers:\n8      - $ref: '#/servers/serverA'\n9  lightTurnOnOff:\n10    address: light/onoff\n11    messages:\n12      lightOnOff:\n13        description: An event describing that light is either on or off\n14    servers:\n15      - $ref: '#/servers/serverB'\n16servers:\n17  serverA:\n18    host: serverA.example.com\n19    protocol: kafka\n20  serverB:\n21    host: serverB.example.com\n22    protocol: mqtt",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">  lightTurnOn:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">    address:</span><span> light.on\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">    messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#64a0dc\">      lightOn:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#64a0dc\">        description:</span><span> An event describing that lights are on\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#64a0dc\">    servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>      - $ref: </span><span style=\"color:#c0e2a3;font-weight:500\">'#/servers/serverA'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#64a0dc\">  lightTurnOnOff:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#64a0dc\">    address:</span><span> light/onoff\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span></span><span style=\"color:#64a0dc\">    messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span></span><span style=\"color:#64a0dc\">      lightOnOff:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span></span><span style=\"color:#64a0dc\">        description:</span><span> An event describing that light is either on or off\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span></span><span style=\"color:#64a0dc\">    servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      - $ref: </span><span style=\"color:#c0e2a3;font-weight:500\">'#/servers/serverB'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#64a0dc\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span></span><span style=\"color:#64a0dc\">  serverA:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span></span><span style=\"color:#64a0dc\">    host:</span><span> serverA.example.com\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span></span><span style=\"color:#64a0dc\">    protocol:</span><span> kafka\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span></span><span style=\"color:#64a0dc\">  serverB:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span></span><span style=\"color:#64a0dc\">    host:</span><span> serverB.example.com\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span></span><span style=\"color:#64a0dc\">    protocol:</span><span> mqtt</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "userSignedUp",
+        "context": "The previous AsyncAPI document sets up an interface for a userSignedUp channel, where the address field holds the actual address of the channel (user.signedup)."
+      },
+      {
+        "id": "highlight_1",
+        "content": "address",
+        "context": "The previous AsyncAPI document sets up an interface for a userSignedUp channel, where the address field holds the actual address of the channel (user.signedup)."
+      },
+      {
+        "id": "highlight_2",
+        "content": "user.signedup",
+        "context": "The previous AsyncAPI document sets up an interface for a userSignedUp channel, where the address field holds the actual address of the channel (user.signedup)."
+      },
+      {
+        "id": "highlight_3",
+        "content": "production-kafka-secure",
+        "context": "When you add a channel to the AsyncAPI document, by default it is expected to be available on any server described in the document. In other words, if you have two servers, production-kafka-secure and development-kafka, the channel described in the AsyncAPI document must be present on both servers."
+      },
+      {
+        "id": "highlight_4",
+        "content": "development-kafka",
+        "context": "When you add a channel to the AsyncAPI document, by default it is expected to be available on any server described in the document. In other words, if you have two servers, production-kafka-secure and development-kafka, the channel described in the AsyncAPI document must be present on both servers."
+      },
+      {
+        "id": "highlight_5",
+        "content": "servers",
+        "context": "The above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      },
+      {
+        "id": "highlight_6",
+        "content": "lightTurnOn",
+        "context": "The above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      },
+      {
+        "id": "highlight_7",
+        "content": "serverA",
+        "context": "The above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      },
+      {
+        "id": "highlight_8",
+        "content": "lightTurnOnOff",
+        "context": "The above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      },
+      {
+        "id": "highlight_9",
+        "content": "serverB",
+        "context": "The above example shows two different channels available only on selected servers. Notice the servers field under each channel. It means that the lightTurnOn channel is only available on serverA which uses Kafka protocol, and the lightTurnOnOff channel is available only on serverB which uses MQTT protocol."
+      }
+    ]
+  }
+}

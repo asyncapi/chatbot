@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tutorials/getting-started/coming-from-openapi",
+    "timestamp": "2025-03-12T17:49:26.825Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Coming From Openapi",
+    "hierarchy": {
+      "sections": {
+        "OpenAPI 3.0": {
+          "level": 3,
+          "content": "InfoServersSecurityPathsPath ItemSummary and descriptionOperationGET, PUT, POST, etc.RequestResponsesTagsExternal DocsComponentsDefinitionsResponsesParametersResponse HeadersSecurity DefinitionsCallbacksLinks"
+        },
+        "AsyncAPI 2.0": {
+          "level": 3,
+          "content": "InfoServers (hosts + security)ChannelChannel ItemOperation (Publish and Subscribe)Summary, description, tags, etc.MessageHeadersPayloadId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings"
+        },
+        "AsyncAPI 3.0": {
+          "level": 3,
+          "content": "InfoServers (hosts + security)ChannelsChannelSummary, descriptionMessagesHeadersPayloadOperationsOperationaction (send or receive)Channel referenceMessages referenceId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings"
+        },
+        "Conclusion": {
+          "level": 2,
+          "content": "As you have seen above, OpenAPI and AsyncAPI are similar, but the specification's evolution will bring more differences in the future. In a real-world environment, systems don't have just REST APIs or events, but a mix of both. Most of the time, the information flowing in the events is very similar to the one the REST APIs have to handle in requests and responses; thus, being able to reuse schemas is a huge win.Let's learn how to create an AsyncAPI document that defines a \"Hello world\" application."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tutorials"
+            },
+            {
+              "text": "Getting Started",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Event-Driven Architectures",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/event-driven-architectures"
+            },
+            {
+              "text": "Coming from OpenAPI",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/coming-from-openapi"
+            },
+            {
+              "text": "Hello world",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/hello-world"
+            },
+            {
+              "text": "Request/reply pattern",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/request-reply"
+            },
+            {
+              "text": "AsyncAPI documents",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/asyncapi-documents"
+            },
+            {
+              "text": "Servers",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/servers"
+            },
+            {
+              "text": "Adding security",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/security"
+            },
+            {
+              "text": "Create AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tutorials/create-asyncapi-document"
+            },
+            {
+              "text": "Generate code",
+              "href": "https://www.asyncapi.com/docs/tutorials/generate-code"
+            },
+            {
+              "text": "Validate AsyncAPI document with Studio",
+              "href": "https://www.asyncapi.com/docs/tutorials/studio-document-validation"
+            },
+            {
+              "text": "Message validation in runtime",
+              "href": "https://www.asyncapi.com/docs/tutorials/message-validation"
+            },
+            {
+              "text": "Streetlights - Interactive",
+              "href": "https://www.asyncapi.com/docs/tutorials/streetlights-interactive"
+            },
+            {
+              "text": "WebSocket",
+              "href": "https://www.asyncapi.com/docs/tutorials/websocket"
+            },
+            {
+              "text": "Kafka",
+              "href": "https://www.asyncapi.com/docs/tutorials/kafka"
+            }
+          ]
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "If you're coming from OpenAPI, you must know that AsyncAPI started as an adaptation of the OpenAPI specification. AsyncAPI wanted to be as compatible as possible with OpenAPI so that the users could reuse parts in both.\nBefore AsyncAPI 3.0.0, you could find many similarities between OpenAPI and AsyncAPI. Remember that in the world of Event-Driven Architectures, you have more than one protocol; therefore, some things are different. Check out the following comparison chart, inspired by Darrel Miller's blog post:\n\nOpenAPI 3.0InfoServersSecurityPathsPath ItemSummary and descriptionOperation (GET, PUT, POST, etc.)RequestResponsesTagsExternal DocsComponentsSchemasResponsesParametersExamplesRequest BodiesHeadersSecurity SchemesLinksCallbacksAsyncAPI 2.0InfoServers (hosts + security)ChannelChannel ItemOperation (Publish and Subscribe)Summary, description, tags, etc.MessageHeadersPayloadId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings\nTo enable more flexibility, the AsyncAPI 3.0.0 specification changes more and is less similar to OpenAPI starting with this version. The biggest change is in the channel structure, where operations are separated from it. It is like detaching operations from paths in OpenAPI.\n\nOpenAPI 3.0InfoServersSecurityPathsPath ItemSummary and descriptionOperationGET, PUT, POST, etc.RequestResponsesTagsExternal DocsComponentsDefinitionsResponsesParametersResponse HeadersSecurity DefinitionsCallbacksLinksAsyncAPI 3.0InfoServers (hosts + security)ChannelsChannelSummary, descriptionMessagesHeadersPayloadOperationsOperationaction (send or receive)Channel referenceMessages referenceId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings\nAside from structural differences, you should know:\n\nAsyncAPI is compatible with OpenAPI schemas.\nThe message payload in AsyncAPI can be any value, not just an AsyncAPI/OpenAPI schema. For instance, it could be an Avro schema.\nThe AsyncAPI server object is almost identical to its OpenAPI counterpart, with the exception that scheme has been renamed to protocol and AsyncAPI introduces a new property called protocolVersion. AsyncAPI supports multiple protocols, not only HTTP, like in the case of OpenAPI.\nOpenAPI path parameters and AsyncAPI channel parameters are a bit different since AsyncAPI doesn't have the notion of \"query\" and \"cookie\", and header parameters can be defined in the message object. Therefore, AsyncAPI channel parameters are the equivalent of OpenAPI path parameters.\n\nConclusion\nAs you have seen above, OpenAPI and AsyncAPI are similar, but the specification's evolution will bring more differences in the future. In a real-world environment, systems don't have just REST APIs or events, but a mix of both. Most of the time, the information flowing in the events is very similar to the one the REST APIs have to handle in requests and responses; thus, being able to reuse schemas is a huge win.\nLet's learn how to create an AsyncAPI document that defines a \"Hello world\" application.",
+    "sections": [
+      {
+        "title": "OpenAPI 3.0",
+        "level": 3,
+        "text": "InfoServersSecurityPathsPath ItemSummary and descriptionOperationGET, PUT, POST, etc.RequestResponsesTagsExternal DocsComponentsDefinitionsResponsesParametersResponse HeadersSecurity DefinitionsCallbacksLinks"
+      },
+      {
+        "title": "AsyncAPI 2.0",
+        "level": 3,
+        "text": "InfoServers (hosts + security)ChannelChannel ItemOperation (Publish and Subscribe)Summary, description, tags, etc.MessageHeadersPayloadId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings"
+      },
+      {
+        "title": "AsyncAPI 3.0",
+        "level": 3,
+        "text": "InfoServers (hosts + security)ChannelsChannelSummary, descriptionMessagesHeadersPayloadOperationsOperationaction (send or receive)Channel referenceMessages referenceId (application identifier)TagsExternal DocsComponentsSchemasMessagesSecurity SchemesParametersCorrelation IdsOperation TraitsMessage TraitsServer BindingsChannel BindingsOperation BindingsMessage Bindings"
+      },
+      {
+        "title": "Conclusion",
+        "level": 2,
+        "text": "As you have seen above, OpenAPI and AsyncAPI are similar, but the specification's evolution will bring more differences in the future. In a real-world environment, systems don't have just REST APIs or events, but a mix of both. Most of the time, the information flowing in the events is very similar to the one the REST APIs have to handle in requests and responses; thus, being able to reuse schemas is a huge win.Let's learn how to create an AsyncAPI document that defines a \"Hello world\" application."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "3.0.0",
+        "context": "Before AsyncAPI 3.0.0, you could find many similarities between OpenAPI and AsyncAPI. Remember that in the world of Event-Driven Architectures, you have more than one protocol; therefore, some things are different. Check out the following comparison chart, inspired by Darrel Miller's blog post:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "3.0.0",
+        "context": "To enable more flexibility, the AsyncAPI 3.0.0 specification changes more and is less similar to OpenAPI starting with this version. The biggest change is in the channel structure, where operations are separated from it. It is like detaching operations from paths in OpenAPI."
+      },
+      {
+        "id": "highlight_2",
+        "content": "scheme",
+        "context": "The AsyncAPI server object is almost identical to its OpenAPI counterpart, with the exception that scheme has been renamed to protocol and AsyncAPI introduces a new property called protocolVersion. AsyncAPI supports multiple protocols, not only HTTP, like in the case of OpenAPI."
+      },
+      {
+        "id": "highlight_3",
+        "content": "protocol",
+        "context": "The AsyncAPI server object is almost identical to its OpenAPI counterpart, with the exception that scheme has been renamed to protocol and AsyncAPI introduces a new property called protocolVersion. AsyncAPI supports multiple protocols, not only HTTP, like in the case of OpenAPI."
+      },
+      {
+        "id": "highlight_4",
+        "content": "protocolVersion",
+        "context": "The AsyncAPI server object is almost identical to its OpenAPI counterpart, with the exception that scheme has been renamed to protocol and AsyncAPI introduces a new property called protocolVersion. AsyncAPI supports multiple protocols, not only HTTP, like in the case of OpenAPI."
+      }
+    ]
+  }
+}

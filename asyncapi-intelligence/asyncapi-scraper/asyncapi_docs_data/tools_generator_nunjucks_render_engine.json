@@ -1,0 +1,315 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine",
+    "timestamp": "2025-03-12T17:52:17.753Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Nunjucks Render Engine",
+    "hierarchy": {
+      "sections": {
+        "Common assumptions": {
+          "level": 3,
+          "content": "Templates may contain Nunjucks filters or helper functions. Read more about filters.\nTemplates may contain partials (reusable chunks). They must be stored in the .partials directory under the template directory. Read more about partials.\nTemplates may contain multiple files. Unless stated otherwise, all files will be rendered.\nThe default variables you have access to in any the template file are the following:\n\nasyncapi that is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI that is an original spec file before it is parsed.\nparams that contain the parameters provided when generating."
+        },
+        "Partials": {
+          "level": 3,
+          "content": "Files from the .partials directory do not end up with other generated files in the target directory. In this directory you should keep reusable templates chunks that you can include in your templates. You can also put there macros to use them in templates, like in below example:1{# tags.html #}\n2{% macro tags(tagList) %}\n3<div class=\"mt-4\">\n4  {% for tag in tagList %}\n5    <span class=\"bg-grey-dark font-normal text-sm no-underline text-white rounded lowercase mr-2 px-2 py-1\" title=\"{{tag.description()}}\">{{tag.name()}}</span>\n6  {% endfor %}\n7</div>\n8{% endmacro %}\n9\n10{# operations.html #}\n11{% from \"./tags.html\" import tags %}\n12{{ tags(operation.tags()) }}"
+        },
+        "Filters": {
+          "level": 3,
+          "content": "A filter is a helper function that you can create to perform complex tasks. They are JavaScript files that register one or many Nunjuck filters. The generator parses all the files in the filters directory. Functions exported from these files are registered as filters.You can use the filter function in your template as in the following example:const {{ channelName | camelCase }} = '{{ channelName }}';The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:1const filter = module.exports;\n2\n3async function asyncCamelCase(str, callback) {\n4  try {\n5    const result = // logic for camel casing str\n6    callback(null, result);\n7  } catch (error) {\n8    callback(error);\n9  }\n10}\n11filter.renderAsyncContent = renderAsyncContent;\n12\n13// using in template\n14{{ channelName | asyncCamelCase }}Unfortunately, if you need to use Promise, filter still must be annotated with the async keyword:1async function asyncCamelCase(str, callback) {\n2  return new Promise((resolve, reject) => {\n3    // logic with callback\n4  });\n5}In case you have more than one template and want to reuse filters, you can put them in a single library. You can configure such a library in the template configuration under filters property. To learn how to add such filters to configuration read more about the configuration file.You can also use the official AsyncAPI nunjucks-filters that are by default included in the generator library."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Note: Nunjucks renderer engine is deprecated and will be removed in the future. Use the React renderer engine instead. For more details read notes from release @asyncapi/generator@2.6.0.\n\nNunjucks is the default render engine, however, we strongly recommend adopting the React engine.\nCommon assumptions\n\nTemplates may contain Nunjucks filters or helper functions. Read more about filters.\nTemplates may contain partials (reusable chunks). They must be stored in the .partials directory under the template directory. Read more about partials.\nTemplates may contain multiple files. Unless stated otherwise, all files will be rendered.\nThe default variables you have access to in any the template file are the following:\n\nasyncapi that is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI that is an original spec file before it is parsed.\nparams that contain the parameters provided when generating.\n\n\n\nPartials\nFiles from the .partials directory do not end up with other generated files in the target directory. In this directory you should keep reusable templates chunks that you can include in your templates. You can also put there macros to use them in templates, like in below example:\n1{# tags.html #}\n2{% macro tags(tagList) %}\n3<div class=\"mt-4\">\n4  {% for tag in tagList %}\n5    <span class=\"bg-grey-dark font-normal text-sm no-underline text-white rounded lowercase mr-2 px-2 py-1\" title=\"{{tag.description()}}\">{{tag.name()}}</span>\n6  {% endfor %}\n7</div>\n8{% endmacro %}\n9\n10{# operations.html #}\n11{% from \"./tags.html\" import tags %}\n12{{ tags(operation.tags()) }}\nFilters\nA filter is a helper function that you can create to perform complex tasks. They are JavaScript files that register one or many Nunjuck filters. The generator parses all the files in the filters directory. Functions exported from these files are registered as filters.\nYou can use the filter function in your template as in the following example:\nconst {{ channelName | camelCase }} = '{{ channelName }}';\nThe generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:\n1const filter = module.exports;\n2\n3async function asyncCamelCase(str, callback) {\n4  try {\n5    const result = // logic for camel casing str\n6    callback(null, result);\n7  } catch (error) {\n8    callback(error);\n9  }\n10}\n11filter.renderAsyncContent = renderAsyncContent;\n12\n13// using in template\n14{{ channelName | asyncCamelCase }}\nUnfortunately, if you need to use Promise, filter still must be annotated with the async keyword:\n1async function asyncCamelCase(str, callback) {\n2  return new Promise((resolve, reject) => {\n3    // logic with callback\n4  });\n5}\nIn case you have more than one template and want to reuse filters, you can put them in a single library. You can configure such a library in the template configuration under filters property. To learn how to add such filters to configuration read more about the configuration file.\nYou can also use the official AsyncAPI nunjucks-filters that are by default included in the generator library.",
+    "sections": [
+      {
+        "title": "Common assumptions",
+        "level": 3,
+        "text": "Templates may contain Nunjucks filters or helper functions. Read more about filters.\nTemplates may contain partials (reusable chunks). They must be stored in the .partials directory under the template directory. Read more about partials.\nTemplates may contain multiple files. Unless stated otherwise, all files will be rendered.\nThe default variables you have access to in any the template file are the following:\n\nasyncapi that is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI that is an original spec file before it is parsed.\nparams that contain the parameters provided when generating."
+      },
+      {
+        "title": "Partials",
+        "level": 3,
+        "text": "Files from the .partials directory do not end up with other generated files in the target directory. In this directory you should keep reusable templates chunks that you can include in your templates. You can also put there macros to use them in templates, like in below example:1{# tags.html #}\n2{% macro tags(tagList) %}\n3<div class=\"mt-4\">\n4  {% for tag in tagList %}\n5    <span class=\"bg-grey-dark font-normal text-sm no-underline text-white rounded lowercase mr-2 px-2 py-1\" title=\"{{tag.description()}}\">{{tag.name()}}</span>\n6  {% endfor %}\n7</div>\n8{% endmacro %}\n9\n10{# operations.html #}\n11{% from \"./tags.html\" import tags %}\n12{{ tags(operation.tags()) }}"
+      },
+      {
+        "title": "Filters",
+        "level": 3,
+        "text": "A filter is a helper function that you can create to perform complex tasks. They are JavaScript files that register one or many Nunjuck filters. The generator parses all the files in the filters directory. Functions exported from these files are registered as filters.You can use the filter function in your template as in the following example:const {{ channelName | camelCase }} = '{{ channelName }}';The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:1const filter = module.exports;\n2\n3async function asyncCamelCase(str, callback) {\n4  try {\n5    const result = // logic for camel casing str\n6    callback(null, result);\n7  } catch (error) {\n8    callback(error);\n9  }\n10}\n11filter.renderAsyncContent = renderAsyncContent;\n12\n13// using in template\n14{{ channelName | asyncCamelCase }}Unfortunately, if you need to use Promise, filter still must be annotated with the async keyword:1async function asyncCamelCase(str, callback) {\n2  return new Promise((resolve, reject) => {\n3    // logic with callback\n4  });\n5}In case you have more than one template and want to reuse filters, you can put them in a single library. You can configure such a library in the template configuration under filters property. To learn how to add such filters to configuration read more about the configuration file.You can also use the official AsyncAPI nunjucks-filters that are by default included in the generator library."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1{# tags.html #}\n2{% macro tags(tagList) %}\n3<div class=\"mt-4\">\n4  {% for tag in tagList %}\n5    <span class=\"bg-grey-dark font-normal text-sm no-underline text-white rounded lowercase mr-2 px-2 py-1\" title=\"{{tag.description()}}\">{{tag.name()}}</span>\n6  {% endfor %}\n7</div>\n8{% endmacro %}\n9\n10{# operations.html #}\n11{% from \"./tags.html\" import tags %}\n12{{ tags(operation.tags()) }}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">{# tags.html #}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span class=\"xml\"></span><span style=\"color:#5E81AC\">{% </span><span style=\"color:#64a0dc\">macro</span><span style=\"color:#5E81AC\"> tags(tagList) %}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span class=\"xml\"></span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">class</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"mt-4\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span class=\"xml\">  </span><span style=\"color:#5E81AC\">{% </span><span style=\"color:#64a0dc\">for</span><span style=\"color:#5E81AC\"> tag in tagList %}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">span</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">class</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"bg-grey-dark font-normal text-sm no-underline text-white rounded lowercase mr-2 px-2 py-1\"</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">title</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"</span><span style=\"color:#d6deeb\">{{tag.description()}}</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span style=\"color:#d6deeb\">{{tag.name()}}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">span</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span class=\"xml\">  </span><span style=\"color:#5E81AC\">{% </span><span style=\"color:#64a0dc\">endfor</span><span style=\"color:#5E81AC\"> %}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span class=\"xml\"></span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span class=\"xml\"></span><span style=\"color:#5E81AC\">{% </span><span style=\"color:#64a0dc\">endmacro</span><span style=\"color:#5E81AC\"> %}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span class=\"xml\"></span><span style=\"color:#797f8c\">{# operations.html #}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span class=\"xml\"></span><span style=\"color:#5E81AC\">{% </span><span style=\"color:#64a0dc\">from</span><span style=\"color:#5E81AC\"> \"./tags.html\" import tags %}</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span class=\"xml\"></span><span style=\"color:#d6deeb\">{{ tags(operation.tags()) }}</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "const {{ channelName | camelCase }} = '{{ channelName }}';",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"xml\">const </span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">channelName</span><span style=\"color:#d6deeb\"> | camelCase }}</span><span class=\"xml\"> = '</span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">channelName</span><span style=\"color:#d6deeb\"> }}</span><span class=\"xml\">';</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1const filter = module.exports;\n2\n3async function asyncCamelCase(str, callback) {\n4  try {\n5    const result = // logic for camel casing str\n6    callback(null, result);\n7  } catch (error) {\n8    callback(error);\n9  }\n10}\n11filter.renderAsyncContent = renderAsyncContent;\n12\n13// using in template\n14{{ channelName | asyncCamelCase }}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">const</span><span> filter = </span><span style=\"color:#7edcda\">module</span><span>.exports;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">asyncCamelCase</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">str, callback</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">try</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#64a0dc\">const</span><span> result = </span><span style=\"color:#797f8c\">// logic for camel casing str</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    callback(</span><span style=\"color:#64a0dc\">null</span><span>, result);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  } </span><span style=\"color:#64a0dc\">catch</span><span> (error) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>    callback(error);\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>filter.renderAsyncContent = renderAsyncContent;\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span></span><span style=\"color:#797f8c\">// using in template</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>{{ channelName | asyncCamelCase }}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1async function asyncCamelCase(str, callback) {\n2  return new Promise((resolve, reject) => {\n3    // logic with callback\n4  });\n5}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">asyncCamelCase</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">str, callback</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> </span><span style=\"color:#64a0dc\">new</span><span> </span><span style=\"color:#7edcda\">Promise</span><span>(</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">resolve, reject</span><span style=\"color:#74e287\">) =&gt;</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#797f8c\">// logic with callback</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  });\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "partials",
+        "context": "Templates may contain partials (reusable chunks). They must be stored in the .partials directory under the template directory. Read more about partials."
+      },
+      {
+        "id": "highlight_1",
+        "content": ".partials",
+        "context": "Templates may contain partials (reusable chunks). They must be stored in the .partials directory under the template directory. Read more about partials."
+      },
+      {
+        "id": "highlight_2",
+        "content": "asyncapi",
+        "context": "asyncapi that is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter."
+      },
+      {
+        "id": "highlight_3",
+        "content": "originalAsyncAPI",
+        "context": "originalAsyncAPI that is an original spec file before it is parsed."
+      },
+      {
+        "id": "highlight_4",
+        "content": "params",
+        "context": "params that contain the parameters provided when generating."
+      },
+      {
+        "id": "highlight_5",
+        "content": ".partials",
+        "context": "Files from the .partials directory do not end up with other generated files in the target directory. In this directory you should keep reusable templates chunks that you can include in your templates. You can also put there macros to use them in templates, like in below example:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "filters",
+        "context": "A filter is a helper function that you can create to perform complex tasks. They are JavaScript files that register one or many Nunjuck filters. The generator parses all the files in the filters directory. Functions exported from these files are registered as filters."
+      },
+      {
+        "id": "highlight_7",
+        "content": "async",
+        "context": "The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:"
+      },
+      {
+        "id": "highlight_8",
+        "content": "callback(err, res)",
+        "context": "The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:"
+      },
+      {
+        "id": "highlight_9",
+        "content": "err",
+        "context": "The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:"
+      },
+      {
+        "id": "highlight_10",
+        "content": "null",
+        "context": "The generator also supports asynchronous filters. Asynchronous filters receive as the last argument a callback to resume rendering. Asynchronous filters must be annotated with the async keyword. Make sure to call the callback with two arguments: callback(err, res). err can be null. See the following example of how to use asynchronous filters:"
+      },
+      {
+        "id": "highlight_11",
+        "content": "async",
+        "context": "Unfortunately, if you need to use Promise, filter still must be annotated with the async keyword:"
+      },
+      {
+        "id": "highlight_12",
+        "content": "filters",
+        "context": "In case you have more than one template and want to reuse filters, you can put them in a single library. You can configure such a library in the template configuration under filters property. To learn how to add such filters to configuration read more about the configuration file."
+      }
+    ]
+  }
+}

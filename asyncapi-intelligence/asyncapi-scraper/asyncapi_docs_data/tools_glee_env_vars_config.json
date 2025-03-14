@@ -1,0 +1,547 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/env-vars-config",
+    "timestamp": "2025-03-12T17:55:14.818Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Env Vars Config",
+    "hierarchy": {
+      "sections": {
+        "Environment Variables": {
+          "level": 2,
+          "content": "Glee provides several environment variables that allow you to tailor your application's behavior to fit specific needs:VariablePurposeExample UsageGLEE_SERVER_NAMESSpecifies a list of servers to initialize at startup, separated by commas.GLEE_SERVER_NAMES=websockets,mosquittoGLEE_SERVER_CERTSIndicates server-specific certificate files in a ${serverName}:${pathToCertificateFile} format, separated by commas.GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crtGLEE_SERVER_VARIABLESSets server variables in a ${serverName}:${serverVariable}:${value} format, separated by commas.GLEE_SERVER_VARIABLES=websockets:namespace:publicHandling Multiple .env FilesGlee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production..env.local takes precedence over other .env* files.Switch between development and production environments by setting the NODE_ENV variable accordingly."
+        },
+        "Handling Multiple .env Files": {
+          "level": 3,
+          "content": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production..env.local takes precedence over other .env* files.Switch between development and production environments by setting the NODE_ENV variable accordingly."
+        },
+        "Customizing Glee Settings": {
+          "level": 2,
+          "content": "While Glee comes with defaults for ease of use, you may want to customize settings for specific needs. This is where glee.config.js comes into play.The Glee Config Fileglee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:1export default async function () {\n2  // Configuration details go here...\n3}This function should return an object with configurable properties:1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}For example, a typical glee.config.js might look like this:1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}In the return statement, configure the following options:Core Glee ConfigurationsThese settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none.Documentation ConfigurationFieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation.WebSocket Server ConfigurationFieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|Cluster ConfigurationFieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter.HTTP Server ConfigurationFieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+        },
+        "The Glee Config File": {
+          "level": 3,
+          "content": "glee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:1export default async function () {\n2  // Configuration details go here...\n3}This function should return an object with configurable properties:1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}For example, a typical glee.config.js might look like this:1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}In the return statement, configure the following options:Core Glee ConfigurationsThese settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none.Documentation ConfigurationFieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation.WebSocket Server ConfigurationFieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|Cluster ConfigurationFieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter.HTTP Server ConfigurationFieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+        },
+        "Core Glee Configurations": {
+          "level": 4,
+          "content": "These settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none."
+        },
+        "Documentation Configuration": {
+          "level": 4,
+          "content": "FieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation."
+        },
+        "WebSocket Server Configuration": {
+          "level": 4,
+          "content": "FieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|"
+        },
+        "Cluster Configuration": {
+          "level": 4,
+          "content": "FieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter."
+        },
+        "HTTP Server Configuration": {
+          "level": 4,
+          "content": "FieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Environment Variables\nGlee provides several environment variables that allow you to tailor your application's behavior to fit specific needs:\nVariablePurposeExample UsageGLEE_SERVER_NAMESSpecifies a list of servers to initialize at startup, separated by commas.GLEE_SERVER_NAMES=websockets,mosquittoGLEE_SERVER_CERTSIndicates server-specific certificate files in a ${serverName}:${pathToCertificateFile} format, separated by commas.GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crtGLEE_SERVER_VARIABLESSets server variables in a ${serverName}:${serverVariable}:${value} format, separated by commas.GLEE_SERVER_VARIABLES=websockets:namespace:public\nHandling Multiple .env Files\nGlee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production.\n.env.local takes precedence over other .env* files.\nSwitch between development and production environments by setting the NODE_ENV variable accordingly.\nCustomizing Glee Settings\nWhile Glee comes with defaults for ease of use, you may want to customize settings for specific needs. This is where glee.config.js comes into play.\nThe Glee Config File\nglee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:\n1export default async function () {\n2  // Configuration details go here...\n3}\nThis function should return an object with configurable properties:\n1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}\nFor example, a typical glee.config.js might look like this:\n1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}\nIn the return statement, configure the following options:\nCore Glee Configurations\nThese settings are specific to Glee itself.\nFieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none.\nDocumentation Configuration\nFieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation.\nWebSocket Server Configuration\nFieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port\n|The port for the WebSocket server.|\nCluster Configuration\nFieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter.\nHTTP Server Configuration\nFieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server.",
+    "sections": [
+      {
+        "title": "Environment Variables",
+        "level": 2,
+        "text": "Glee provides several environment variables that allow you to tailor your application's behavior to fit specific needs:VariablePurposeExample UsageGLEE_SERVER_NAMESSpecifies a list of servers to initialize at startup, separated by commas.GLEE_SERVER_NAMES=websockets,mosquittoGLEE_SERVER_CERTSIndicates server-specific certificate files in a ${serverName}:${pathToCertificateFile} format, separated by commas.GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crtGLEE_SERVER_VARIABLESSets server variables in a ${serverName}:${serverVariable}:${value} format, separated by commas.GLEE_SERVER_VARIABLES=websockets:namespace:publicHandling Multiple .env FilesGlee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production..env.local takes precedence over other .env* files.Switch between development and production environments by setting the NODE_ENV variable accordingly."
+      },
+      {
+        "title": "Handling Multiple .env Files",
+        "level": 3,
+        "text": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production..env.local takes precedence over other .env* files.Switch between development and production environments by setting the NODE_ENV variable accordingly."
+      },
+      {
+        "title": "Customizing Glee Settings",
+        "level": 2,
+        "text": "While Glee comes with defaults for ease of use, you may want to customize settings for specific needs. This is where glee.config.js comes into play.The Glee Config Fileglee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:1export default async function () {\n2  // Configuration details go here...\n3}This function should return an object with configurable properties:1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}For example, a typical glee.config.js might look like this:1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}In the return statement, configure the following options:Core Glee ConfigurationsThese settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none.Documentation ConfigurationFieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation.WebSocket Server ConfigurationFieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|Cluster ConfigurationFieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter.HTTP Server ConfigurationFieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+      },
+      {
+        "title": "The Glee Config File",
+        "level": 3,
+        "text": "glee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:1export default async function () {\n2  // Configuration details go here...\n3}This function should return an object with configurable properties:1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}For example, a typical glee.config.js might look like this:1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}In the return statement, configure the following options:Core Glee ConfigurationsThese settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none.Documentation ConfigurationFieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation.WebSocket Server ConfigurationFieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|Cluster ConfigurationFieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter.HTTP Server ConfigurationFieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+      },
+      {
+        "title": "Core Glee Configurations",
+        "level": 4,
+        "text": "These settings are specific to Glee itself.FieldDefaultPurposeglee.gleeDir.gleeDetermines the Glee directory for compiled sources.glee.lifecycleDirlifecycleSpecifies the path to lifecycle events.glee.functionsDirfunctionsDesignates the path to functions.glee.asyncapiFilePathasyncapi.(yaml | yml | json)Path to your AsyncAPI file.glee.logsdefaultConfigures logging for incoming and outgoing messages.glee.logs.incoming\"all\"Options: channel-only, none.glee.logs.outgoing\"all\"Options: channel-only, none."
+      },
+      {
+        "title": "Documentation Configuration",
+        "level": 4,
+        "text": "FieldPurposedocs.enabledEnables or disables documentation generation.docs.folderSpecifies the output directory for documentation.docs.templateDetermines the AsyncAPI template for docs generation."
+      },
+      {
+        "title": "WebSocket Server Configuration",
+        "level": 4,
+        "text": "FieldPurposews.serverWebSocket server-specific settings.ws.server.adapterSelects the WebSocket server adapter: native, socket.io, or a custom one.ws.server.httpServerA custom HTTP server instance.ws.server.port|The port for the WebSocket server.|"
+      },
+      {
+        "title": "Cluster Configuration",
+        "level": 4,
+        "text": "FieldPurposecluster.adapterChooses the cluster communication adapter (default: Redis Pub/Sub).cluster.nameThe cluster's name.cluster.urlURL of the server used by the cluster adapter."
+      },
+      {
+        "title": "HTTP Server Configuration",
+        "level": 4,
+        "text": "FieldPurposehttp.serverHTTP server-specific settings.http.server.adapterSelects the HTTP server adapter.http.server.portThe port for the HTTP server."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1export default async function () {\n2  // Configuration details go here...\n3}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> (</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#797f8c\">// Configuration details go here...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1export default async function () {\n2  return {\n3    glee: {},\n4    websocket: {},\n5    cluster: {},\n6    http: {}\n7  }\n8}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>export default async function () {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  return {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>    glee: {},\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>    websocket: {},\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>    cluster: {},\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>    http: {}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1export default async function () {\n2  return {\n3    glee: { // Core Glee configurations\n4      lifecycleDir: './lifecycle',\n5      functionsDir: './functions',\n6      asyncapiFilePath: './asyncapi.json',\n7      logs: { // Adjust default logging behavior\n8        incoming: 'channel-only', // Logs only the channel, not the message payload\n9        outgoing: 'none', // Disables outgoing logs\n10      }\n11    },\n12    docs: {\n13      enabled: true, // Toggles documentation generation\n14      folder: 'docs', // Destination folder for docs\n15      template: '@asyncapi/markdown-template' // Specifies the documentation template\n16    },\n17    ws: {\n18      server: {\n19        httpServer: customServer, // Custom HTTP server\n20        adapter: \"native\", // Defaults to 'native', can be 'socket.io' or a custom adapter\n21        port: process.env.PORT, // Server port\n22      }\n23    },\n24    cluster: {\n25      adapter: \"redis\", // Cluster adapter, default is Redis\n26      name: \"cluster\", // Cluster name\n27      url: \"redis://localhost:6379\", // URL for the cluster server (Redis in this case)\n28    },\n29    http: {\n30      server: {\n31        httpServer: customServer, // Custom HTTP server\n32        adapter: 'native', \n33        port: process.env.PORT, // Server port\n34      },\n35    }\n36  };\n37}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>export default async function () {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  return {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    glee: { </span><span style=\"color:#797f8c\">// Core Glee configurations</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>      lifecycleDir: './lifecycle',\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>      functionsDir: './functions',\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>      asyncapiFilePath: './asyncapi.json',\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      logs: { </span><span style=\"color:#797f8c\">// Adjust default logging behavior</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>        incoming: 'channel-only', </span><span style=\"color:#797f8c\">// Logs only the channel, not the message payload</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>        outgoing: 'none', </span><span style=\"color:#797f8c\">// Disables outgoing logs</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>      }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>    docs: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      enabled: </span><span style=\"color:#64a0dc\">true</span><span>, </span><span style=\"color:#797f8c\">// Toggles documentation generation</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      folder: 'docs', </span><span style=\"color:#797f8c\">// Destination folder for docs</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      template: '@asyncapi/markdown-template' </span><span style=\"color:#797f8c\">// Specifies the documentation template</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span>    ws: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>      server: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>        httpServer: customServer, </span><span style=\"color:#797f8c\">// Custom HTTP server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>        adapter: </span><span style=\"color:#c0e2a3;font-weight:500\">\"native\"</span><span>, </span><span style=\"color:#797f8c\">// Defaults to 'native', can be 'socket.io' or a custom adapter</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>        port: process.env.PORT, </span><span style=\"color:#797f8c\">// Server port</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span>      }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span>    cluster: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span>      adapter: </span><span style=\"color:#c0e2a3;font-weight:500\">\"redis\"</span><span>, </span><span style=\"color:#797f8c\">// Cluster adapter, default is Redis</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>      name: </span><span style=\"color:#c0e2a3;font-weight:500\">\"cluster\"</span><span>, </span><span style=\"color:#797f8c\">// Cluster name</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>      url: </span><span style=\"color:#c0e2a3;font-weight:500\">\"redis://localhost:6379\"</span><span>, </span><span style=\"color:#797f8c\">// URL for the cluster server (Redis in this case)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span>    http: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span>      server: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">31</span><span>        httpServer: customServer, </span><span style=\"color:#797f8c\">// Custom HTTP server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">32</span>        adapter: 'native', \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">33</span><span>        port: process.env.PORT, </span><span style=\"color:#797f8c\">// Server port</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">34</span>      },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">35</span>    }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">36</span>  };\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">37</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Variable",
+          "Purpose",
+          "Example Usage"
+        ],
+        "rows": [
+          {
+            "Variable": "GLEE_SERVER_NAMES",
+            "Purpose": "Specifies a list of servers to initialize at startup, separated by commas.",
+            "Example Usage": "GLEE_SERVER_NAMES=websockets,mosquitto"
+          },
+          {
+            "Variable": "GLEE_SERVER_CERTS",
+            "Purpose": "Indicates server-specific certificate files in a ${serverName}:${pathToCertificateFile} format, separated by commas.",
+            "Example Usage": "GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crt"
+          },
+          {
+            "Variable": "GLEE_SERVER_VARIABLES",
+            "Purpose": "Sets server variables in a ${serverName}:${serverVariable}:${value} format, separated by commas.",
+            "Example Usage": "GLEE_SERVER_VARIABLES=websockets:namespace:public"
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_1",
+        "headers": [
+          "Field",
+          "Default",
+          "Purpose"
+        ],
+        "rows": [
+          {
+            "Field": "glee.gleeDir",
+            "Default": ".glee",
+            "Purpose": "Determines the Glee directory for compiled sources."
+          },
+          {
+            "Field": "glee.lifecycleDir",
+            "Default": "lifecycle",
+            "Purpose": "Specifies the path to lifecycle events."
+          },
+          {
+            "Field": "glee.functionsDir",
+            "Default": "functions",
+            "Purpose": "Designates the path to functions."
+          },
+          {
+            "Field": "glee.asyncapiFilePath",
+            "Default": "asyncapi.(yaml | yml | json)",
+            "Purpose": "Path to your AsyncAPI file."
+          },
+          {
+            "Field": "glee.logs",
+            "Default": "default",
+            "Purpose": "Configures logging for incoming and outgoing messages."
+          },
+          {
+            "Field": "glee.logs.incoming",
+            "Default": "\"all\"",
+            "Purpose": "Options: channel-only, none."
+          },
+          {
+            "Field": "glee.logs.outgoing",
+            "Default": "\"all\"",
+            "Purpose": "Options: channel-only, none."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_2",
+        "headers": [
+          "Field",
+          "Purpose"
+        ],
+        "rows": [
+          {
+            "Field": "docs.enabled",
+            "Purpose": "Enables or disables documentation generation."
+          },
+          {
+            "Field": "docs.folder",
+            "Purpose": "Specifies the output directory for documentation."
+          },
+          {
+            "Field": "docs.template",
+            "Purpose": "Determines the AsyncAPI template for docs generation."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_3",
+        "headers": [
+          "Field",
+          "Purpose"
+        ],
+        "rows": [
+          {
+            "Field": "ws.server",
+            "Purpose": "WebSocket server-specific settings."
+          },
+          {
+            "Field": "ws.server.adapter",
+            "Purpose": "Selects the WebSocket server adapter: native, socket.io, or a custom one."
+          },
+          {
+            "Field": "ws.server.httpServer",
+            "Purpose": "A custom HTTP server instance."
+          },
+          {
+            "Field": "ws.server.port",
+            "Purpose": ""
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_4",
+        "headers": [
+          "Field",
+          "Purpose"
+        ],
+        "rows": [
+          {
+            "Field": "cluster.adapter",
+            "Purpose": "Chooses the cluster communication adapter (default: Redis Pub/Sub)."
+          },
+          {
+            "Field": "cluster.name",
+            "Purpose": "The cluster's name."
+          },
+          {
+            "Field": "cluster.url",
+            "Purpose": "URL of the server used by the cluster adapter."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_5",
+        "headers": [
+          "Field",
+          "Purpose"
+        ],
+        "rows": [
+          {
+            "Field": "http.server",
+            "Purpose": "HTTP server-specific settings."
+          },
+          {
+            "Field": "http.server.adapter",
+            "Purpose": "Selects the HTTP server adapter."
+          },
+          {
+            "Field": "http.server.port",
+            "Purpose": "The port for the HTTP server."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "GLEE_SERVER_NAMES=websockets,mosquitto",
+        "context": "GLEE_SERVER_NAMES=websockets,mosquitto"
+      },
+      {
+        "id": "highlight_1",
+        "content": "${serverName}:${pathToCertificateFile}",
+        "context": "Indicates server-specific certificate files in a ${serverName}:${pathToCertificateFile} format, separated by commas."
+      },
+      {
+        "id": "highlight_2",
+        "content": "GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crt",
+        "context": "GLEE_SERVER_CERTS=mosquitto:mosquitto.org.crt"
+      },
+      {
+        "id": "highlight_3",
+        "content": "${serverName}:${serverVariable}:${value}",
+        "context": "Sets server variables in a ${serverName}:${serverVariable}:${value} format, separated by commas."
+      },
+      {
+        "id": "highlight_4",
+        "content": "GLEE_SERVER_VARIABLES=websockets:namespace:public",
+        "context": "GLEE_SERVER_VARIABLES=websockets:namespace:public"
+      },
+      {
+        "id": "highlight_5",
+        "content": ".env.local",
+        "context": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production."
+      },
+      {
+        "id": "highlight_6",
+        "content": "process.env",
+        "context": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production."
+      },
+      {
+        "id": "highlight_7",
+        "content": ".env.development",
+        "context": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production."
+      },
+      {
+        "id": "highlight_8",
+        "content": ".env.production",
+        "context": "Glee supports loading variables from .env.local directly into process.env. This feature is handy for keeping secrets out of your repository during development. You can also set environment-specific defaults in .env.development or .env.production."
+      },
+      {
+        "id": "highlight_9",
+        "content": ".env.local",
+        "context": ".env.local takes precedence over other .env* files."
+      },
+      {
+        "id": "highlight_10",
+        "content": ".env*",
+        "context": ".env.local takes precedence over other .env* files."
+      },
+      {
+        "id": "highlight_11",
+        "content": "development",
+        "context": "Switch between development and production environments by setting the NODE_ENV variable accordingly."
+      },
+      {
+        "id": "highlight_12",
+        "content": "production",
+        "context": "Switch between development and production environments by setting the NODE_ENV variable accordingly."
+      },
+      {
+        "id": "highlight_13",
+        "content": "NODE_ENV",
+        "context": "Switch between development and production environments by setting the NODE_ENV variable accordingly."
+      },
+      {
+        "id": "highlight_14",
+        "content": "glee.config.js",
+        "context": "While Glee comes with defaults for ease of use, you may want to customize settings for specific needs. This is where glee.config.js comes into play."
+      },
+      {
+        "id": "highlight_15",
+        "content": "glee.config.js",
+        "context": "glee.config.js is a JavaScript file exporting an asynchronous function, structured as follows:"
+      },
+      {
+        "id": "highlight_16",
+        "content": "glee.config.js",
+        "context": "For example, a typical glee.config.js might look like this:"
+      },
+      {
+        "id": "highlight_17",
+        "content": ".glee",
+        "context": ".glee"
+      },
+      {
+        "id": "highlight_18",
+        "content": "lifecycle",
+        "context": "lifecycle"
+      },
+      {
+        "id": "highlight_19",
+        "content": "functions",
+        "context": "functions"
+      },
+      {
+        "id": "highlight_20",
+        "content": "asyncapi.(yaml | yml | json)",
+        "context": "asyncapi.(yaml | yml | json)"
+      },
+      {
+        "id": "highlight_21",
+        "content": "channel-only",
+        "context": "Options: channel-only, none."
+      },
+      {
+        "id": "highlight_22",
+        "content": "none",
+        "context": "Options: channel-only, none."
+      },
+      {
+        "id": "highlight_23",
+        "content": "channel-only",
+        "context": "Options: channel-only, none."
+      },
+      {
+        "id": "highlight_24",
+        "content": "none",
+        "context": "Options: channel-only, none."
+      },
+      {
+        "id": "highlight_25",
+        "content": "native",
+        "context": "Selects the WebSocket server adapter: native, socket.io, or a custom one."
+      },
+      {
+        "id": "highlight_26",
+        "content": "socket.io",
+        "context": "Selects the WebSocket server adapter: native, socket.io, or a custom one."
+      }
+    ]
+  }
+}

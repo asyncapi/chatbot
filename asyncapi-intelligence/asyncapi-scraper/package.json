@@ -1,0 +1,44 @@
+{
+    "name": "simple-scraper",
+    "version": "1.0.0",
+    "description": "A modular TypeScript-based web scraper for AsyncAPI documentation and more",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "start": "ts-node src/index.ts",
+        "build": "tsc --project tsconfig.json",
+        "run": "node dist/index.js",
+        "test": "echo \"No tests specified yet\" && exit 1",
+        "clean": "rm -rf dist",
+        "prebuild": "npm run clean"
+    },
+    "keywords": [
+        "web-scraper",
+        "asyncapi",
+        "typescript",
+        "puppeteer",
+        "cheerio"
+    ],
+    "author": "Your Name <your.email@example.com>",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yourusername/simple-scraper.git"
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0",
+        "puppeteer": "^24.4.0",
+        "puppeteer-extra": "^3.3.6",
+        "puppeteer-extra-plugin-stealth": "^2.11.2"
+    },
+    "devDependencies": {
+        "@types/cheerio": "^0.22.31",
+        "@types/node": "^20.17.24",
+        "@types/puppeteer": "^7.0.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.2"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
