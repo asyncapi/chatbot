@@ -1,0 +1,298 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server",
+    "timestamp": "2025-03-12T17:49:11.886Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Add Server",
+    "hierarchy": {
+      "sections": {
+        "Define servers": {
+          "level": 2,
+          "content": "Include server definitions in your AsyncAPI document to specify which server a channel or operation connects to. Here is an example of defining a server in AsyncAPI:1servers:\n2  prod:\n3    host: test.mosquitto.org\n4    protocol: mqtt\n5    description: Test MQTT serverThe previous example shows a server setup using the MQTT protocol, where messages are sent to or received from the test.mosquitto.org host."
+        },
+        "Server reusability": {
+          "level": 2,
+          "content": "Add server definitions in a single location, such as components.servers, and then refer to them using the $ref keyword for easy reuse.Here's an example of an AsyncAPI document with two servers referenced from the components section:1servers:\n2  kafka-test:\n3    $ref: '#/components/servers/kafka-test'\n4  mqtt-test:\n5    $ref: '#/components/servers/mqtt-test'\n6components:\n7  servers:\n8    kafka-test:\n9      host: my.kafka.pl\n10      protocol: kafka-secure\n11      description: Test Kafka server\n12    mqtt-test:\n13      host: test.mosquitto.org\n14      protocol: mqtt\n15      description: Test MQTT serverIn this example, the main servers section lists multiple servers with sharable definitions. You can also store these server definitions separately and use them across various AsyncAPI documents."
+        },
+        "Channel only on specific server": {
+          "level": 2,
+          "content": "Your AsyncAPI document can outline an application that receives messages on a channel from an MQTT server, while sending messages on a different channel via a Kafka server. This setup requires defining two servers, with each channel being exclusive to one server – one channel is only available on the MQTT server and the other only on the Kafka server. The AsyncAPI document describes this by adding a servers array to each channel, containing references to the respective server definitions.Here's an example of how to add a server reference to a channel:1servers:\n2  kafka-test:\n3    host: my.kafka.pl\n4    protocol: kafka-secure\n5    description: Test Kafka server\n6  mqtt-test:\n7    host: test.mosquitto.org\n8    protocol: mqtt\n9    description: Test MQTT server\n10channels:\n11  myChannel:\n12    servers:\n13      $ref: \"#/servers/mqtt-test\"\n14    message:\n15      $ref: '#/components/messages/myMessage'In this example, the myChannel channel is only available on the mqtt-test server."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "A server often acts as a message broker, managing communication between producers and consumers. However, it can represent different concepts too. To understand this better, please first review our server concepts doc.\nAdding and defining servers is important because it specifies how and where connections are made, enabling the sending and receiving of messages.\nUnique keys identify the server and contain information about the server's connection details, such as the host, protocol, and authentication.\nHere is a diagram of server information with selected fields:\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}servershostprotocolsecurity\nThe server is one of the main sections of the AsyncAPI document next to others like info, channels, or operations.\nDefine servers\nInclude server definitions in your AsyncAPI document to specify which server a channel or operation connects to. Here is an example of defining a server in AsyncAPI:\n1servers:\n2  prod:\n3    host: test.mosquitto.org\n4    protocol: mqtt\n5    description: Test MQTT server\nThe previous example shows a server setup using the MQTT protocol, where messages are sent to or received from the test.mosquitto.org host.\nServer reusability\nAdd server definitions in a single location, such as components.servers, and then refer to them using the $ref keyword for easy reuse.\nHere's an example of an AsyncAPI document with two servers referenced from the components section:\n1servers:\n2  kafka-test:\n3    $ref: '#/components/servers/kafka-test'\n4  mqtt-test:\n5    $ref: '#/components/servers/mqtt-test'\n6components:\n7  servers:\n8    kafka-test:\n9      host: my.kafka.pl\n10      protocol: kafka-secure\n11      description: Test Kafka server\n12    mqtt-test:\n13      host: test.mosquitto.org\n14      protocol: mqtt\n15      description: Test MQTT server\nIn this example, the main servers section lists multiple servers with sharable definitions. You can also store these server definitions separately and use them across various AsyncAPI documents.\nChannel only on specific server\nYour AsyncAPI document can outline an application that receives messages on a channel from an MQTT server, while sending messages on a different channel via a Kafka server. This setup requires defining two servers, with each channel being exclusive to one server – one channel is only available on the MQTT server and the other only on the Kafka server. The AsyncAPI document describes this by adding a servers array to each channel, containing references to the respective server definitions.\nHere's an example of how to add a server reference to a channel:\n1servers:\n2  kafka-test:\n3    host: my.kafka.pl\n4    protocol: kafka-secure\n5    description: Test Kafka server\n6  mqtt-test:\n7    host: test.mosquitto.org\n8    protocol: mqtt\n9    description: Test MQTT server\n10channels:\n11  myChannel:\n12    servers:\n13      $ref: \"#/servers/mqtt-test\"\n14    message:\n15      $ref: '#/components/messages/myMessage'\nIn this example, the myChannel channel is only available on the mqtt-test server.",
+    "sections": [
+      {
+        "title": "Define servers",
+        "level": 2,
+        "text": "Include server definitions in your AsyncAPI document to specify which server a channel or operation connects to. Here is an example of defining a server in AsyncAPI:1servers:\n2  prod:\n3    host: test.mosquitto.org\n4    protocol: mqtt\n5    description: Test MQTT serverThe previous example shows a server setup using the MQTT protocol, where messages are sent to or received from the test.mosquitto.org host."
+      },
+      {
+        "title": "Server reusability",
+        "level": 2,
+        "text": "Add server definitions in a single location, such as components.servers, and then refer to them using the $ref keyword for easy reuse.Here's an example of an AsyncAPI document with two servers referenced from the components section:1servers:\n2  kafka-test:\n3    $ref: '#/components/servers/kafka-test'\n4  mqtt-test:\n5    $ref: '#/components/servers/mqtt-test'\n6components:\n7  servers:\n8    kafka-test:\n9      host: my.kafka.pl\n10      protocol: kafka-secure\n11      description: Test Kafka server\n12    mqtt-test:\n13      host: test.mosquitto.org\n14      protocol: mqtt\n15      description: Test MQTT serverIn this example, the main servers section lists multiple servers with sharable definitions. You can also store these server definitions separately and use them across various AsyncAPI documents."
+      },
+      {
+        "title": "Channel only on specific server",
+        "level": 2,
+        "text": "Your AsyncAPI document can outline an application that receives messages on a channel from an MQTT server, while sending messages on a different channel via a Kafka server. This setup requires defining two servers, with each channel being exclusive to one server – one channel is only available on the MQTT server and the other only on the Kafka server. The AsyncAPI document describes this by adding a servers array to each channel, containing references to the respective server definitions.Here's an example of how to add a server reference to a channel:1servers:\n2  kafka-test:\n3    host: my.kafka.pl\n4    protocol: kafka-secure\n5    description: Test Kafka server\n6  mqtt-test:\n7    host: test.mosquitto.org\n8    protocol: mqtt\n9    description: Test MQTT server\n10channels:\n11  myChannel:\n12    servers:\n13      $ref: \"#/servers/mqtt-test\"\n14    message:\n15      $ref: '#/components/messages/myMessage'In this example, the myChannel channel is only available on the mqtt-test server."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 229.828125px;\" viewBox=\"-8 -8 229.828125 242\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M53.973,92L62.243,80.167C70.513,68.333,87.054,44.667,102.274,32.833C117.495,21,131.396,21,138.346,21L145.297,21\" id=\"L-C-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M78.594,113L82.76,113C86.927,113,95.26,113,103.73,113C112.201,113,120.807,113,125.111,113L129.414,113\" id=\"L-C-E-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-E\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M53.973,134L62.243,145.833C70.513,157.667,87.054,181.333,99.49,193.167C111.927,205,120.26,205,124.427,205L128.594,205\" id=\"L-C-I-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-I\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-C-20\" transform=\"translate(39.296875, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-39.296875\" y=\"-21\" width=\"78.59375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-31.796875, -13.5)\"><foreignObject width=\"63.59375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">servers</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-21\" transform=\"translate(171.2109375, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-25.9140625\" y=\"-21\" width=\"51.828125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-18.4140625, -13.5)\"><foreignObject width=\"36.828125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">host</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-I-22\" transform=\"translate(171.2109375, 205)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-42.6171875\" y=\"-21\" width=\"85.234375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-35.1171875, -13.5)\"><foreignObject width=\"70.234375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">protocol</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-23\" transform=\"translate(171.2109375, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-41.796875\" y=\"-21\" width=\"83.59375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-34.296875, -13.5)\"><foreignObject width=\"68.59375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">security</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}servershostprotocolsecurity",
+        "description": "SVG containing 7 paths, 2 circles, and 4 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1servers:\n2  prod:\n3    host: test.mosquitto.org\n4    protocol: mqtt\n5    description: Test MQTT server",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">prod:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">test.mosquitto.org</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">mqtt</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Test</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">MQTT</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1servers:\n2  kafka-test:\n3    $ref: '#/components/servers/kafka-test'\n4  mqtt-test:\n5    $ref: '#/components/servers/mqtt-test'\n6components:\n7  servers:\n8    kafka-test:\n9      host: my.kafka.pl\n10      protocol: kafka-secure\n11      description: Test Kafka server\n12    mqtt-test:\n13      host: test.mosquitto.org\n14      protocol: mqtt\n15      description: Test MQTT server",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">kafka-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/servers/kafka-test'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">mqtt-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/servers/mqtt-test'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">kafka-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>      </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my.kafka.pl</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">kafka-secure</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>      </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Test</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Kafka</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">mqtt-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">test.mosquitto.org</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">mqtt</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Test</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">MQTT</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1servers:\n2  kafka-test:\n3    host: my.kafka.pl\n4    protocol: kafka-secure\n5    description: Test Kafka server\n6  mqtt-test:\n7    host: test.mosquitto.org\n8    protocol: mqtt\n9    description: Test MQTT server\n10channels:\n11  myChannel:\n12    servers:\n13      $ref: \"#/servers/mqtt-test\"\n14    message:\n15      $ref: '#/components/messages/myMessage'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">kafka-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my.kafka.pl</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">kafka-secure</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Test</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Kafka</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">mqtt-test:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">test.mosquitto.org</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">mqtt</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Test</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">MQTT</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>  </span><span style=\"color:#7edcda\">myChannel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"#/servers/mqtt-test\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>    </span><span style=\"color:#7edcda\">message:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/messages/myMessage'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "info",
+        "context": "The server is one of the main sections of the AsyncAPI document next to others like info, channels, or operations."
+      },
+      {
+        "id": "highlight_1",
+        "content": "channels",
+        "context": "The server is one of the main sections of the AsyncAPI document next to others like info, channels, or operations."
+      },
+      {
+        "id": "highlight_2",
+        "content": "operations",
+        "context": "The server is one of the main sections of the AsyncAPI document next to others like info, channels, or operations."
+      },
+      {
+        "id": "highlight_3",
+        "content": "test.mosquitto.org",
+        "context": "The previous example shows a server setup using the MQTT protocol, where messages are sent to or received from the test.mosquitto.org host."
+      },
+      {
+        "id": "highlight_4",
+        "content": "components.servers",
+        "context": "Add server definitions in a single location, such as components.servers, and then refer to them using the $ref keyword for easy reuse."
+      },
+      {
+        "id": "highlight_5",
+        "content": "$ref",
+        "context": "Add server definitions in a single location, such as components.servers, and then refer to them using the $ref keyword for easy reuse."
+      },
+      {
+        "id": "highlight_6",
+        "content": "components",
+        "context": "Here's an example of an AsyncAPI document with two servers referenced from the components section:"
+      },
+      {
+        "id": "highlight_7",
+        "content": "servers",
+        "context": "In this example, the main servers section lists multiple servers with sharable definitions. You can also store these server definitions separately and use them across various AsyncAPI documents."
+      },
+      {
+        "id": "highlight_8",
+        "content": "servers",
+        "context": "Your AsyncAPI document can outline an application that receives messages on a channel from an MQTT server, while sending messages on a different channel via a Kafka server. This setup requires defining two servers, with each channel being exclusive to one server – one channel is only available on the MQTT server and the other only on the Kafka server. The AsyncAPI document describes this by adding a servers array to each channel, containing references to the respective server definitions."
+      },
+      {
+        "id": "highlight_9",
+        "content": "myChannel",
+        "context": "In this example, the myChannel channel is only available on the mqtt-test server."
+      },
+      {
+        "id": "highlight_10",
+        "content": "mqtt-test",
+        "context": "In this example, the myChannel channel is only available on the mqtt-test server."
+      }
+    ]
+  }
+}

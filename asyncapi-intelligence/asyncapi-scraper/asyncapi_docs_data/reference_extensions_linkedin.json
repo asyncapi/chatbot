@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/reference/extensions/linkedin",
+    "timestamp": "2025-03-12T17:56:25.052Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Linkedin Extension",
+    "hierarchy": {
+      "sections": {
+        "Linkedin Extension": {
+          "level": 1,
+          "content": "This document defines how to use linkedin extension in AsyncAPI documents.OverviewThis extension allows you to provide the Linkedin username of the account representing the team/company of the API.VersionCurrent version is 0.1.0.Extension DefinitionType: StringURL of the Linkedin Profile of the user or company.Extension LocationThis extension can be used in the following locations:\nInfo Object\nExample1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi"
+        },
+        "Overview": {
+          "level": 2,
+          "content": "This extension allows you to provide the Linkedin username of the account representing the team/company of the API."
+        },
+        "Version": {
+          "level": 2,
+          "content": "Current version is 0.1.0."
+        },
+        "Extension Definition": {
+          "level": 2,
+          "content": "Type: StringURL of the Linkedin Profile of the user or company."
+        },
+        "Type: String": {
+          "level": 3,
+          "content": "URL of the Linkedin Profile of the user or company."
+        },
+        "Extension Location": {
+          "level": 2,
+          "content": "This extension can be used in the following locations:\nInfo Object"
+        },
+        "Example": {
+          "level": 2,
+          "content": "1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference"
+            },
+            {
+              "text": "Specification",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0"
+            },
+            {
+              "text": "Extensions",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "linkedin",
+              "href": "https://www.asyncapi.com/docs/reference/extensions/linkedin"
+            },
+            {
+              "text": "x",
+              "href": "https://www.asyncapi.com/docs/reference/extensions/x"
+            },
+            {
+              "text": "Bindings",
+              "href": "https://www.asyncapi.com/docs/reference/bindings"
+            }
+          ]
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Linkedin Extension\nThis document defines how to use linkedin extension in AsyncAPI documents.\nOverview\nThis extension allows you to provide the Linkedin username of the account representing the team/company of the API.\nVersion\nCurrent version is 0.1.0.\nExtension Definition\nType: String\nURL of the Linkedin Profile of the user or company.\nExtension Location\nThis extension can be used in the following locations:\n\nInfo Object\n\nExample\n1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi",
+    "sections": [
+      {
+        "title": "Linkedin Extension",
+        "level": 1,
+        "text": "This document defines how to use linkedin extension in AsyncAPI documents.OverviewThis extension allows you to provide the Linkedin username of the account representing the team/company of the API.VersionCurrent version is 0.1.0.Extension DefinitionType: StringURL of the Linkedin Profile of the user or company.Extension LocationThis extension can be used in the following locations:\nInfo Object\nExample1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi"
+      },
+      {
+        "title": "Overview",
+        "level": 2,
+        "text": "This extension allows you to provide the Linkedin username of the account representing the team/company of the API."
+      },
+      {
+        "title": "Version",
+        "level": 2,
+        "text": "Current version is 0.1.0."
+      },
+      {
+        "title": "Extension Definition",
+        "level": 2,
+        "text": "Type: StringURL of the Linkedin Profile of the user or company."
+      },
+      {
+        "title": "Type: String",
+        "level": 3,
+        "text": "URL of the Linkedin Profile of the user or company."
+      },
+      {
+        "title": "Extension Location",
+        "level": 2,
+        "text": "This extension can be used in the following locations:\nInfo Object"
+      },
+      {
+        "title": "Example",
+        "level": 2,
+        "text": "1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1asyncapi: '3.0.0'\n2info\n3  title: AsyncAPI Initiative Example\n4  version: '1.0.0'\n5  x-linkedin: https://www.linkedin.com/company/asyncapi",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'3.0.0'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">info</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Initiative</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Example</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'1.0.0'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">x-linkedin:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">https://www.linkedin.com/company/asyncapi</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "linkedin",
+        "context": "This document defines how to use linkedin extension in AsyncAPI documents."
+      },
+      {
+        "id": "highlight_1",
+        "content": "0.1.0",
+        "context": "Current version is 0.1.0."
+      }
+    ]
+  }
+}

@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react",
+    "timestamp": "2025-03-12T17:53:29.579Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Migration Nunjucks React",
+    "hierarchy": {
+      "sections": {
+        "Step-by-step migration guide": {
+          "level": 2,
+          "content": "1. Update package.jsonChange your template configuration in package.json:1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}Once the deprecation period has ended, and we remove the default Nunjucks, the React render engine will be used by default and this setting will no longer be needed to configure2. Install dependenciesInstall the necessary React dependencies:npm install @asyncapi/generator-react-sdk3. File namingIn Nunjucks, the template's filename directly corresponds to the output file. For example, a template named index.html will generate an index.html file.In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js4. Basic template structureNunjucks:1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>React:1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}5. Macros and PartialsReplace macros with React components:Nunjucks:1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}React:1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}6. File templateCheck the detailed guide on file templates to learn what is the difference between templating multiple file outputs in Nunjucks and React.7. Models generationIf you have a template written with Nunjucks, it is almost certain that you have your own custom models, classes, or types templates in place. Instead of migrating them to React render engine we strongly advise you to delegate models generation to AsyncAPI Modelina project. Learn more about how to add models generation using Modelina."
+        },
+        "1. Update package.json": {
+          "level": 3,
+          "content": "Change your template configuration in package.json:1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}Once the deprecation period has ended, and we remove the default Nunjucks, the React render engine will be used by default and this setting will no longer be needed to configure"
+        },
+        "2. Install dependencies": {
+          "level": 3,
+          "content": "Install the necessary React dependencies:npm install @asyncapi/generator-react-sdk"
+        },
+        "3. File naming": {
+          "level": 3,
+          "content": "In Nunjucks, the template's filename directly corresponds to the output file. For example, a template named index.html will generate an index.html file.In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+        },
+        "4. Basic template structure": {
+          "level": 3,
+          "content": "Nunjucks:1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>React:1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}"
+        },
+        "5. Macros and Partials": {
+          "level": 3,
+          "content": "Replace macros with React components:Nunjucks:1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}React:1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}"
+        },
+        "6. File template": {
+          "level": 3,
+          "content": "Check the detailed guide on file templates to learn what is the difference between templating multiple file outputs in Nunjucks and React."
+        },
+        "7. Models generation": {
+          "level": 3,
+          "content": "If you have a template written with Nunjucks, it is almost certain that you have your own custom models, classes, or types templates in place. Instead of migrating them to React render engine we strongly advise you to delegate models generation to AsyncAPI Modelina project. Learn more about how to add models generation using Modelina."
+        },
+        "Additional Resources and Information": {
+          "level": 2,
+          "content": "Template ExamplesFor a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process.Filters to HelpersIf you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React.Hooks Remain UnchangedIt's important to note that hooks remain unchanged in this migration process. Hooks are not related to the render engine functionality, so you can continue to use them as you have been.Testing your migrationAfter migrating, test your template thoroughly:\nRun the generator using your new React template\nCompare the output with the previous Nunjucks template output\nCheck for any missing or incorrectly rendered content\nConsider implementing snapshot tests for your template before starting the migration. This will ease the review of changes in comparing the content rendered after render engine changes. Snapshot tests allow you to have tests that will persist expected output from Nunjucks template, and compare it with output generated after the migration. Check out an example of such snapshot integration test for our internal react template we use for development and testing."
+        },
+        "Template Examples": {
+          "level": 3,
+          "content": "For a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process."
+        },
+        "Filters to Helpers": {
+          "level": 3,
+          "content": "If you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React."
+        },
+        "Hooks Remain Unchanged": {
+          "level": 3,
+          "content": "It's important to note that hooks remain unchanged in this migration process. Hooks are not related to the render engine functionality, so you can continue to use them as you have been."
+        },
+        "Testing your migration": {
+          "level": 3,
+          "content": "After migrating, test your template thoroughly:\nRun the generator using your new React template\nCompare the output with the previous Nunjucks template output\nCheck for any missing or incorrectly rendered content\nConsider implementing snapshot tests for your template before starting the migration. This will ease the review of changes in comparing the content rendered after render engine changes. Snapshot tests allow you to have tests that will persist expected output from Nunjucks template, and compare it with output generated after the migration. Check out an example of such snapshot integration test for our internal react template we use for development and testing."
+        },
+        "Conclusion": {
+          "level": 2,
+          "content": "Migrating from Nunjucks to React templates may require some initial effort, but it will result in more maintainable code. You can learn more about why we introduced the React render engine from article React as a Generator Engine."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "The AsyncAPI Generator is moving away from Nunjucks templates in favor of React templates. This guide will help you migrate your existing Nunjucks templates to React. For a comprehensive understanding of why we introduced React as an alternative in 2021 and why we're now removing Nunjucks entirely, please read our article React as a Generator Engine. The principles discussed in this article still apply to our current transition.\nStep-by-step migration guide\n1. Update package.json\nChange your template configuration in package.json:\n1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}\nOnce the deprecation period has ended, and we remove the default Nunjucks, the React render engine will be used by default and this setting will no longer be needed to configure\n2. Install dependencies\nInstall the necessary React dependencies:\nnpm install @asyncapi/generator-react-sdk\n3. File naming\nIn Nunjucks, the template's filename directly corresponds to the output file. For example, a template named index.html will generate an index.html file.\nIn React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:\nNunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js\n4. Basic template structure\nNunjucks:\n1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>\nReact:\n1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}\n5. Macros and Partials\nReplace macros with React components:\nNunjucks:\n1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}\nReact:\n1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}\n6. File template\nCheck the detailed guide on file templates to learn what is the difference between templating multiple file outputs in Nunjucks and React.\n7. Models generation\nIf you have a template written with Nunjucks, it is almost certain that you have your own custom models, classes, or types templates in place. Instead of migrating them to React render engine we strongly advise you to delegate models generation to AsyncAPI Modelina project. Learn more about how to add models generation using Modelina.\nAdditional Resources and Information\nTemplate Examples\nFor a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process.\nFilters to Helpers\nIf you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React.\nHooks Remain Unchanged\nIt's important to note that hooks remain unchanged in this migration process. Hooks are not related to the render engine functionality, so you can continue to use them as you have been.\nTesting your migration\nAfter migrating, test your template thoroughly:\n\nRun the generator using your new React template\nCompare the output with the previous Nunjucks template output\nCheck for any missing or incorrectly rendered content\n\nConsider implementing snapshot tests for your template before starting the migration. This will ease the review of changes in comparing the content rendered after render engine changes. Snapshot tests allow you to have tests that will persist expected output from Nunjucks template, and compare it with output generated after the migration. Check out an example of such snapshot integration test for our internal react template we use for development and testing.\nConclusion\nMigrating from Nunjucks to React templates may require some initial effort, but it will result in more maintainable code. You can learn more about why we introduced the React render engine from article React as a Generator Engine.",
+    "sections": [
+      {
+        "title": "Step-by-step migration guide",
+        "level": 2,
+        "text": "1. Update package.jsonChange your template configuration in package.json:1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}Once the deprecation period has ended, and we remove the default Nunjucks, the React render engine will be used by default and this setting will no longer be needed to configure2. Install dependenciesInstall the necessary React dependencies:npm install @asyncapi/generator-react-sdk3. File namingIn Nunjucks, the template's filename directly corresponds to the output file. For example, a template named index.html will generate an index.html file.In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js4. Basic template structureNunjucks:1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>React:1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}5. Macros and PartialsReplace macros with React components:Nunjucks:1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}React:1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}6. File templateCheck the detailed guide on file templates to learn what is the difference between templating multiple file outputs in Nunjucks and React.7. Models generationIf you have a template written with Nunjucks, it is almost certain that you have your own custom models, classes, or types templates in place. Instead of migrating them to React render engine we strongly advise you to delegate models generation to AsyncAPI Modelina project. Learn more about how to add models generation using Modelina."
+      },
+      {
+        "title": "1. Update package.json",
+        "level": 3,
+        "text": "Change your template configuration in package.json:1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}Once the deprecation period has ended, and we remove the default Nunjucks, the React render engine will be used by default and this setting will no longer be needed to configure"
+      },
+      {
+        "title": "2. Install dependencies",
+        "level": 3,
+        "text": "Install the necessary React dependencies:npm install @asyncapi/generator-react-sdk"
+      },
+      {
+        "title": "3. File naming",
+        "level": 3,
+        "text": "In Nunjucks, the template's filename directly corresponds to the output file. For example, a template named index.html will generate an index.html file.In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+      },
+      {
+        "title": "4. Basic template structure",
+        "level": 3,
+        "text": "Nunjucks:1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>React:1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}"
+      },
+      {
+        "title": "5. Macros and Partials",
+        "level": 3,
+        "text": "Replace macros with React components:Nunjucks:1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}React:1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}"
+      },
+      {
+        "title": "6. File template",
+        "level": 3,
+        "text": "Check the detailed guide on file templates to learn what is the difference between templating multiple file outputs in Nunjucks and React."
+      },
+      {
+        "title": "7. Models generation",
+        "level": 3,
+        "text": "If you have a template written with Nunjucks, it is almost certain that you have your own custom models, classes, or types templates in place. Instead of migrating them to React render engine we strongly advise you to delegate models generation to AsyncAPI Modelina project. Learn more about how to add models generation using Modelina."
+      },
+      {
+        "title": "Additional Resources and Information",
+        "level": 2,
+        "text": "Template ExamplesFor a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process.Filters to HelpersIf you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React.Hooks Remain UnchangedIt's important to note that hooks remain unchanged in this migration process. Hooks are not related to the render engine functionality, so you can continue to use them as you have been.Testing your migrationAfter migrating, test your template thoroughly:\nRun the generator using your new React template\nCompare the output with the previous Nunjucks template output\nCheck for any missing or incorrectly rendered content\nConsider implementing snapshot tests for your template before starting the migration. This will ease the review of changes in comparing the content rendered after render engine changes. Snapshot tests allow you to have tests that will persist expected output from Nunjucks template, and compare it with output generated after the migration. Check out an example of such snapshot integration test for our internal react template we use for development and testing."
+      },
+      {
+        "title": "Template Examples",
+        "level": 3,
+        "text": "For a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process."
+      },
+      {
+        "title": "Filters to Helpers",
+        "level": 3,
+        "text": "If you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React."
+      },
+      {
+        "title": "Hooks Remain Unchanged",
+        "level": 3,
+        "text": "It's important to note that hooks remain unchanged in this migration process. Hooks are not related to the render engine functionality, so you can continue to use them as you have been."
+      },
+      {
+        "title": "Testing your migration",
+        "level": 3,
+        "text": "After migrating, test your template thoroughly:\nRun the generator using your new React template\nCompare the output with the previous Nunjucks template output\nCheck for any missing or incorrectly rendered content\nConsider implementing snapshot tests for your template before starting the migration. This will ease the review of changes in comparing the content rendered after render engine changes. Snapshot tests allow you to have tests that will persist expected output from Nunjucks template, and compare it with output generated after the migration. Check out an example of such snapshot integration test for our internal react template we use for development and testing."
+      },
+      {
+        "title": "Conclusion",
+        "level": 2,
+        "text": "Migrating from Nunjucks to React templates may require some initial effort, but it will result in more maintainable code. You can learn more about why we introduced the React render engine from article React as a Generator Engine."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1{\n2\"generator\": {\n3\"renderer\": \"react\"\n4}\n5}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">\"generator\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">\"renderer\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"react\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "npm install @asyncapi/generator-react-sdk",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>npm install @asyncapi/generator-react-sdk</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1<h1>{{ asyncapi.info().title() }}</h1>\n2<p>{{ asyncapi.info().description() }}</p>",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">h1</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">asyncapi.info</span><span style=\"color:#d6deeb\">().title() }}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">h1</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span class=\"xml\"></span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">asyncapi.info</span><span style=\"color:#d6deeb\">().description() }}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1import { File } from '@asyncapi/generator-react-sdk';\n2\n3export default function({ asyncapi }) {\n4  return (\n5    <File name=\"index.html\">\n6      <h1>{asyncapi.info().title()}</h1>\n7      <p>{asyncapi.info().description()}</p>\n8    </File>\n9  );\n10}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/generator-react-sdk'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ asyncapi }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> (\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"index.html\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">h1</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">{asyncapi.info().title()}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">h1</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">{asyncapi.info().description()}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>  );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1{% macro renderChannel(channel) %}\n2  <div class=\"channel\">\n3    <h3>{{ channel.address() }}</h3>\n4    <p>{{ channel.description() }}</p>\n5  </div>\n6{% endmacro %}\n7\n8{{ renderChannel(someChannel) }}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span class=\"xml\">{% macro renderChannel(channel) %}\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span class=\"xml\">  </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">class</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"channel\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">h3</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">channel.address</span><span style=\"color:#d6deeb\">() }}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">h3</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">channel.description</span><span style=\"color:#d6deeb\">() }}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span class=\"xml\">  </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>{% endmacro %}\n</span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span class=\"xml\"></span><span style=\"color:#d6deeb\">{{ </span><span style=\"color:#64a0dc\">renderChannel</span><span style=\"color:#d6deeb\">(</span><span style=\"color:#64a0dc\">someChannel</span><span style=\"color:#d6deeb\">) }}</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1// components/Channel.js\n2import { Text } from '@asyncapi/generator-react-sdk';\n3\n4export function Channel({ channel }) {\n5  return (\n6    <Text>\n7      <div className=\"channel\">\n8        <h3>{channel.address()}</h3>\n9        <p>{channel.description()}</p>\n10      </div>\n11    </Text>\n12  );\n13}\n14\n15// Main template\n16import { File, Text } from '@asyncapi/generator-react-sdk';\n17import { Channel } from './components/Channel';\n18\n19export default function({ asyncapi }) {\n20  return (\n21    <File name=\"channels.html\">\n22      <Text>\n23        <h2>Channels</h2>\n24      </Text>\n25      {asyncapi.channels().map(channel => (\n26        <Channel channel={channel} />\n27      ))}\n28    </File>\n29  );\n30}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">// components/Channel.js</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">import</span><span> { Text } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/generator-react-sdk'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">Channel</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ channel }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> (\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">className</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"channel\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">h3</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">{channel.address()}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">h3</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">{channel.description()}</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">p</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">div</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>  );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span></span><span style=\"color:#797f8c\">// Main template</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#64a0dc\">import</span><span> { File, Text } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/generator-react-sdk'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span></span><span style=\"color:#64a0dc\">import</span><span> { Channel } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'./components/Channel'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ asyncapi }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> (\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">name</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">\"channels.html\"</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">h2</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">Channels</span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">h2</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span class=\"xml\">      </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">Text</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span>      {asyncapi.channels().map(channel =&gt; (\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span class=\"xml\">        </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;</span><span class=\"xml\" style=\"color:#64a0dc\">Channel</span><span class=\"xml\" style=\"color:#64a0dc\"> </span><span class=\"xml\" style=\"color:#7edcda\">channel</span><span class=\"xml\" style=\"color:#64a0dc\">=</span><span class=\"xml\" style=\"color:#c0e2a3;font-weight:500\">{channel}</span><span class=\"xml\" style=\"color:#64a0dc\"> /&gt;</span><span class=\"xml\">\n</span></span><span style=\"padding-right:2rem\" class=\"xml\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span>      ))}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span><span class=\"xml\">    </span><span class=\"xml\" style=\"color:#64a0dc\">&lt;/</span><span class=\"xml\" style=\"color:#64a0dc\">File</span><span class=\"xml\" style=\"color:#64a0dc\">&gt;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span>  );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "package.json",
+        "context": "Change your template configuration in package.json:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "File",
+        "context": "In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:"
+      },
+      {
+        "id": "highlight_2",
+        "content": ".js",
+        "context": "In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:"
+      },
+      {
+        "id": "highlight_3",
+        "content": "name",
+        "context": "In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:"
+      },
+      {
+        "id": "highlight_4",
+        "content": "File",
+        "context": "In React, the filename of the generated file is not controlled by the file itself, but rather by the File component. The React component itself can be named anything with a .js extension because the output filename is controlled by the name attribute of the File component used inside the template file. Below you can see some examples of filenames:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "index.html",
+        "context": "Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+      },
+      {
+        "id": "highlight_6",
+        "content": "index.js",
+        "context": "Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+      },
+      {
+        "id": "highlight_7",
+        "content": "index.html.js",
+        "context": "Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+      },
+      {
+        "id": "highlight_8",
+        "content": "anything-you-want.js",
+        "context": "Nunjucks: index.html\nReact: index.js or index.html.js or anything-you-want.js"
+      },
+      {
+        "id": "highlight_9",
+        "content": "master",
+        "context": "For a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process."
+      },
+      {
+        "id": "highlight_10",
+        "content": "nunjucks",
+        "context": "For a complete example of React features in use, please refer to the AsyncAPI Template for Generator Templates. The master branch demonstrates all React features, while the nunjucks branch shows the old Nunjucks implementation. This comparison can be particularly helpful in understanding the differences and migration process."
+      },
+      {
+        "id": "highlight_11",
+        "content": "filters",
+        "context": "If you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React."
+      },
+      {
+        "id": "highlight_12",
+        "content": "filters",
+        "context": "If you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React."
+      },
+      {
+        "id": "highlight_13",
+        "content": "helpers",
+        "context": "If you've been using Nunjucks filters placed in the filters directory, you can still use this functionality in React. However, they should be treated as normal functions that you import into your components. We recommend renaming the filters directory to helpers to better reflect their new usage in React."
+      }
+    ]
+  }
+}

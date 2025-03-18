@@ -1,0 +1,317 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/httpApiKey",
+    "timestamp": "2025-03-12T17:55:44.432Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "HttpApiKey",
+    "hierarchy": {
+      "sections": {
+        "Getting Started with HttpAPIKey Authentication": {
+          "level": 2,
+          "content": "This guide will walk you through how to implement authentication using the httpApiKey security scheme in Glee.Below is a sample asyncapi.yaml for a server with security requirements and the HttpApiKey security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams the trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/apiKey'\n13\n14      ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22A sample asyncapi.yaml for a client that implements some of the requirements of the server above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/apiKey'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22The httpApiKey can be located in either the header or query parameter.The client asyncapi.yaml file does not need to implement all the security requirements of the server; it only needs to implement the ones it uses, like httpApiKey here.Client SideFollowing the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnime.tsWhen using the HttpApiKey security scheme, it is important to pass the parameters as follows:1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string.Server SideFrom the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnimeServer.tsOn the server side, you can retrieve the values as follows:1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+        },
+        "Client Side": {
+          "level": 3,
+          "content": "Following the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnime.tsWhen using the HttpApiKey security scheme, it is important to pass the parameters as follows:1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string."
+        },
+        "Server Side": {
+          "level": 3,
+          "content": "From the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnimeServer.tsOn the server side, you can retrieve the values as follows:1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Getting Started with HttpAPIKey Authentication\nThis guide will walk you through how to implement authentication using the httpApiKey security scheme in Glee.\nBelow is a sample asyncapi.yaml for a server with security requirements and the HttpApiKey security scheme:\n1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams the trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/apiKey'\n13\n14      ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22\nA sample asyncapi.yaml for a client that implements some of the requirements of the server above:\n1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/apiKey'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22\nThe httpApiKey can be located in either the header or query parameter.\nThe client asyncapi.yaml file does not need to implement all the security requirements of the server; it only needs to implement the ones it uses, like httpApiKey here.\nClient Side\nFollowing the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property.\ntouch auth/trendingAnime.ts\nWhen using the HttpApiKey security scheme, it is important to pass the parameters as follows:\n1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}\napiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string.\nServer Side\nFrom the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property.\ntouch auth/trendingAnimeServer.ts\nOn the server side, you can retrieve the values as follows:\n1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7\nSo, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client.",
+    "sections": [
+      {
+        "title": "Getting Started with HttpAPIKey Authentication",
+        "level": 2,
+        "text": "This guide will walk you through how to implement authentication using the httpApiKey security scheme in Glee.Below is a sample asyncapi.yaml for a server with security requirements and the HttpApiKey security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams the trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/apiKey'\n13\n14      ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22A sample asyncapi.yaml for a client that implements some of the requirements of the server above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/apiKey'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22The httpApiKey can be located in either the header or query parameter.The client asyncapi.yaml file does not need to implement all the security requirements of the server; it only needs to implement the ones it uses, like httpApiKey here.Client SideFollowing the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnime.tsWhen using the HttpApiKey security scheme, it is important to pass the parameters as follows:1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string.Server SideFrom the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnimeServer.tsOn the server side, you can retrieve the values as follows:1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+      },
+      {
+        "title": "Client Side",
+        "level": 3,
+        "text": "Following the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnime.tsWhen using the HttpApiKey security scheme, it is important to pass the parameters as follows:1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string."
+      },
+      {
+        "title": "Server Side",
+        "level": 3,
+        "text": "From the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property.touch auth/trendingAnimeServer.tsOn the server side, you can retrieve the values as follows:1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams the trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/apiKey'\n13\n14      ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">## Server AsyncAPI Schema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#d8da68\">3.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">info:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">IMDB</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#d8da68\">1.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">This</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">app</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">is</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">a</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">dummy</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">that</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">streams</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">trending/upcoming</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">anime.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">trendingAnimeServer:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'localhost:8081'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">http</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">security:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/securitySchemes/apiKey'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">securitySchemes:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">apiKey:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">httpApiKey</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>      </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">api_key</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>      </span><span style=\"color:#7edcda\">in:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">query</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/apiKey'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    apiKey:\n19      type: httpApiKey\n20      name: api_key\n21      in: query\n22",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">## Client AsyncAPI Schema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">trendingAnime:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">localhost:8081</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">http</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span style=\"color:#7edcda\">security:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/securitySchemes/apiKey'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">testwebhook:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">localhost:9000</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ws</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span></span><span style=\"color:#7edcda\">x-remoteServers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>  </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">trendingAnime</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">securitySchemes:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">apiKey:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">httpApiKey</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>      </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">api_key</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>      </span><span style=\"color:#7edcda\">in:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">query</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "touch auth/trendingAnime.ts",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>touch auth/trendingAnime.ts</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1export async function clientAuth({ parsedAsyncAPI, serverName }) {\n2  return {\n3    apiKey: process.env.APIKEY\n4  }\n5}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">clientAuth</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ parsedAsyncAPI, serverName }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">apiKey</span><span>: process.env.APIKEY\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "touch auth/trendingAnimeServer.ts",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>touch auth/trendingAnimeServer.ts</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1\n2export async function serverAuth({ authProps, done }) {\n3  authProps.getHttpAPIKeys('api_key')\n4  \n5  done(true)\n6}\n7",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>export async </span><span style=\"color:#64a0dc\">function</span><span> server</span><span class=\"hljs-constructor\">Auth({ </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">authProps</span><span class=\"hljs-constructor\">, </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">done</span><span class=\"hljs-constructor\"> })</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  authProps.get</span><span class=\"hljs-constructor\">HttpAPIKeys('</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">api_key</span><span class=\"hljs-constructor\">')</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>  \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#64a0dc\">done</span><span>(</span><span style=\"color:#64a0dc\">true</span><span>)\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "httpApiKey",
+        "context": "This guide will walk you through how to implement authentication using the httpApiKey security scheme in Glee."
+      },
+      {
+        "id": "highlight_1",
+        "content": "asyncapi.yaml",
+        "context": "Below is a sample asyncapi.yaml for a server with security requirements and the HttpApiKey security scheme:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "HttpApiKey",
+        "context": "Below is a sample asyncapi.yaml for a server with security requirements and the HttpApiKey security scheme:"
+      },
+      {
+        "id": "highlight_3",
+        "content": "asyncapi.yaml",
+        "context": "A sample asyncapi.yaml for a client that implements some of the requirements of the server above:"
+      },
+      {
+        "id": "highlight_4",
+        "content": "httpApiKey",
+        "context": "The httpApiKey can be located in either the header or query parameter."
+      },
+      {
+        "id": "highlight_5",
+        "content": "asyncapi.yaml",
+        "context": "The client asyncapi.yaml file does not need to implement all the security requirements of the server; it only needs to implement the ones it uses, like httpApiKey here."
+      },
+      {
+        "id": "highlight_6",
+        "content": "asyncapi.yaml",
+        "context": "Following the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_7",
+        "content": "trendingAnime.ts",
+        "context": "Following the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_8",
+        "content": "auth",
+        "context": "Following the client asyncapi.yaml file above, create a file named trendingAnime.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_9",
+        "content": "HttpApiKey",
+        "context": "When using the HttpApiKey security scheme, it is important to pass the parameters as follows:"
+      },
+      {
+        "id": "highlight_10",
+        "content": "apiKey",
+        "context": "apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string."
+      },
+      {
+        "id": "highlight_11",
+        "content": "asyncapi.yaml",
+        "context": "apiKey should be the name of the security requirement as specified in your asyncapi.yaml file, and its value should be a string."
+      },
+      {
+        "id": "highlight_12",
+        "content": "asyncapi.yaml",
+        "context": "From the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_13",
+        "content": "trendingAnimeServer.ts",
+        "context": "From the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_14",
+        "content": "auth",
+        "context": "From the server asyncapi.yaml file above, create a file named trendingAnimeServer.ts in the auth directory, as this is the server that has the security property."
+      },
+      {
+        "id": "highlight_15",
+        "content": "getHttpAPIKeys(name)",
+        "context": "So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+      },
+      {
+        "id": "highlight_16",
+        "content": "httpApiKey",
+        "context": "So, getHttpAPIKeys(name) takes a name parameter to specify the name of the httpApiKey that is desired. Then it returns an object containing the httpApiKey value that is sent from the client."
+      }
+    ]
+  }
+}
