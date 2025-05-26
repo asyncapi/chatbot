@@ -1,0 +1,521 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/cli/installation",
+    "timestamp": "2025-03-12T17:53:48.257Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Installation",
+    "hierarchy": {
+      "sections": {
+        "Node and npm": {
+          "level": 2,
+          "content": "To use the AsyncAPI CLI tool, you must install NPM and Node.js version 16 or higher. To check if you already have both installed, run the following commands in your terminal:1# check if node is installed\n2node -v\n3# or\n4node --version\n5\n6# check if NPM is installed\n7npm -v\n8# or\n9npm --versionIf you don’t have Node.js or NPM installed, you can install both with this Node.js package manager.After installing Node.js and NPM, run the following command to install the AsyncAPI CLI globally:npm install -g @asyncapi/cli"
+        },
+        "Docker": {
+          "level": 2,
+          "content": "Install Docker first, then use docker to build the image using the following command :docker build -t asyncapi/cli:latest . and run the image using the following command :1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/integration/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template --force-writeNote: Use ` instead of \\ for Windows."
+        },
+        "Mac": {
+          "level": 2,
+          "content": "There are two ways to install the AsyncAPI CLI on your macOS: using the brew package manager or pkg files.brewTo install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapipkgEvery release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkgTo download a specific CLI release, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkgRememberFollow this link for all AsyncAPI CLI releases.After downloading the AsyncAPI CLI, install it via the following command:sudo installer -pkg asyncapi.pkg -target /"
+        },
+        "brew": {
+          "level": 3,
+          "content": "To install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapi"
+        },
+        "pkg": {
+          "level": 3,
+          "content": "Every release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkgTo download a specific CLI release, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkgRememberFollow this link for all AsyncAPI CLI releases.After downloading the AsyncAPI CLI, install it via the following command:sudo installer -pkg asyncapi.pkg -target /"
+        },
+        "Remember": {
+          "level": 5,
+          "content": "Follow this link for all AsyncAPI CLI releases."
+        },
+        "Windows": {
+          "level": 2,
+          "content": "There are two ways to install the AsyncAPI CLI on your Windows operating system: using the chocolatey package manager or executable files.ChocolateyPrerequisites:\nChocolatey must be installed on your Windows operating system. The installation instructions can be found here.To install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:1# Install AsyncAPI CLI\n2choco install asyncapiTo upgrade run this command:-1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapiTo install a specific version run this command:1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xxAll the AsyncAPI CLI versions can be found here.Executable filesJust install the appropriate installer and simply follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and download asyncapi.x86.exe for 32-bit Windows."
+        },
+        "Chocolatey": {
+          "level": 3,
+          "content": "Prerequisites:\nChocolatey must be installed on your Windows operating system. The installation instructions can be found here.To install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:1# Install AsyncAPI CLI\n2choco install asyncapiTo upgrade run this command:-1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapiTo install a specific version run this command:1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xxAll the AsyncAPI CLI versions can be found here."
+        },
+        "Executable files": {
+          "level": 3,
+          "content": "Just install the appropriate installer and simply follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and download asyncapi.x86.exe for 32-bit Windows."
+        },
+        "Linux": {
+          "level": 2,
+          "content": "Selecting the appropriate AsyncAPI CLI installation method on a Linux operating system depends on your Linux distro.Debian based distrosFor Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian.curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.debTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.debOther distrosYou can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gzTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gzOnce you have downloaded the archived file, untar it by running this command in your terminal:tar -xzf asyncapi.tar.gzThe step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi"
+        },
+        "Debian based distros": {
+          "level": 3,
+          "content": "For Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian.curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.debTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.deb"
+        },
+        "Other distros": {
+          "level": 3,
+          "content": "You can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gzTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gzOnce you have downloaded the archived file, untar it by running this command in your terminal:tar -xzf asyncapi.tar.gzThe step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/cli/installation"
+            },
+            {
+              "text": "CLI Architecture",
+              "href": "https://www.asyncapi.com/docs/tools/cli/architecture"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/cli/usage"
+            },
+            {
+              "text": "GitHub Action for CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli/github-action"
+            },
+            {
+              "text": "Context concept",
+              "href": "https://www.asyncapi.com/docs/tools/cli/context"
+            },
+            {
+              "text": "Metrics Collection",
+              "href": "https://www.asyncapi.com/docs/tools/cli/metrics_collection"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Node and npm\nTo use the AsyncAPI CLI tool, you must install NPM and Node.js version 16 or higher. To check if you already have both installed, run the following commands in your terminal:\n1# check if node is installed\n2node -v\n3# or\n4node --version\n5\n6# check if NPM is installed\n7npm -v\n8# or\n9npm --version\nIf you don’t have Node.js or NPM installed, you can install both with this Node.js package manager.\nAfter installing Node.js and NPM, run the following command to install the AsyncAPI CLI globally:\nnpm install -g @asyncapi/cli\nDocker\nInstall Docker first, then use docker to build the image using the following command :\ndocker build -t asyncapi/cli:latest . \nand run the image using the following command :\n1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/integration/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template --force-write\nNote: Use ` instead of \\ for Windows.\nMac\nThere are two ways to install the AsyncAPI CLI on your macOS: using the brew package manager or pkg files.\nbrew\nTo install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:\n1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapi\npkg\nEvery release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:\n1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkg\nTo download a specific CLI release, run this command in your terminal:\ncurl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkg\nRememberFollow this link for all AsyncAPI CLI releases.\nAfter downloading the AsyncAPI CLI, install it via the following command:\nsudo installer -pkg asyncapi.pkg -target /\nWindows\nThere are two ways to install the AsyncAPI CLI on your Windows operating system: using the chocolatey package manager or executable files.\nChocolatey\nPrerequisites:\nChocolatey must be installed on your Windows operating system. The installation instructions can be found here.\nTo install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:\n1# Install AsyncAPI CLI\n2choco install asyncapi\nTo upgrade run this command:-\n1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapi\nTo install a specific version run this command:\n1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xx\nAll the AsyncAPI CLI versions can be found here.\nExecutable files\nJust install the appropriate installer and simply follow the default installation steps to complete the installation process.\nDownload asyncapi.x64.exe for 64-bit Windows and download asyncapi.x86.exe for 32-bit Windows.\nLinux\nSelecting the appropriate AsyncAPI CLI installation method on a Linux operating system depends on your Linux distro.\nDebian based distros\nFor Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian.\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb\nTo download a specific release of the CLI, run this command in your terminal:\ncurl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.deb\nOther distros\nYou can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:\ncurl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gz\nTo download a specific release of the CLI, run this command in your terminal:\ncurl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gz\nOnce you have downloaded the archived file, untar it by running this command in your terminal:\ntar -xzf asyncapi.tar.gz\nThe step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:\n1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi",
+    "sections": [
+      {
+        "title": "Node and npm",
+        "level": 2,
+        "text": "To use the AsyncAPI CLI tool, you must install NPM and Node.js version 16 or higher. To check if you already have both installed, run the following commands in your terminal:1# check if node is installed\n2node -v\n3# or\n4node --version\n5\n6# check if NPM is installed\n7npm -v\n8# or\n9npm --versionIf you don’t have Node.js or NPM installed, you can install both with this Node.js package manager.After installing Node.js and NPM, run the following command to install the AsyncAPI CLI globally:npm install -g @asyncapi/cli"
+      },
+      {
+        "title": "Docker",
+        "level": 2,
+        "text": "Install Docker first, then use docker to build the image using the following command :docker build -t asyncapi/cli:latest . and run the image using the following command :1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/integration/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template --force-writeNote: Use ` instead of \\ for Windows."
+      },
+      {
+        "title": "Mac",
+        "level": 2,
+        "text": "There are two ways to install the AsyncAPI CLI on your macOS: using the brew package manager or pkg files.brewTo install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapipkgEvery release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkgTo download a specific CLI release, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkgRememberFollow this link for all AsyncAPI CLI releases.After downloading the AsyncAPI CLI, install it via the following command:sudo installer -pkg asyncapi.pkg -target /"
+      },
+      {
+        "title": "brew",
+        "level": 3,
+        "text": "To install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapi"
+      },
+      {
+        "title": "pkg",
+        "level": 3,
+        "text": "Every release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkgTo download a specific CLI release, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkgRememberFollow this link for all AsyncAPI CLI releases.After downloading the AsyncAPI CLI, install it via the following command:sudo installer -pkg asyncapi.pkg -target /"
+      },
+      {
+        "title": "Remember",
+        "level": 5,
+        "text": "Follow this link for all AsyncAPI CLI releases."
+      },
+      {
+        "title": "Windows",
+        "level": 2,
+        "text": "There are two ways to install the AsyncAPI CLI on your Windows operating system: using the chocolatey package manager or executable files.ChocolateyPrerequisites:\nChocolatey must be installed on your Windows operating system. The installation instructions can be found here.To install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:1# Install AsyncAPI CLI\n2choco install asyncapiTo upgrade run this command:-1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapiTo install a specific version run this command:1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xxAll the AsyncAPI CLI versions can be found here.Executable filesJust install the appropriate installer and simply follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and download asyncapi.x86.exe for 32-bit Windows."
+      },
+      {
+        "title": "Chocolatey",
+        "level": 3,
+        "text": "Prerequisites:\nChocolatey must be installed on your Windows operating system. The installation instructions can be found here.To install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:1# Install AsyncAPI CLI\n2choco install asyncapiTo upgrade run this command:-1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapiTo install a specific version run this command:1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xxAll the AsyncAPI CLI versions can be found here."
+      },
+      {
+        "title": "Executable files",
+        "level": 3,
+        "text": "Just install the appropriate installer and simply follow the default installation steps to complete the installation process.Download asyncapi.x64.exe for 64-bit Windows and download asyncapi.x86.exe for 32-bit Windows."
+      },
+      {
+        "title": "Linux",
+        "level": 2,
+        "text": "Selecting the appropriate AsyncAPI CLI installation method on a Linux operating system depends on your Linux distro.Debian based distrosFor Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian.curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.debTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.debOther distrosYou can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gzTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gzOnce you have downloaded the archived file, untar it by running this command in your terminal:tar -xzf asyncapi.tar.gzThe step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi"
+      },
+      {
+        "title": "Debian based distros",
+        "level": 3,
+        "text": "For Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian.curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.debTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.deb"
+      },
+      {
+        "title": "Other distros",
+        "level": 3,
+        "text": "You can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gzTo download a specific release of the CLI, run this command in your terminal:curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gzOnce you have downloaded the archived file, untar it by running this command in your terminal:tar -xzf asyncapi.tar.gzThe step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 mr-2 inline-block h-8\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" fill=\"currentColor\" clip-rule=\"evenodd\" viewBox=\"0 0 22 25\"><path d=\"M13 24h-2c-.288 0-.563-.125-.753-.341l-.576-.659h4.658l-.576.659c-.19.216-.465.341-.753.341zm1.867-3c.287 0 .52.224.52.5s-.233.5-.52.5h-5.734c-.287 0-.52-.224-.52-.5s.233-.5.52-.5h5.734zm-2.871-17c2.983 0 6.004 1.97 6.004 5.734 0 1.937-.97 3.622-1.907 5.252-.907 1.574-1.843 3.201-1.844 5.014h1.001c0-3.286 3.75-6.103 3.75-10.266 0-4.34-3.502-6.734-7.004-6.734-3.498 0-6.996 2.391-6.996 6.734 0 4.163 3.75 6.98 3.75 10.266h.999c.001-1.813-.936-3.44-1.841-5.014-.938-1.63-1.908-3.315-1.908-5.252 0-3.764 3.017-5.734 5.996-5.734zm9.428 7.958c.251.114.362.411.248.662-.114.251-.41.363-.662.249l-.91-.414c-.252-.114-.363-.41-.249-.662.114-.251.411-.362.662-.248l.911.413zm-18.848 0c-.251.114-.362.411-.248.662.114.251.41.363.662.249l.91-.414c.252-.114.363-.41.249-.662-.114-.251-.411-.362-.662-.248l-.911.413zm18.924-2.958h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1c.276 0 .5.224.5.5s-.224.5-.5.5zm-18-1c.276 0 .5.224.5.5s-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1zm16.818-3.089c.227-.158.284-.469.126-.696-.157-.227-.469-.283-.696-.126l-.821.57c-.227.158-.283.469-.126.696.157.227.469.283.696.126l.821-.57zm-16.636 0c-.227-.158-.284-.469-.126-.696.157-.227.469-.283.696-.126l.821.57c.227.158.283.469.126.696-.157.227-.469.283-.696.126l-.821-.57zm13.333-3.033c.134-.241.048-.546-.193-.68-.241-.135-.546-.048-.68.192l-.488.873c-.135.241-.048.546.192.681.241.134.546.048.681-.193l.488-.873zm-10.03 0c-.134-.241-.048-.546.193-.68.241-.135.546-.048.68.192l.488.873c.135.241.048.546-.192.681-.241.134-.546.048-.681-.193l-.488-.873zm5.515-1.378c0-.276-.224-.5-.5-.5s-.5.224-.5.5v1c0 .276.224.5.5.5s.5-.224.5-.5v-1z\"></path></svg>",
+        "context": "Remember",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_8",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_9",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_10",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_11",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_12",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_13",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_14",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_15",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_16",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_17",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1# check if node is installed\n2node -v\n3# or\n4node --version\n5\n6# check if NPM is installed\n7npm -v\n8# or\n9npm --version",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># check if node is installed</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">node</span><span> </span><span style=\"color:#7edcda\">-v</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#797f8c\"># or</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">node</span><span> </span><span style=\"color:#7edcda\">--version</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#797f8c\"># check if NPM is installed</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>npm -v\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#797f8c\"># or</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>npm --</span><span style=\"color:#64a0dc\">version</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "npm install -g @asyncapi/cli",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#7edcda\">npm</span><span> install -g @asyncapi/cli</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "docker build -t asyncapi/cli:latest .",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">docker</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">build</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-t</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli:latest</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">.</span><span> </span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1docker run --rm -it \\\n2--user=root \\\n3-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n4-v [GENERATED FILES LOCATION]:/app/output \\\n5asyncapi/cli [COMMAND HERE]\n6\n7# Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.\n8docker run --rm -it \\\n9   --user=root \\\n10   -v ${PWD}/test/integration/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n11   -v ${PWD}/output:/app/output \\\n12   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template --force-write",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>docker run --rm -it \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>--user=root \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>-v [ASYNCAPI SPEC FILE LOCATION]:/app/asyncapi.yml \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>-v [GENERATED FILES LOCATION]:/app/output \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>asyncapi/cli [COMMAND HERE]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#797f8c\"># Example that you can run inside the cli directory after cloning this repository. First, you specify the mount in the location of your AsyncAPI specification file and then you mount it in the directory where the generation result should be saved.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>docker run --rm -it \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>   --user=root \\\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>   -v </span><span style=\"color:#d6deeb\">${PWD}</span><span>/</span><span style=\"color:#7edcda\">test</span><span>/integration/fixtures/asyncapi_v1.yml:/app/asyncapi.yml \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>   -v </span><span style=\"color:#d6deeb\">${PWD}</span><span>/output:/app/output \\\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>   asyncapi/cli generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template --force-write</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1# Install brew\n2/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n3\n4# Install AsyncAPI CLI\n5brew install asyncapi",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># Install brew</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>/</span><span style=\"color:#64a0dc\">bin/bash </span><span>-c </span><span style=\"color:#c0e2a3;font-weight:500\">\"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#797f8c\"># Install AsyncAPI CLI</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#64a0dc\">brew </span><span style=\"color:#64a0dc\">install </span><span>asyncapi</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1# For x64\n2curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.x64.pkg\n3\n4# For arm64\n5curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.arm64.pkg",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># For x64</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>latest</span><span style=\"color:#EBCB8B\">/download/</span><span>asyncapi.x64.pkg\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#797f8c\"># For arm64</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>latest</span><span style=\"color:#EBCB8B\">/download/</span><span>asyncapi.arm64.pkg</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.pkg",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>download</span><span style=\"color:#EBCB8B\">/&lt;replace this with the specific CLI version e.g v0.13.0&gt;/</span><span>asyncapi.pkg</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "sudo installer -pkg asyncapi.pkg -target /",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>sudo installer -pkg asyncapi.pkg -</span><span style=\"color:#64a0dc\">target</span><span> /</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_8",
+        "content": "1# Install AsyncAPI CLI\n2choco install asyncapi",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># Install AsyncAPI CLI</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>choco </span><span style=\"color:#64a0dc\">install</span><span> asyncapi</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_9",
+        "content": "1# Upgrade AsyncAPI CLI\n2choco upgrade asyncapi",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># Upgrade AsyncAPI CLI</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#d6deeb\">choco</span><span> upgrade asyncapi</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_10",
+        "content": "1# Install AsyncAPI CLI version xx.xx.xx\n2choco install asyncapi --version xx.xx.xx",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># Install AsyncAPI CLI version xx.xx.xx</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>choco </span><span style=\"color:#64a0dc\">install</span><span> asyncapi </span><span style=\"color:#797f8c\">--version xx.xx.xx</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_11",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.deb",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>latest</span><span style=\"color:#EBCB8B\">/download/</span><span>asyncapi.deb</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_12",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.deb",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>download</span><span style=\"color:#EBCB8B\">/&lt;replace this with the specific CLI version e.g v0.13.0&gt;/</span><span>asyncapi.deb</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_13",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/latest/download/asyncapi.tar.gz",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>latest</span><span style=\"color:#EBCB8B\">/download/</span><span>asyncapi.tar.gz</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_14",
+        "content": "curl -OL https://github.com/asyncapi/cli/releases/download/<replace this with the specific CLI version e.g v0.13.0>/asyncapi.tar.gz",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>curl -OL https:</span><span style=\"color:#EBCB8B\">//gi</span><span>thub.com</span><span style=\"color:#EBCB8B\">/asyncapi/</span><span>cli</span><span style=\"color:#EBCB8B\">/releases/</span><span>download</span><span style=\"color:#EBCB8B\">/&lt;replace this with the specific CLI version e.g v0.13.0&gt;/</span><span>asyncapi.tar.gz</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_15",
+        "content": "tar -xzf asyncapi.tar.gz",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#d6deeb\">tar -xzf asyncapi</span><span>.tar.gz</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_16",
+        "content": "1# cd into the unarchived directory\n2cd asyncapi\n3\n4# get the absolute path\n5pwd\n6\n7# Create a symlink\n8ln -s <absolute-path>/bin/asyncapi /user/local/bin/asyncapi\n9\n10# The \"asyncapi\" command should be available to be used\n11asyncapi",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># cd into the unarchived directory</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>cd asyncapi\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#797f8c\"># get the absolute path</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>pwd\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#797f8c\"># Create a symlink</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>ln -s &lt;absolute-path&gt;</span><span style=\"color:#EBCB8B\">/bin/</span><span>asyncapi </span><span style=\"color:#EBCB8B\">/user/</span><span>local</span><span style=\"color:#EBCB8B\">/bin/</span><span>asyncapi\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#797f8c\"># The \"asyncapi\" command should be available to be used</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>asyncapi</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "`",
+        "context": "Note: Use ` instead of \\ for Windows."
+      },
+      {
+        "id": "highlight_1",
+        "content": "\\",
+        "context": "Note: Use ` instead of \\ for Windows."
+      },
+      {
+        "id": "highlight_2",
+        "content": "brew",
+        "context": "There are two ways to install the AsyncAPI CLI on your macOS: using the brew package manager or pkg files."
+      },
+      {
+        "id": "highlight_3",
+        "content": "pkg",
+        "context": "There are two ways to install the AsyncAPI CLI on your macOS: using the brew package manager or pkg files."
+      },
+      {
+        "id": "highlight_4",
+        "content": "brew",
+        "context": "To install the AsyncAPI CLI using the brew package manager, run the following commands in your terminal:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "pkg",
+        "context": "Every release of the AsyncAPI CLI has two macOS dedicated pkg file that enables you to install the CLI tool as a macOS application for x64 as well as arm64 architecture.\nTo download the latest CLI release, run this command in your terminal:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "chocolatey",
+        "context": "There are two ways to install the AsyncAPI CLI on your Windows operating system: using the chocolatey package manager or executable files."
+      },
+      {
+        "id": "highlight_7",
+        "content": "chocolatey",
+        "context": "To install the AsyncAPI CLI using the chocolatey package manager, run the following command in your terminal with administrator privileges:"
+      },
+      {
+        "id": "highlight_8",
+        "content": "dpkg",
+        "context": "For Debian based distros, you can install the AsycAPI CLI using the dpkg package manager for Debian."
+      },
+      {
+        "id": "highlight_9",
+        "content": "tar.gz",
+        "context": "You can install the AsyncAPI CLI for other Linux distros using the archive tar.gz file. To download the latest release of the CLI, run this command in your terminal:"
+      },
+      {
+        "id": "highlight_10",
+        "content": "AsyncAPI",
+        "context": "The step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:"
+      },
+      {
+        "id": "highlight_11",
+        "content": "symlink",
+        "context": "The step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:"
+      },
+      {
+        "id": "highlight_12",
+        "content": "/user/local/bin",
+        "context": "The step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:"
+      },
+      {
+        "id": "highlight_13",
+        "content": "symlink",
+        "context": "The step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:"
+      },
+      {
+        "id": "highlight_14",
+        "content": "/user/local/bin",
+        "context": "The step above will create an AsyncAPI directory in the current path. To run the CLI from anywhere, you must create a symlink. If the current path you are on is /user/local/bin, for example, you must create the symlink in the /user/local/bin directory by following these steps:"
+      }
+    ]
+  }
+}

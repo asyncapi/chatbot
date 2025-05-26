@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/reference/specification/v2.x",
+    "timestamp": "2025-03-12T17:56:09.712Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "V2.X",
+    "hierarchy": {
+      "sections": {},
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference"
+            },
+            {
+              "text": "Specification",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0"
+            },
+            {
+              "text": "3.0.0",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0"
+            },
+            {
+              "text": "2.x",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v2.x"
+            },
+            {
+              "text": "Specification Visualizer",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0-explorer"
+            },
+            {
+              "text": "Extensions",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "Bindings",
+              "href": "https://www.asyncapi.com/docs/reference/bindings"
+            }
+          ]
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "",
+    "sections": [],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

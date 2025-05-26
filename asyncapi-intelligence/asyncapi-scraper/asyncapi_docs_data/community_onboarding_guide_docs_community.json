@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community",
+    "timestamp": "2025-03-12T17:57:08.072Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Docs Community",
+    "hierarchy": {
+      "sections": {
+        "Docs and education community discussions": {
+          "level": 3,
+          "content": "Visit the public AsyncAPI Docs & Education discussion board to discuss docs-related issues and propose improvements."
+        },
+        "AsyncAPI Slack workspace and docs channels": {
+          "level": 2,
+          "content": "Join the AsyncAPI documentation Slack channel to meet other technical writers:\n#13_docs: A space for all technical writers to start discussions, ask questions, share new ideas, and request good first issues."
+        },
+        "AsyncAPI documentation roadmap 2024": {
+          "level": 2,
+          "content": "Stay tuned for new opportunities on our Docs’ Community discussions or reach out in the AsyncAPI Slack channel #13_docs.Docs RoadmapOngoing Docs ProjectsTimelineContribution TypeAsyncAPI Style GuideAsyncAPI Style GuideOngoingRegular contributionAsyncAPI Tools’ DocsModelina Docs   Parser Docs  GitHub Actions Docs Studio Docs Generator Docs CLI DocsOngoingRegular contributionTechnical Writer Onboarding GuideOnboarding Guide for new docs contributorsOngoingRegular contribution"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "Join OPEN docs community meetings via Zoom, a regular space for docs contributors to meet and help each other.\n\nAdd the AsyncAPI calendar in the AsyncAPI events page to get docs meetings automatically added to your calendar of choice.\nWatch past AsyncAPI docs meetings on the AsyncAPI YouTube channel.\nSchedule your own docs meetings.\n\nDocs and education community discussions\nVisit the public AsyncAPI Docs & Education discussion board to discuss docs-related issues and propose improvements.\nAsyncAPI Slack workspace and docs channels\nJoin the AsyncAPI documentation Slack channel to meet other technical writers:\n\n#13_docs: A space for all technical writers to start discussions, ask questions, share new ideas, and request good first issues.\n\nAsyncAPI documentation roadmap 2024\nStay tuned for new opportunities on our Docs’ Community discussions or reach out in the AsyncAPI Slack channel #13_docs.\nDocs RoadmapOngoing Docs ProjectsTimelineContribution TypeAsyncAPI Style GuideAsyncAPI Style GuideOngoingRegular contributionAsyncAPI Tools’ DocsModelina Docs   Parser Docs  GitHub Actions Docs Studio Docs Generator Docs CLI DocsOngoingRegular contributionTechnical Writer Onboarding GuideOnboarding Guide for new docs contributorsOngoingRegular contribution",
+    "sections": [
+      {
+        "title": "Docs and education community discussions",
+        "level": 3,
+        "text": "Visit the public AsyncAPI Docs & Education discussion board to discuss docs-related issues and propose improvements."
+      },
+      {
+        "title": "AsyncAPI Slack workspace and docs channels",
+        "level": 2,
+        "text": "Join the AsyncAPI documentation Slack channel to meet other technical writers:\n#13_docs: A space for all technical writers to start discussions, ask questions, share new ideas, and request good first issues."
+      },
+      {
+        "title": "AsyncAPI documentation roadmap 2024",
+        "level": 2,
+        "text": "Stay tuned for new opportunities on our Docs’ Community discussions or reach out in the AsyncAPI Slack channel #13_docs.Docs RoadmapOngoing Docs ProjectsTimelineContribution TypeAsyncAPI Style GuideAsyncAPI Style GuideOngoingRegular contributionAsyncAPI Tools’ DocsModelina Docs   Parser Docs  GitHub Actions Docs Studio Docs Generator Docs CLI DocsOngoingRegular contributionTechnical Writer Onboarding GuideOnboarding Guide for new docs contributorsOngoingRegular contribution"
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Docs Roadmap",
+          "Ongoing Docs Projects",
+          "Timeline",
+          "Contribution Type"
+        ],
+        "rows": [
+          {
+            "Docs Roadmap": "AsyncAPI Style Guide",
+            "Ongoing Docs Projects": "AsyncAPI Style Guide",
+            "Timeline": "Ongoing",
+            "Contribution Type": "Regular contribution"
+          },
+          {
+            "Docs Roadmap": "AsyncAPI Tools’ Docs",
+            "Ongoing Docs Projects": "Modelina Docs   Parser Docs  GitHub Actions Docs Studio Docs Generator Docs CLI Docs",
+            "Timeline": "Ongoing",
+            "Contribution Type": "Regular contribution"
+          },
+          {
+            "Docs Roadmap": "Technical Writer Onboarding Guide",
+            "Ongoing Docs Projects": "Onboarding Guide for new docs contributors",
+            "Timeline": "Ongoing",
+            "Contribution Type": "Regular contribution"
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "good first issues.",
+        "context": "#13_docs: A space for all technical writers to start discussions, ask questions, share new ideas, and request good first issues."
+      }
+    ]
+  }
+}

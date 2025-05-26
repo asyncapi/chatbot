@@ -1,0 +1,325 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document",
+    "timestamp": "2025-03-12T17:51:08.157Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Asyncapi Document",
+    "hierarchy": {
+      "sections": {
+        "AsyncAPI document generation process": {
+          "level": 2,
+          "content": "The Generator receives the AsyncAPI Document as input.\nThe Generator sends to the Parser the asyncapiString is a stringified version of the original AsyncAPI Document to validate and parse it.\nThe Parser validates the AsyncAPI Document using additional schema-related plugins, either the OpenAPI schema, RAML data types, or Avro schema.\nIf the Parser determines that the AsyncAPI Document is valid, it manipulates the original JSON/YAML document and provides a set of helper functions in return, bundling them together into an asyncapi variable that is an instance of AsyncAPIDocument.\nAt this point, the Generator passes the originalAsyncAPI and the asyncapi which make up part of the Template Context to the Render Engine.\nThe Template Context is accessible to the template files that are passed to either the react or nunjucks Render Engines.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}GeneratorasyncapiStringasyncapi -> AsyncAPIDocument typeoriginalAsyncAPI -> Stringified documentParserGeneratorTemplate ContextRender EngineAsyncAPI DocumentThe AsyncAPI document's content is accessible to you while writing your template in two distinct ways:\nThe originalAsyncAPI, which is a stringified version of the AsyncAPI document provided as input, without any modifications.\nThe asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates.\nIn the following sections, you will learn how to use either the originalAsyncAPI or the asyncapi in your template.Method 1: originalAsyncAPI and templateOne way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks.1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}Method 2: asyncapi and templateA major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function.Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable.For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own.In the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();\nTo learn about the various instances you can use to access the documents' content, look at the API of the AsyncAPI JavaScript Parser and the structure of AsyncAPIDocument"
+        },
+        "Method 1: originalAsyncAPI and template": {
+          "level": 3,
+          "content": "One way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks.1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}"
+        },
+        "Method 2: asyncapi and template": {
+          "level": 3,
+          "content": "A major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function.Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable.For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own.In the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();\nTo learn about the various instances you can use to access the documents' content, look at the API of the AsyncAPI JavaScript Parser and the structure of AsyncAPIDocument"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "The AsyncAPI document defines a standard, protocol-agnostic interface that describes message-based or event-driven APIs. The AsyncAPI document allows people or machines communicating with one another, to understand the capabilities of an event-driven API without requiring access to the source code, documentation, or inspecting the network traffic.\nThis document allows you to define your API structures and formats, including channels the end user can subscribe to and the message formats they receive.\nThe documents describing the message-driven API under the AsyncAPI specification are represented as JSON objects and conform to JSON standards. YAML, a superset of JSON, can also be used to represent an API.\n\n\nTo learn how to create an AsyncAPI document or refresh your knowledge about the syntax and structure of the AsyncAPI document, check out our latest specification documentation.\nYou can develop, validate, and convert the AsyncAPI document to the latest version or preview your AsyncAPI document in a more readable way using the AsyncAPI Studio.\n\n\nIn the following sections, you'll learn about the inner working of the generator, what happens once the AsyncAPI document is fed to the generator, and how you can access the content of the document in your template.\nAsyncAPI document generation process\n\nThe Generator receives the AsyncAPI Document as input.\nThe Generator sends to the Parser the asyncapiString is a stringified version of the original AsyncAPI Document to validate and parse it.\nThe Parser validates the AsyncAPI Document using additional schema-related plugins, either the OpenAPI schema, RAML data types, or Avro schema.\nIf the Parser determines that the AsyncAPI Document is valid, it manipulates the original JSON/YAML document and provides a set of helper functions in return, bundling them together into an asyncapi variable that is an instance of AsyncAPIDocument.\nAt this point, the Generator passes the originalAsyncAPI and the asyncapi which make up part of the Template Context to the Render Engine.\nThe Template Context is accessible to the template files that are passed to either the react or nunjucks Render Engines.\n\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}GeneratorasyncapiStringasyncapi -> AsyncAPIDocument typeoriginalAsyncAPI -> Stringified documentParserGeneratorTemplate ContextRender EngineAsyncAPI Document\nThe AsyncAPI document's content is accessible to you while writing your template in two distinct ways:\n\nThe originalAsyncAPI, which is a stringified version of the AsyncAPI document provided as input, without any modifications.\nThe asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates.\n\nIn the following sections, you will learn how to use either the originalAsyncAPI or the asyncapi in your template.\nMethod 1: originalAsyncAPI and template\nOne way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks.\n1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}\nMethod 2: asyncapi and template\nA major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function.\nOnce the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable.\nFor example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own.\nIn the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:\n1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();\n\nTo learn about the various instances you can use to access the documents' content, look at the API of the AsyncAPI JavaScript Parser and the structure of AsyncAPIDocument",
+    "sections": [
+      {
+        "title": "AsyncAPI document generation process",
+        "level": 2,
+        "text": "The Generator receives the AsyncAPI Document as input.\nThe Generator sends to the Parser the asyncapiString is a stringified version of the original AsyncAPI Document to validate and parse it.\nThe Parser validates the AsyncAPI Document using additional schema-related plugins, either the OpenAPI schema, RAML data types, or Avro schema.\nIf the Parser determines that the AsyncAPI Document is valid, it manipulates the original JSON/YAML document and provides a set of helper functions in return, bundling them together into an asyncapi variable that is an instance of AsyncAPIDocument.\nAt this point, the Generator passes the originalAsyncAPI and the asyncapi which make up part of the Template Context to the Render Engine.\nThe Template Context is accessible to the template files that are passed to either the react or nunjucks Render Engines.\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}GeneratorasyncapiStringasyncapi -> AsyncAPIDocument typeoriginalAsyncAPI -> Stringified documentParserGeneratorTemplate ContextRender EngineAsyncAPI DocumentThe AsyncAPI document's content is accessible to you while writing your template in two distinct ways:\nThe originalAsyncAPI, which is a stringified version of the AsyncAPI document provided as input, without any modifications.\nThe asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates.\nIn the following sections, you will learn how to use either the originalAsyncAPI or the asyncapi in your template.Method 1: originalAsyncAPI and templateOne way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks.1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}Method 2: asyncapi and templateA major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function.Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable.For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own.In the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();\nTo learn about the various instances you can use to access the documents' content, look at the API of the AsyncAPI JavaScript Parser and the structure of AsyncAPIDocument"
+      },
+      {
+        "title": "Method 1: originalAsyncAPI and template",
+        "level": 3,
+        "text": "One way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks.1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}"
+      },
+      {
+        "title": "Method 2: asyncapi and template",
+        "level": 3,
+        "text": "A major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function.Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable.For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own.In the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();\nTo learn about the various instances you can use to access the documents' content, look at the API of the AsyncAPI JavaScript Parser and the structure of AsyncAPIDocument"
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 1691.125px;\" viewBox=\"-8 -8 1691.125 237.9140625\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster default\" id=\"Generator\"><rect style=\"\" rx=\"0\" ry=\"0\" x=\"238.65625\" y=\"0\" width=\"1436.46875\" height=\"221.9140625\"></rect><g class=\"cluster-label\" transform=\"translate(914.28125, 0)\"><foreignObject width=\"85.21875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator</span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M188.656,115.805L192.823,115.805C196.99,115.805,205.323,115.805,213.656,115.805C221.99,115.805,230.323,115.805,238.74,115.888C247.156,115.971,255.656,116.138,259.906,116.221L264.156,116.305\" id=\"L-E-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M393.652,103.582L410.417,99.828C427.182,96.073,460.712,88.564,515.435,84.809C570.158,81.055,646.073,81.055,684.031,81.055L721.988,81.055\" id=\"L-B-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M792.145,81.055L845.802,81.055C899.46,81.055,1006.775,81.055,1090.86,85.046C1174.945,89.038,1235.801,97.021,1266.229,101.012L1296.656,105.003\" id=\"L-C-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M393.189,129.491L410.031,133.261C426.873,137.03,460.558,144.57,521.204,148.34C581.85,152.109,669.458,152.109,772.766,152.109C876.074,152.109,995.082,152.109,1085.014,147.939C1174.945,143.769,1235.801,135.429,1266.229,131.259L1296.656,127.089\" id=\"L-B-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M1461.336,115.805L1465.503,115.805C1469.669,115.805,1478.003,115.805,1486.336,115.805C1494.669,115.805,1503.003,115.805,1507.169,115.805L1511.336,115.805\" id=\"L-A-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(494.2421875, 81.0546875)\"><g class=\"label\" transform=\"translate(-63.3671875, -13.5)\"><foreignObject width=\"126.734375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">asyncapiString</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(1114.08984375, 81.0546875)\"><g class=\"label\" transform=\"translate(-157.56640625, -13.5)\"><foreignObject width=\"315.1328125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">asyncapi -&gt; AsyncAPIDocument type</span></div></foreignObject></g></g><g class=\"edgeLabel\" transform=\"translate(757.06640625, 152.109375)\"><g class=\"label\" transform=\"translate(-174.45703125, -13.5)\"><foreignObject width=\"348.9140625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\">originalAsyncAPI -&gt; Stringified document</span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-C-30\" transform=\"translate(757.06640625, 81.0546875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-35.078125\" y=\"-21\" width=\"70.15625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-27.578125, -13.5)\"><foreignObject width=\"55.15625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Parser</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-29\" transform=\"translate(334.765625, 115.8046875)\"><polygon points=\"71.109375,0 142.21875,-71.109375 71.109375,-142.21875 0,-71.109375\" class=\"label-container\" transform=\"translate(-71.109375,71.109375)\" style=\"\"></polygon><g class=\"label\" style=\"\" transform=\"translate(-42.609375, -13.5)\"><foreignObject width=\"85.21875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Generator</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-A-28\" transform=\"translate(1378.99609375, 115.8046875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-82.33984375\" y=\"-21\" width=\"164.6796875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-74.83984375, -13.5)\"><foreignObject width=\"149.6796875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Template Context</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-31\" transform=\"translate(1580.73046875, 115.8046875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-69.39453125\" y=\"-21\" width=\"138.7890625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-61.89453125, -13.5)\"><foreignObject width=\"123.7890625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Render Engine</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-32\" transform=\"translate(94.328125, 115.8046875)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-94.328125\" y=\"-21\" width=\"188.65625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-86.828125, -13.5)\"><foreignObject width=\"173.65625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">AsyncAPI Document</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}GeneratorasyncapiStringasyncapi -> AsyncAPIDocument typeoriginalAsyncAPI -> Stringified documentParserGeneratorTemplate ContextRender EngineAsyncAPI Document",
+        "description": "SVG containing 9 paths, 2 circles, and 5 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1//example use case for using a stringified AsyncAPI document inside template hooks\n2\n3const fs = require('fs');\n4const path = require('path');\n5\n6function createAsyncapiFile(generator) {\n7  const asyncapi = generator.originalAsyncAPI;\n8  let extension;\n9\n10  try {\n11    JSON.parse(asyncapi);\n12    extension = 'json';\n13  } catch (e) {\n14    extension = 'yaml';\n15  }\n16\n17  const outputFileName = `asyncapi.${extension}`;\n18\n19  const asyncapiOutputLocation = path.resolve('./', outputFileName);\n20\n21  fs.writeFileSync(asyncapiOutputLocation, asyncapi);\n22}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>//example use case for using a stringified AsyncAPI document inside template hooks\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>const </span><span style=\"color:#7edcda\">fs</span><span> = require(</span><span style=\"color:#c0e2a3;font-weight:500\">'fs'</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>const </span><span style=\"color:#7edcda\">path</span><span> = require(</span><span style=\"color:#c0e2a3;font-weight:500\">'path'</span><span>)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>function createAsyncapiFile(generator) {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  const </span><span style=\"color:#7edcda\">asyncapi</span><span> = generator.originalAsyncAPI</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  let extension</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>  try {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    JSON.parse(asyncapi)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">extension</span><span> = </span><span style=\"color:#c0e2a3;font-weight:500\">'json'</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>  } catch (e) {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>    </span><span style=\"color:#7edcda\">extension</span><span> = </span><span style=\"color:#c0e2a3;font-weight:500\">'yaml'</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  const </span><span style=\"color:#7edcda\">outputFileName</span><span> = `asyncapi.</span><span style=\"color:#d6deeb\">${extension}</span><span>`</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>  const </span><span style=\"color:#7edcda\">asyncapiOutputLocation</span><span> = path.resolve(</span><span style=\"color:#c0e2a3;font-weight:500\">'./'</span><span>, outputFileName)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>  fs.writeFileSync(asyncapiOutputLocation, asyncapi)</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1const apiName = asyncapi.info().title();\n2const channels = asyncapi.channels();",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>const </span><span style=\"color:#7edcda\">apiName</span><span> = asyncapi.info().title()</span><span style=\"color:#797f8c\">;</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>const </span><span style=\"color:#7edcda\">channels</span><span> = asyncapi.channels()</span><span style=\"color:#797f8c\">;</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "originalAsyncAPI",
+        "context": "The originalAsyncAPI, which is a stringified version of the AsyncAPI document provided as input, without any modifications."
+      },
+      {
+        "id": "highlight_1",
+        "content": "asyncapi",
+        "context": "The asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates."
+      },
+      {
+        "id": "highlight_2",
+        "content": "AsyncAPIDocument",
+        "context": "The asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates."
+      },
+      {
+        "id": "highlight_3",
+        "content": "Parser",
+        "context": "The asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates."
+      },
+      {
+        "id": "highlight_4",
+        "content": "originalAyncAPI",
+        "context": "The asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates."
+      },
+      {
+        "id": "highlight_5",
+        "content": "asyncapi",
+        "context": "The asyncapi (AsyncAPIDocument) which is an object with a set of helper functions, that comes as a result of the Parser manipulating the originalAyncAPI .The asyncapi functions make it easier to access the contents of AsyncAPI documents in your templates."
+      },
+      {
+        "id": "highlight_6",
+        "content": "originalAsyncAPI",
+        "context": "Method 1: originalAsyncAPI and template"
+      },
+      {
+        "id": "highlight_7",
+        "content": "originalAsyncAPI",
+        "context": "One way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks."
+      },
+      {
+        "id": "highlight_8",
+        "content": "generator.originalAsyncAPI",
+        "context": "One way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks."
+      },
+      {
+        "id": "highlight_9",
+        "content": "originalAsyncAPI",
+        "context": "One way of using the contents of the AsyncAPI document inside your template files is by using its stringified version that reflects the same contents as the AsyncAPI document provided as input to the generator. You can access it directly in your templates using the originalAsyncAPI variable. You also access it via the hooks generator.originalAsyncAPI because originalAsyncAPI is also a part of the generator instance that is passed to hooks."
+      },
+      {
+        "id": "highlight_10",
+        "content": "asyncapi",
+        "context": "Method 2: asyncapi and template"
+      },
+      {
+        "id": "highlight_11",
+        "content": "asyncapi",
+        "context": "A major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function."
+      },
+      {
+        "id": "highlight_12",
+        "content": "AsyncAPIDocument",
+        "context": "A major advantage of using asyncapi (which is an instance of AsyncAPIDocument) is that it enables the developer to easily access the AsyncAPI documents' content by simply invoking a function."
+      },
+      {
+        "id": "highlight_13",
+        "content": "AsyncAPIDocument",
+        "context": "Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable."
+      },
+      {
+        "id": "highlight_14",
+        "content": "AsyncAPIDocument",
+        "context": "Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable."
+      },
+      {
+        "id": "highlight_15",
+        "content": "asyncapi",
+        "context": "Once the specification YAML or JSON document is passed as input to the generator, it is passed on to the Parser library, which then manipulates the asyncAPI document to a more structured document called the AsyncAPIDocument. Once the parser returns the document to the generator, the generator passes it to the render engine. The render engine makes the AsyncAPIDocument object accessible to your template through the asyncapi variable."
+      },
+      {
+        "id": "highlight_16",
+        "content": "asyncapi.version()",
+        "context": "For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own."
+      },
+      {
+        "id": "highlight_17",
+        "content": "asyncapi.allMessages()",
+        "context": "For example, if you want to extract the version of your API from AsyncAPI document, you can do that by calling asyncapi.version(). You can say that this one is easy to access from JSON objects, but there are more complex scenarios. For example, to get access to all messages from all channels, you can call asyncapi.allMessages() instead of iterating through a complex JSON object on your own."
+      },
+      {
+        "id": "highlight_18",
+        "content": "asyncapi",
+        "context": "In the sample code snippet below, notice how you can access the contents of the AsyncAPI document in your template using asyncapi variable from the context:"
+      }
+    ]
+  }
+}

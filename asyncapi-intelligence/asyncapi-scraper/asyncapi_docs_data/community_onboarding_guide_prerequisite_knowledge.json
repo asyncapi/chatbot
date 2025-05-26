@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge",
+    "timestamp": "2025-03-12T17:56:58.697Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Prerequisite Knowledge",
+    "hierarchy": {
+      "sections": {
+        "Diátaxis framework and content buckets": {
+          "level": 2,
+          "content": "AsyncAPI adopted the Diátaxis framework to meet our specific needs, classifying our documentation into content buckets (categories).\nConcepts define the concepts of AsyncAPI features.\nTutorials teach beginner processes with AsyncAPI by doing, taking you step-by-step from Point A to Point B.\nTools documents the AsyncAPI tools ecosystem.\nGuide teaches troubleshooting and understanding AsyncAPI's capabilities at a high level.\nReference documents the AsyncAPI specification.\nMigration guides how to upgrade to a newer AsyncAPI version.\nCommunity explains our documentation processes, guidelines, and resources to community members."
+        },
+        "Markdown syntax and mermaid.js diagrams": {
+          "level": 2,
+          "content": "AsyncAPI's docs are written in Markdown syntax.Our diagrams are created with Mermaid markdown syntax thanks to the mermaid.js dependency."
+        },
+        "AsyncAPI concepts": {
+          "level": 2,
+          "content": "Before contributing to the documentation, you should understand the purpose of AsyncAPI and essential AsyncAPI concepts (i.e., servers, producers, consumers, channels, messages, etc.).You should also fundamentally understand the AsyncAPI specification."
+        },
+        "JSON and YAML": {
+          "level": 2,
+          "content": "Because an AsyncAPI definition can be written in JSON and YAML, you must learn how to read, write, and validate these formats."
+        },
+        "Understanding Event-Driven Architecture": {
+          "level": 2,
+          "content": "Event-Driven Architecture (EDA) uses events to trigger and communicate between services. (AsyncAPI is an open-source initiative that seeks to improve the current state of EDAs.)"
+        },
+        "Protocols used with AsyncAPI": {
+          "level": 2,
+          "content": "AsyncAPI supports several protocols, such as Kafka, AMQP, MQTT, and more. You will benefit from acquiring a basic understanding of protocols most used with AsyncAPI, including their use cases and how they work with AsyncAPI."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "The prerequisite knowledge section highlights the key technologies, concepts, and skills our technical writers need for working with AsyncAPI documentation. You must understand the main concepts behind our documentation processes, content classification, and the AsyncAPI specification.\nDiátaxis framework and content buckets\nAsyncAPI adopted the Diátaxis framework to meet our specific needs, classifying our documentation into content buckets (categories).\n\nConcepts define the concepts of AsyncAPI features.\nTutorials teach beginner processes with AsyncAPI by doing, taking you step-by-step from Point A to Point B.\nTools documents the AsyncAPI tools ecosystem.\nGuide teaches troubleshooting and understanding AsyncAPI's capabilities at a high level.\nReference documents the AsyncAPI specification.\nMigration guides how to upgrade to a newer AsyncAPI version.\nCommunity explains our documentation processes, guidelines, and resources to community members.\n\nMarkdown syntax and mermaid.js diagrams\nAsyncAPI's docs are written in Markdown syntax.\nOur diagrams are created with Mermaid markdown syntax thanks to the mermaid.js dependency.\nAsyncAPI concepts\nBefore contributing to the documentation, you should understand the purpose of AsyncAPI and essential AsyncAPI concepts (i.e., servers, producers, consumers, channels, messages, etc.).\nYou should also fundamentally understand the AsyncAPI specification.\nJSON and YAML\nBecause an AsyncAPI definition can be written in JSON and YAML, you must learn how to read, write, and validate these formats.\nUnderstanding Event-Driven Architecture\nEvent-Driven Architecture (EDA) uses events to trigger and communicate between services. (AsyncAPI is an open-source initiative that seeks to improve the current state of EDAs.)\nProtocols used with AsyncAPI\nAsyncAPI supports several protocols, such as Kafka, AMQP, MQTT, and more. You will benefit from acquiring a basic understanding of protocols most used with AsyncAPI, including their use cases and how they work with AsyncAPI.",
+    "sections": [
+      {
+        "title": "Diátaxis framework and content buckets",
+        "level": 2,
+        "text": "AsyncAPI adopted the Diátaxis framework to meet our specific needs, classifying our documentation into content buckets (categories).\nConcepts define the concepts of AsyncAPI features.\nTutorials teach beginner processes with AsyncAPI by doing, taking you step-by-step from Point A to Point B.\nTools documents the AsyncAPI tools ecosystem.\nGuide teaches troubleshooting and understanding AsyncAPI's capabilities at a high level.\nReference documents the AsyncAPI specification.\nMigration guides how to upgrade to a newer AsyncAPI version.\nCommunity explains our documentation processes, guidelines, and resources to community members."
+      },
+      {
+        "title": "Markdown syntax and mermaid.js diagrams",
+        "level": 2,
+        "text": "AsyncAPI's docs are written in Markdown syntax.Our diagrams are created with Mermaid markdown syntax thanks to the mermaid.js dependency."
+      },
+      {
+        "title": "AsyncAPI concepts",
+        "level": 2,
+        "text": "Before contributing to the documentation, you should understand the purpose of AsyncAPI and essential AsyncAPI concepts (i.e., servers, producers, consumers, channels, messages, etc.).You should also fundamentally understand the AsyncAPI specification."
+      },
+      {
+        "title": "JSON and YAML",
+        "level": 2,
+        "text": "Because an AsyncAPI definition can be written in JSON and YAML, you must learn how to read, write, and validate these formats."
+      },
+      {
+        "title": "Understanding Event-Driven Architecture",
+        "level": 2,
+        "text": "Event-Driven Architecture (EDA) uses events to trigger and communicate between services. (AsyncAPI is an open-source initiative that seeks to improve the current state of EDAs.)"
+      },
+      {
+        "title": "Protocols used with AsyncAPI",
+        "level": 2,
+        "text": "AsyncAPI supports several protocols, such as Kafka, AMQP, MQTT, and more. You will benefit from acquiring a basic understanding of protocols most used with AsyncAPI, including their use cases and how they work with AsyncAPI."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "Concepts",
+        "context": "Concepts define the concepts of AsyncAPI features."
+      },
+      {
+        "id": "highlight_1",
+        "content": "Tutorials",
+        "context": "Tutorials teach beginner processes with AsyncAPI by doing, taking you step-by-step from Point A to Point B."
+      },
+      {
+        "id": "highlight_2",
+        "content": "Tools",
+        "context": "Tools documents the AsyncAPI tools ecosystem."
+      },
+      {
+        "id": "highlight_3",
+        "content": "Guide",
+        "context": "Guide teaches troubleshooting and understanding AsyncAPI's capabilities at a high level."
+      },
+      {
+        "id": "highlight_4",
+        "content": "Reference",
+        "context": "Reference documents the AsyncAPI specification."
+      },
+      {
+        "id": "highlight_5",
+        "content": "Migration",
+        "context": "Migration guides how to upgrade to a newer AsyncAPI version."
+      },
+      {
+        "id": "highlight_6",
+        "content": "Community",
+        "context": "Community explains our documentation processes, guidelines, and resources to community members."
+      },
+      {
+        "id": "highlight_7",
+        "content": "mermaid.js",
+        "context": "Markdown syntax and mermaid.js diagrams"
+      }
+    ]
+  }
+}
