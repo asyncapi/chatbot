@@ -1,0 +1,191 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup",
+    "timestamp": "2025-03-12T17:57:15.287Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Tools And Setup",
+    "hierarchy": {
+      "sections": {
+        "Tools for technical writers": {
+          "level": 2,
+          "content": "Technical writer contributors need the following tools to contribute to AsyncAPI documentation effectively:\nA laptop or desktop computer capable of running the tools necessary to contribute to the project.\nStable internet access to clone the project repository, submit contributions, and stay updated on project changes.\nA GitHub account. AsyncAPI hosts all its project's source code and documentation on GitHub. You'll need a GitHub account to create issues, fork the repository, submit pull requests, and more. If you're new to GitHub, familiarize yourself with basic GitHub functionalities and workflows.\nA code editor, such as VS Code, capable of handling Markdown files.\nGit, a version control system."
+        },
+        "Setup your AsyncAPI local environment": {
+          "level": 2,
+          "content": "Fork the repository by clicking the Fork option on the top right of the main repository.\n\n\nOpen Command Prompt on your local computer.\n\n\nClone the forked repository by adding your GitHub username instead of <username>.\nFor multiple contributions, follow the proper configuration of a forked AsyncAPI repo.\n\n    git clone https://github.com/<username>/website/\nNavigate to the website directory.\n    cd website\nInstall all website dependencies.\n    npm install\nRun the website locally.\n    npm run dev\nAccess the live development server at localhost:3000."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "Tools for technical writers\nTechnical writer contributors need the following tools to contribute to AsyncAPI documentation effectively:\n\nA laptop or desktop computer capable of running the tools necessary to contribute to the project.\nStable internet access to clone the project repository, submit contributions, and stay updated on project changes.\nA GitHub account. AsyncAPI hosts all its project's source code and documentation on GitHub. You'll need a GitHub account to create issues, fork the repository, submit pull requests, and more. If you're new to GitHub, familiarize yourself with basic GitHub functionalities and workflows.\nA code editor, such as VS Code, capable of handling Markdown files.\nGit, a version control system.\n\nSetup your AsyncAPI local environment\n\n\nFork the repository by clicking the Fork option on the top right of the main repository.\n\n\nOpen Command Prompt on your local computer.\n\n\nClone the forked repository by adding your GitHub username instead of <username>.\nFor multiple contributions, follow the proper configuration of a forked AsyncAPI repo.\n\n\n    git clone https://github.com/<username>/website/\n\nNavigate to the website directory.\n\n    cd website\n\nInstall all website dependencies.\n\n    npm install\n\nRun the website locally.\n\n    npm run dev\n\nAccess the live development server at localhost:3000.",
+    "sections": [
+      {
+        "title": "Tools for technical writers",
+        "level": 2,
+        "text": "Technical writer contributors need the following tools to contribute to AsyncAPI documentation effectively:\nA laptop or desktop computer capable of running the tools necessary to contribute to the project.\nStable internet access to clone the project repository, submit contributions, and stay updated on project changes.\nA GitHub account. AsyncAPI hosts all its project's source code and documentation on GitHub. You'll need a GitHub account to create issues, fork the repository, submit pull requests, and more. If you're new to GitHub, familiarize yourself with basic GitHub functionalities and workflows.\nA code editor, such as VS Code, capable of handling Markdown files.\nGit, a version control system."
+      },
+      {
+        "title": "Setup your AsyncAPI local environment",
+        "level": 2,
+        "text": "Fork the repository by clicking the Fork option on the top right of the main repository.\n\n\nOpen Command Prompt on your local computer.\n\n\nClone the forked repository by adding your GitHub username instead of <username>.\nFor multiple contributions, follow the proper configuration of a forked AsyncAPI repo.\n\n    git clone https://github.com/<username>/website/\nNavigate to the website directory.\n    cd website\nInstall all website dependencies.\n    npm install\nRun the website locally.\n    npm run dev\nAccess the live development server at localhost:3000."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "git clone https://github.com/<username>/website/",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>    git </span><span style=\"color:#7edcda\">clone</span><span> https://github.com/&lt;username&gt;/website/</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "cd website",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>    </span><span style=\"color:#7edcda\">cd</span><span> website</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "npm install",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>    npm install</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "npm run dev",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>    npm run dev</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "Fork",
+        "context": "Fork the repository by clicking the Fork option on the top right of the main repository."
+      },
+      {
+        "id": "highlight_1",
+        "content": "<username>",
+        "context": "Clone the forked repository by adding your GitHub username instead of <username>.\nFor multiple contributions, follow the proper configuration of a forked AsyncAPI repo."
+      }
+    ]
+  }
+}

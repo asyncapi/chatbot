@@ -1,0 +1,510 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/authentication",
+    "timestamp": "2025-03-12T17:55:28.755Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Getting Started with Authentication Functions",
+    "hierarchy": {
+      "sections": {
+        "Getting Started with Authentication Functions": {
+          "level": 1,
+          "content": "Authentication in Glee can be implemented using authentication functions. These functions are files that export one or both of the following Node.js functions: clientAuth and serverAuth:1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  // Server authentication logic\n5}\n6\n7export async function clientAuth({ parsedAsyncAPI, serverName }) {\n8  // Client authentication logic\n9}Glee searches for authentication files in the auth directory by default. However, this can be configured using the glee config file. The authentication file's name should match the targeted server for which the authentication logic is intended.Supported Authentication Values in the asyncapi.yaml FileAsyncAPI supports a variety of authentication formats as specified in its documentation. Glee, however, supports the following authentication schemas:\nuserPassword\nhttp (\"bearer\")\nhttpApiKey\nOauth2\nBelow is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordHere's an example for a client that implements some requirements of the server mentioned above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordGlee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file.When Glee operates as a client, it can connect to a Glee server. Conversely, as a server, it accepts connections from other Glee clients. Thus, a Glee application can accept connections from clients while also sending requests to other Glee servers.If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary.Server Authentication in GleeThe serverAuth function takes an argument that can be destructured as follows:AttributeDescriptiondoneThe function that signals the server to proceed.authPropsThe authentication parameters received from the client.serverNameThe name of the server/broker emitting the event.docThe parsed AsyncAPI schema.done() FunctionThe done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call.authPropsThe authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters.Client Authentication in GleeThe clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent.Possible Authentication ParametersThe code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+        },
+        "Supported Authentication Values in the asyncapi.yaml File": {
+          "level": 2,
+          "content": "AsyncAPI supports a variety of authentication formats as specified in its documentation. Glee, however, supports the following authentication schemas:\nuserPassword\nhttp (\"bearer\")\nhttpApiKey\nOauth2\nBelow is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordHere's an example for a client that implements some requirements of the server mentioned above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordGlee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file.When Glee operates as a client, it can connect to a Glee server. Conversely, as a server, it accepts connections from other Glee clients. Thus, a Glee application can accept connections from clients while also sending requests to other Glee servers.If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary."
+        },
+        "Server Authentication in Glee": {
+          "level": 2,
+          "content": "The serverAuth function takes an argument that can be destructured as follows:AttributeDescriptiondoneThe function that signals the server to proceed.authPropsThe authentication parameters received from the client.serverNameThe name of the server/broker emitting the event.docThe parsed AsyncAPI schema.done() FunctionThe done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call.authPropsThe authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters."
+        },
+        "done() Function": {
+          "level": 4,
+          "content": "The done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call."
+        },
+        "authProps": {
+          "level": 4,
+          "content": "The authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters.Client Authentication in GleeThe clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent."
+        },
+        "Client Authentication in Glee": {
+          "level": 2,
+          "content": "The clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent.Possible Authentication ParametersThe code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+        },
+        "Possible Authentication Parameters": {
+          "level": 3,
+          "content": "The code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Getting Started with Authentication Functions\nAuthentication in Glee can be implemented using authentication functions. These functions are files that export one or both of the following Node.js functions: clientAuth and serverAuth:\n1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  // Server authentication logic\n5}\n6\n7export async function clientAuth({ parsedAsyncAPI, serverName }) {\n8  // Client authentication logic\n9}\nGlee searches for authentication files in the auth directory by default. However, this can be configured using the glee config file. The authentication file's name should match the targeted server for which the authentication logic is intended.\nSupported Authentication Values in the asyncapi.yaml File\nAsyncAPI supports a variety of authentication formats as specified in its documentation. Glee, however, supports the following authentication schemas:\n\nuserPassword\nhttp (\"bearer\")\nhttpApiKey\nOauth2\n\nBelow is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:\n1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPassword\nHere's an example for a client that implements some requirements of the server mentioned above:\n1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPassword\nGlee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file.\nWhen Glee operates as a client, it can connect to a Glee server. Conversely, as a server, it accepts connections from other Glee clients. Thus, a Glee application can accept connections from clients while also sending requests to other Glee servers.\nIf a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary.\nServer Authentication in Glee\nThe serverAuth function takes an argument that can be destructured as follows:\nAttributeDescriptiondoneThe function that signals the server to proceed.authPropsThe authentication parameters received from the client.serverNameThe name of the server/broker emitting the event.docThe parsed AsyncAPI schema.\ndone() Function\nThe done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.\n1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}\nParameters for done():\n\nAuthentication Result (Boolean): true for success, false for failure.\n\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.\nThe done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call.\nauthProps\nThe authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:\n1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}\nMethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters.\nClient Authentication in Glee\nThe clientAuth function also takes an argument that can be destructured as follows:\nAttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent.\nPossible Authentication Parameters\nThe code snippet below illustrates the possible authentication parameters:\n1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}\nThe names of the authentication parameters should match the names specified in the asyncapi.yaml file.\nAuth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties.",
+    "sections": [
+      {
+        "title": "Getting Started with Authentication Functions",
+        "level": 1,
+        "text": "Authentication in Glee can be implemented using authentication functions. These functions are files that export one or both of the following Node.js functions: clientAuth and serverAuth:1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  // Server authentication logic\n5}\n6\n7export async function clientAuth({ parsedAsyncAPI, serverName }) {\n8  // Client authentication logic\n9}Glee searches for authentication files in the auth directory by default. However, this can be configured using the glee config file. The authentication file's name should match the targeted server for which the authentication logic is intended.Supported Authentication Values in the asyncapi.yaml FileAsyncAPI supports a variety of authentication formats as specified in its documentation. Glee, however, supports the following authentication schemas:\nuserPassword\nhttp (\"bearer\")\nhttpApiKey\nOauth2\nBelow is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordHere's an example for a client that implements some requirements of the server mentioned above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordGlee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file.When Glee operates as a client, it can connect to a Glee server. Conversely, as a server, it accepts connections from other Glee clients. Thus, a Glee application can accept connections from clients while also sending requests to other Glee servers.If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary.Server Authentication in GleeThe serverAuth function takes an argument that can be destructured as follows:AttributeDescriptiondoneThe function that signals the server to proceed.authPropsThe authentication parameters received from the client.serverNameThe name of the server/broker emitting the event.docThe parsed AsyncAPI schema.done() FunctionThe done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call.authPropsThe authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters.Client Authentication in GleeThe clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent.Possible Authentication ParametersThe code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+      },
+      {
+        "title": "Supported Authentication Values in the asyncapi.yaml File",
+        "level": 2,
+        "text": "AsyncAPI supports a variety of authentication formats as specified in its documentation. Glee, however, supports the following authentication schemas:\nuserPassword\nhttp (\"bearer\")\nhttpApiKey\nOauth2\nBelow is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordHere's an example for a client that implements some requirements of the server mentioned above:1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPasswordGlee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file.When Glee operates as a client, it can connect to a Glee server. Conversely, as a server, it accepts connections from other Glee clients. Thus, a Glee application can accept connections from clients while also sending requests to other Glee servers.If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary."
+      },
+      {
+        "title": "Server Authentication in Glee",
+        "level": 2,
+        "text": "The serverAuth function takes an argument that can be destructured as follows:AttributeDescriptiondoneThe function that signals the server to proceed.authPropsThe authentication parameters received from the client.serverNameThe name of the server/broker emitting the event.docThe parsed AsyncAPI schema.done() FunctionThe done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call.authPropsThe authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters."
+      },
+      {
+        "title": "done() Function",
+        "level": 4,
+        "text": "The done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed.1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}Parameters for done():\nAuthentication Result (Boolean): true for success, false for failure.\nPassing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication.The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call."
+      },
+      {
+        "title": "authProps",
+        "level": 4,
+        "text": "The authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}MethodDescriptiongetOauthToken()Returns the OAuth authentication parameter.getHttpAPIKeys(name)Returns the HttpAPIKeys parameter with the specified name from either headers or query parametergetToken()Returns the HTTP bearer token parameter.getUserPass()Returns username and password parameters.Client Authentication in GleeThe clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent."
+      },
+      {
+        "title": "Client Authentication in Glee",
+        "level": 2,
+        "text": "The clientAuth function also takes an argument that can be destructured as follows:AttributeDescriptionparsedAsyncAPIThe parsed AsyncAPI schema.serverNameThe server/broker's name from which the authentication parameters are being sent.Possible Authentication ParametersThe code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+      },
+      {
+        "title": "Possible Authentication Parameters",
+        "level": 3,
+        "text": "The code snippet below illustrates the possible authentication parameters:1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}The names of the authentication parameters should match the names specified in the asyncapi.yaml file.Auth TypeValuesHTTP bearer (JWT)Value should be a JWT string.OAuth2Value should be a string.httpApiKey in headers or query paramsValue should be a string.userPassValue should be an object with the user and password as properties."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  // Server authentication logic\n5}\n6\n7export async function clientAuth({ parsedAsyncAPI, serverName }) {\n8  // Client authentication logic\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">/* websocket.js */</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">serverAuth</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ authProps, done }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#797f8c\">// Server authentication logic</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>}\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#64a0dc\">export</span><span> </span><span style=\"color:#64a0dc\">async</span><span> </span><span style=\"color:#64a0dc\">function</span><span style=\"color:#74e287\"> </span><span style=\"color:#7edcda\">clientAuth</span><span style=\"color:#74e287\">(</span><span style=\"color:#d6deeb\">{ parsedAsyncAPI, serverName }</span><span style=\"color:#74e287\">) </span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#797f8c\">// Client authentication logic</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1## Server AsyncAPI Schema\n2asyncapi: 3.0.0\n3info:\n4  title: AsyncAPI IMDB Server\n5  version: 1.0.0\n6  description: This app is a dummy server that streams trending/upcoming anime.\n7servers:\n8  trendingAnimeServer:\n9    host: 'localhost:8081'\n10    protocol: http\n11    security:\n12      - $ref: '#/components/securitySchemes/userPass'\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPassword",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">## Server AsyncAPI Schema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#d8da68\">3.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">info:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">IMDB</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Server</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#d8da68\">1.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">This</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">app</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">is</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">a</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">dummy</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">server</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">that</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">streams</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">trending/upcoming</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">anime.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">trendingAnimeServer:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'localhost:8081'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">http</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">security:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/securitySchemes/userPass'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">securitySchemes:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">userPass:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">userPassword</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1## Client AsyncAPI Schema\n2servers:\n3  trendingAnime:\n4    host: localhost:8081\n5    protocol: http\n6    security:\n7      - $ref: '#/components/securitySchemes/userPass'\n8  testwebhook:\n9    host: localhost:9000\n10    protocol: ws\n11x-remoteServers:\n12  - trendingAnime\n13\n14  ...\n15\n16components:\n17  securitySchemes:\n18    userPass:\n19      type: userPassword",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">## Client AsyncAPI Schema</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">trendingAnime:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">localhost:8081</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">http</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span style=\"color:#7edcda\">security:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/securitySchemes/userPass'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">testwebhook:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">localhost:9000</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ws</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span></span><span style=\"color:#7edcda\">x-remoteServers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>  </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">trendingAnime</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">securitySchemes:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">userPass:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>      </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">userPassword</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1/* websocket.js */\n2\n3export async function serverAuth({ authProps, done }) {\n4  if (isValidUser(authProps)) {\n5    done(true);\n6  } else {\n7    done(false);\n8  }\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\">/* websocket.js */</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>export async </span><span style=\"color:#64a0dc\">function</span><span> server</span><span class=\"hljs-constructor\">Auth({ </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">authProps</span><span class=\"hljs-constructor\">, </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">done</span><span class=\"hljs-constructor\"> })</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">if</span><span> (is</span><span class=\"hljs-constructor\">ValidUser(</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">authProps</span><span class=\"hljs-constructor\">)</span><span>) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#64a0dc\">done</span><span>(</span><span style=\"color:#64a0dc\">true</span><span>);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  } </span><span style=\"color:#64a0dc\">else</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#64a0dc\">done</span><span>(</span><span style=\"color:#64a0dc\">false</span><span>);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1export async function serverAuth({ authProps, done }) {\n2  // Some network request\n3  authProps.getOauthToken()\n4  authProps.getHttpAPIKeys('api_key')\n5  authProps.getToken()\n6  authProps.getUserPass()\n7\n8  done(false)\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>export async </span><span style=\"color:#64a0dc\">function</span><span> server</span><span class=\"hljs-constructor\">Auth({ </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">authProps</span><span class=\"hljs-constructor\">, </span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">done</span><span class=\"hljs-constructor\"> })</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#797f8c\">// Some network request</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  authProps.get</span><span class=\"hljs-constructor\">OauthToken()</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  authProps.get</span><span class=\"hljs-constructor\">HttpAPIKeys('</span><span class=\"hljs-constructor\" style=\"color:#d6deeb\">api_key</span><span class=\"hljs-constructor\">')</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  authProps.get</span><span class=\"hljs-constructor\">Token()</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  authProps.get</span><span class=\"hljs-constructor\">UserPass()</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#64a0dc\">done</span><span>(</span><span style=\"color:#64a0dc\">false</span><span>)\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1export async function clientAuth({ serverName }) {\n2  return {\n3    token: process.env.TOKEN,\n4    oauth: process.env.OAUTH2,\n5    apiKey: process.env.APIKEY,\n6    userPass: {\n7      user: process.env.USER,\n8      password: process.env.PASSWORD,\n9    },\n10  }\n11}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>export async function clientAuth({ </span><span style=\"color:#d6deeb\">serverName }) {\n</span></span><span style=\"padding-right:2rem;color:#d6deeb\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  return {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span style=\"color:#d6deeb\">    token</span><span>: process</span><span style=\"color:#d6deeb\">.env</span><span style=\"color:#d6deeb\">.TOKEN</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    oauth: process</span><span style=\"color:#d6deeb\">.env</span><span style=\"color:#d6deeb\">.OAUTH</span><span>2,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    apiKey: process</span><span style=\"color:#d6deeb\">.env</span><span style=\"color:#d6deeb\">.APIKEY</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>    userPass: {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      user: process</span><span style=\"color:#d6deeb\">.env</span><span style=\"color:#d6deeb\">.USER</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>      password: process</span><span style=\"color:#d6deeb\">.env</span><span style=\"color:#d6deeb\">.PASSWORD</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>    },\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "Attribute",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "done",
+            "Description": "The function that signals the server to proceed."
+          },
+          {
+            "Attribute": "authProps",
+            "Description": "The authentication parameters received from the client."
+          },
+          {
+            "Attribute": "serverName",
+            "Description": "The name of the server/broker emitting the event."
+          },
+          {
+            "Attribute": "doc",
+            "Description": "The parsed AsyncAPI schema."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_1",
+        "headers": [
+          "Method",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Method": "getOauthToken()",
+            "Description": "Returns the OAuth authentication parameter."
+          },
+          {
+            "Method": "getHttpAPIKeys(name)",
+            "Description": "Returns the HttpAPIKeys parameter with the specified name from either headers or query parameter"
+          },
+          {
+            "Method": "getToken()",
+            "Description": "Returns the HTTP bearer token parameter."
+          },
+          {
+            "Method": "getUserPass()",
+            "Description": "Returns username and password parameters."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_2",
+        "headers": [
+          "Attribute",
+          "Description"
+        ],
+        "rows": [
+          {
+            "Attribute": "parsedAsyncAPI",
+            "Description": "The parsed AsyncAPI schema."
+          },
+          {
+            "Attribute": "serverName",
+            "Description": "The server/broker's name from which the authentication parameters are being sent."
+          }
+        ],
+        "context": ""
+      },
+      {
+        "id": "table_3",
+        "headers": [
+          "Auth Type",
+          "Values"
+        ],
+        "rows": [
+          {
+            "Auth Type": "HTTP bearer (JWT)",
+            "Values": "Value should be a JWT string."
+          },
+          {
+            "Auth Type": "OAuth2",
+            "Values": "Value should be a string."
+          },
+          {
+            "Auth Type": "httpApiKey in headers or query params",
+            "Values": "Value should be a string."
+          },
+          {
+            "Auth Type": "userPass",
+            "Values": "Value should be an object with the user and password as properties."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "clientAuth",
+        "context": "Authentication in Glee can be implemented using authentication functions. These functions are files that export one or both of the following Node.js functions: clientAuth and serverAuth:"
+      },
+      {
+        "id": "highlight_1",
+        "content": "serverAuth",
+        "context": "Authentication in Glee can be implemented using authentication functions. These functions are files that export one or both of the following Node.js functions: clientAuth and serverAuth:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "auth",
+        "context": "Glee searches for authentication files in the auth directory by default. However, this can be configured using the glee config file. The authentication file's name should match the targeted server for which the authentication logic is intended."
+      },
+      {
+        "id": "highlight_3",
+        "content": "asyncapi.yaml",
+        "context": "Below is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:"
+      },
+      {
+        "id": "highlight_4",
+        "content": "userPassword",
+        "context": "Below is an example of a asyncapi.yaml file for a server with security requirements and a userPassword security scheme:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "serverAuth",
+        "context": "Glee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file."
+      },
+      {
+        "id": "highlight_6",
+        "content": "clientAuth",
+        "context": "Glee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file."
+      },
+      {
+        "id": "highlight_7",
+        "content": "x-remoteServers",
+        "context": "Glee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file."
+      },
+      {
+        "id": "highlight_8",
+        "content": "asyncapi.yaml",
+        "context": "Glee can function as both a server and a client. Hence, the need for both serverAuth and clientAuth functions arises. Glee acts as a client when the server name is included in the x-remoteServers property in the asyncapi.yaml file."
+      },
+      {
+        "id": "highlight_9",
+        "content": "asyncapi.yaml",
+        "context": "If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary."
+      },
+      {
+        "id": "highlight_10",
+        "content": "serverAuth",
+        "context": "If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary."
+      },
+      {
+        "id": "highlight_11",
+        "content": "clientAuth",
+        "context": "If a security requirement is specified in the asyncapi.yaml file, and Glee acts as a server, the serverAuth function should be implemented. If Glee acts as a client, then clientAuth should be implemented. If Glee is used as both client and server, both functions are necessary."
+      },
+      {
+        "id": "highlight_12",
+        "content": "serverAuth",
+        "context": "The serverAuth function takes an argument that can be destructured as follows:"
+      },
+      {
+        "id": "highlight_13",
+        "content": "done()",
+        "context": "The done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed."
+      },
+      {
+        "id": "highlight_14",
+        "content": "serverAuth",
+        "context": "The done() parameter in the serverAuth function signals to the broker/server what action to take next, based on the boolean value passed."
+      },
+      {
+        "id": "highlight_15",
+        "content": "true",
+        "context": "Authentication Result (Boolean): true for success, false for failure."
+      },
+      {
+        "id": "highlight_16",
+        "content": "false",
+        "context": "Authentication Result (Boolean): true for success, false for failure."
+      },
+      {
+        "id": "highlight_17",
+        "content": "true",
+        "context": "Passing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication."
+      },
+      {
+        "id": "highlight_18",
+        "content": "done",
+        "context": "Passing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication."
+      },
+      {
+        "id": "highlight_19",
+        "content": "false",
+        "context": "Passing true to the done parameter indicates that authentication has succeeded, and the server/broker can proceed to allow the client to connect. Conversely, if false is passed, the server will reject the client, indicating failed authentication."
+      },
+      {
+        "id": "highlight_20",
+        "content": "done()",
+        "context": "The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call."
+      },
+      {
+        "id": "highlight_21",
+        "content": "serverAuth",
+        "context": "The done() call should always be the last in the serverAuth function, as Glee will not execute any logic beyond this call."
+      },
+      {
+        "id": "highlight_22",
+        "content": "authProps",
+        "context": "The authProps parameter includes methods for the server to retrieve authentication parameters from the client. The current available methods are as follows:"
+      },
+      {
+        "id": "highlight_23",
+        "content": "getOauthToken()",
+        "context": "getOauthToken()"
+      },
+      {
+        "id": "highlight_24",
+        "content": "getHttpAPIKeys(name)",
+        "context": "getHttpAPIKeys(name)"
+      },
+      {
+        "id": "highlight_25",
+        "content": "getToken()",
+        "context": "getToken()"
+      },
+      {
+        "id": "highlight_26",
+        "content": "getUserPass()",
+        "context": "getUserPass()"
+      },
+      {
+        "id": "highlight_27",
+        "content": "clientAuth",
+        "context": "The clientAuth function also takes an argument that can be destructured as follows:"
+      },
+      {
+        "id": "highlight_28",
+        "content": "asyncapi.yaml",
+        "context": "the names specified in the asyncapi.yaml file"
+      }
+    ]
+  }
+}

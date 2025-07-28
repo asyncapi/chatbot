@@ -1,0 +1,389 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee/installation",
+    "timestamp": "2025-03-12T17:54:49.370Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Installation",
+    "hierarchy": {
+      "sections": {
+        "Preparing for Installation": {
+          "level": 3,
+          "content": "Before starting with Glee, ensure that NPM, Node.js, and the AsyncAPI CLI are already set up on your system.\nNeed help installing AsyncAPI CLI? Check out the CLI Installation Guide."
+        },
+        "Starting with Glee": {
+          "level": 3,
+          "content": "Creating a new Glee application can be approached in three distinct ways:\nBegin with an existing AsyncAPI document.\nUse a predefined template.\nOpt for Manual Installation (recommended for advanced users keen on understanding Glee's inner workings)."
+        },
+        "Initialize with an AsyncAPI Document": {
+          "level": 3,
+          "content": "If you already have an AsyncAPI specification file, you can jumpstart your project by using the -f or --file flag to specify the file path. The CLI will leverage this to set up your project.asyncapi new glee -f asyncapi.yamlThis command generates all necessary files. Just open the project in your editor, and start integrating your authentication and business logic."
+        },
+        "Start with a Template": {
+          "level": 3,
+          "content": "For those without a custom AsyncAPI file and looking to experiment, starting with a template is an excellent choice. These are simple Glee projects that the AsyncAPI CLI can generate for you.Use the -t or --template flag to specify the template name. Currently, two templates are available:\ndefault: Responds with a string upon receiving a string.\ntutorial: Designed for this tutorial.\nTo initiate a project with the default template:asyncapi new glee -t defaultAfter installation, follow these steps:1Next steps:\n2\n3  cd project\n4  npm install --ignore-scripts\n5  npm run dev\n6\n7Feel free to open the project in your preferred editor and start customizing it.Refer to our Getting Started guide for further assistance during customization."
+        },
+        "Manual Installation": {
+          "level": 3,
+          "content": "For a hands-on setup, start by creating a new directory, e.g., myapp, and structure it as follows:1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)Inside this new folder, initialize and install Glee:1npm init -y\n2npm install @asyncapi/gleeEdit your package.json to include the following scripts:1{\n2  \"scripts\": {\n3    \"docs\": \"glee docs\",\n4    \"dev\": \"glee dev\",\n5    \"start\": \"glee start\",\n6  }\n7}These scripts serve different development stages:\nglee docs: Generates your project documentation.\nglee dev: Starts a local development server, building your project in a development-friendly environment.\nglee start: Launches your project for production use.\nSetting up asyncapi.yaml and Required DirectoriesCraft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel.1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: stringCreate a function onHello.js in myapp/functions:1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}Launching the Development Server\nExecute npm run dev to start the server.\nConnect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+        },
+        "Setting up asyncapi.yaml and Required Directories": {
+          "level": 4,
+          "content": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel.1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: stringCreate a function onHello.js in myapp/functions:1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}"
+        },
+        "Launching the Development Server": {
+          "level": 4,
+          "content": "Execute npm run dev to start the server.\nConnect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Preparing for Installation\nBefore starting with Glee, ensure that NPM, Node.js, and the AsyncAPI CLI are already set up on your system.\n\nNeed help installing AsyncAPI CLI? Check out the CLI Installation Guide.\n\nStarting with Glee\nCreating a new Glee application can be approached in three distinct ways:\n\nBegin with an existing AsyncAPI document.\nUse a predefined template.\nOpt for Manual Installation (recommended for advanced users keen on understanding Glee's inner workings).\n\nInitialize with an AsyncAPI Document\nIf you already have an AsyncAPI specification file, you can jumpstart your project by using the -f or --file flag to specify the file path. The CLI will leverage this to set up your project.\nasyncapi new glee -f asyncapi.yaml\nThis command generates all necessary files. Just open the project in your editor, and start integrating your authentication and business logic.\nStart with a Template\nFor those without a custom AsyncAPI file and looking to experiment, starting with a template is an excellent choice. These are simple Glee projects that the AsyncAPI CLI can generate for you.\nUse the -t or --template flag to specify the template name. Currently, two templates are available:\n\ndefault: Responds with a string upon receiving a string.\ntutorial: Designed for this tutorial.\n\nTo initiate a project with the default template:\nasyncapi new glee -t default\nAfter installation, follow these steps:\n1Next steps:\n2\n3  cd project\n4  npm install --ignore-scripts\n5  npm run dev\n6\n7Feel free to open the project in your preferred editor and start customizing it.\nRefer to our Getting Started guide for further assistance during customization.\nManual Installation\nFor a hands-on setup, start by creating a new directory, e.g., myapp, and structure it as follows:\n1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)\nInside this new folder, initialize and install Glee:\n1npm init -y\n2npm install @asyncapi/glee\nEdit your package.json to include the following scripts:\n1{\n2  \"scripts\": {\n3    \"docs\": \"glee docs\",\n4    \"dev\": \"glee dev\",\n5    \"start\": \"glee start\",\n6  }\n7}\nThese scripts serve different development stages:\n\nglee docs: Generates your project documentation.\nglee dev: Starts a local development server, building your project in a development-friendly environment.\nglee start: Launches your project for production use.\n\nSetting up asyncapi.yaml and Required Directories\nCraft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel.\n1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: string\nCreate a function onHello.js in myapp/functions:\n1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}\nLaunching the Development Server\n\nExecute npm run dev to start the server.\nConnect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}.",
+    "sections": [
+      {
+        "title": "Preparing for Installation",
+        "level": 3,
+        "text": "Before starting with Glee, ensure that NPM, Node.js, and the AsyncAPI CLI are already set up on your system.\nNeed help installing AsyncAPI CLI? Check out the CLI Installation Guide."
+      },
+      {
+        "title": "Starting with Glee",
+        "level": 3,
+        "text": "Creating a new Glee application can be approached in three distinct ways:\nBegin with an existing AsyncAPI document.\nUse a predefined template.\nOpt for Manual Installation (recommended for advanced users keen on understanding Glee's inner workings)."
+      },
+      {
+        "title": "Initialize with an AsyncAPI Document",
+        "level": 3,
+        "text": "If you already have an AsyncAPI specification file, you can jumpstart your project by using the -f or --file flag to specify the file path. The CLI will leverage this to set up your project.asyncapi new glee -f asyncapi.yamlThis command generates all necessary files. Just open the project in your editor, and start integrating your authentication and business logic."
+      },
+      {
+        "title": "Start with a Template",
+        "level": 3,
+        "text": "For those without a custom AsyncAPI file and looking to experiment, starting with a template is an excellent choice. These are simple Glee projects that the AsyncAPI CLI can generate for you.Use the -t or --template flag to specify the template name. Currently, two templates are available:\ndefault: Responds with a string upon receiving a string.\ntutorial: Designed for this tutorial.\nTo initiate a project with the default template:asyncapi new glee -t defaultAfter installation, follow these steps:1Next steps:\n2\n3  cd project\n4  npm install --ignore-scripts\n5  npm run dev\n6\n7Feel free to open the project in your preferred editor and start customizing it.Refer to our Getting Started guide for further assistance during customization."
+      },
+      {
+        "title": "Manual Installation",
+        "level": 3,
+        "text": "For a hands-on setup, start by creating a new directory, e.g., myapp, and structure it as follows:1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)Inside this new folder, initialize and install Glee:1npm init -y\n2npm install @asyncapi/gleeEdit your package.json to include the following scripts:1{\n2  \"scripts\": {\n3    \"docs\": \"glee docs\",\n4    \"dev\": \"glee dev\",\n5    \"start\": \"glee start\",\n6  }\n7}These scripts serve different development stages:\nglee docs: Generates your project documentation.\nglee dev: Starts a local development server, building your project in a development-friendly environment.\nglee start: Launches your project for production use.\nSetting up asyncapi.yaml and Required DirectoriesCraft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel.1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: stringCreate a function onHello.js in myapp/functions:1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}Launching the Development Server\nExecute npm run dev to start the server.\nConnect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+      },
+      {
+        "title": "Setting up asyncapi.yaml and Required Directories",
+        "level": 4,
+        "text": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel.1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: stringCreate a function onHello.js in myapp/functions:1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}"
+      },
+      {
+        "title": "Launching the Development Server",
+        "level": 4,
+        "text": "Execute npm run dev to start the server.\nConnect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "asyncapi new glee -f asyncapi.yaml",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi </span><span style=\"color:#64a0dc\">new</span><span> </span><span style=\"color:#7edcda\">glee</span><span> -f asyncapi.yaml</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "asyncapi new glee -t default",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>asyncapi </span><span style=\"color:#64a0dc\">new</span><span> </span><span style=\"color:#7edcda\">glee</span><span> -t </span><span style=\"color:#64a0dc\">default</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1Next steps:\n2\n3  cd project\n4  npm install --ignore-scripts\n5  npm run dev\n6\n7Feel free to open the project in your preferred editor and start customizing it.",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">Next steps:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">cd</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">project</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">install</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">--ignore-scripts</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">run</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">dev</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">Feel</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">free</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">to</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">open</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">project</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">in</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">your</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">preferred</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">editor</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">and</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">start</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">customizing</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">it.</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">functions</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">onHello.js</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">└─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">lifecycle</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">onConnect.js</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">└─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">.env</span><span>               </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi.(yaml</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">|</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">yml</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">|</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">json)</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">glee.config.js</span><span>     </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">package.json</span><span>       </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1npm init -y\n2npm install @asyncapi/glee",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">npm</span><span> init -y\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">npm</span><span> install @asyncapi/glee</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1{\n2  \"scripts\": {\n3    \"docs\": \"glee docs\",\n4    \"dev\": \"glee dev\",\n5    \"start\": \"glee start\",\n6  }\n7}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"scripts\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>    </span><span style=\"color:#7edcda\">\"docs\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"glee docs\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">\"dev\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"glee dev\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">\"start\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"glee start\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "1# AsyncAPI Specification for Hello, Glee!\n2asyncapi: 3.0.0\n3info:\n4  title: 'Hello, Glee!'\n5  version: 1.0.0\n6servers:\n7  websockets:\n8    host: 0.0.0.0:3000\n9    protocol: ws\n10channels:\n11  hello:\n12    address: hello\n13    messages:\n14      hello:\n15        $ref: '#/components/messages/hello'\n16operations:\n17  onHello:\n18    action: receive\n19    channel:\n20      $ref: '#/channels/hello'\n21  SendHello:\n22    action: send\n23    channel: \n24      $ref: \"#/channels/hello\"\n25components:\n26  messages:\n27    hello:\n28      payload:\n29        type: string",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#797f8c\"># AsyncAPI Specification for Hello, Glee!</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">asyncapi:</span><span> </span><span style=\"color:#d8da68\">3.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">info:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'Hello, Glee!'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">version:</span><span> </span><span style=\"color:#d8da68\">1.0</span><span style=\"color:#d8da68\">.0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#7edcda\">servers:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#7edcda\">websockets:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">host:</span><span> </span><span style=\"color:#d8da68\">0.0</span><span style=\"color:#d8da68\">.0</span><span style=\"color:#d8da68\">.0</span><span style=\"color:#c0e2a3;font-weight:500\">:3000</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">protocol:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ws</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#7edcda\">channels:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>  </span><span style=\"color:#7edcda\">hello:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#7edcda\">address:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">hello</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>    </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#7edcda\">hello:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/components/messages/hello'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span></span><span style=\"color:#7edcda\">operations:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>  </span><span style=\"color:#7edcda\">onHello:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/hello'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>  </span><span style=\"color:#7edcda\">SendHello:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span>    </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">send</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span><span>    </span><span style=\"color:#7edcda\">channel:</span><span> \n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"#/channels/hello\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span></span><span style=\"color:#7edcda\">components:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>  </span><span style=\"color:#7edcda\">messages:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>    </span><span style=\"color:#7edcda\">hello:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span><span>      </span><span style=\"color:#7edcda\">payload:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span><span>        </span><span style=\"color:#7edcda\">type:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">string</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "1export default async function (event) {  \n2  return {\n3    send: [{\n4      server: \"websockets\",\n5      channel: \"hello\",\n6      payload: `Hello from Glee! You said: \"${event.payload}\".`\n7    }]\n8  }\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>export default async function (event) {  \n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>  return {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>    send: [{\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>      server: </span><span style=\"color:#c0e2a3;font-weight:500\">\"websockets\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      channel: </span><span style=\"color:#c0e2a3;font-weight:500\">\"hello\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      payload: `Hello from Glee! You said: </span><span style=\"color:#c0e2a3;font-weight:500\">\"${event.payload}\"</span><span>.`\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>    }]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:1.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "-f",
+        "context": "If you already have an AsyncAPI specification file, you can jumpstart your project by using the -f or --file flag to specify the file path. The CLI will leverage this to set up your project."
+      },
+      {
+        "id": "highlight_1",
+        "content": "--file",
+        "context": "If you already have an AsyncAPI specification file, you can jumpstart your project by using the -f or --file flag to specify the file path. The CLI will leverage this to set up your project."
+      },
+      {
+        "id": "highlight_2",
+        "content": "-t",
+        "context": "Use the -t or --template flag to specify the template name. Currently, two templates are available:"
+      },
+      {
+        "id": "highlight_3",
+        "content": "--template",
+        "context": "Use the -t or --template flag to specify the template name. Currently, two templates are available:"
+      },
+      {
+        "id": "highlight_4",
+        "content": "myapp",
+        "context": "For a hands-on setup, start by creating a new directory, e.g., myapp, and structure it as follows:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "package.json",
+        "context": "Edit your package.json to include the following scripts:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "glee docs",
+        "context": "glee docs: Generates your project documentation."
+      },
+      {
+        "id": "highlight_7",
+        "content": "glee dev",
+        "context": "glee dev: Starts a local development server, building your project in a development-friendly environment."
+      },
+      {
+        "id": "highlight_8",
+        "content": "glee start",
+        "context": "glee start: Launches your project for production use."
+      },
+      {
+        "id": "highlight_9",
+        "content": "asyncapi.yaml",
+        "context": "Setting up asyncapi.yaml and Required Directories"
+      },
+      {
+        "id": "highlight_10",
+        "content": "asyncapi.yaml",
+        "context": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel."
+      },
+      {
+        "id": "highlight_11",
+        "content": "ws",
+        "context": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel."
+      },
+      {
+        "id": "highlight_12",
+        "content": "hello",
+        "context": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel."
+      },
+      {
+        "id": "highlight_13",
+        "content": "onHello",
+        "context": "Craft an asyncapi.yaml file capable of receiving a \"hello {name}\" message via WebSocket (ws) protocol on the hello channel. Define the operation ID as onHello, indicating the function to be called, and set the payload type to string for publishing on that channel."
+      },
+      {
+        "id": "highlight_14",
+        "content": "onHello.js",
+        "context": "Create a function onHello.js in myapp/functions:"
+      },
+      {
+        "id": "highlight_15",
+        "content": "myapp/functions",
+        "context": "Create a function onHello.js in myapp/functions:"
+      },
+      {
+        "id": "highlight_16",
+        "content": "npm run dev",
+        "context": "Execute npm run dev to start the server."
+      },
+      {
+        "id": "highlight_17",
+        "content": "ws://localhost:3000/hello",
+        "context": "Connect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+      },
+      {
+        "id": "highlight_18",
+        "content": "{\"john\"}",
+        "context": "Connect to ws://localhost:3000/hello and send a WebSocket request like {\"john\"}."
+      }
+    ]
+  }
+}

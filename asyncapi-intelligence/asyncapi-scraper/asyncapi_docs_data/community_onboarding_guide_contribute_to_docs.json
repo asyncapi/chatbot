@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs",
+    "timestamp": "2025-03-12T17:57:22.591Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Contribute To Docs",
+    "hierarchy": {
+      "sections": {
+        "Contribute to docs": {
+          "level": 2,
+          "content": "There are several ways to request your first AsyncAPI docs task:\nConnect with a docs maintainer: Ask for a good-first-issue in the #13_docs channel of the AsyncAPI Slack workspace.\nUpdate current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request.\nPropose new docs: If you have any ideas or suggestions for necessary documentation, create a new docs issue and propose yourself as the assignee."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/community"
+            },
+            {
+              "text": "Onboarding guide",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide"
+            },
+            {
+              "text": "Technical writer contributor responsibilities",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/technical-writer-contributor-responsibilities"
+            },
+            {
+              "text": "Docs onboarding checklist",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-onboarding-checklist"
+            },
+            {
+              "text": "Prerequisite knowledge",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/prerequisite-knowledge"
+            },
+            {
+              "text": "AsyncAPI docs community",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/docs-community"
+            },
+            {
+              "text": "Tools and setup",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/tools-and-setup"
+            },
+            {
+              "text": "Contribute to docs",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/contribute-to-docs"
+            },
+            {
+              "text": "Create new docs directories",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/create-new-docs-directories"
+            },
+            {
+              "text": "Create new docs pull request",
+              "href": "https://www.asyncapi.com/docs/community/onboarding-guide/open-docs-pull-request"
+            }
+          ]
+        }
+      ]
+    },
+    "full_text": "Contribute to docs\nThere are several ways to request your first AsyncAPI docs task:\n\nConnect with a docs maintainer: Ask for a good-first-issue in the #13_docs channel of the AsyncAPI Slack workspace.\nUpdate current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request.\nPropose new docs: If you have any ideas or suggestions for necessary documentation, create a new docs issue and propose yourself as the assignee.",
+    "sections": [
+      {
+        "title": "Contribute to docs",
+        "level": 2,
+        "text": "There are several ways to request your first AsyncAPI docs task:\nConnect with a docs maintainer: Ask for a good-first-issue in the #13_docs channel of the AsyncAPI Slack workspace.\nUpdate current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request.\nPropose new docs: If you have any ideas or suggestions for necessary documentation, create a new docs issue and propose yourself as the assignee."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "good-first-issue",
+        "context": "Connect with a docs maintainer: Ask for a good-first-issue in the #13_docs channel of the AsyncAPI Slack workspace."
+      },
+      {
+        "id": "highlight_1",
+        "content": "#13_docs",
+        "context": "Connect with a docs maintainer: Ask for a good-first-issue in the #13_docs channel of the AsyncAPI Slack workspace."
+      },
+      {
+        "id": "highlight_2",
+        "content": "typos",
+        "context": "Update current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request."
+      },
+      {
+        "id": "highlight_3",
+        "content": "grammar",
+        "context": "Update current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request."
+      },
+      {
+        "id": "highlight_4",
+        "content": "errors",
+        "context": "Update current docs: Surf the existing documentation, look for typos, grammar, errors, create an issue, and submit a Pull Request."
+      }
+    ]
+  }
+}

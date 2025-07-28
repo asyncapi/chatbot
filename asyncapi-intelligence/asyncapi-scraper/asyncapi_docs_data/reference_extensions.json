@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/reference/extensions",
+    "timestamp": "2025-03-12T17:46:26.944Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Extensions",
+    "hierarchy": {
+      "sections": {
+        "What's an extension?": {
+          "level": 2,
+          "content": "Extension is a mechanism in AsyncAPI that enables you to add custom fields to an AsyncAPI document. You can define your own extensions or use them only for your use case inside your company. You can also share your extensions with others. This way an extension that is adopted by others can one day become a core part of the AsyncAPI specification."
+        },
+        "Usage in an AsyncAPI document": {
+          "level": 2,
+          "content": "AsyncAPI extensions are those that are preceded by x-. (Example: x-linkedin) They can be placed in the AsyncAPI document in locations specified by the documentation of a given extension."
+        },
+        "Adding your extension to the catalog": {
+          "level": 2,
+          "content": "If you'd like to add your extension to the catalog, please submit a pull request to the Extensions Catalog repository. Make sure the extension doesn't exist already; otherwise, it's better to improve the existing one."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference"
+            },
+            {
+              "text": "Specification",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0"
+            },
+            {
+              "text": "Extensions",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "linkedin",
+              "href": "https://www.asyncapi.com/docs/reference/extensions/linkedin"
+            },
+            {
+              "text": "x",
+              "href": "https://www.asyncapi.com/docs/reference/extensions/x"
+            },
+            {
+              "text": "Bindings",
+              "href": "https://www.asyncapi.com/docs/reference/bindings"
+            }
+          ]
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "What's an extension?\nExtension is a mechanism in AsyncAPI that enables you to add custom fields to an AsyncAPI document. You can define your own extensions or use them only for your use case inside your company. You can also share your extensions with others. This way an extension that is adopted by others can one day become a core part of the AsyncAPI specification.\nUsage in an AsyncAPI document\nAsyncAPI extensions are those that are preceded by x-. (Example: x-linkedin) They can be placed in the AsyncAPI document in locations specified by the documentation of a given extension.\nAdding your extension to the catalog\nIf you'd like to add your extension to the catalog, please submit a pull request to the Extensions Catalog repository. Make sure the extension doesn't exist already; otherwise, it's better to improve the existing one.",
+    "sections": [
+      {
+        "title": "What's an extension?",
+        "level": 2,
+        "text": "Extension is a mechanism in AsyncAPI that enables you to add custom fields to an AsyncAPI document. You can define your own extensions or use them only for your use case inside your company. You can also share your extensions with others. This way an extension that is adopted by others can one day become a core part of the AsyncAPI specification."
+      },
+      {
+        "title": "Usage in an AsyncAPI document",
+        "level": 2,
+        "text": "AsyncAPI extensions are those that are preceded by x-. (Example: x-linkedin) They can be placed in the AsyncAPI document in locations specified by the documentation of a given extension."
+      },
+      {
+        "title": "Adding your extension to the catalog",
+        "level": 2,
+        "text": "If you'd like to add your extension to the catalog, please submit a pull request to the Extensions Catalog repository. Make sure the extension doesn't exist already; otherwise, it's better to improve the existing one."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "x-",
+        "context": "AsyncAPI extensions are those that are preceded by x-. (Example: x-linkedin) They can be placed in the AsyncAPI document in locations specified by the documentation of a given extension."
+      },
+      {
+        "id": "highlight_1",
+        "content": "x-linkedin",
+        "context": "AsyncAPI extensions are those that are preceded by x-. (Example: x-linkedin) They can be placed in the AsyncAPI document in locations specified by the documentation of a given extension."
+      }
+    ]
+  }
+}

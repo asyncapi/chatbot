@@ -1,0 +1,364 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/cli/architecture",
+    "timestamp": "2025-03-12T17:53:55.819Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Architecture",
+    "hierarchy": {
+      "sections": {
+        "Detailed Explanation of Key Directories in the CLI": {
+          "level": 3,
+          "content": "src/commands/\n\nPurpose: Implements the CLI commands available to the user.\n\n\nSubdirectories:\n\nconfig/: Stores configuration-related files for commands.\ngenerate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation.\n\n\n\n\nnew/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects.\n\n\n\n\nstart/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio.\n\n\n\n\n\n\n\nStandalone Files:\n\nbundle.ts: Bundles one or multiple AsyncAPI documents and their references together.\nconvert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI.\ndiff.ts: Compares two AsyncAPI documents.\nformat.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON.\noptimize.ts: Optimizes AsyncAPI documents for performance.\npretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file.\nvalidate.ts: Validates AsyncAPI documents for correctness.\n\n\nsrc/core/\n\nPurpose: Provides foundational components and utilities for the CLI.\n\n\nSubdirectories:\n\nerrors/: Centralized error definitions.\nflags/: Defines CLI flags and their behavior.\nhooks/: Event hooks used for customization.\nmodels/: Core data models used across the application.\nutils/: Utility functions for common operations.\n\n\n\nStandalone Files:\n\nbase.ts: Base class or logic for CLI commands.\nglobal.d.ts: Global TypeScript definitions.\nglobals.ts: Stores global variables and configurations.\nparser.ts: Parses AsyncAPI documents.\n\n\ntest/\nPurpose: Implements the test suite for the CLI.\nSubdirectories:\n\nfixtures/: Contains mock data or files for testing.\nhooks/: Tests related to hooks.\nintegration/: Integration tests to verify end-to-end functionality.\nsystem/: System-level tests.\nunit/: Unit tests for individual modules or functions."
+        },
+        "src/commands/": {
+          "level": 4,
+          "content": "Purpose: Implements the CLI commands available to the user.\n\n\nSubdirectories:\n\nconfig/: Stores configuration-related files for commands.\ngenerate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation.\n\n\n\n\nnew/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects.\n\n\n\n\nstart/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio.\n\n\n\n\n\n\n\nStandalone Files:\n\nbundle.ts: Bundles one or multiple AsyncAPI documents and their references together.\nconvert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI.\ndiff.ts: Compares two AsyncAPI documents.\nformat.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON.\noptimize.ts: Optimizes AsyncAPI documents for performance.\npretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file.\nvalidate.ts: Validates AsyncAPI documents for correctness."
+        },
+        "src/core/": {
+          "level": 4,
+          "content": "Purpose: Provides foundational components and utilities for the CLI.\n\n\nSubdirectories:\n\nerrors/: Centralized error definitions.\nflags/: Defines CLI flags and their behavior.\nhooks/: Event hooks used for customization.\nmodels/: Core data models used across the application.\nutils/: Utility functions for common operations.\n\n\n\nStandalone Files:\n\nbase.ts: Base class or logic for CLI commands.\nglobal.d.ts: Global TypeScript definitions.\nglobals.ts: Stores global variables and configurations.\nparser.ts: Parses AsyncAPI documents."
+        },
+        "test/": {
+          "level": 4,
+          "content": "Purpose: Implements the test suite for the CLI.\nSubdirectories:\n\nfixtures/: Contains mock data or files for testing.\nhooks/: Tests related to hooks.\nintegration/: Integration tests to verify end-to-end functionality.\nsystem/: System-level tests.\nunit/: Unit tests for individual modules or functions."
+        },
+        "Use Cases": {
+          "level": 3,
+          "content": "Generate AsyncAPI Artifacts:\n\nUse the generate command to create client/server code, documentation, or other artifacts based on AsyncAPI templates.\n\n\n\nCreate New Projects:\n\nThe new command helps users scaffold new AsyncAPI projects with predefined templates.\n\n\n\nValidate AsyncAPI Documents:\n\nThe validate command ensures AsyncAPI documents conform to the specification.\n\n\n\nOptimize and Format Documents:\n\nThe optimize and pretty commands provide tools for improving document readability and performance.\n\n\n\nCompare Documents:\n\nThe diff command enables comparison between two AsyncAPI documents to track changes.\n\n\n\nIntegration with AsyncAPI Studio:\n\nThe start command integrates with the AsyncAPI Studio for editing and visualizing documents.\n\n\n\nConvert Between Formats:\n\nThe convert command supports converting AsyncAPI documents between formats like YAML and JSON.\n\n\nThis structure ensures the CLI is modular, scalable, and easy to maintain. Let me know if you need further clarification or additional details!"
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/cli/installation"
+            },
+            {
+              "text": "CLI Architecture",
+              "href": "https://www.asyncapi.com/docs/tools/cli/architecture"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/cli/usage"
+            },
+            {
+              "text": "GitHub Action for CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli/github-action"
+            },
+            {
+              "text": "Context concept",
+              "href": "https://www.asyncapi.com/docs/tools/cli/context"
+            },
+            {
+              "text": "Metrics Collection",
+              "href": "https://www.asyncapi.com/docs/tools/cli/metrics_collection"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "The AsyncAPI CLI uses oclif (Open CLI Framework) as its core framework, which enables developers to build powerful and scalable command-line applications.\nStructure of the AsyncAPI CLI: The CLI is primarily divided into two components: commands and the core part.\n\nCommand Component: The commands include all the necessary functionalities that help developers interact with features like creating new AsyncAPI projects, validating AsyncAPI files, formatting AsyncAPI files, and more.\nCore Component: The core part of the CLI contains various utilities that facilitate the efficient creation of new commands.\n\n\nDetailed Explanation of Key Directories in the CLI\nsrc/commands/\n\n\nPurpose: Implements the CLI commands available to the user.\n\n\nSubdirectories:\n\nconfig/: Stores configuration-related files for commands.\ngenerate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation.\n\n\n\n\nnew/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects.\n\n\n\n\nstart/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio.\n\n\n\n\n\n\n\nStandalone Files:\n\nbundle.ts: Bundles one or multiple AsyncAPI documents and their references together.\nconvert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI.\ndiff.ts: Compares two AsyncAPI documents.\nformat.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON.\noptimize.ts: Optimizes AsyncAPI documents for performance.\npretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file.\nvalidate.ts: Validates AsyncAPI documents for correctness.\n\n\n\n\nsrc/core/\n\n\nPurpose: Provides foundational components and utilities for the CLI.\n\n\nSubdirectories:\n\nerrors/: Centralized error definitions.\nflags/: Defines CLI flags and their behavior.\nhooks/: Event hooks used for customization.\nmodels/: Core data models used across the application.\nutils/: Utility functions for common operations.\n\n\n\nStandalone Files:\n\nbase.ts: Base class or logic for CLI commands.\nglobal.d.ts: Global TypeScript definitions.\nglobals.ts: Stores global variables and configurations.\nparser.ts: Parses AsyncAPI documents.\n\n\n\n\ntest/\n\nPurpose: Implements the test suite for the CLI.\nSubdirectories:\n\nfixtures/: Contains mock data or files for testing.\nhooks/: Tests related to hooks.\nintegration/: Integration tests to verify end-to-end functionality.\nsystem/: System-level tests.\nunit/: Unit tests for individual modules or functions.\n\n\n\n\nUse Cases\n\n\nGenerate AsyncAPI Artifacts:\n\nUse the generate command to create client/server code, documentation, or other artifacts based on AsyncAPI templates.\n\n\n\nCreate New Projects:\n\nThe new command helps users scaffold new AsyncAPI projects with predefined templates.\n\n\n\nValidate AsyncAPI Documents:\n\nThe validate command ensures AsyncAPI documents conform to the specification.\n\n\n\nOptimize and Format Documents:\n\nThe optimize and pretty commands provide tools for improving document readability and performance.\n\n\n\nCompare Documents:\n\nThe diff command enables comparison between two AsyncAPI documents to track changes.\n\n\n\nIntegration with AsyncAPI Studio:\n\nThe start command integrates with the AsyncAPI Studio for editing and visualizing documents.\n\n\n\nConvert Between Formats:\n\nThe convert command supports converting AsyncAPI documents between formats like YAML and JSON.\n\n\n\n\nThis structure ensures the CLI is modular, scalable, and easy to maintain. Let me know if you need further clarification or additional details!",
+    "sections": [
+      {
+        "title": "Detailed Explanation of Key Directories in the CLI",
+        "level": 3,
+        "text": "src/commands/\n\nPurpose: Implements the CLI commands available to the user.\n\n\nSubdirectories:\n\nconfig/: Stores configuration-related files for commands.\ngenerate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation.\n\n\n\n\nnew/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects.\n\n\n\n\nstart/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio.\n\n\n\n\n\n\n\nStandalone Files:\n\nbundle.ts: Bundles one or multiple AsyncAPI documents and their references together.\nconvert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI.\ndiff.ts: Compares two AsyncAPI documents.\nformat.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON.\noptimize.ts: Optimizes AsyncAPI documents for performance.\npretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file.\nvalidate.ts: Validates AsyncAPI documents for correctness.\n\n\nsrc/core/\n\nPurpose: Provides foundational components and utilities for the CLI.\n\n\nSubdirectories:\n\nerrors/: Centralized error definitions.\nflags/: Defines CLI flags and their behavior.\nhooks/: Event hooks used for customization.\nmodels/: Core data models used across the application.\nutils/: Utility functions for common operations.\n\n\n\nStandalone Files:\n\nbase.ts: Base class or logic for CLI commands.\nglobal.d.ts: Global TypeScript definitions.\nglobals.ts: Stores global variables and configurations.\nparser.ts: Parses AsyncAPI documents.\n\n\ntest/\nPurpose: Implements the test suite for the CLI.\nSubdirectories:\n\nfixtures/: Contains mock data or files for testing.\nhooks/: Tests related to hooks.\nintegration/: Integration tests to verify end-to-end functionality.\nsystem/: System-level tests.\nunit/: Unit tests for individual modules or functions."
+      },
+      {
+        "title": "src/commands/",
+        "level": 4,
+        "text": "Purpose: Implements the CLI commands available to the user.\n\n\nSubdirectories:\n\nconfig/: Stores configuration-related files for commands.\ngenerate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation.\n\n\n\n\nnew/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects.\n\n\n\n\nstart/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio.\n\n\n\n\n\n\n\nStandalone Files:\n\nbundle.ts: Bundles one or multiple AsyncAPI documents and their references together.\nconvert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI.\ndiff.ts: Compares two AsyncAPI documents.\nformat.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON.\noptimize.ts: Optimizes AsyncAPI documents for performance.\npretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file.\nvalidate.ts: Validates AsyncAPI documents for correctness."
+      },
+      {
+        "title": "src/core/",
+        "level": 4,
+        "text": "Purpose: Provides foundational components and utilities for the CLI.\n\n\nSubdirectories:\n\nerrors/: Centralized error definitions.\nflags/: Defines CLI flags and their behavior.\nhooks/: Event hooks used for customization.\nmodels/: Core data models used across the application.\nutils/: Utility functions for common operations.\n\n\n\nStandalone Files:\n\nbase.ts: Base class or logic for CLI commands.\nglobal.d.ts: Global TypeScript definitions.\nglobals.ts: Stores global variables and configurations.\nparser.ts: Parses AsyncAPI documents."
+      },
+      {
+        "title": "test/",
+        "level": 4,
+        "text": "Purpose: Implements the test suite for the CLI.\nSubdirectories:\n\nfixtures/: Contains mock data or files for testing.\nhooks/: Tests related to hooks.\nintegration/: Integration tests to verify end-to-end functionality.\nsystem/: System-level tests.\nunit/: Unit tests for individual modules or functions."
+      },
+      {
+        "title": "Use Cases",
+        "level": 3,
+        "text": "Generate AsyncAPI Artifacts:\n\nUse the generate command to create client/server code, documentation, or other artifacts based on AsyncAPI templates.\n\n\n\nCreate New Projects:\n\nThe new command helps users scaffold new AsyncAPI projects with predefined templates.\n\n\n\nValidate AsyncAPI Documents:\n\nThe validate command ensures AsyncAPI documents conform to the specification.\n\n\n\nOptimize and Format Documents:\n\nThe optimize and pretty commands provide tools for improving document readability and performance.\n\n\n\nCompare Documents:\n\nThe diff command enables comparison between two AsyncAPI documents to track changes.\n\n\n\nIntegration with AsyncAPI Studio:\n\nThe start command integrates with the AsyncAPI Studio for editing and visualizing documents.\n\n\n\nConvert Between Formats:\n\nThe convert command supports converting AsyncAPI documents between formats like YAML and JSON.\n\n\nThis structure ensures the CLI is modular, scalable, and easy to maintain. Let me know if you need further clarification or additional details!"
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "src/commands/",
+        "context": "src/commands/"
+      },
+      {
+        "id": "highlight_1",
+        "content": "config/",
+        "context": "config/: Stores configuration-related files for commands."
+      },
+      {
+        "id": "highlight_2",
+        "content": "generate/",
+        "context": "generate/: Generates typed models or other artifacts like clients, applications, or documentation using AsyncAPI Generator templates.\n\nFiles:\n\nfromTemplate.ts: Contains logic for generating files using templates.\nmodels.ts: Defines the models used during generation."
+      },
+      {
+        "id": "highlight_3",
+        "content": "fromTemplate.ts",
+        "context": "fromTemplate.ts: Contains logic for generating files using templates."
+      },
+      {
+        "id": "highlight_4",
+        "content": "models.ts",
+        "context": "models.ts: Defines the models used during generation."
+      },
+      {
+        "id": "highlight_5",
+        "content": "new/",
+        "context": "new/: Create a new AsyncAPI project, specification files, or templates for clients and applications.\n\nFiles:\n\nfile.ts: Handles file creation logic.\nglee.ts: Related to Glee, a tool for event-driven microservices.\ntemplate.ts: Manages templates for new projects."
+      },
+      {
+        "id": "highlight_6",
+        "content": "file.ts",
+        "context": "file.ts: Handles file creation logic."
+      },
+      {
+        "id": "highlight_7",
+        "content": "glee.ts",
+        "context": "glee.ts: Related to Glee, a tool for event-driven microservices."
+      },
+      {
+        "id": "highlight_8",
+        "content": "template.ts",
+        "context": "template.ts: Manages templates for new projects."
+      },
+      {
+        "id": "highlight_9",
+        "content": "start/",
+        "context": "start/: Implements starting functionalities like launching a local server or studio.\n\nFiles:\n\nstudio.ts: Integrates with the AsyncAPI Studio."
+      },
+      {
+        "id": "highlight_10",
+        "content": "studio.ts",
+        "context": "studio.ts: Integrates with the AsyncAPI Studio."
+      },
+      {
+        "id": "highlight_11",
+        "content": "bundle.ts",
+        "context": "bundle.ts: Bundles one or multiple AsyncAPI documents and their references together."
+      },
+      {
+        "id": "highlight_12",
+        "content": "convert.ts",
+        "context": "convert.ts: Converts AsyncAPI documents from older to newer versions or transforms OpenAPI/Postman-collection documents into AsyncAPI."
+      },
+      {
+        "id": "highlight_13",
+        "content": "diff.ts",
+        "context": "diff.ts: Compares two AsyncAPI documents."
+      },
+      {
+        "id": "highlight_14",
+        "content": "format.ts",
+        "context": "format.ts: Converts AsyncAPI documents from any format to YAML, YML, or JSON."
+      },
+      {
+        "id": "highlight_15",
+        "content": "optimize.ts",
+        "context": "optimize.ts: Optimizes AsyncAPI documents for performance."
+      },
+      {
+        "id": "highlight_16",
+        "content": "pretty.ts",
+        "context": "pretty.ts: Beautifies the AsyncAPI spec file (indentation, styling) in place or outputs the formatted spec to a new file."
+      },
+      {
+        "id": "highlight_17",
+        "content": "validate.ts",
+        "context": "validate.ts: Validates AsyncAPI documents for correctness."
+      },
+      {
+        "id": "highlight_18",
+        "content": "src/core/",
+        "context": "src/core/"
+      },
+      {
+        "id": "highlight_19",
+        "content": "errors/",
+        "context": "errors/: Centralized error definitions."
+      },
+      {
+        "id": "highlight_20",
+        "content": "flags/",
+        "context": "flags/: Defines CLI flags and their behavior."
+      },
+      {
+        "id": "highlight_21",
+        "content": "hooks/",
+        "context": "hooks/: Event hooks used for customization."
+      },
+      {
+        "id": "highlight_22",
+        "content": "models/",
+        "context": "models/: Core data models used across the application."
+      },
+      {
+        "id": "highlight_23",
+        "content": "utils/",
+        "context": "utils/: Utility functions for common operations."
+      },
+      {
+        "id": "highlight_24",
+        "content": "base.ts",
+        "context": "base.ts: Base class or logic for CLI commands."
+      },
+      {
+        "id": "highlight_25",
+        "content": "global.d.ts",
+        "context": "global.d.ts: Global TypeScript definitions."
+      },
+      {
+        "id": "highlight_26",
+        "content": "globals.ts",
+        "context": "globals.ts: Stores global variables and configurations."
+      },
+      {
+        "id": "highlight_27",
+        "content": "parser.ts",
+        "context": "parser.ts: Parses AsyncAPI documents."
+      },
+      {
+        "id": "highlight_28",
+        "content": "test/",
+        "context": "test/"
+      },
+      {
+        "id": "highlight_29",
+        "content": "fixtures/",
+        "context": "fixtures/: Contains mock data or files for testing."
+      },
+      {
+        "id": "highlight_30",
+        "content": "hooks/",
+        "context": "hooks/: Tests related to hooks."
+      },
+      {
+        "id": "highlight_31",
+        "content": "integration/",
+        "context": "integration/: Integration tests to verify end-to-end functionality."
+      },
+      {
+        "id": "highlight_32",
+        "content": "system/",
+        "context": "system/: System-level tests."
+      },
+      {
+        "id": "highlight_33",
+        "content": "unit/",
+        "context": "unit/: Unit tests for individual modules or functions."
+      },
+      {
+        "id": "highlight_34",
+        "content": "generate",
+        "context": "Use the generate command to create client/server code, documentation, or other artifacts based on AsyncAPI templates."
+      },
+      {
+        "id": "highlight_35",
+        "content": "new",
+        "context": "The new command helps users scaffold new AsyncAPI projects with predefined templates."
+      },
+      {
+        "id": "highlight_36",
+        "content": "validate",
+        "context": "The validate command ensures AsyncAPI documents conform to the specification."
+      },
+      {
+        "id": "highlight_37",
+        "content": "optimize",
+        "context": "The optimize and pretty commands provide tools for improving document readability and performance."
+      },
+      {
+        "id": "highlight_38",
+        "content": "pretty",
+        "context": "The optimize and pretty commands provide tools for improving document readability and performance."
+      },
+      {
+        "id": "highlight_39",
+        "content": "diff",
+        "context": "The diff command enables comparison between two AsyncAPI documents to track changes."
+      },
+      {
+        "id": "highlight_40",
+        "content": "start",
+        "context": "The start command integrates with the AsyncAPI Studio for editing and visualizing documents."
+      },
+      {
+        "id": "highlight_41",
+        "content": "convert",
+        "context": "The convert command supports converting AsyncAPI documents between formats like YAML and JSON."
+      }
+    ]
+  }
+}

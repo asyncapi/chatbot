@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/model-generation",
+    "timestamp": "2025-03-12T17:53:21.903Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Model Generation",
+    "hierarchy": {
+      "sections": {
+        "Add Modelina dependency": {
+          "level": 2,
+          "content": "Install Modelina in your project using npm: npm install --save @asyncapi/modelina.Ensure your template's package.json file now contains Modelina pointing to its latest version:1\"dependencies\": {\n2   // ...\n3   \"@asyncapi/modelina\": \"^2.0.5\"\n4   // ...\n5 }"
+        },
+        "Create a models.js file": {
+          "level": 2,
+          "content": "Create a new directory in the template directory named src/models and create a models.js file within it. In the models.js file, add the following code:1// 1\n2import { File } from '@asyncapi/generator-react-sdk';\n3// 2\n4import { PythonGenerator, FormatHelpers } from '@asyncapi/modelina';\n5\n6/**\n7 * @typedef RenderArgument\n8 * @type {object}\n9 * @property {AsyncAPIDocument} asyncapi document object received from the generator.\n10 */\n11\n12/**\n13 * Render all schema models\n14 * @param {RenderArgument} param0 \n15 * @returns \n16 */\n17// 3\n18export default async function schemaRender({ asyncapi }) {\n19  // 4 \n20  const pythonGenerator = new PythonGenerator();\n21  // 5\n22  const models = await pythonGenerator.generate(asyncapi);\n23  // 6\n24  const files = [];\n25  // 7\n26  for (const model of models) {\n27    // 8\n28    const modelFileName = `${FormatHelpers.toPascalCase(model.modelName)}.py`;\n29    // 9\n30    files.push(<File name={modelFileName}>{model.result}</File>);\n31  }\n32  return files;\n33}Let's break it down. The code snippet above does the following:\nThe File component from the generator react SDK is needed to handle the further rendering of generated models into files.\nThe PythonGenerator generator is the core needed for model generation. Additionally, you can import FormatHelpers that provides a set of helpers making it easier to modify model names to match your required case.\nYou can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation.\nFirst, create an instance of the PythonGenerator model generator. If you decide to use present functionality from Modelina, you need to pass your presets here during instance creation.\nThe actual model generation is one line of code, and as a result you get an array of models that later you need to turn into files.\nYou need to define an array that must be returned from schemaRender function. The array must contain React components, and in this case, the <File> component.\nIterate over generated models and use their content to create proper definitions of <File> components.\nNotice how using Modelina helpers, in this case the  toPascalCase function, let's you make sure that the filename of your model follows specific case pattern.\nEach component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName.\nWith such a model template that uses Modelina, as a result of generation process you would receive a set of model files in $OUTPUT_DIR/src/models directory."
+        },
+        "Conclusion": {
+          "level": 2,
+          "content": "Modelina provides a flexible and powerful way to generate data models from AsyncAPI, OpenAPI, or JSON Schema documents. By integrating Modelina you can much faster enable models generation in your template."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "This guide will walk you through the process of enabling models/types generation in a template by using Modelina.\nModelina is an AsyncAPI library designed for generating data models using inputs such as AsyncAPI, OpenAPI, or JSON schema inputs. Its functionality revolves around creating data models from the provided AsyncAPI document and the model template, which defines message payloads. It is better to use Modelina in your template to handle model generation rather than providing custom templates.\nYou can integrate the work shown in this guide into a template by following the tutorial about creating a template.\nIn this guide, you'll learn how to use Modelina in a template code to enable support for Python data model generation.\nAdd Modelina dependency\nInstall Modelina in your project using npm: npm install --save @asyncapi/modelina.\nEnsure your template's package.json file now contains Modelina pointing to its latest version:\n1\"dependencies\": {\n2   // ...\n3   \"@asyncapi/modelina\": \"^2.0.5\"\n4   // ...\n5 }\nCreate a models.js file\nCreate a new directory in the template directory named src/models and create a models.js file within it. In the models.js file, add the following code:\n1// 1\n2import { File } from '@asyncapi/generator-react-sdk';\n3// 2\n4import { PythonGenerator, FormatHelpers } from '@asyncapi/modelina';\n5\n6/**\n7 * @typedef RenderArgument\n8 * @type {object}\n9 * @property {AsyncAPIDocument} asyncapi document object received from the generator.\n10 */\n11\n12/**\n13 * Render all schema models\n14 * @param {RenderArgument} param0 \n15 * @returns \n16 */\n17// 3\n18export default async function schemaRender({ asyncapi }) {\n19  // 4 \n20  const pythonGenerator = new PythonGenerator();\n21  // 5\n22  const models = await pythonGenerator.generate(asyncapi);\n23  // 6\n24  const files = [];\n25  // 7\n26  for (const model of models) {\n27    // 8\n28    const modelFileName = `${FormatHelpers.toPascalCase(model.modelName)}.py`;\n29    // 9\n30    files.push(<File name={modelFileName}>{model.result}</File>);\n31  }\n32  return files;\n33}\nLet's break it down. The code snippet above does the following:\n\nThe File component from the generator react SDK is needed to handle the further rendering of generated models into files.\nThe PythonGenerator generator is the core needed for model generation. Additionally, you can import FormatHelpers that provides a set of helpers making it easier to modify model names to match your required case.\nYou can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation.\nFirst, create an instance of the PythonGenerator model generator. If you decide to use present functionality from Modelina, you need to pass your presets here during instance creation.\nThe actual model generation is one line of code, and as a result you get an array of models that later you need to turn into files.\nYou need to define an array that must be returned from schemaRender function. The array must contain React components, and in this case, the <File> component.\nIterate over generated models and use their content to create proper definitions of <File> components.\nNotice how using Modelina helpers, in this case the  toPascalCase function, let's you make sure that the filename of your model follows specific case pattern.\nEach component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName.\n\nWith such a model template that uses Modelina, as a result of generation process you would receive a set of model files in $OUTPUT_DIR/src/models directory.\nConclusion\nModelina provides a flexible and powerful way to generate data models from AsyncAPI, OpenAPI, or JSON Schema documents. By integrating Modelina you can much faster enable models generation in your template.",
+    "sections": [
+      {
+        "title": "Add Modelina dependency",
+        "level": 2,
+        "text": "Install Modelina in your project using npm: npm install --save @asyncapi/modelina.Ensure your template's package.json file now contains Modelina pointing to its latest version:1\"dependencies\": {\n2   // ...\n3   \"@asyncapi/modelina\": \"^2.0.5\"\n4   // ...\n5 }"
+      },
+      {
+        "title": "Create a models.js file",
+        "level": 2,
+        "text": "Create a new directory in the template directory named src/models and create a models.js file within it. In the models.js file, add the following code:1// 1\n2import { File } from '@asyncapi/generator-react-sdk';\n3// 2\n4import { PythonGenerator, FormatHelpers } from '@asyncapi/modelina';\n5\n6/**\n7 * @typedef RenderArgument\n8 * @type {object}\n9 * @property {AsyncAPIDocument} asyncapi document object received from the generator.\n10 */\n11\n12/**\n13 * Render all schema models\n14 * @param {RenderArgument} param0 \n15 * @returns \n16 */\n17// 3\n18export default async function schemaRender({ asyncapi }) {\n19  // 4 \n20  const pythonGenerator = new PythonGenerator();\n21  // 5\n22  const models = await pythonGenerator.generate(asyncapi);\n23  // 6\n24  const files = [];\n25  // 7\n26  for (const model of models) {\n27    // 8\n28    const modelFileName = `${FormatHelpers.toPascalCase(model.modelName)}.py`;\n29    // 9\n30    files.push(<File name={modelFileName}>{model.result}</File>);\n31  }\n32  return files;\n33}Let's break it down. The code snippet above does the following:\nThe File component from the generator react SDK is needed to handle the further rendering of generated models into files.\nThe PythonGenerator generator is the core needed for model generation. Additionally, you can import FormatHelpers that provides a set of helpers making it easier to modify model names to match your required case.\nYou can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation.\nFirst, create an instance of the PythonGenerator model generator. If you decide to use present functionality from Modelina, you need to pass your presets here during instance creation.\nThe actual model generation is one line of code, and as a result you get an array of models that later you need to turn into files.\nYou need to define an array that must be returned from schemaRender function. The array must contain React components, and in this case, the <File> component.\nIterate over generated models and use their content to create proper definitions of <File> components.\nNotice how using Modelina helpers, in this case the  toPascalCase function, let's you make sure that the filename of your model follows specific case pattern.\nEach component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName.\nWith such a model template that uses Modelina, as a result of generation process you would receive a set of model files in $OUTPUT_DIR/src/models directory."
+      },
+      {
+        "title": "Conclusion",
+        "level": 2,
+        "text": "Modelina provides a flexible and powerful way to generate data models from AsyncAPI, OpenAPI, or JSON Schema documents. By integrating Modelina you can much faster enable models generation in your template."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1\"dependencies\": {\n2   // ...\n3   \"@asyncapi/modelina\": \"^2.0.5\"\n4   // ...\n5 }",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">\"dependencies\"</span><span>: {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>   </span><span style=\"color:#797f8c\">// ...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>   </span><span style=\"color:#7edcda\">\"@asyncapi/modelina\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"^2.0.5\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>   </span><span style=\"color:#797f8c\">// ...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span> }</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1// 1\n2import { File } from '@asyncapi/generator-react-sdk';\n3// 2\n4import { PythonGenerator, FormatHelpers } from '@asyncapi/modelina';\n5\n6/**\n7 * @typedef RenderArgument\n8 * @type {object}\n9 * @property {AsyncAPIDocument} asyncapi document object received from the generator.\n10 */\n11\n12/**\n13 * Render all schema models\n14 * @param {RenderArgument} param0 \n15 * @returns \n16 */\n17// 3\n18export default async function schemaRender({ asyncapi }) {\n19  // 4 \n20  const pythonGenerator = new PythonGenerator();\n21  // 5\n22  const models = await pythonGenerator.generate(asyncapi);\n23  // 6\n24  const files = [];\n25  // 7\n26  for (const model of models) {\n27    // 8\n28    const modelFileName = `${FormatHelpers.toPascalCase(model.modelName)}.py`;\n29    // 9\n30    files.push(<File name={modelFileName}>{model.result}</File>);\n31  }\n32  return files;\n33}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>// </span><span style=\"color:#d8da68\">1</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#64a0dc\">import</span><span> { File } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/generator-react-sdk'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>// </span><span style=\"color:#d8da68\">2</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#64a0dc\">import</span><span> { PythonGenerator, FormatHelpers } </span><span style=\"color:#64a0dc\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/modelina'</span><span>;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>/**\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span> * @typedef RenderArgument\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span> * @</span><span style=\"color:#7edcda\">type</span><span> {</span><span style=\"color:#7edcda\">object</span><span>}\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span> * @</span><span style=\"color:#7edcda\">property</span><span> {AsyncAPIDocument} asyncapi document </span><span style=\"color:#7edcda\">object</span><span> received </span><span style=\"color:#64a0dc\">from</span><span> the generator.\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span> */\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span>/**\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span> * Render </span><span style=\"color:#7edcda\">all</span><span> schema models\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span> * @param {RenderArgument} param0 \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span> * @returns \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span> */\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>// </span><span style=\"color:#d8da68\">3</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>export default </span><span style=\"color:#64a0dc\">async</span><span> function schemaRender({ asyncapi }) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>  // </span><span style=\"color:#d8da68\">4</span><span> \n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span>  const pythonGenerator = new PythonGenerator();\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>  // </span><span style=\"color:#d8da68\">5</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span>  const models = </span><span style=\"color:#64a0dc\">await</span><span> pythonGenerator.generate(asyncapi);\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span><span>  // </span><span style=\"color:#d8da68\">6</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span>  const files = [];\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span>  // </span><span style=\"color:#d8da68\">7</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>  </span><span style=\"color:#64a0dc\">for</span><span> (const model of models) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>    // </span><span style=\"color:#d8da68\">8</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span>    const modelFileName = `${FormatHelpers.toPascalCase(model.modelName)}.py`;\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span><span>    // </span><span style=\"color:#d8da68\">9</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span>    files.push(&lt;File name={modelFileName}&gt;{model.result}&lt;/File&gt;);\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">31</span>  }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">32</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> files;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">33</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "npm install --save @asyncapi/modelina",
+        "context": "Install Modelina in your project using npm: npm install --save @asyncapi/modelina."
+      },
+      {
+        "id": "highlight_1",
+        "content": "package.json",
+        "context": "Ensure your template's package.json file now contains Modelina pointing to its latest version:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "File",
+        "context": "The File component from the generator react SDK is needed to handle the further rendering of generated models into files."
+      },
+      {
+        "id": "highlight_3",
+        "content": "PythonGenerator",
+        "context": "The PythonGenerator generator is the core needed for model generation. Additionally, you can import FormatHelpers that provides a set of helpers making it easier to modify model names to match your required case."
+      },
+      {
+        "id": "highlight_4",
+        "content": "schemaRender",
+        "context": "You can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation."
+      },
+      {
+        "id": "highlight_5",
+        "content": "modelRenderer",
+        "context": "You can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation."
+      },
+      {
+        "id": "highlight_6",
+        "content": "async",
+        "context": "You can change the name schemaRender to anything else like modelRenderer. More importantly, this must be an async function and a default export. This function is invoked during generation process and should contain the logic behind models generation."
+      },
+      {
+        "id": "highlight_7",
+        "content": "PythonGenerator",
+        "context": "First, create an instance of the PythonGenerator model generator. If you decide to use present functionality from Modelina, you need to pass your presets here during instance creation."
+      },
+      {
+        "id": "highlight_8",
+        "content": "schemaRender",
+        "context": "You need to define an array that must be returned from schemaRender function. The array must contain React components, and in this case, the <File> component."
+      },
+      {
+        "id": "highlight_9",
+        "content": "<File>",
+        "context": "You need to define an array that must be returned from schemaRender function. The array must contain React components, and in this case, the <File> component."
+      },
+      {
+        "id": "highlight_10",
+        "content": "<File>",
+        "context": "Iterate over generated models and use their content to create proper definitions of <File> components."
+      },
+      {
+        "id": "highlight_11",
+        "content": "toPascalCase",
+        "context": "Notice how using Modelina helpers, in this case the  toPascalCase function, let's you make sure that the filename of your model follows specific case pattern."
+      },
+      {
+        "id": "highlight_12",
+        "content": "files",
+        "context": "Each component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName."
+      },
+      {
+        "id": "highlight_13",
+        "content": "<File>",
+        "context": "Each component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName."
+      },
+      {
+        "id": "highlight_14",
+        "content": "model.result",
+        "context": "Each component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName."
+      },
+      {
+        "id": "highlight_15",
+        "content": "result",
+        "context": "Each component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName."
+      },
+      {
+        "id": "highlight_16",
+        "content": "modelName",
+        "context": "Each component must be added into the files array that you later return from the default function. Notice the definition of the <File> component that enables you to provide the name of resulting file and the content of the model. Notice also model.result that shows that initially generated array with models did not contain raw models content but a set of output objects that contain not only result but also other info, like for example modelName."
+      },
+      {
+        "id": "highlight_17",
+        "content": "$OUTPUT_DIR/src/models",
+        "context": "With such a model template that uses Modelina, as a result of generation process you would receive a set of model files in $OUTPUT_DIR/src/models directory."
+      }
+    ]
+  }
+}

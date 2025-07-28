@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AsyncAPI Chatbot</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="minimized-chat" id="minimizedChat">
+    <h6>👋 Hi, Iam Asyncapi Chatbot</h6>
+    <img src="./media/asyncapi-chatbot-logo.png" alt="AsyncAPI Logo" class="logo">
+  </div>
+
+  <div class="chat-container minimized">
+    <div class="chat-header">
+      <div class="logo-container">
+        <img src="./media/asyncapi-chatbot-logo.png" alt="AsyncAPI Logo" class="logo">
+        <h1>AsyncAPI Intelligence</h1>
+      </div>
+      <button class="close-btn" id="closeBtn">×</button>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        <p>Welcome!</p>
+      </div>
+      <div class="message bot-message">
+        <p>Hello, Developer! 👋 I'm AsyncAI Bot, your AI assistant for AsyncAPI.</p>
+      </div>
+      <div class="message bot-message">
+        <p>I can help with specs, debugging, reviews, and docs. Just ask—let's build something great! 🚀</p>
+      </div>
+    </div>
+    
+    <div class="chat-input-container">
+      <input type="text" id="chatInput" placeholder="Ask anything about AsyncApi">
+      <button id="sendBtn" class="send-btn">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="js/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/installation-guide",
+    "timestamp": "2025-03-12T17:50:53.371Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Installation Guide",
+    "hierarchy": {
+      "sections": {
+        "Prerequisites": {
+          "level": 2,
+          "content": "Before you install and use the AsyncAPI CLI and the generator library, ensure you meet the prerequisites below, then install the CLI.\nNode.js v18.12.0 or higher\nNpm v8.19.0 or higher\nTo verify the versions of Node and Npm you have, run the following command on your terminal:npm -vnode -vIf you don't have either Node or Npm installed, use the official node.js installer.If you have the correct versions installed, proceed to the CLI installation guide below. Otherwise, upgrading the Npm or Node version is lower than the recommended versions specified above."
+        },
+        "AsyncAPI CLI": {
+          "level": 2,
+          "content": "The AsyncAPI CLI tool allows you to do many different things with the AsyncAPI document. You can generate message-based API boilerplate code, documentation, or anything else you need as long as you specify it in your template or the existing template already supports it. To use the generator via the AsyncAPI CLI, you need to install the AsyncAPI CLI tool. For the latest installation instructions, visit the official AsyncAPI CLI installation guide.\n📝 Note:  To use the generator in your CI/CD pipeline to automate whatever you generate for your event-driven architecture apps, install the AsyncAPI CLI in your pipeline. If you are using GitHub Actions, use Github Actions for Generator."
+        },
+        "Generator library in Node.js apps": {
+          "level": 2,
+          "content": "Use the generator library in your Node.js projects by installing it via the following command: npm install @asyncapi/generator.\nDon't include the -g flag in the installation command above since you're not installing the generator library globally but in your Node.js project."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "You can use the generator library to generate whatever you want in your event-driven architecture apps. Find your preferred method below:\n\nAsyncAPI CLI\nGenerator library in Node.js apps\n\nPrerequisites\nBefore you install and use the AsyncAPI CLI and the generator library, ensure you meet the prerequisites below, then install the CLI.\n\nNode.js v18.12.0 or higher\nNpm v8.19.0 or higher\n\nTo verify the versions of Node and Npm you have, run the following command on your terminal:\nnpm -v\nnode -v\nIf you don't have either Node or Npm installed, use the official node.js installer.\nIf you have the correct versions installed, proceed to the CLI installation guide below. Otherwise, upgrading the Npm or Node version is lower than the recommended versions specified above.\nAsyncAPI CLI\nThe AsyncAPI CLI tool allows you to do many different things with the AsyncAPI document. You can generate message-based API boilerplate code, documentation, or anything else you need as long as you specify it in your template or the existing template already supports it. To use the generator via the AsyncAPI CLI, you need to install the AsyncAPI CLI tool. For the latest installation instructions, visit the official AsyncAPI CLI installation guide.\n\n📝 Note:  To use the generator in your CI/CD pipeline to automate whatever you generate for your event-driven architecture apps, install the AsyncAPI CLI in your pipeline. If you are using GitHub Actions, use Github Actions for Generator.\n\nGenerator library in Node.js apps\nUse the generator library in your Node.js projects by installing it via the following command: npm install @asyncapi/generator.\n\nDon't include the -g flag in the installation command above since you're not installing the generator library globally but in your Node.js project.",
+    "sections": [
+      {
+        "title": "Prerequisites",
+        "level": 2,
+        "text": "Before you install and use the AsyncAPI CLI and the generator library, ensure you meet the prerequisites below, then install the CLI.\nNode.js v18.12.0 or higher\nNpm v8.19.0 or higher\nTo verify the versions of Node and Npm you have, run the following command on your terminal:npm -vnode -vIf you don't have either Node or Npm installed, use the official node.js installer.If you have the correct versions installed, proceed to the CLI installation guide below. Otherwise, upgrading the Npm or Node version is lower than the recommended versions specified above."
+      },
+      {
+        "title": "AsyncAPI CLI",
+        "level": 2,
+        "text": "The AsyncAPI CLI tool allows you to do many different things with the AsyncAPI document. You can generate message-based API boilerplate code, documentation, or anything else you need as long as you specify it in your template or the existing template already supports it. To use the generator via the AsyncAPI CLI, you need to install the AsyncAPI CLI tool. For the latest installation instructions, visit the official AsyncAPI CLI installation guide.\n📝 Note:  To use the generator in your CI/CD pipeline to automate whatever you generate for your event-driven architecture apps, install the AsyncAPI CLI in your pipeline. If you are using GitHub Actions, use Github Actions for Generator."
+      },
+      {
+        "title": "Generator library in Node.js apps",
+        "level": 2,
+        "text": "Use the generator library in your Node.js projects by installing it via the following command: npm install @asyncapi/generator.\nDon't include the -g flag in the installation command above since you're not installing the generator library globally but in your Node.js project."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "npm -v",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">npm</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-v</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "node -v",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">node</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-v</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "npm install @asyncapi/generator",
+        "context": "Use the generator library in your Node.js projects by installing it via the following command: npm install @asyncapi/generator."
+      },
+      {
+        "id": "highlight_1",
+        "content": "-g",
+        "context": "Don't include the -g flag in the installation command above since you're not installing the generator library globally but in your Node.js project."
+      }
+    ]
+  }
+}
