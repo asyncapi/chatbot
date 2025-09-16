@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/glee",
+    "timestamp": "2025-03-12T17:45:50.437Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Glee",
+    "hierarchy": {
+      "sections": {
+        "Welcome to Glee": {
+          "level": 2,
+          "content": "Glee introduces a refreshing approach to building server-side applications, emphasizing a spec-first methodology. This means your journey begins with defining the API specification (AsyncAPI) before writing a single line of application logic. Here's how Glee enhances your development experience:\nAlways Updated Documentation: Glee aligns your codebase with the AsyncAPI definition, ensuring your API documentation is constantly updated and reflective of your application's current capabilities.\nDeveloper Centricity: With Glee, your focus remains on the business logic. Leave the concerns of performance, scalability, and resilience to Glee, as it equips your application to be production-ready from the get-go.\nSchema Validation: Glee rigorously checks incoming payloads against the schema outlined in your AsyncAPI document. Any discrepancies result in an error, maintaining the integrity and reliability of your server's data processing.\nBefore you dive into Glee, let's explore its application structure and understand what makes Glee unique."
+        },
+        "Application structure": {
+          "level": 2,
+          "content": "Glee expects your project to have some files and folders with special names. When you run asyncapi new glee, AsyncAPI CLI generates a boilerplate application structure by creating a new folder and populating an initial set of files as shown below. You can continue working in this default structure, adding new components, as described throughout the documentation of asyncapi cli.1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)File/DirectoryDescriptionfunctionsRequired. This directory contains all the functions that Glee must execute when it receives a message from the server. Each file must export a default async function.lifecycleThis directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc..envThe environment variables of your application. DO NOT PUT SECRETS HERE.asyncapi.(yaml or json or yml)Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory.glee.config.jsThe Glee configuration file.package.jsonRequired. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively.To understand the structure in a broader way, please refer to the associated page's links."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Kickstarting Your Journey with Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            },
+            {
+              "text": "Building Your First Glee Application",
+              "href": "https://www.asyncapi.com/docs/tools/glee/your-first-glee-app"
+            },
+            {
+              "text": "Glee Installation Guide",
+              "href": "https://www.asyncapi.com/docs/tools/glee/installation"
+            },
+            {
+              "text": "Functions and Lifecycle Events",
+              "href": "https://www.asyncapi.com/docs/tools/glee/function-lifecycle-events"
+            },
+            {
+              "text": "Configuring Environment Variables and Configuration File",
+              "href": "https://www.asyncapi.com/docs/tools/glee/env-vars-config"
+            },
+            {
+              "text": "Introduction to Glee Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/glee-auth-intro"
+            },
+            {
+              "text": "Authentication Functions",
+              "href": "https://www.asyncapi.com/docs/tools/glee/authentication"
+            },
+            {
+              "text": "HTTP Authentication (Bearer Token)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/bearerToken"
+            },
+            {
+              "text": "HttpApiKey Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/httpApiKey"
+            },
+            {
+              "text": "Username and Password Authentication",
+              "href": "https://www.asyncapi.com/docs/tools/glee/userPassword"
+            },
+            {
+              "text": "Crypto Websockets - Interactive (Alpha)",
+              "href": "https://www.asyncapi.com/docs/tools/glee/crypto-websockets-interactive"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Welcome to Glee\nGlee introduces a refreshing approach to building server-side applications, emphasizing a spec-first methodology. This means your journey begins with defining the API specification (AsyncAPI) before writing a single line of application logic. Here's how Glee enhances your development experience:\n\nAlways Updated Documentation: Glee aligns your codebase with the AsyncAPI definition, ensuring your API documentation is constantly updated and reflective of your application's current capabilities.\nDeveloper Centricity: With Glee, your focus remains on the business logic. Leave the concerns of performance, scalability, and resilience to Glee, as it equips your application to be production-ready from the get-go.\nSchema Validation: Glee rigorously checks incoming payloads against the schema outlined in your AsyncAPI document. Any discrepancies result in an error, maintaining the integrity and reliability of your server's data processing.\n\nBefore you dive into Glee, let's explore its application structure and understand what makes Glee unique.\nApplication structure\nGlee expects your project to have some files and folders with special names. When you run asyncapi new glee, AsyncAPI CLI generates a boilerplate application structure by creating a new folder and populating an initial set of files as shown below. You can continue working in this default structure, adding new components, as described throughout the documentation of asyncapi cli.\n1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)\nFile/DirectoryDescriptionfunctionsRequired. This directory contains all the functions that Glee must execute when it receives a message from the server. Each file must export a default async function.lifecycleThis directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc..envThe environment variables of your application. DO NOT PUT SECRETS HERE.asyncapi.(yaml or json or yml)Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory.glee.config.jsThe Glee configuration file.package.jsonRequired. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively.\nTo understand the structure in a broader way, please refer to the associated page's links.",
+    "sections": [
+      {
+        "title": "Welcome to Glee",
+        "level": 2,
+        "text": "Glee introduces a refreshing approach to building server-side applications, emphasizing a spec-first methodology. This means your journey begins with defining the API specification (AsyncAPI) before writing a single line of application logic. Here's how Glee enhances your development experience:\nAlways Updated Documentation: Glee aligns your codebase with the AsyncAPI definition, ensuring your API documentation is constantly updated and reflective of your application's current capabilities.\nDeveloper Centricity: With Glee, your focus remains on the business logic. Leave the concerns of performance, scalability, and resilience to Glee, as it equips your application to be production-ready from the get-go.\nSchema Validation: Glee rigorously checks incoming payloads against the schema outlined in your AsyncAPI document. Any discrepancies result in an error, maintaining the integrity and reliability of your server's data processing.\nBefore you dive into Glee, let's explore its application structure and understand what makes Glee unique."
+      },
+      {
+        "title": "Application structure",
+        "level": 2,
+        "text": "Glee expects your project to have some files and folders with special names. When you run asyncapi new glee, AsyncAPI CLI generates a boilerplate application structure by creating a new folder and populating an initial set of files as shown below. You can continue working in this default structure, adding new components, as described throughout the documentation of asyncapi cli.1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)File/DirectoryDescriptionfunctionsRequired. This directory contains all the functions that Glee must execute when it receives a message from the server. Each file must export a default async function.lifecycleThis directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc..envThe environment variables of your application. DO NOT PUT SECRETS HERE.asyncapi.(yaml or json or yml)Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory.glee.config.jsThe Glee configuration file.package.jsonRequired. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively.To understand the structure in a broader way, please refer to the associated page's links."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1├─ functions          (required)\n2│  ├─ onHello.js\n3│  └─ ...\n4├─ lifecycle          (optional)\n5│  ├─ onConnect.js\n6│  └─ ...\n7├─ .env               (optional)\n8├─ asyncapi.(yaml | yml | json)      (required)\n9├─ glee.config.js     (optional)\n10├─ package.json       (required)",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">functions</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">onHello.js</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">└─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">lifecycle</span><span>          </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">onConnect.js</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">│</span><span>  </span><span style=\"color:#c0e2a3;font-weight:500\">└─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">...</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">.env</span><span>               </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi.(yaml</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">|</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">yml</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">|</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">json)</span><span>      </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">glee.config.js</span><span>     </span><span style=\"color:#c0e2a3;font-weight:500\">(optional)</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span></span><span style=\"color:#c0e2a3;font-weight:500\">├─</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">package.json</span><span>       </span><span style=\"color:#c0e2a3;font-weight:500\">(required)</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [
+      {
+        "id": "table_0",
+        "headers": [
+          "File/Directory",
+          "Description"
+        ],
+        "rows": [
+          {
+            "File/Directory": "functions",
+            "Description": "Required. This directory contains all the functions that Glee must execute when it receives a message from the server. Each file must export a default async function."
+          },
+          {
+            "File/Directory": "lifecycle",
+            "Description": "This directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc."
+          },
+          {
+            "File/Directory": ".env",
+            "Description": "The environment variables of your application. DO NOT PUT SECRETS HERE."
+          },
+          {
+            "File/Directory": "asyncapi.(yaml or json or yml)",
+            "Description": "Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory."
+          },
+          {
+            "File/Directory": "glee.config.js",
+            "Description": "The Glee configuration file."
+          },
+          {
+            "File/Directory": "package.json",
+            "Description": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+          }
+        ],
+        "context": ""
+      }
+    ],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "asyncapi new glee",
+        "context": "Glee expects your project to have some files and folders with special names. When you run asyncapi new glee, AsyncAPI CLI generates a boilerplate application structure by creating a new folder and populating an initial set of files as shown below. You can continue working in this default structure, adding new components, as described throughout the documentation of asyncapi cli."
+      },
+      {
+        "id": "highlight_1",
+        "content": "onConnect",
+        "context": "This directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc."
+      },
+      {
+        "id": "highlight_2",
+        "content": "onServerReady",
+        "context": "This directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc."
+      },
+      {
+        "id": "highlight_3",
+        "content": "onDisconnect",
+        "context": "This directory contains application lifecycle functions. These functions will be executed when certain events happen in the application. E.g., onConnect, onServerReady, onDisconnect, etc."
+      },
+      {
+        "id": "highlight_4",
+        "content": "receive",
+        "context": "Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory."
+      },
+      {
+        "id": "highlight_5",
+        "content": "functions",
+        "context": "Required. The AsyncAPI file defines your API. Make sure all the receive operations have a name that matches a file name (excluding the extension) in the functions directory."
+      },
+      {
+        "id": "highlight_6",
+        "content": "@asyncapi/glee",
+        "context": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+      },
+      {
+        "id": "highlight_7",
+        "content": "dev",
+        "context": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+      },
+      {
+        "id": "highlight_8",
+        "content": "start",
+        "context": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+      },
+      {
+        "id": "highlight_9",
+        "content": "glee dev",
+        "context": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+      },
+      {
+        "id": "highlight_10",
+        "content": "glee start",
+        "context": "Required. The Node.js package definition file. Make sure you include @asyncapi/glee as a dependency and add two scripts: dev and start. They should be running glee dev and glee start respectively."
+      }
+    ]
+  }
+}

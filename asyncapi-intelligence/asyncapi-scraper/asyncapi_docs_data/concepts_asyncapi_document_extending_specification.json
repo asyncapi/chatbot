@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification",
+    "timestamp": "2025-03-12T17:48:28.618Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Extending Specification",
+    "hierarchy": {
+      "sections": {
+        "Specification extensions": {
+          "level": 2,
+          "content": "The AsyncAPI Specification allows the addition of custom properties through patterned fields prefixed with an x-. That way, you can create unique things without causing problems in future updates.The x- prefix is used to define custom properties. These properties are user-defined and won't conflict with future specification versions because any property starting with x- is reserved for user definitions.Extensions can be used in any part of the AsyncAPI document.Here is an example of how to extend the AsyncAPI document with a custom property:1asyncapi: 3.0.0\n2info:\n3  title: Cool Example\n4  version: 0.1.0\n5  x-linkedin: '/company/asyncapi'  The above document shows an info object extended with custom information about a company's LinkedIn account that owns the application. Custom information is represented via a custom property called x-linkedin.RememberAsyncAPI tools might not support AsyncAPI extensions. Our tools can be extended to understand and handle the added data, especially if the tools are internal or open source."
+        },
+        "Remember": {
+          "level": 5,
+          "content": "AsyncAPI tools might not support AsyncAPI extensions. Our tools can be extended to understand and handle the added data, especially if the tools are internal or open source."
+        },
+        "Extending unsupported features": {
+          "level": 2,
+          "content": "If you need a feature not covered by the AsyncAPI specification, you can create an extension for it. Should this extension be useful to others, consider contributing it back to the AsyncAPI community. You can do this by opening a spec issue in the AsyncAPI GitHub repository. Before contributing, review the AsyncAPI contribution guidelines."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Extending the AsyncAPI specification allows you to include specific information for your domain or use case that's not currently supported by the original specification or the protocol bindings. Extension capability allows for customization, making it possible to integrate unique aspects into APIs that the standard AsyncAPI specification doesn't normally accommodate.\nSpecification extensions\nThe AsyncAPI Specification allows the addition of custom properties through patterned fields prefixed with an x-. That way, you can create unique things without causing problems in future updates.\nThe x- prefix is used to define custom properties. These properties are user-defined and won't conflict with future specification versions because any property starting with x- is reserved for user definitions.\nExtensions can be used in any part of the AsyncAPI document.\nHere is an example of how to extend the AsyncAPI document with a custom property:\n1asyncapi: 3.0.0\n2info:\n3  title: Cool Example\n4  version: 0.1.0\n5  x-linkedin: '/company/asyncapi'  \nThe above document shows an info object extended with custom information about a company's LinkedIn account that owns the application. Custom information is represented via a custom property called x-linkedin.\nRememberAsyncAPI tools might not support AsyncAPI extensions. Our tools can be extended to understand and handle the added data, especially if the tools are internal or open source.\nExtending unsupported features\nIf you need a feature not covered by the AsyncAPI specification, you can create an extension for it. Should this extension be useful to others, consider contributing it back to the AsyncAPI community. You can do this by opening a spec issue in the AsyncAPI GitHub repository. Before contributing, review the AsyncAPI contribution guidelines.",
+    "sections": [
+      {
+        "title": "Specification extensions",
+        "level": 2,
+        "text": "The AsyncAPI Specification allows the addition of custom properties through patterned fields prefixed with an x-. That way, you can create unique things without causing problems in future updates.The x- prefix is used to define custom properties. These properties are user-defined and won't conflict with future specification versions because any property starting with x- is reserved for user definitions.Extensions can be used in any part of the AsyncAPI document.Here is an example of how to extend the AsyncAPI document with a custom property:1asyncapi: 3.0.0\n2info:\n3  title: Cool Example\n4  version: 0.1.0\n5  x-linkedin: '/company/asyncapi'  The above document shows an info object extended with custom information about a company's LinkedIn account that owns the application. Custom information is represented via a custom property called x-linkedin.RememberAsyncAPI tools might not support AsyncAPI extensions. Our tools can be extended to understand and handle the added data, especially if the tools are internal or open source."
+      },
+      {
+        "title": "Remember",
+        "level": 5,
+        "text": "AsyncAPI tools might not support AsyncAPI extensions. Our tools can be extended to understand and handle the added data, especially if the tools are internal or open source."
+      },
+      {
+        "title": "Extending unsupported features",
+        "level": 2,
+        "text": "If you need a feature not covered by the AsyncAPI specification, you can create an extension for it. Should this extension be useful to others, consider contributing it back to the AsyncAPI community. You can do this by opening a spec issue in the AsyncAPI GitHub repository. Before contributing, review the AsyncAPI contribution guidelines."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 mr-2 inline-block h-8\" xmlns=\"http://www.w3.org/2000/svg\" fill-rule=\"evenodd\" fill=\"currentColor\" clip-rule=\"evenodd\" viewBox=\"0 0 22 25\"><path d=\"M13 24h-2c-.288 0-.563-.125-.753-.341l-.576-.659h4.658l-.576.659c-.19.216-.465.341-.753.341zm1.867-3c.287 0 .52.224.52.5s-.233.5-.52.5h-5.734c-.287 0-.52-.224-.52-.5s.233-.5.52-.5h5.734zm-2.871-17c2.983 0 6.004 1.97 6.004 5.734 0 1.937-.97 3.622-1.907 5.252-.907 1.574-1.843 3.201-1.844 5.014h1.001c0-3.286 3.75-6.103 3.75-10.266 0-4.34-3.502-6.734-7.004-6.734-3.498 0-6.996 2.391-6.996 6.734 0 4.163 3.75 6.98 3.75 10.266h.999c.001-1.813-.936-3.44-1.841-5.014-.938-1.63-1.908-3.315-1.908-5.252 0-3.764 3.017-5.734 5.996-5.734zm9.428 7.958c.251.114.362.411.248.662-.114.251-.41.363-.662.249l-.91-.414c-.252-.114-.363-.41-.249-.662.114-.251.411-.362.662-.248l.911.413zm-18.848 0c-.251.114-.362.411-.248.662.114.251.41.363.662.249l.91-.414c.252-.114.363-.41.249-.662-.114-.251-.411-.362-.662-.248l-.911.413zm18.924-2.958h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1c.276 0 .5.224.5.5s-.224.5-.5.5zm-18-1c.276 0 .5.224.5.5s-.224.5-.5.5h-1c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h1zm16.818-3.089c.227-.158.284-.469.126-.696-.157-.227-.469-.283-.696-.126l-.821.57c-.227.158-.283.469-.126.696.157.227.469.283.696.126l.821-.57zm-16.636 0c-.227-.158-.284-.469-.126-.696.157-.227.469-.283.696-.126l.821.57c.227.158.283.469.126.696-.157.227-.469.283-.696.126l-.821-.57zm13.333-3.033c.134-.241.048-.546-.193-.68-.241-.135-.546-.048-.68.192l-.488.873c-.135.241-.048.546.192.681.241.134.546.048.681-.193l.488-.873zm-10.03 0c-.134-.241-.048-.546.193-.68.241-.135.546-.048.68.192l.488.873c.135.241.048.546-.192.681-.241.134-.546.048-.681-.193l-.488-.873zm5.515-1.378c0-.276-.224-.5-.5-.5s-.5.224-.5.5v1c0 .276.224.5.5.5s.5-.224.5-.5v-1z\"></path></svg>",
+        "context": "Remember",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1asyncapi: 3.0.0\n2info:\n3  title: Cool Example\n4  version: 0.1.0\n5  x-linkedin: '/company/asyncapi'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#d6deeb\">asyncapi</span><span>: </span><span style=\"color:#d8da68\">3</span><span>.</span><span style=\"color:#d8da68\">0</span><span>.</span><span style=\"color:#d8da68\">0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#d6deeb\">info</span><span>:\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#d6deeb\">title</span><span>: Cool Example\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#d6deeb\">version</span><span>: </span><span style=\"color:#d8da68\">0</span><span>.</span><span style=\"color:#d8da68\">1</span><span>.</span><span style=\"color:#d8da68\">0</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#d6deeb\">x</span><span>-linkedin: '/company/asyncapi'  </span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "x-",
+        "context": "The AsyncAPI Specification allows the addition of custom properties through patterned fields prefixed with an x-. That way, you can create unique things without causing problems in future updates."
+      },
+      {
+        "id": "highlight_1",
+        "content": "x-",
+        "context": "The x- prefix is used to define custom properties. These properties are user-defined and won't conflict with future specification versions because any property starting with x- is reserved for user definitions."
+      },
+      {
+        "id": "highlight_2",
+        "content": "x-",
+        "context": "The x- prefix is used to define custom properties. These properties are user-defined and won't conflict with future specification versions because any property starting with x- is reserved for user definitions."
+      },
+      {
+        "id": "highlight_3",
+        "content": "info",
+        "context": "The above document shows an info object extended with custom information about a company's LinkedIn account that owns the application. Custom information is represented via a custom property called x-linkedin."
+      },
+      {
+        "id": "highlight_4",
+        "content": "x-linkedin",
+        "context": "The above document shows an info object extended with custom information about a company's LinkedIn account that owns the application. Custom information is represented via a custom property called x-linkedin."
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/reference/bindings",
+    "timestamp": "2025-03-12T17:46:40.881Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Bindings",
+    "hierarchy": {
+      "sections": {
+        "Overview": {
+          "level": 2,
+          "content": "Bindings in AsyncAPI provide a way to add protocol-specific information to the AsyncAPI documentation. They can be added to different document parts, such as servers, channels, or messages; they specify standard details specific to a particular protocol. The purpose of bindings is to enhance the API's understanding and usage by providing additional context and configuration options for different protocols."
+        },
+        "Usage in an AsyncAPI document": {
+          "level": 2,
+          "content": "To learn how to add bindings to your AsyncAPI document, read Adding bindings concept document, or read the guide about using Kafka bindings."
+        },
+        "Contributing to bindings": {
+          "level": 2,
+          "content": "Bindings are maintained by different community members that know and use given protocol and technology in production. If something can be improved, or some new binding is needed, open an issue in bindings repository."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference"
+            },
+            {
+              "text": "Specification",
+              "href": "https://www.asyncapi.com/docs/reference/specification/v3.0.0"
+            },
+            {
+              "text": "Extensions",
+              "href": "https://www.asyncapi.com/docs/reference/extensions"
+            },
+            {
+              "text": "Bindings",
+              "href": "https://www.asyncapi.com/docs/reference/bindings"
+            },
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/reference/bindings"
+            }
+          ]
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Overview\n\nBindings in AsyncAPI provide a way to add protocol-specific information to the AsyncAPI documentation. They can be added to different document parts, such as servers, channels, or messages; they specify standard details specific to a particular protocol. The purpose of bindings is to enhance the API's understanding and usage by providing additional context and configuration options for different protocols.\nUsage in an AsyncAPI document\nTo learn how to add bindings to your AsyncAPI document, read Adding bindings concept document, or read the guide about using Kafka bindings.\nContributing to bindings\nBindings are maintained by different community members that know and use given protocol and technology in production. If something can be improved, or some new binding is needed, open an issue in bindings repository.",
+    "sections": [
+      {
+        "title": "Overview",
+        "level": 2,
+        "text": "Bindings in AsyncAPI provide a way to add protocol-specific information to the AsyncAPI documentation. They can be added to different document parts, such as servers, channels, or messages; they specify standard details specific to a particular protocol. The purpose of bindings is to enhance the API's understanding and usage by providing additional context and configuration options for different protocols."
+      },
+      {
+        "title": "Usage in an AsyncAPI document",
+        "level": 2,
+        "text": "To learn how to add bindings to your AsyncAPI document, read Adding bindings concept document, or read the guide about using Kafka bindings."
+      },
+      {
+        "title": "Contributing to bindings",
+        "level": 2,
+        "text": "Bindings are maintained by different community members that know and use given protocol and technology in production. If something can be improved, or some new binding is needed, open an issue in bindings repository."
+      }
+    ],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

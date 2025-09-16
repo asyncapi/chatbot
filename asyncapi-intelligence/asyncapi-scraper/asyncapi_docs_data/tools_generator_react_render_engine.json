@@ -1,0 +1,320 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/generator/react-render-engine",
+    "timestamp": "2025-03-12T17:52:09.948Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "React Render Engine",
+    "hierarchy": {
+      "sections": {
+        "Common assumptions": {
+          "level": 3,
+          "content": "Generator renders all files located in the template directory if they meet the following conditions:\n\nFile is the root component\nThe file is not in the list of nonRenderableFiles in the template configuration\n\n\nNew lines are automatically added after each Text component.\nThe props you have access to in the rendering function are:\n\nasyncapi which is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI which is an original spec file before it is parsed.\nparams that contain the parameters provided when generating.\n\n\nAll the file templates are supported where the variables are provided after the default props as listed above."
+        },
+        "Debugging React template in VSCode": {
+          "level": 3,
+          "content": "With React, it enables you to debug your templates. For Visual Studio Code, we have created a boilerplate launch configuration to enable debugging in your template. Add the following launch configuration:1{\n2  \"version\": \"0.2.0\",\n3  \"configurations\": [\n4    {\n5      \"type\": \"node\",\n6      \"request\": \"launch\",\n7      \"name\": \"Debug template\",\n8      \"timeout\": 10000,\n9      \"sourceMaps\": true,\n10      \"args\": [\n11        \"./asyncapi.yml\",\n12        \"./template\",\n13        \"--output\",\n14        \"./output\",\n15        \"--install\",\n16        \"--force-write\"\n17      ],\n18      \"program\": \"ag\"\n19    }\n20  ]\n21}Now replace ./asyncapi.yml with your document of choice. Replace ./template with the path to your React template. You can now debug your template by adding any breakpoints you want and inspecting your code."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/generator/installation-guide"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/generator/usage"
+            },
+            {
+              "text": "AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tools/generator/asyncapi-document"
+            },
+            {
+              "text": "Template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template"
+            },
+            {
+              "text": "Parser",
+              "href": "https://www.asyncapi.com/docs/tools/generator/parser"
+            },
+            {
+              "text": "Generator version vs template version",
+              "href": "https://www.asyncapi.com/docs/tools/generator/versioning"
+            },
+            {
+              "text": "Library API",
+              "href": "https://www.asyncapi.com/docs/tools/generator/api"
+            },
+            {
+              "text": "Template development",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-development"
+            },
+            {
+              "text": "Configuration file",
+              "href": "https://www.asyncapi.com/docs/tools/generator/configuration-file"
+            },
+            {
+              "text": "Template context",
+              "href": "https://www.asyncapi.com/docs/tools/generator/template-context"
+            },
+            {
+              "text": "React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/react-render-engine"
+            },
+            {
+              "text": "Nunjucks render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/nunjucks-render-engine"
+            },
+            {
+              "text": "Hooks",
+              "href": "https://www.asyncapi.com/docs/tools/generator/hooks"
+            },
+            {
+              "text": "File templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/file-templates"
+            },
+            {
+              "text": "TypeScript support",
+              "href": "https://www.asyncapi.com/docs/tools/generator/typescript-support"
+            },
+            {
+              "text": "Special file names",
+              "href": "https://www.asyncapi.com/docs/tools/generator/special-file-names"
+            },
+            {
+              "text": "Creating a template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/generator-template"
+            },
+            {
+              "text": "Using private templates",
+              "href": "https://www.asyncapi.com/docs/tools/generator/using-private-template"
+            },
+            {
+              "text": "Adding models generation in template",
+              "href": "https://www.asyncapi.com/docs/tools/generator/model-generation"
+            },
+            {
+              "text": "Migrating from Nunjucks to React render engine",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-nunjucks-react"
+            },
+            {
+              "text": "Migrating from `ag` CLI to AsyncAPI CLI",
+              "href": "https://www.asyncapi.com/docs/tools/generator/migration-cli"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "React is the render engine that we strongly suggest you should use for any new templates. The only reason it is not the default render engine is to stay backward compatible.\n\nIt enables the possibility of debugging your template (this is not possible with Nunjucks).\nIt provides better error stack traces.\nProvides better support for separating code into more manageable chunks/components.\nThe readability of the template is much better compared to Nunjucks syntax.\nBetter tool support for development.\nIntroduces testability of components which is not possible with Nunjucks.\n\nWhen writing React templates you decide whether to use CommonJS, ES5, or ES6 modules since everything is bundled together before the rendering process takes over. We use our own React renderer which can be found in the Generator React SDK.\nThere you can find information about how the renderer works or how we transpile your template files.\nYour React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent.\nLet's consider a basic React template as the one below called MyTemplate.js:\n1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>Some text that should render as is</Text>\n7    </File>\n8  );\n9}\nThe exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component.\nFor further information about components, props, etc, see the Generator React SDK\nCommon assumptions\n\nGenerator renders all files located in the template directory if they meet the following conditions:\n\nFile is the root component\nThe file is not in the list of nonRenderableFiles in the template configuration\n\n\nNew lines are automatically added after each Text component.\nThe props you have access to in the rendering function are:\n\nasyncapi which is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI which is an original spec file before it is parsed.\nparams that contain the parameters provided when generating.\n\n\nAll the file templates are supported where the variables are provided after the default props as listed above.\n\nDebugging React template in VSCode\nWith React, it enables you to debug your templates. For Visual Studio Code, we have created a boilerplate launch configuration to enable debugging in your template. Add the following launch configuration:\n1{\n2  \"version\": \"0.2.0\",\n3  \"configurations\": [\n4    {\n5      \"type\": \"node\",\n6      \"request\": \"launch\",\n7      \"name\": \"Debug template\",\n8      \"timeout\": 10000,\n9      \"sourceMaps\": true,\n10      \"args\": [\n11        \"./asyncapi.yml\",\n12        \"./template\",\n13        \"--output\",\n14        \"./output\",\n15        \"--install\",\n16        \"--force-write\"\n17      ],\n18      \"program\": \"ag\"\n19    }\n20  ]\n21}\nNow replace ./asyncapi.yml with your document of choice. Replace ./template with the path to your React template. You can now debug your template by adding any breakpoints you want and inspecting your code.",
+    "sections": [
+      {
+        "title": "Common assumptions",
+        "level": 3,
+        "text": "Generator renders all files located in the template directory if they meet the following conditions:\n\nFile is the root component\nThe file is not in the list of nonRenderableFiles in the template configuration\n\n\nNew lines are automatically added after each Text component.\nThe props you have access to in the rendering function are:\n\nasyncapi which is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter.\noriginalAsyncAPI which is an original spec file before it is parsed.\nparams that contain the parameters provided when generating.\n\n\nAll the file templates are supported where the variables are provided after the default props as listed above."
+      },
+      {
+        "title": "Debugging React template in VSCode",
+        "level": 3,
+        "text": "With React, it enables you to debug your templates. For Visual Studio Code, we have created a boilerplate launch configuration to enable debugging in your template. Add the following launch configuration:1{\n2  \"version\": \"0.2.0\",\n3  \"configurations\": [\n4    {\n5      \"type\": \"node\",\n6      \"request\": \"launch\",\n7      \"name\": \"Debug template\",\n8      \"timeout\": 10000,\n9      \"sourceMaps\": true,\n10      \"args\": [\n11        \"./asyncapi.yml\",\n12        \"./template\",\n13        \"--output\",\n14        \"./output\",\n15        \"--install\",\n16        \"--force-write\"\n17      ],\n18      \"program\": \"ag\"\n19    }\n20  ]\n21}Now replace ./asyncapi.yml with your document of choice. Replace ./template with the path to your React template. You can now debug your template by adding any breakpoints you want and inspecting your code."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1import { File, Text } from \"@asyncapi/generator-react-sdk\";\n2\n3export default function({ asyncapi, params, originalAsyncAPI }) {\n4  return (\n5    <File name=\"asyncapi.md\">\n6      <Text>Some text that should render as is</Text>\n7    </File>\n8  );\n9}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">import</span><span> { File, </span><span style=\"color:#7edcda\">Text</span><span> } </span><span style=\"color:#64a0dc\">from</span><span> \"@asyncapi/generator-react-sdk\";\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>export </span><span style=\"color:#64a0dc\">default</span><span> </span><span style=\"color:#64a0dc\">function</span><span>({ asyncapi, params, originalAsyncAPI }) {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#64a0dc\">return</span><span> (\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    &lt;File </span><span style=\"color:#7edcda\">name</span><span>=\"asyncapi.md\"&gt;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      &lt;</span><span style=\"color:#7edcda\">Text</span><span>&gt;</span><span style=\"color:#64a0dc\">Some</span><span> </span><span style=\"color:#7edcda\">text</span><span> that should render </span><span style=\"color:#64a0dc\">as</span><span> </span><span style=\"color:#64a0dc\">is</span><span>&lt;/</span><span style=\"color:#7edcda\">Text</span><span>&gt;\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>    &lt;/File&gt;\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span>  );\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1{\n2  \"version\": \"0.2.0\",\n3  \"configurations\": [\n4    {\n5      \"type\": \"node\",\n6      \"request\": \"launch\",\n7      \"name\": \"Debug template\",\n8      \"timeout\": 10000,\n9      \"sourceMaps\": true,\n10      \"args\": [\n11        \"./asyncapi.yml\",\n12        \"./template\",\n13        \"--output\",\n14        \"./output\",\n15        \"--install\",\n16        \"--force-write\"\n17      ],\n18      \"program\": \"ag\"\n19    }\n20  ]\n21}",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>{\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">\"version\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"0.2.0\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">\"configurations\"</span><span>: [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span>    {\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>      </span><span style=\"color:#7edcda\">\"type\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"node\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>      </span><span style=\"color:#7edcda\">\"request\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"launch\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>      </span><span style=\"color:#7edcda\">\"name\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"Debug template\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>      </span><span style=\"color:#7edcda\">\"timeout\"</span><span>: </span><span style=\"color:#d8da68\">10000</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>      </span><span style=\"color:#7edcda\">\"sourceMaps\"</span><span>: </span><span style=\"color:#64a0dc\">true</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>      </span><span style=\"color:#7edcda\">\"args\"</span><span>: [\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"./asyncapi.yml\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"./template\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"--output\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"./output\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"--install\"</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">\"--force-write\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span>      ],\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>      </span><span style=\"color:#7edcda\">\"program\"</span><span>: </span><span style=\"color:#c0e2a3;font-weight:500\">\"ag\"</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span>    }\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span>  ]\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span>}</span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "@asyncapi/generator-react-sdk",
+        "context": "Your React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent."
+      },
+      {
+        "id": "highlight_1",
+        "content": "@asyncapi/generator-react-sdk",
+        "context": "Your React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent."
+      },
+      {
+        "id": "highlight_2",
+        "content": "File",
+        "context": "Your React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent."
+      },
+      {
+        "id": "highlight_3",
+        "content": "Text",
+        "context": "Your React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent."
+      },
+      {
+        "id": "highlight_4",
+        "content": "Indent",
+        "context": "Your React template always requires @asyncapi/generator-react-sdk as a dependency. @asyncapi/generator-react-sdk is required to access the File component which is required as a root component for a file to be rendered. Furthermore, it provides some common components to make your development easier, like Text or Indent."
+      },
+      {
+        "id": "highlight_5",
+        "content": "MyTemplate.js",
+        "context": "Let's consider a basic React template as the one below called MyTemplate.js:"
+      },
+      {
+        "id": "highlight_6",
+        "content": "File",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_7",
+        "content": "MyTemplate.js",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_8",
+        "content": "asyncapi.md",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_9",
+        "content": "Some text that should render as is\\n",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_10",
+        "content": "\\n",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_11",
+        "content": "Text",
+        "context": "The exported default function returns a File component as a root component which the generator uses to determine what file should be generated. In our case, we overwrite the default functionality of saving the file as MyTemplate.js but instead use the filename asyncapi.md. It is then specified that we should render Some text that should render as is\\n within that file. Notice the \\n character at the end, which is automatically added after the Text component."
+      },
+      {
+        "id": "highlight_12",
+        "content": "template",
+        "context": "Generator renders all files located in the template directory if they meet the following conditions:\n\nFile is the root component\nThe file is not in the list of nonRenderableFiles in the template configuration"
+      },
+      {
+        "id": "highlight_13",
+        "content": "File",
+        "context": "File is the root component"
+      },
+      {
+        "id": "highlight_14",
+        "content": "nonRenderableFiles",
+        "context": "The file is not in the list of nonRenderableFiles in the template configuration"
+      },
+      {
+        "id": "highlight_15",
+        "content": "Text",
+        "context": "New lines are automatically added after each Text component."
+      },
+      {
+        "id": "highlight_16",
+        "content": "asyncapi",
+        "context": "asyncapi which is a parsed spec file object. Read the API of the Parser to understand what structure you have access to in this parameter."
+      },
+      {
+        "id": "highlight_17",
+        "content": "originalAsyncAPI",
+        "context": "originalAsyncAPI which is an original spec file before it is parsed."
+      },
+      {
+        "id": "highlight_18",
+        "content": "params",
+        "context": "params that contain the parameters provided when generating."
+      },
+      {
+        "id": "highlight_19",
+        "content": "./asyncapi.yml",
+        "context": "Now replace ./asyncapi.yml with your document of choice. Replace ./template with the path to your React template. You can now debug your template by adding any breakpoints you want and inspecting your code."
+      },
+      {
+        "id": "highlight_20",
+        "content": "./template",
+        "context": "Now replace ./asyncapi.yml with your document of choice. Replace ./template with the path to your React template. You can now debug your template by adding any breakpoints you want and inspecting your code."
+      }
+    ]
+  }
+}

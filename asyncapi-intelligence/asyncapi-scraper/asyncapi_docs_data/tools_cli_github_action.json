@@ -1,0 +1,553 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/cli/github-action",
+    "timestamp": "2025-03-12T17:54:17.166Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Github Action",
+    "hierarchy": {
+      "sections": {
+        "Inputs": {
+          "level": 2,
+          "content": "cli_versionVersion of the AsyncAPI CLI you wish to use. You can find all available versions here. Recommended leave it out of the inputs and use the default value.Default points to thelatest version.\n[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons.\ncommandCommand that you wish to run. You can find all available commands Available commands are:\ngenerate - generates documentation from AsyncAPI document\nvalidate - validates AsyncAPI document\noptimize - optimizes AsyncAPI document\nconvert - converts AsyncAPI document to another version\ncustom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here.\nDefault points to generate command.\n[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input.\ncustom_commandIn case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here.Default points to '' (empty string).Sample usage:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml\n[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>\nfilepathPath to the AsyncAPI document that you want to process.Default expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml.templateTemplate for the generator. Official templates are listed here https://github.com/asyncapi/generator#list-of-official-generator-templates. You can pass template as npm package, url to git repository, link to tar file or local template.Default points to @asyncapi/markdown-template@0.10.0 template.\n[!TIP]\nWe recommend to always specify the version of the template to not encounter any issues with the action in case of release of the template that is not compatible with given version of the generator.\nlanguageSpecifies the language to be used for the generated models. The value must be a valid language name supported by modelina.Default is not set.\n[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina.\noutputPath to the output directory. Can be used for generate and convert commands.Default points to output directory in the root of the repository.parametersThe command that you use might support and even require specific parameters to be passed to the CLI for the generation. You can find all available parameters here.Default points to '' (empty string).\n[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation."
+        },
+        "cli_version": {
+          "level": 3,
+          "content": "Version of the AsyncAPI CLI you wish to use. You can find all available versions here. Recommended leave it out of the inputs and use the default value.Default points to thelatest version.\n[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons."
+        },
+        "command": {
+          "level": 3,
+          "content": "Command that you wish to run. You can find all available commands Available commands are:\ngenerate - generates documentation from AsyncAPI document\nvalidate - validates AsyncAPI document\noptimize - optimizes AsyncAPI document\nconvert - converts AsyncAPI document to another version\ncustom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here.\nDefault points to generate command.\n[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input."
+        },
+        "custom_command": {
+          "level": 3,
+          "content": "In case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here.Default points to '' (empty string).Sample usage:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml\n[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>"
+        },
+        "filepath": {
+          "level": 3,
+          "content": "Path to the AsyncAPI document that you want to process.Default expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml."
+        },
+        "template": {
+          "level": 3,
+          "content": "Template for the generator. Official templates are listed here https://github.com/asyncapi/generator#list-of-official-generator-templates. You can pass template as npm package, url to git repository, link to tar file or local template.Default points to @asyncapi/markdown-template@0.10.0 template.\n[!TIP]\nWe recommend to always specify the version of the template to not encounter any issues with the action in case of release of the template that is not compatible with given version of the generator."
+        },
+        "language": {
+          "level": 3,
+          "content": "Specifies the language to be used for the generated models. The value must be a valid language name supported by modelina.Default is not set.\n[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina."
+        },
+        "output": {
+          "level": 3,
+          "content": "Path to the output directory. Can be used for generate and convert commands.Default points to output directory in the root of the repository."
+        },
+        "parameters": {
+          "level": 3,
+          "content": "The command that you use might support and even require specific parameters to be passed to the CLI for the generation. You can find all available parameters here.Default points to '' (empty string).\n[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation."
+        },
+        "Example usage": {
+          "level": 2,
+          "content": "[!WARNING]\nUsing docker://asyncapi/github-action-for-cli will not work as expected. This is because the GitHub Actions runner does not pass params to the docker image correctly. This is why we recommend to use asyncapi/cli instead.\nHowever, you don't need to worry as it won't build the image every time. It will pull it from Docker Hub as it is already built there.\nBasicIn case all defaults are fine for you, just add such step:1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you wantUsing all possible inputsIn case you do not want to use defaults, you for example want to use different template:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"\n[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate.\nExample workflow with publishing generated HTML to GitHub PagesIn case you want to validate your asyncapi file first, and also send generated HTML to GitHub Pages this is how full workflow could look like:1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-htmlExample workflow for generating modelsIn case you want to use models generated from your AsyncAPI document, you can use this action to generate them and then use them in your workflow. This is how full workflow could look like:1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-modelsExample workflow for validating AsyncAPI document changesIn case you want to validate your AsyncAPI document changes, you can use this action to validate them and then use them in your workflow. This is how full workflow could look like:1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml"
+        },
+        "Basic": {
+          "level": 3,
+          "content": "In case all defaults are fine for you, just add such step:1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want"
+        },
+        "Using all possible inputs": {
+          "level": 3,
+          "content": "In case you do not want to use defaults, you for example want to use different template:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"\n[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate."
+        },
+        "Example workflow with publishing generated HTML to GitHub Pages": {
+          "level": 3,
+          "content": "In case you want to validate your asyncapi file first, and also send generated HTML to GitHub Pages this is how full workflow could look like:1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-html"
+        },
+        "Example workflow for generating models": {
+          "level": 3,
+          "content": "In case you want to use models generated from your AsyncAPI document, you can use this action to generate them and then use them in your workflow. This is how full workflow could look like:1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-models"
+        },
+        "Example workflow for validating AsyncAPI document changes": {
+          "level": 3,
+          "content": "In case you want to validate your AsyncAPI document changes, you can use this action to validate them and then use them in your workflow. This is how full workflow could look like:1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml"
+        },
+        "Local dry run": {
+          "level": 2,
+          "content": "Use following commands to run and test github action locally:\nBuild docker image of github action for cli\n  npm run action:docker:build\nExecute docker image with proper arguments\n  docker run -e GITHUB_WORKSPACE=\"\" --workdir /action  -v \"/home/{user}/path/to/repo\":\"/action\" asyncapi/github-action-for-cli  \"\" \"generate\" \"github-action/test/asyncapi.yml\" \"@asyncapi/markdown-template@0.10.0\" \"\" \"output\" \"\" \"\"Make sure to change the path of the repo and user in the command."
+        },
+        "Troubleshooting": {
+          "level": 2,
+          "content": "You can enable more log information in GitHub Action by adding ACTIONS_STEP_DEBUG secret to repository where you want to use this action. Set the value of this secret to true and you''ll notice more debug logs from this action."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/cli/installation"
+            },
+            {
+              "text": "CLI Architecture",
+              "href": "https://www.asyncapi.com/docs/tools/cli/architecture"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/cli/usage"
+            },
+            {
+              "text": "GitHub Action for CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli/github-action"
+            },
+            {
+              "text": "Context concept",
+              "href": "https://www.asyncapi.com/docs/tools/cli/context"
+            },
+            {
+              "text": "Metrics Collection",
+              "href": "https://www.asyncapi.com/docs/tools/cli/metrics_collection"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "This action exposes the AsyncAPI CLI. It allows you to generate documentation, validate AsyncAPI documents, convert between different AsyncAPI versions and much more. The source code of the action can be found here\nInputs\ncli_version\nVersion of the AsyncAPI CLI you wish to use. You can find all available versions here. Recommended leave it out of the inputs and use the default value.\nDefault points to thelatest version.\n\n[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons.\n\ncommand\nCommand that you wish to run. You can find all available commands Available commands are:\n\ngenerate - generates documentation from AsyncAPI document\nvalidate - validates AsyncAPI document\noptimize - optimizes AsyncAPI document\nconvert - converts AsyncAPI document to another version\ncustom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here.\n\nDefault points to generate command.\n\n[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input.\n\ncustom_command\nIn case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here.\nDefault points to '' (empty string).\nSample usage:\n1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml\n\n[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>\n\nfilepath\nPath to the AsyncAPI document that you want to process.\nDefault expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml.\ntemplate\nTemplate for the generator. Official templates are listed here https://github.com/asyncapi/generator#list-of-official-generator-templates. You can pass template as npm package, url to git repository, link to tar file or local template.\nDefault points to @asyncapi/markdown-template@0.10.0 template.\n\n[!TIP]\nWe recommend to always specify the version of the template to not encounter any issues with the action in case of release of the template that is not compatible with given version of the generator.\n\nlanguage\nSpecifies the language to be used for the generated models. The value must be a valid language name supported by modelina.\nDefault is not set.\n\n[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina.\n\noutput\nPath to the output directory. Can be used for generate and convert commands.\nDefault points to output directory in the root of the repository.\nparameters\nThe command that you use might support and even require specific parameters to be passed to the CLI for the generation. You can find all available parameters here.\nDefault points to '' (empty string).\n\n[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation.\n\nExample usage\n\n[!WARNING]\nUsing docker://asyncapi/github-action-for-cli will not work as expected. This is because the GitHub Actions runner does not pass params to the docker image correctly. This is why we recommend to use asyncapi/cli instead.\nHowever, you don't need to worry as it won't build the image every time. It will pull it from Docker Hub as it is already built there.\n\nBasic\nIn case all defaults are fine for you, just add such step:\n1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\nUsing all possible inputs\nIn case you do not want to use defaults, you for example want to use different template:\n1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"\n\n[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate.\n\nExample workflow with publishing generated HTML to GitHub Pages\nIn case you want to validate your asyncapi file first, and also send generated HTML to GitHub Pages this is how full workflow could look like:\n1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-html\nExample workflow for generating models\nIn case you want to use models generated from your AsyncAPI document, you can use this action to generate them and then use them in your workflow. This is how full workflow could look like:\n1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-models\nExample workflow for validating AsyncAPI document changes\nIn case you want to validate your AsyncAPI document changes, you can use this action to validate them and then use them in your workflow. This is how full workflow could look like:\n1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml\nLocal dry run\nUse following commands to run and test github action locally:\n\nBuild docker image of github action for cli\n\n  npm run action:docker:build\n\nExecute docker image with proper arguments\n\n  docker run -e GITHUB_WORKSPACE=\"\" --workdir /action  -v \"/home/{user}/path/to/repo\":\"/action\" asyncapi/github-action-for-cli  \"\" \"generate\" \"github-action/test/asyncapi.yml\" \"@asyncapi/markdown-template@0.10.0\" \"\" \"output\" \"\" \"\"\nMake sure to change the path of the repo and user in the command.\nTroubleshooting\nYou can enable more log information in GitHub Action by adding ACTIONS_STEP_DEBUG secret to repository where you want to use this action. Set the value of this secret to true and you''ll notice more debug logs from this action.",
+    "sections": [
+      {
+        "title": "Inputs",
+        "level": 2,
+        "text": "cli_versionVersion of the AsyncAPI CLI you wish to use. You can find all available versions here. Recommended leave it out of the inputs and use the default value.Default points to thelatest version.\n[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons.\ncommandCommand that you wish to run. You can find all available commands Available commands are:\ngenerate - generates documentation from AsyncAPI document\nvalidate - validates AsyncAPI document\noptimize - optimizes AsyncAPI document\nconvert - converts AsyncAPI document to another version\ncustom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here.\nDefault points to generate command.\n[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input.\ncustom_commandIn case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here.Default points to '' (empty string).Sample usage:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml\n[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>\nfilepathPath to the AsyncAPI document that you want to process.Default expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml.templateTemplate for the generator. Official templates are listed here https://github.com/asyncapi/generator#list-of-official-generator-templates. You can pass template as npm package, url to git repository, link to tar file or local template.Default points to @asyncapi/markdown-template@0.10.0 template.\n[!TIP]\nWe recommend to always specify the version of the template to not encounter any issues with the action in case of release of the template that is not compatible with given version of the generator.\nlanguageSpecifies the language to be used for the generated models. The value must be a valid language name supported by modelina.Default is not set.\n[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina.\noutputPath to the output directory. Can be used for generate and convert commands.Default points to output directory in the root of the repository.parametersThe command that you use might support and even require specific parameters to be passed to the CLI for the generation. You can find all available parameters here.Default points to '' (empty string).\n[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation."
+      },
+      {
+        "title": "cli_version",
+        "level": 3,
+        "text": "Version of the AsyncAPI CLI you wish to use. You can find all available versions here. Recommended leave it out of the inputs and use the default value.Default points to thelatest version.\n[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons."
+      },
+      {
+        "title": "command",
+        "level": 3,
+        "text": "Command that you wish to run. You can find all available commands Available commands are:\ngenerate - generates documentation from AsyncAPI document\nvalidate - validates AsyncAPI document\noptimize - optimizes AsyncAPI document\nconvert - converts AsyncAPI document to another version\ncustom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here.\nDefault points to generate command.\n[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input."
+      },
+      {
+        "title": "custom_command",
+        "level": 3,
+        "text": "In case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here.Default points to '' (empty string).Sample usage:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml\n[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>"
+      },
+      {
+        "title": "filepath",
+        "level": 3,
+        "text": "Path to the AsyncAPI document that you want to process.Default expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml."
+      },
+      {
+        "title": "template",
+        "level": 3,
+        "text": "Template for the generator. Official templates are listed here https://github.com/asyncapi/generator#list-of-official-generator-templates. You can pass template as npm package, url to git repository, link to tar file or local template.Default points to @asyncapi/markdown-template@0.10.0 template.\n[!TIP]\nWe recommend to always specify the version of the template to not encounter any issues with the action in case of release of the template that is not compatible with given version of the generator."
+      },
+      {
+        "title": "language",
+        "level": 3,
+        "text": "Specifies the language to be used for the generated models. The value must be a valid language name supported by modelina.Default is not set.\n[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina."
+      },
+      {
+        "title": "output",
+        "level": 3,
+        "text": "Path to the output directory. Can be used for generate and convert commands.Default points to output directory in the root of the repository."
+      },
+      {
+        "title": "parameters",
+        "level": 3,
+        "text": "The command that you use might support and even require specific parameters to be passed to the CLI for the generation. You can find all available parameters here.Default points to '' (empty string).\n[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation."
+      },
+      {
+        "title": "Example usage",
+        "level": 2,
+        "text": "[!WARNING]\nUsing docker://asyncapi/github-action-for-cli will not work as expected. This is because the GitHub Actions runner does not pass params to the docker image correctly. This is why we recommend to use asyncapi/cli instead.\nHowever, you don't need to worry as it won't build the image every time. It will pull it from Docker Hub as it is already built there.\nBasicIn case all defaults are fine for you, just add such step:1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you wantUsing all possible inputsIn case you do not want to use defaults, you for example want to use different template:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"\n[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate.\nExample workflow with publishing generated HTML to GitHub PagesIn case you want to validate your asyncapi file first, and also send generated HTML to GitHub Pages this is how full workflow could look like:1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-htmlExample workflow for generating modelsIn case you want to use models generated from your AsyncAPI document, you can use this action to generate them and then use them in your workflow. This is how full workflow could look like:1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-modelsExample workflow for validating AsyncAPI document changesIn case you want to validate your AsyncAPI document changes, you can use this action to validate them and then use them in your workflow. This is how full workflow could look like:1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml"
+      },
+      {
+        "title": "Basic",
+        "level": 3,
+        "text": "In case all defaults are fine for you, just add such step:1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want"
+      },
+      {
+        "title": "Using all possible inputs",
+        "level": 3,
+        "text": "In case you do not want to use defaults, you for example want to use different template:1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"\n[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate."
+      },
+      {
+        "title": "Example workflow with publishing generated HTML to GitHub Pages",
+        "level": 3,
+        "text": "In case you want to validate your asyncapi file first, and also send generated HTML to GitHub Pages this is how full workflow could look like:1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-html"
+      },
+      {
+        "title": "Example workflow for generating models",
+        "level": 3,
+        "text": "In case you want to use models generated from your AsyncAPI document, you can use this action to generate them and then use them in your workflow. This is how full workflow could look like:1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-models"
+      },
+      {
+        "title": "Example workflow for validating AsyncAPI document changes",
+        "level": 3,
+        "text": "In case you want to validate your AsyncAPI document changes, you can use this action to validate them and then use them in your workflow. This is how full workflow could look like:1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml"
+      },
+      {
+        "title": "Local dry run",
+        "level": 2,
+        "text": "Use following commands to run and test github action locally:\nBuild docker image of github action for cli\n  npm run action:docker:build\nExecute docker image with proper arguments\n  docker run -e GITHUB_WORKSPACE=\"\" --workdir /action  -v \"/home/{user}/path/to/repo\":\"/action\" asyncapi/github-action-for-cli  \"\" \"generate\" \"github-action/test/asyncapi.yml\" \"@asyncapi/markdown-template@0.10.0\" \"\" \"output\" \"\" \"\"Make sure to change the path of the repo and user in the command."
+      },
+      {
+        "title": "Troubleshooting",
+        "level": 2,
+        "text": "You can enable more log information in GitHub Action by adding ACTIONS_STEP_DEBUG secret to repository where you want to use this action. Set the value of this secret to true and you''ll notice more debug logs from this action."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_3",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_4",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_5",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_6",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_7",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0# You can use any version you want\n3  with:\n4    custom_command: bundle ./asyncapi.yaml --output final-asyncapi.yaml",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Generating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">HTML</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0#</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">You</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">can</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">use</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">any</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">version</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">you</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">want</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">custom_command:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">bundle</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">./asyncapi.yaml</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">--output</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">final-asyncapi.yaml</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1- name: Generating Markdown from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Generating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Markdown</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0</span><span> </span><span style=\"color:#797f8c\"># You can use any version you want</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "1- name: Generating HTML from my AsyncAPI document\n2  uses: asyncapi/cli@v2.16.0 # You can use any version you want\n3  with:\n4    command: generate\n5    filepath: ./docs/api/asyncapi.yaml\n6    template: \"@asyncapi/html-template@0.9.0\" #In case of template from npm. Or can use a link.\n7    output: ./generated-html\n8    parameters: \"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Generating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">HTML</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0</span><span> </span><span style=\"color:#797f8c\"># You can use any version you want</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>    </span><span style=\"color:#7edcda\">command:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">generate</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">filepath:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">./docs/api/asyncapi.yaml</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span style=\"color:#7edcda\">template:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/html-template@0.9.0\"</span><span> </span><span style=\"color:#797f8c\">#In case of template from npm. Or can use a link.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#7edcda\">output:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">./generated-html</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>    </span><span style=\"color:#7edcda\">parameters:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"-p baseHref=/test-experiment/ sidebarOrganization=byTags\"</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_3",
+        "content": "1name: AsyncAPI documents processing\n2\n3on:\n4  push:\n5    branches: [ master ]\n6\n7jobs:\n8  generate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    #In case you do not want to use defaults, you for example want to use different template\n16    - name: Generating HTML from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        template: '@asyncapi/html-template@0.9.0'  #In case of template from npm, because of @ it must be in quotes\n20        filepath: docs/api/my-asyncapi.yml\n21        parameters: -p baseHref=/test-experiment/ sidebarOrganization=byTags #space separated list of key/values\n22        output: generated-html\n23      \n24    #Using another action that takes generated HTML and pushes it to GH Pages\n25    - name: Deploy GH page\n26      uses: JamesIves/github-pages-deploy-action@3.4.2\n27      with:\n28        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n29        BRANCH: gh-pages\n30        FOLDER: generated-html",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">documents</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">processing</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">on:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">push:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">branches:</span><span> [ </span><span style=\"color:#c0e2a3;font-weight:500\">master</span><span> ]\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">jobs:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">generate:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">runs-on:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ubuntu-latest</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">steps:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#797f8c\">#\"standard step\" where repo needs to be checked-out first</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Checkout</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">repo</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">actions/checkout@v2</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>      \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>    </span><span style=\"color:#797f8c\">#In case you do not want to use defaults, you for example want to use different template</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Generating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">HTML</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0</span><span> </span><span style=\"color:#797f8c\"># You can use any version you want</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>      </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>        </span><span style=\"color:#7edcda\">template:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'@asyncapi/html-template@0.9.0'</span><span>  </span><span style=\"color:#797f8c\">#In case of template from npm, because of @ it must be in quotes</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>        </span><span style=\"color:#7edcda\">filepath:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">docs/api/my-asyncapi.yml</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>        </span><span style=\"color:#7edcda\">parameters:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">-p</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">baseHref=/test-experiment/</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">sidebarOrganization=byTags</span><span> </span><span style=\"color:#797f8c\">#space separated list of key/values</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span>        </span><span style=\"color:#7edcda\">output:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">generated-html</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">23</span>      \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">24</span><span>    </span><span style=\"color:#797f8c\">#Using another action that takes generated HTML and pushes it to GH Pages</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">25</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Deploy</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">GH</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">page</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">26</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">JamesIves/github-pages-deploy-action@3.4.2</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">27</span><span>      </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">28</span><span>        </span><span style=\"color:#7edcda\">ACCESS_TOKEN:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">${{</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">secrets.GITHUB_TOKEN</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">}}</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">29</span><span>        </span><span style=\"color:#7edcda\">BRANCH:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">gh-pages</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:3.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">30</span><span>        </span><span style=\"color:#7edcda\">FOLDER:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">generated-html</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_4",
+        "content": "1\n2name: AsyncAPI documents processing\n3\n4on:\n5  push:\n6    branches: [ master ]\n7\n8jobs:\n9  generate-models:\n10    runs-on: ubuntu-latest\n11    steps:\n12    #\"standard step\" where repo needs to be checked-out first\n13    - name: Checkout repo\n14      uses: actions/checkout@v2\n15      \n16    - name: Generating models from my AsyncAPI document\n17      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n18      with:\n19        command: generate\n20        filepath: docs/api/my-asyncapi.yml\n21        language: typescript\n22        output: generated-models",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span></span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">documents</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">processing</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span></span><span style=\"color:#7edcda\">on:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">push:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>    </span><span style=\"color:#7edcda\">branches:</span><span> [ </span><span style=\"color:#c0e2a3;font-weight:500\">master</span><span> ]\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span></span><span style=\"color:#7edcda\">jobs:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>  </span><span style=\"color:#7edcda\">generate-models:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">runs-on:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ubuntu-latest</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#7edcda\">steps:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#797f8c\">#\"standard step\" where repo needs to be checked-out first</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Checkout</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">repo</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">actions/checkout@v2</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span>      \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Generating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">models</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">from</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">my</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0</span><span> </span><span style=\"color:#797f8c\"># You can use any version you want</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>      </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>        </span><span style=\"color:#7edcda\">command:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">generate</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">20</span><span>        </span><span style=\"color:#7edcda\">filepath:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">docs/api/my-asyncapi.yml</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">21</span><span>        </span><span style=\"color:#7edcda\">language:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">typescript</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">22</span><span>        </span><span style=\"color:#7edcda\">output:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">generated-models</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_5",
+        "content": "1name: Validate AsyncAPI document\n2\n3on:\n4  pull_request:\n5    branches: [ master ]\n6\n7jobs:\n8  validate:\n9    runs-on: ubuntu-latest\n10    steps:\n11    #\"standard step\" where repo needs to be checked-out first\n12    - name: Checkout repo\n13      uses: actions/checkout@v2\n14      \n15    - name: Validating AsyncAPI document\n16      uses: asyncapi/cli@v2.16.0 # You can use any version you want\n17      with:\n18        command: validate\n19        filepath: docs/api/my-asyncapi.yml",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Validate</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span></span><span style=\"color:#7edcda\">on:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">pull_request:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>    </span><span style=\"color:#7edcda\">branches:</span><span> [ </span><span style=\"color:#c0e2a3;font-weight:500\">master</span><span> ]\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span>\n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span></span><span style=\"color:#7edcda\">jobs:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">validate:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>    </span><span style=\"color:#7edcda\">runs-on:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">ubuntu-latest</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>    </span><span style=\"color:#7edcda\">steps:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>    </span><span style=\"color:#797f8c\">#\"standard step\" where repo needs to be checked-out first</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Checkout</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">repo</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">13</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">actions/checkout@v2</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">14</span>      \n</span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">15</span><span>    </span><span style=\"color:#64a0dc\">-</span><span> </span><span style=\"color:#7edcda\">name:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Validating</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">AsyncAPI</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">document</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">16</span><span>      </span><span style=\"color:#7edcda\">uses:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi/cli@v2.16.0</span><span> </span><span style=\"color:#797f8c\"># You can use any version you want</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">17</span><span>      </span><span style=\"color:#7edcda\">with:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">18</span><span>        </span><span style=\"color:#7edcda\">command:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">validate</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">19</span><span>        </span><span style=\"color:#7edcda\">filepath:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">docs/api/my-asyncapi.yml</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_6",
+        "content": "npm run action:docker:build",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>  npm run action:docker:build</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_7",
+        "content": "docker run -e GITHUB_WORKSPACE=\"\" --workdir /action  -v \"/home/{user}/path/to/repo\":\"/action\" asyncapi/github-action-for-cli  \"\" \"generate\" \"github-action/test/asyncapi.yml\" \"@asyncapi/markdown-template@0.10.0\" \"\" \"output\" \"\" \"\"",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span>  docker run -e GITHUB_WORKSPACE=</span><span style=\"color:#c0e2a3;font-weight:500\">\"\"</span><span> --workdir /action  -v </span><span style=\"color:#c0e2a3;font-weight:500\">\"/home/{user}/path/to/repo\"</span><span>:</span><span style=\"color:#c0e2a3;font-weight:500\">\"/action\"</span><span> asyncapi/github-action-for-cli  </span><span style=\"color:#c0e2a3;font-weight:500\">\"\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"generate\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"github-action/test/asyncapi.yml\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"@asyncapi/markdown-template@0.10.0\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"output\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"\"</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">\"\"</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "cli_version",
+        "context": "cli_version"
+      },
+      {
+        "id": "highlight_1",
+        "content": "latest",
+        "context": "Default points to thelatest version."
+      },
+      {
+        "id": "highlight_2",
+        "content": "latest",
+        "context": "[!TIP]\nWe recommend to default to latest version. This way there is no overhead with the script updating the CLI version. As it takes a lot of time to update the CLI version, we recommend to update it only when you need to use another one for compatibility reasons."
+      },
+      {
+        "id": "highlight_3",
+        "content": "command",
+        "context": "command"
+      },
+      {
+        "id": "highlight_4",
+        "content": "generate",
+        "context": "generate - generates documentation from AsyncAPI document"
+      },
+      {
+        "id": "highlight_5",
+        "content": "validate",
+        "context": "validate - validates AsyncAPI document"
+      },
+      {
+        "id": "highlight_6",
+        "content": "optimize",
+        "context": "optimize - optimizes AsyncAPI document"
+      },
+      {
+        "id": "highlight_7",
+        "content": "convert",
+        "context": "convert - converts AsyncAPI document to another version"
+      },
+      {
+        "id": "highlight_8",
+        "content": "custom",
+        "context": "custom - allows you to run any command that is available in the AsyncAPI CLI. You can find all available commands here."
+      },
+      {
+        "id": "highlight_9",
+        "content": "generate",
+        "context": "Default points to generate command."
+      },
+      {
+        "id": "highlight_10",
+        "content": "custom",
+        "context": "[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input."
+      },
+      {
+        "id": "highlight_11",
+        "content": "custom_command",
+        "context": "custom_command"
+      },
+      {
+        "id": "highlight_12",
+        "content": "asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml",
+        "context": "[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input."
+      },
+      {
+        "id": "highlight_13",
+        "content": "\"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the",
+        "context": "[!IMPORTANT]\nIn case you want to use custom command, you need to pass an array of commands to the custom_command input. Although passing command is not required, it is recommended to pass it to avoid any issues later on.\nFor example, if you want to run asyncapi bundle ./asyncapi.yaml --output final-asyncapi.yaml you need to pass \"bundle ./asyncapi.yaml --output final-asyncapi.yaml\" to the custom_command` input."
+      },
+      {
+        "id": "highlight_14",
+        "content": "custom_command",
+        "context": "custom_command"
+      },
+      {
+        "id": "highlight_15",
+        "content": "custom",
+        "context": "In case you want to use custom command you need to pass the command that you want to run in this input. You can find all available commands here."
+      },
+      {
+        "id": "highlight_16",
+        "content": "asyncapi <custom_command>",
+        "context": "[!CAUTION]\nYou have to pass the whole command as a string including the parameters and the command itself.\nIt will run like this: asyncapi <custom_command>"
+      },
+      {
+        "id": "highlight_17",
+        "content": "filepath",
+        "context": "filepath"
+      },
+      {
+        "id": "highlight_18",
+        "content": "asyncapi.yaml",
+        "context": "Default expects the AsyncAPI document to be in the root of the repository and named asyncapi.yaml."
+      },
+      {
+        "id": "highlight_19",
+        "content": "template",
+        "context": "template"
+      },
+      {
+        "id": "highlight_20",
+        "content": "@asyncapi/markdown-template@0.10.0",
+        "context": "Default points to @asyncapi/markdown-template@0.10.0 template."
+      },
+      {
+        "id": "highlight_21",
+        "content": "language",
+        "context": "language"
+      },
+      {
+        "id": "highlight_22",
+        "content": "language",
+        "context": "[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina."
+      },
+      {
+        "id": "highlight_23",
+        "content": "template",
+        "context": "[!WARNING]\nEither language or template must be set else an error will be thrown.\nThe action will return an error if the language is not supported by modelina."
+      },
+      {
+        "id": "highlight_24",
+        "content": "output",
+        "context": "output"
+      },
+      {
+        "id": "highlight_25",
+        "content": "generate",
+        "context": "Path to the output directory. Can be used for generate and convert commands."
+      },
+      {
+        "id": "highlight_26",
+        "content": "convert",
+        "context": "Path to the output directory. Can be used for generate and convert commands."
+      },
+      {
+        "id": "highlight_27",
+        "content": "output",
+        "context": "Default points to output directory in the root of the repository."
+      },
+      {
+        "id": "highlight_28",
+        "content": "parameters",
+        "context": "parameters"
+      },
+      {
+        "id": "highlight_29",
+        "content": "-p <template_parameters>",
+        "context": "[!NOTE]\nFor template parameters, you need to pass them as -p <template_parameters> as can be seen in CLI documentation."
+      },
+      {
+        "id": "highlight_30",
+        "content": "docker://asyncapi/github-action-for-cli",
+        "context": "[!WARNING]\nUsing docker://asyncapi/github-action-for-cli will not work as expected. This is because the GitHub Actions runner does not pass params to the docker image correctly. This is why we recommend to use asyncapi/cli instead.\nHowever, you don't need to worry as it won't build the image every time. It will pull it from Docker Hub as it is already built there."
+      },
+      {
+        "id": "highlight_31",
+        "content": "asyncapi/cli",
+        "context": "[!WARNING]\nUsing docker://asyncapi/github-action-for-cli will not work as expected. This is because the GitHub Actions runner does not pass params to the docker image correctly. This is why we recommend to use asyncapi/cli instead.\nHowever, you don't need to worry as it won't build the image every time. It will pull it from Docker Hub as it is already built there."
+      },
+      {
+        "id": "highlight_32",
+        "content": "-p",
+        "context": "[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate."
+      },
+      {
+        "id": "highlight_33",
+        "content": "parameters",
+        "context": "[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate."
+      },
+      {
+        "id": "highlight_34",
+        "content": "generate",
+        "context": "[!IMPORTANT]\nNote the usage of -p in parameters input. This is required for template parameters, unlike previous versions of this action as the action includes other commands than just generate."
+      },
+      {
+        "id": "highlight_35",
+        "content": "ACTIONS_STEP_DEBUG",
+        "context": "You can enable more log information in GitHub Action by adding ACTIONS_STEP_DEBUG secret to repository where you want to use this action. Set the value of this secret to true and you''ll notice more debug logs from this action."
+      },
+      {
+        "id": "highlight_36",
+        "content": "true",
+        "context": "You can enable more log information in GitHub Action by adding ACTIONS_STEP_DEBUG secret to repository where you want to use this action. Set the value of this secret to true and you''ll notice more debug logs from this action."
+      }
+    ]
+  }
+}

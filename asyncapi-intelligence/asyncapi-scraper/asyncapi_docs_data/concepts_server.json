@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/server",
+    "timestamp": "2025-03-12T17:43:25.370Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Server",
+    "hierarchy": {
+      "sections": {
+        "What is a server?": {
+          "level": 2,
+          "content": "A server acts as a messaging broker system, establishing connections and facilitating communication between producers and consumers. Unlike traditional API servers that rely on request-response interactions, message broker interactions occur bidirectionally across various channels."
+        },
+        "What is the purpose of servers?": {
+          "level": 2,
+          "content": "Servers play a crucial role in establishing a connection between producers and consumers. In the context of designing and setting up an event-driven application, servers are responsible for delivering asynchronous messages from the producer to the consumers through the use of channels. Additionally, servers can integrate various messaging protocols to facilitate the transmission and exchange of messages between clients.Clients and Server"
+        },
+        "Clients and Server": {
+          "level": 3,
+          "content": ""
+        },
+        "Broker Centric": {
+          "level": 3,
+          "content": ""
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "What is a server?\nA server acts as a messaging broker system, establishing connections and facilitating communication between producers and consumers. Unlike traditional API servers that rely on request-response interactions, message broker interactions occur bidirectionally across various channels.\nWhat is the purpose of servers?\nServers play a crucial role in establishing a connection between producers and consumers. In the context of designing and setting up an event-driven application, servers are responsible for delivering asynchronous messages from the producer to the consumers through the use of channels. Additionally, servers can integrate various messaging protocols to facilitate the transmission and exchange of messages between clients.\nClients and Server\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Client BrowserserverClient Mobile\nThe diagram above illustrates a bidirectional communication between one server and several clients. In this case, in your AsyncAPI file, you describe the server, so the Server Object holds information about the actual server, including its physical location.\nBroker Centric\n#mermaid-1{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-1 .error-icon{fill:#F7F9FA;}#mermaid-1 .error-text{fill:#080605;stroke:#080605;}#mermaid-1 .edge-thickness-normal{stroke-width:2px;}#mermaid-1 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-1 .marker.cross{stroke:#0b0b0b;}#mermaid-1 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-1 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-1 .cluster-label text{fill:#080605;}#mermaid-1 .cluster-label span{color:#080605;}#mermaid-1 .label text,#mermaid-1 span{fill:#242929;color:#242929;}#mermaid-1 .node rect,#mermaid-1 .node circle,#mermaid-1 .node ellipse,#mermaid-1 .node polygon,#mermaid-1 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-1 .node .label{text-align:center;}#mermaid-1 .node.clickable{cursor:pointer;}#mermaid-1 .arrowheadPath{fill:undefined;}#mermaid-1 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-1 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-1 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-1 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-1 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-1 .cluster text{fill:#080605;}#mermaid-1 .cluster span{color:#080605;}#mermaid-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-1 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}brokerchannel1channel2producerconsumer1consumer2\nThe diagram above illustrates the Broker-centric Architecture. In this case, there are three AsyncAPI files for the producer, consumer1, and consumer2. In these AsyncAPI files, the Server Object provides information about the broker, so that API users know where to connect to start receiving or sending messages.",
+    "sections": [
+      {
+        "title": "What is a server?",
+        "level": 2,
+        "text": "A server acts as a messaging broker system, establishing connections and facilitating communication between producers and consumers. Unlike traditional API servers that rely on request-response interactions, message broker interactions occur bidirectionally across various channels."
+      },
+      {
+        "title": "What is the purpose of servers?",
+        "level": 2,
+        "text": "Servers play a crucial role in establishing a connection between producers and consumers. In the context of designing and setting up an event-driven application, servers are responsible for delivering asynchronous messages from the producer to the consumers through the use of channels. Additionally, servers can integrate various messaging protocols to facilitate the transmission and exchange of messages between clients.Clients and Server"
+      },
+      {
+        "title": "Clients and Server",
+        "level": 3,
+        "text": ""
+      },
+      {
+        "title": "Broker Centric",
+        "level": 3,
+        "text": ""
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 155.171875px;\" viewBox=\"-8 -8 155.171875 268.69859313964844\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M65.021,42L64.115,46.167C63.209,50.333,61.398,58.667,61.194,67.021C60.99,75.375,62.394,83.751,63.096,87.938L63.798,92.126\" id=\"L-a-b-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-a LE-b\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M75.374,92.126L76.076,87.938C76.778,83.751,78.182,75.375,77.978,67.021C77.774,58.667,75.963,50.333,75.057,46.167L74.151,42\" id=\"L-b-a-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-b LE-a\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M74.151,210.699L75.057,206.532C75.963,202.365,77.774,194.032,77.978,185.678C78.182,177.323,76.778,168.948,76.076,164.76L75.374,160.573\" id=\"L-c-b-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-c LE-b\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M63.798,160.573L63.096,164.76C62.394,168.948,60.99,177.323,61.194,185.678C61.398,194.032,63.209,202.365,64.115,206.532L65.021,210.699\" id=\"L-b-c-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-b LE-c\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-a-16\" transform=\"translate(69.5859375, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-69.5859375\" y=\"-21\" width=\"139.171875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-62.0859375, -13.5)\"><foreignObject width=\"124.171875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Client Browser</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-b-17\" label-offset-y=\"8.899533086459508\" transform=\"translate(69.5859375, 126.34929656982422)\"><path style=\"\" d=\"M 0,8.899533086459508 a 34.546875,8.899533086459508 0,0,0 69.09375 0 a 34.546875,8.899533086459508 0,0,0 -69.09375 0 l 0,50.899533086459506 a 34.546875,8.899533086459508 0,0,0 69.09375 0 l 0,-50.899533086459506\" transform=\"translate(-34.546875,-34.34929962968926)\"></path><g class=\"label\" style=\"\" transform=\"translate(-27.046875, -13.5)\"><foreignObject width=\"54.09375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">server</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-c-20\" transform=\"translate(69.5859375, 231.69859313964844)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-63.1171875\" y=\"-21\" width=\"126.234375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-55.6171875, -13.5)\"><foreignObject width=\"111.234375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">Client Mobile</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}Client BrowserserverClient Mobile",
+        "description": "SVG containing 9 paths, 2 circles, and 2 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg id=\"mermaid-1\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 336.359375px;\" viewBox=\"-8 -8 336.359375 292\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-1{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-1 .error-icon{fill:#F7F9FA;}#mermaid-1 .error-text{fill:#080605;stroke:#080605;}#mermaid-1 .edge-thickness-normal{stroke-width:2px;}#mermaid-1 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-1 .marker.cross{stroke:#0b0b0b;}#mermaid-1 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-1 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-1 .cluster-label text{fill:#080605;}#mermaid-1 .cluster-label span{color:#080605;}#mermaid-1 .label text,#mermaid-1 span{fill:#242929;color:#242929;}#mermaid-1 .node rect,#mermaid-1 .node circle,#mermaid-1 .node ellipse,#mermaid-1 .node polygon,#mermaid-1 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-1 .node .label{text-align:center;}#mermaid-1 .node.clickable{cursor:pointer;}#mermaid-1 .arrowheadPath{fill:undefined;}#mermaid-1 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-1 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-1 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-1 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-1 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-1 .cluster text{fill:#080605;}#mermaid-1 .cluster span{color:#080605;}#mermaid-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-1 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"><g class=\"cluster default\" id=\"one\"><rect style=\"\" rx=\"0\" ry=\"0\" x=\"0\" y=\"92\" width=\"320.359375\" height=\"92\"></rect><g class=\"cluster-label\" transform=\"translate(132.66015625, 92)\"><foreignObject width=\"55.0390625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">broker</span></div></foreignObject></g></g></g><g class=\"edgePaths\"><path d=\"M122.961,42L115.758,46.167C108.555,50.333,94.149,58.667,86.945,67C79.742,75.333,79.742,83.667,79.742,92C79.742,100.333,79.742,108.667,79.742,112.833L79.742,117\" id=\"L-A-a1-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-a1\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M195.57,42L202.773,46.167C209.976,50.333,224.383,58.667,231.586,67C238.789,75.333,238.789,83.667,238.789,92C238.789,100.333,238.789,108.667,238.789,112.833L238.789,117\" id=\"L-A-a2-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-a2\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M79.742,159L79.742,163.167C79.742,167.333,79.742,175.667,79.742,184C79.742,192.333,79.742,200.667,79.742,209C79.742,217.333,79.742,225.667,79.742,229.833L79.742,234\" id=\"L-a1-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M238.789,159L238.789,163.167C238.789,167.333,238.789,175.667,238.789,184C238.789,192.333,238.789,200.667,238.789,209C238.789,217.333,238.789,225.667,238.789,229.833L238.789,234\" id=\"L-a2-C-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-a2 LE-C\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-a1-48\" transform=\"translate(79.7421875, 138)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-44.7421875\" y=\"-21\" width=\"89.484375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-37.2421875, -13.5)\"><foreignObject width=\"74.484375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channel1</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-a2-50\" transform=\"translate(238.7890625, 138)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.5703125\" y=\"-21\" width=\"93.140625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-39.0703125, -13.5)\"><foreignObject width=\"78.140625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channel2</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-A-46\" transform=\"translate(159.265625, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-46.2578125\" y=\"-21\" width=\"92.515625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-38.7578125, -13.5)\"><foreignObject width=\"77.515625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">producer</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-54\" transform=\"translate(79.7421875, 255)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-53.609375\" y=\"-21\" width=\"107.21875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-46.109375, -13.5)\"><foreignObject width=\"92.21875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">consumer1</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-C-56\" transform=\"translate(238.7890625, 255)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-55.4375\" y=\"-21\" width=\"110.875\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-47.9375, -13.5)\"><foreignObject width=\"95.875\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">consumer2</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-1{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-1 .error-icon{fill:#F7F9FA;}#mermaid-1 .error-text{fill:#080605;stroke:#080605;}#mermaid-1 .edge-thickness-normal{stroke-width:2px;}#mermaid-1 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-1 .marker.cross{stroke:#0b0b0b;}#mermaid-1 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-1 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-1 .cluster-label text{fill:#080605;}#mermaid-1 .cluster-label span{color:#080605;}#mermaid-1 .label text,#mermaid-1 span{fill:#242929;color:#242929;}#mermaid-1 .node rect,#mermaid-1 .node circle,#mermaid-1 .node ellipse,#mermaid-1 .node polygon,#mermaid-1 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-1 .node .label{text-align:center;}#mermaid-1 .node.clickable{cursor:pointer;}#mermaid-1 .arrowheadPath{fill:undefined;}#mermaid-1 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-1 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-1 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-1 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-1 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-1 .cluster text{fill:#080605;}#mermaid-1 .cluster span{color:#080605;}#mermaid-1 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-1 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}brokerchannel1channel2producerconsumer1consumer2",
+        "description": "SVG containing 8 paths, 2 circles, and 6 rectangles."
+      }
+    ],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "server",
+        "context": "The diagram above illustrates a bidirectional communication between one server and several clients. In this case, in your AsyncAPI file, you describe the server, so the Server Object holds information about the actual server, including its physical location."
+      },
+      {
+        "id": "highlight_1",
+        "content": "Server Object",
+        "context": "Server Object"
+      },
+      {
+        "id": "highlight_2",
+        "content": "producer",
+        "context": "The diagram above illustrates the Broker-centric Architecture. In this case, there are three AsyncAPI files for the producer, consumer1, and consumer2. In these AsyncAPI files, the Server Object provides information about the broker, so that API users know where to connect to start receiving or sending messages."
+      },
+      {
+        "id": "highlight_3",
+        "content": "consumer1",
+        "context": "The diagram above illustrates the Broker-centric Architecture. In this case, there are three AsyncAPI files for the producer, consumer1, and consumer2. In these AsyncAPI files, the Server Object provides information about the broker, so that API users know where to connect to start receiving or sending messages."
+      },
+      {
+        "id": "highlight_4",
+        "content": "consumer2",
+        "context": "The diagram above illustrates the Broker-centric Architecture. In this case, there are three AsyncAPI files for the producer, consumer1, and consumer2. In these AsyncAPI files, the Server Object provides information about the broker, so that API users know where to connect to start receiving or sending messages."
+      },
+      {
+        "id": "highlight_5",
+        "content": "Server Object",
+        "context": "Server Object"
+      },
+      {
+        "id": "highlight_6",
+        "content": "broker",
+        "context": "The diagram above illustrates the Broker-centric Architecture. In this case, there are three AsyncAPI files for the producer, consumer1, and consumer2. In these AsyncAPI files, the Server Object provides information about the broker, so that API users know where to connect to start receiving or sending messages."
+      }
+    ]
+  }
+}

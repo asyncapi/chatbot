@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tools/cli/metrics_collection",
+    "timestamp": "2025-03-12T17:54:35.155Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Metrics collection guideline",
+    "hierarchy": {
+      "sections": {
+        "Metrics collection guideline": {
+          "level": 1,
+          "content": "AsyncAPI anonymously tracks command executions to improve the specification and tools, ensuring no sensitive data reaches our servers. It aids in comprehending how AsyncAPI tools are used and adopted, facilitating ongoing improvements to our specifications and tools.Even though metrics collection is enabled by default, you can always disable tracking if you want to.What we collectWe are collecting the following metrics:\nasyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded.\nExample of the data collected by this metric when the validate command has been executed:asyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1\nasyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place.\nExample for validate command successfully executed and finished:1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1Where the data is storedWe are making use of New Relic API to send the metrics collected to New Relic servers, where they are stored, and finally visualized on the AsyncAPI website.Metrics won't be collected in CI environments, or when the \"CI\" env variable is set up to \"true\".The analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --statusHow to disable trackingTo disable tracking, please run the following command:\nasyncapi config analytics --disableOnce disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enableIn case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --statusRemember that keeping this tracking enabled will help AsyncAPI community to provide better specifications and tools in the future."
+        },
+        "What we collect": {
+          "level": 2,
+          "content": "We are collecting the following metrics:\nasyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded.\nExample of the data collected by this metric when the validate command has been executed:asyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1\nasyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place.\nExample for validate command successfully executed and finished:1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1"
+        },
+        "Where the data is stored": {
+          "level": 2,
+          "content": "We are making use of New Relic API to send the metrics collected to New Relic servers, where they are stored, and finally visualized on the AsyncAPI website.Metrics won't be collected in CI environments, or when the \"CI\" env variable is set up to \"true\".The analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --status"
+        },
+        "How to disable tracking": {
+          "level": 2,
+          "content": "To disable tracking, please run the following command:\nasyncapi config analytics --disableOnce disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enableIn case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --statusRemember that keeping this tracking enabled will help AsyncAPI community to provide better specifications and tools in the future."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tools"
+            },
+            {
+              "text": "Generator",
+              "href": "https://www.asyncapi.com/docs/tools/generator"
+            },
+            {
+              "text": "CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tools/cli"
+            },
+            {
+              "text": "Installation guide",
+              "href": "https://www.asyncapi.com/docs/tools/cli/installation"
+            },
+            {
+              "text": "CLI Architecture",
+              "href": "https://www.asyncapi.com/docs/tools/cli/architecture"
+            },
+            {
+              "text": "Usage",
+              "href": "https://www.asyncapi.com/docs/tools/cli/usage"
+            },
+            {
+              "text": "GitHub Action for CLI",
+              "href": "https://www.asyncapi.com/docs/tools/cli/github-action"
+            },
+            {
+              "text": "Context concept",
+              "href": "https://www.asyncapi.com/docs/tools/cli/context"
+            },
+            {
+              "text": "Metrics Collection",
+              "href": "https://www.asyncapi.com/docs/tools/cli/metrics_collection"
+            },
+            {
+              "text": "Glee",
+              "href": "https://www.asyncapi.com/docs/tools/glee"
+            }
+          ]
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "Metrics collection guideline\nAsyncAPI anonymously tracks command executions to improve the specification and tools, ensuring no sensitive data reaches our servers. It aids in comprehending how AsyncAPI tools are used and adopted, facilitating ongoing improvements to our specifications and tools.\nEven though metrics collection is enabled by default, you can always disable tracking if you want to.\nWhat we collect\nWe are collecting the following metrics:\n\nasyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded.\n\nExample of the data collected by this metric when the validate command has been executed:\nasyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1\n\nasyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place.\n\nExample for validate command successfully executed and finished:\n1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1\nWhere the data is stored\nWe are making use of New Relic API to send the metrics collected to New Relic servers, where they are stored, and finally visualized on the AsyncAPI website.\nMetrics won't be collected in CI environments, or when the \"CI\" env variable is set up to \"true\".\nThe analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:\nASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --status\nHow to disable tracking\nTo disable tracking, please run the following command:\nasyncapi config analytics --disable\nOnce disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enable\nIn case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --status\nRemember that keeping this tracking enabled will help AsyncAPI community to provide better specifications and tools in the future.",
+    "sections": [
+      {
+        "title": "Metrics collection guideline",
+        "level": 1,
+        "text": "AsyncAPI anonymously tracks command executions to improve the specification and tools, ensuring no sensitive data reaches our servers. It aids in comprehending how AsyncAPI tools are used and adopted, facilitating ongoing improvements to our specifications and tools.Even though metrics collection is enabled by default, you can always disable tracking if you want to.What we collectWe are collecting the following metrics:\nasyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded.\nExample of the data collected by this metric when the validate command has been executed:asyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1\nasyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place.\nExample for validate command successfully executed and finished:1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1Where the data is storedWe are making use of New Relic API to send the metrics collected to New Relic servers, where they are stored, and finally visualized on the AsyncAPI website.Metrics won't be collected in CI environments, or when the \"CI\" env variable is set up to \"true\".The analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --statusHow to disable trackingTo disable tracking, please run the following command:\nasyncapi config analytics --disableOnce disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enableIn case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --statusRemember that keeping this tracking enabled will help AsyncAPI community to provide better specifications and tools in the future."
+      },
+      {
+        "title": "What we collect",
+        "level": 2,
+        "text": "We are collecting the following metrics:\nasyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded.\nExample of the data collected by this metric when the validate command has been executed:asyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1\nasyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place.\nExample for validate command successfully executed and finished:1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1"
+      },
+      {
+        "title": "Where the data is stored",
+        "level": 2,
+        "text": "We are making use of New Relic API to send the metrics collected to New Relic servers, where they are stored, and finally visualized on the AsyncAPI website.Metrics won't be collected in CI environments, or when the \"CI\" env variable is set up to \"true\".The analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --status"
+      },
+      {
+        "title": "How to disable tracking",
+        "level": 2,
+        "text": "To disable tracking, please run the following command:\nasyncapi config analytics --disableOnce disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enableIn case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --statusRemember that keeping this tracking enabled will help AsyncAPI community to provide better specifications and tools in the future."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      },
+      {
+        "id": "svg_2",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "asyncapi_adoption.action.invoked        COUNTER { action: 'validate' }  1",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">asyncapi_adoption.action.invoked</span><span>        </span><span style=\"color:#c0e2a3;font-weight:500\">COUNTER</span><span> { </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'validate'</span><span> }  </span><span style=\"color:#d8da68\">1</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_1",
+        "content": "1asyncapi_adoption.action.finished       COUNTER {\n2  validation_result: 'valid',\n3  success: true,\n4  asyncapi_version: '2.6.0',\n5  asyncapi_servers: 2,\n6  asyncapi_channels: 4,\n7  asyncapi_messages: 3,\n8  asyncapi_operations_send: 3,\n9  asyncapi_operations_receive: 1,\n10  asyncapi_schemas: 52,\n11  action: 'validate'\n12  }       1",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi_adoption.action.finished</span><span>       </span><span style=\"color:#c0e2a3;font-weight:500\">COUNTER</span><span> {\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">validation_result:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'valid'</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">success:</span><span> </span><span style=\"color:#64a0dc\">true</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">asyncapi_version:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'2.6.0'</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">asyncapi_servers:</span><span> </span><span style=\"color:#d8da68\">2</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">asyncapi_channels:</span><span> </span><span style=\"color:#d8da68\">4</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>  </span><span style=\"color:#7edcda\">asyncapi_messages:</span><span> </span><span style=\"color:#d8da68\">3</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">8</span><span>  </span><span style=\"color:#7edcda\">asyncapi_operations_send:</span><span> </span><span style=\"color:#d8da68\">3</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">9</span><span>  </span><span style=\"color:#7edcda\">asyncapi_operations_receive:</span><span> </span><span style=\"color:#d8da68\">1</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">10</span><span>  </span><span style=\"color:#7edcda\">asyncapi_schemas:</span><span> </span><span style=\"color:#d8da68\">52</span><span>,\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">11</span><span>  </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'validate'</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">12</span><span>  }       </span><span style=\"color:#d8da68\">1</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      },
+      {
+        "id": "code_2",
+        "content": "ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics asyncapi config analytics --status",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span style=\"color:#c0e2a3;font-weight:500\">ASYNCAPI_METRICS_CONFIG_PATH=/tmp/.asyncapi-analytics</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">asyncapi</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">config</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">analytics</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">--status</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "asyncapi_adoption.action.invoked",
+        "context": "asyncapi_adoption.action.invoked:\nWith this metric we are tracking the command executed on the CLI as soon as the command is invoked, so it has already been executed but not finished yet. We just want to know which commands are used, regardless they have failed or succeeded."
+      },
+      {
+        "id": "highlight_1",
+        "content": "validate",
+        "context": "Example of the data collected by this metric when the validate command has been executed:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "asyncapi_adoption.action.finished",
+        "context": "asyncapi_adoption.action.finished:\nThis metric tracks the command executed once it has already finished, carrying the result of the execution and some metadata based on the AsyncAPI document in place."
+      },
+      {
+        "id": "highlight_3",
+        "content": "validate",
+        "context": "Example for validate command successfully executed and finished:"
+      },
+      {
+        "id": "highlight_4",
+        "content": "ASYNCAPI_METRICS_CONFIG_PATH",
+        "context": "The analytics config file will be store by default at your home directory. In case you prefer to change the file path then you should set the ASYNCAPI_METRICS_CONFIG_PATH env var to any specific path value when running any command. For instance:"
+      },
+      {
+        "id": "highlight_5",
+        "content": "asyncapi config analytics --disable",
+        "context": "To disable tracking, please run the following command:\nasyncapi config analytics --disable"
+      },
+      {
+        "id": "highlight_6",
+        "content": "asyncapi config analytics --enable",
+        "context": "Once disabled, if you want to enable tracking back again then run:\nasyncapi config analytics --enable"
+      },
+      {
+        "id": "highlight_7",
+        "content": "asyncapi config analytics --status",
+        "context": "In case you do not know the current status of analytics, then you can append the \"--status\" flag to be aware of it:\nasyncapi config analytics --status"
+      }
+    ]
+  }
+}

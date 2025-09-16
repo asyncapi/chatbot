@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/tutorials/getting-started/asyncapi-documents",
+    "timestamp": "2025-03-12T17:49:55.124Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Asyncapi Documents",
+    "hierarchy": {
+      "sections": {},
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": []
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/tutorials"
+            },
+            {
+              "text": "Getting Started",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started"
+            },
+            {
+              "text": "Event-Driven Architectures",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/event-driven-architectures"
+            },
+            {
+              "text": "Coming from OpenAPI",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/coming-from-openapi"
+            },
+            {
+              "text": "Hello world",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/hello-world"
+            },
+            {
+              "text": "Request/reply pattern",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/request-reply"
+            },
+            {
+              "text": "AsyncAPI documents",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/asyncapi-documents"
+            },
+            {
+              "text": "Servers",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/servers"
+            },
+            {
+              "text": "Adding security",
+              "href": "https://www.asyncapi.com/docs/tutorials/getting-started/security"
+            },
+            {
+              "text": "Create AsyncAPI document",
+              "href": "https://www.asyncapi.com/docs/tutorials/create-asyncapi-document"
+            },
+            {
+              "text": "Generate code",
+              "href": "https://www.asyncapi.com/docs/tutorials/generate-code"
+            },
+            {
+              "text": "Validate AsyncAPI document with Studio",
+              "href": "https://www.asyncapi.com/docs/tutorials/studio-document-validation"
+            },
+            {
+              "text": "Message validation in runtime",
+              "href": "https://www.asyncapi.com/docs/tutorials/message-validation"
+            },
+            {
+              "text": "Streetlights - Interactive",
+              "href": "https://www.asyncapi.com/docs/tutorials/streetlights-interactive"
+            },
+            {
+              "text": "WebSocket",
+              "href": "https://www.asyncapi.com/docs/tutorials/websocket"
+            },
+            {
+              "text": "Kafka",
+              "href": "https://www.asyncapi.com/docs/tutorials/kafka"
+            }
+          ]
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "",
+    "sections": [],
+    "svgs": [],
+    "codeBlocks": [],
+    "tables": [],
+    "highlights": []
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "metadata": {
+    "url": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations",
+    "timestamp": "2025-03-12T17:47:37.659Z",
+    "source": "asyncapi_docs"
+  },
+  "content": {
+    "title": "Adding Operations",
+    "hierarchy": {
+      "sections": {
+        "Defining operations": {
+          "level": 2,
+          "content": "Operations can be defined as an independent object in the AsyncAPI document. More information about each field name that is used to define operations can be found in the reference documentation of the specification.The following diagram declares the field names that are frequently used to define operations in an AsyncAPI document:"
+        },
+        "Adding operations": {
+          "level": 2,
+          "content": "In the AsyncAPI document, 'operations' are distinct fields located at the root level of the document, alongside 'channels' and other key fields.\nOperations must specify on what channel they are performed by referencing the channel with $ref. For example:1onUserSignUp:\n2  title: User sign up\n3  summary: React and process information about new user sign up.\n4  description: Process information about user sign up and update the information in the table that counts numbers of currently signed up users.\n5  action: receive\n6  channel:\n7    $ref: '#/channels/userSignup'The operation definition mentioned above gives the details needed for the application to send a message. Its 'title' and 'summary' clearly show that it's about receiving an event when a new user signs up to the system.Some fields are missing from this example:\nNo messages field means that this operation processes any message coming from the userSignup channel.\nNo security field means that there are no special security measures related to this operation and that the security should be applied the same as for other operations. Essentially, the security from the server level should be respected.\nNo reply field means that after reacting to the user sign up, this application will not send any reply as a reaction."
+        }
+      },
+      "navigation": [
+        {
+          "text": "Welcome",
+          "href": "https://www.asyncapi.com/docs",
+          "subItems": []
+        },
+        {
+          "text": "Concepts",
+          "href": "https://www.asyncapi.com/docs/concepts",
+          "subItems": [
+            {
+              "text": "Overview",
+              "href": "https://www.asyncapi.com/docs/concepts"
+            },
+            {
+              "text": "Server",
+              "href": "https://www.asyncapi.com/docs/concepts/server"
+            },
+            {
+              "text": "Producer",
+              "href": "https://www.asyncapi.com/docs/concepts/producer"
+            },
+            {
+              "text": "Consumer",
+              "href": "https://www.asyncapi.com/docs/concepts/consumer"
+            },
+            {
+              "text": "Channel",
+              "href": "https://www.asyncapi.com/docs/concepts/channel"
+            },
+            {
+              "text": "Application",
+              "href": "https://www.asyncapi.com/docs/concepts/application"
+            },
+            {
+              "text": "Protocol",
+              "href": "https://www.asyncapi.com/docs/concepts/protocol"
+            },
+            {
+              "text": "Message",
+              "href": "https://www.asyncapi.com/docs/concepts/message"
+            },
+            {
+              "text": "AsyncAPI Document",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "Introduction",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document"
+            },
+            {
+              "text": "AsyncAPI document structure",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/structure"
+            },
+            {
+              "text": "Tags",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/tags"
+            },
+            {
+              "text": "Adding channels",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-channels"
+            },
+            {
+              "text": "Parameters in channel address",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/dynamic-channel-address"
+            },
+            {
+              "text": "Adding operations",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-operations"
+            },
+            {
+              "text": "Operation security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/securing-operations"
+            },
+            {
+              "text": "Adding messages",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-messages"
+            },
+            {
+              "text": "Reusability with traits",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusability-with-traits"
+            },
+            {
+              "text": "Server security",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/server-security"
+            },
+            {
+              "text": "Adding reply info",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reply-info"
+            },
+            {
+              "text": "Extending specification",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/extending-specification"
+            },
+            {
+              "text": "Adding bindings",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/adding-bindings"
+            },
+            {
+              "text": "Payload schema",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/define-payload"
+            },
+            {
+              "text": "Server variables",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/variable-url"
+            },
+            {
+              "text": "Reusable parts",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/reusable-parts"
+            },
+            {
+              "text": "Add servers",
+              "href": "https://www.asyncapi.com/docs/concepts/asyncapi-document/add-server"
+            }
+          ]
+        },
+        {
+          "text": "Tutorials",
+          "href": "https://www.asyncapi.com/docs/tutorials",
+          "subItems": []
+        },
+        {
+          "text": "Tools",
+          "href": "https://www.asyncapi.com/docs/tools",
+          "subItems": []
+        },
+        {
+          "text": "Guides",
+          "href": "https://www.asyncapi.com/docs/guides",
+          "subItems": []
+        },
+        {
+          "text": "Reference",
+          "href": "https://www.asyncapi.com/docs/reference",
+          "subItems": []
+        },
+        {
+          "text": "Migrations",
+          "href": "https://www.asyncapi.com/docs/migration",
+          "subItems": []
+        },
+        {
+          "text": "Community",
+          "href": "https://www.asyncapi.com/docs/community",
+          "subItems": []
+        }
+      ]
+    },
+    "full_text": "In a messaging system, 'operations' are how messages are sent and received between participants or components. In AsyncAPI, understanding operations helps you see how the system sends asynchronous messages back and forth without waiting for responses. They serve as a vital tool, aiding users in comprehending the range of tasks and functionalities that the API is capable of performing.\nIn an AsyncAPI document, operations describe your application's behaviors and capabilities by exchanging messages through channels configured in the AsyncAPI document. An operation represents a particular action or interaction that can be performed. The purpose of operations is to provide a standardized means for describing the process of sending, receiving from, requesting, or replying to messages within the messaging system.\nDefining operations\nOperations can be defined as an independent object in the AsyncAPI document. More information about each field name that is used to define operations can be found in the reference documentation of the specification.\nThe following diagram declares the field names that are frequently used to define operations in an AsyncAPI document:\n#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}#mermaid-0 .default>*{fill:#47BCEE!important;stroke:#000!important;}#mermaid-0 .default span{fill:#47BCEE!important;stroke:#000!important;}operationsactionchannelmessagesreplybindingssecurity\nAdding operations\nIn the AsyncAPI document, 'operations' are distinct fields located at the root level of the document, alongside 'channels' and other key fields.\nOperations must specify on what channel they are performed by referencing the channel with $ref. For example:\n1onUserSignUp:\n2  title: User sign up\n3  summary: React and process information about new user sign up.\n4  description: Process information about user sign up and update the information in the table that counts numbers of currently signed up users.\n5  action: receive\n6  channel:\n7    $ref: '#/channels/userSignup'\nThe operation definition mentioned above gives the details needed for the application to send a message. Its 'title' and 'summary' clearly show that it's about receiving an event when a new user signs up to the system.\nSome fields are missing from this example:\n\nNo messages field means that this operation processes any message coming from the userSignup channel.\nNo security field means that there are no special security measures related to this operation and that the security should be applied the same as for other operations. Essentially, the security from the server level should be respected.\nNo reply field means that after reacting to the user sign up, this application will not send any reply as a reaction.",
+    "sections": [
+      {
+        "title": "Defining operations",
+        "level": 2,
+        "text": "Operations can be defined as an independent object in the AsyncAPI document. More information about each field name that is used to define operations can be found in the reference documentation of the specification.The following diagram declares the field names that are frequently used to define operations in an AsyncAPI document:"
+      },
+      {
+        "title": "Adding operations",
+        "level": 2,
+        "text": "In the AsyncAPI document, 'operations' are distinct fields located at the root level of the document, alongside 'channels' and other key fields.\nOperations must specify on what channel they are performed by referencing the channel with $ref. For example:1onUserSignUp:\n2  title: User sign up\n3  summary: React and process information about new user sign up.\n4  description: Process information about user sign up and update the information in the table that counts numbers of currently signed up users.\n5  action: receive\n6  channel:\n7    $ref: '#/channels/userSignup'The operation definition mentioned above gives the details needed for the application to send a message. Its 'title' and 'summary' clearly show that it's about receiving an event when a new user signs up to the system.Some fields are missing from this example:\nNo messages field means that this operation processes any message coming from the userSignup channel.\nNo security field means that there are no special security measures related to this operation and that the security should be applied the same as for other operations. Essentially, the security from the server level should be respected.\nNo reply field means that after reacting to the user sign up, this application will not send any reply as a reaction."
+      }
+    ],
+    "svgs": [
+      {
+        "id": "svg_0",
+        "content": "<svg id=\"mermaid-0\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" style=\"max-width: 272.78125px;\" viewBox=\"-8 -8 272.78125 518\" aria-roledescription=\"flowchart-v2\"><style>#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}#mermaid-0 .default&gt;*{fill:#47BCEE!important;stroke:#000!important;}#mermaid-0 .default span{fill:#47BCEE!important;stroke:#000!important;}</style><g><marker id=\"flowchart-pointEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-pointStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"12\" markerHeight=\"12\" orient=\"auto\"><path d=\"M 0 5 L 10 10 L 10 0 z\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-circleEnd\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"11\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-circleStart\" class=\"marker flowchart\" viewBox=\"0 0 10 10\" refX=\"-1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><circle cx=\"5\" cy=\"5\" r=\"5\" class=\"arrowMarkerPath\" style=\"stroke-width: 1; stroke-dasharray: 1, 0;\"></circle></marker><marker id=\"flowchart-crossEnd\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"12\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><marker id=\"flowchart-crossStart\" class=\"marker cross flowchart\" viewBox=\"0 0 11 11\" refX=\"-1\" refY=\"5.2\" markerUnits=\"userSpaceOnUse\" markerWidth=\"11\" markerHeight=\"11\" orient=\"auto\"><path d=\"M 1,1 l 9,9 M 10,1 l -9,9\" class=\"arrowMarkerPath\" style=\"stroke-width: 2; stroke-dasharray: 1, 0;\"></path></marker><g class=\"root\"><g class=\"clusters\"></g><g class=\"edgePaths\"><path d=\"M59.781,230L71.546,195.167C83.312,160.333,106.844,90.667,125.637,55.833C144.431,21,158.487,21,165.515,21L172.543,21\" id=\"L-C-F-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-F\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M64.51,230L75.487,210.5C86.465,191,108.42,152,125.168,132.5C141.915,113,153.456,113,159.226,113L164.996,113\" id=\"L-C-I-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-I\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M88.154,230L95.19,225.833C102.227,221.667,116.301,213.333,128.657,209.167C141.013,205,151.651,205,156.97,205L162.289,205\" id=\"L-C-D-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-D\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M88.154,272L95.19,276.167C102.227,280.333,116.301,288.667,131.158,292.833C146.016,297,161.656,297,169.477,297L177.297,297\" id=\"L-C-B-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-B\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M64.51,272L75.487,291.5C86.465,311,108.42,350,125.048,369.5C141.677,389,152.979,389,158.63,389L164.281,389\" id=\"L-C-E-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-E\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path><path d=\"M59.781,272L71.546,306.833C83.312,341.667,106.844,411.333,122.776,446.167C138.708,481,147.042,481,151.208,481L155.375,481\" id=\"L-C-A-0\" class=\" edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-A\" style=\"fill:none;\" marker-end=\"url(#flowchart-pointEnd)\"></path></g><g class=\"edgeLabels\"><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g><g class=\"edgeLabel\"><g class=\"label\" transform=\"translate(0, 0)\"><foreignObject width=\"0\" height=\"0\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"edgeLabel\"></span></div></foreignObject></g></g></g><g class=\"nodes\"><g class=\"node default default\" id=\"flowchart-C-38\" transform=\"translate(52.6875, 251)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-52.6875\" y=\"-21\" width=\"105.375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-45.1875, -13.5)\"><foreignObject width=\"90.375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">operations</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-F-39\" transform=\"translate(206.078125, 21)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-33.53515625\" y=\"-21\" width=\"67.0703125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-26.03515625, -13.5)\"><foreignObject width=\"52.0703125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">action</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-I-40\" transform=\"translate(206.078125, 113)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-41.08203125\" y=\"-21\" width=\"82.1640625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-33.58203125, -13.5)\"><foreignObject width=\"67.1640625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">channel</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-A-41\" transform=\"translate(206.078125, 481)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-50.703125\" y=\"-21\" width=\"101.40625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-43.203125, -13.5)\"><foreignObject width=\"86.40625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">messages</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-B-42\" transform=\"translate(206.078125, 297)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-28.78125\" y=\"-21\" width=\"57.5625\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-21.28125, -13.5)\"><foreignObject width=\"42.5625\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">reply</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-D-43\" transform=\"translate(206.078125, 205)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-43.7890625\" y=\"-21\" width=\"87.578125\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-36.2890625, -13.5)\"><foreignObject width=\"72.578125\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">bindings</span></div></foreignObject></g></g><g class=\"node default default\" id=\"flowchart-E-44\" transform=\"translate(206.078125, 389)\"><rect class=\"basic label-container\" style=\"\" rx=\"0\" ry=\"0\" x=\"-41.796875\" y=\"-21\" width=\"83.59375\" height=\"42\"></rect><g class=\"label\" style=\"\" transform=\"translate(-34.296875, -13.5)\"><foreignObject width=\"68.59375\" height=\"27\"><div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"display: inline-block; white-space: nowrap;\"><span class=\"nodeLabel\">security</span></div></foreignObject></g></g></g></g></g></svg>",
+        "context": "#mermaid-0{font-family:Inter,sans-serif;font-size:18px;fill:#242929;}#mermaid-0 .error-icon{fill:#F7F9FA;}#mermaid-0 .error-text{fill:#080605;stroke:#080605;}#mermaid-0 .edge-thickness-normal{stroke-width:2px;}#mermaid-0 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-0 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-0 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-0 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-0 .marker{fill:#0b0b0b;stroke:#0b0b0b;}#mermaid-0 .marker.cross{stroke:#0b0b0b;}#mermaid-0 svg{font-family:Inter,sans-serif;font-size:18px;}#mermaid-0 .label{font-family:Inter,sans-serif;color:#242929;}#mermaid-0 .cluster-label text{fill:#080605;}#mermaid-0 .cluster-label span{color:#080605;}#mermaid-0 .label text,#mermaid-0 span{fill:#242929;color:#242929;}#mermaid-0 .node rect,#mermaid-0 .node circle,#mermaid-0 .node ellipse,#mermaid-0 .node polygon,#mermaid-0 .node path{fill:#EDFAFF;stroke:#47BCEE;stroke-width:1px;}#mermaid-0 .node .label{text-align:center;}#mermaid-0 .node.clickable{cursor:pointer;}#mermaid-0 .arrowheadPath{fill:undefined;}#mermaid-0 .edgePath .path{stroke:#0b0b0b;stroke-width:2.0px;}#mermaid-0 .flowchart-link{stroke:#0b0b0b;fill:none;}#mermaid-0 .edgeLabel{background-color:#F4EFFC;text-align:center;}#mermaid-0 .edgeLabel rect{opacity:0.5;background-color:#F4EFFC;fill:#F4EFFC;}#mermaid-0 .cluster rect{fill:#F7F9FA;stroke:#BFC6C7;stroke-width:1px;}#mermaid-0 .cluster text{fill:#080605;}#mermaid-0 .cluster span{color:#080605;}#mermaid-0 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Inter,sans-serif;font-size:12px;background:#F7F9FA;border:1px solid undefined;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-0 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#242929;}#mermaid-0 :root{--mermaid-font-family:\"trebuchet ms\",verdana,arial,sans-serif;}#mermaid-0 .default>*{fill:#47BCEE!important;stroke:#000!important;}#mermaid-0 .default span{fill:#47BCEE!important;stroke:#000!important;}operationsactionchannelmessagesreplybindingssecurity",
+        "description": "SVG containing 10 paths, 2 circles, and 7 rectangles."
+      },
+      {
+        "id": "svg_1",
+        "content": "<svg class=\"-mt-0.5 inline-block size-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\"><path d=\"M15.6 2l-1.2 3H5.6L4.4 2C3.629 2 3 2.629 3 3.4v15.2c0 .77.629 1.4 1.399 1.4h11.2c.77 0 1.4-.631 1.4-1.4V3.4C17 2.629 16.369 2 15.6 2zm-2 2l.9-2h-2.181L11.6 0H8.4l-.72 2H5.5l.899 2H13.6z\"></path></svg>",
+        "context": "",
+        "description": "SVG containing 1 paths, 0 circles, and 0 rectangles."
+      }
+    ],
+    "codeBlocks": [
+      {
+        "id": "code_0",
+        "content": "1onUserSignUp:\n2  title: User sign up\n3  summary: React and process information about new user sign up.\n4  description: Process information about user sign up and update the information in the table that counts numbers of currently signed up users.\n5  action: receive\n6  channel:\n7    $ref: '#/channels/userSignup'",
+        "rawHtml": "<code class=\"mr-8\" style=\"white-space:pre\"><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">1</span><span style=\"color:#7edcda\">onUserSignUp:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">2</span><span>  </span><span style=\"color:#7edcda\">title:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">User</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">sign</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">up</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">3</span><span>  </span><span style=\"color:#7edcda\">summary:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">React</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">and</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">process</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">information</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">about</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">new</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">sign</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">up.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">4</span><span>  </span><span style=\"color:#7edcda\">description:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">Process</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">information</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">about</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">user</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">sign</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">up</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">and</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">update</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">information</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">in</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">the</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">table</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">that</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">counts</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">numbers</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">of</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">currently</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">signed</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">up</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">users.</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">5</span><span>  </span><span style=\"color:#7edcda\">action:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">receive</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">6</span><span>  </span><span style=\"color:#7edcda\">channel:</span><span>\n</span></span><span style=\"padding-right:2rem\"><span class=\"comment linenumber react-syntax-highlighter-line-number\" style=\"display:inline-block;min-width:2.25em;padding-right:16px;text-align:right;user-select:none;margin-left:16px;background-color:#252f3f;color:#8B9394\">7</span><span>    </span><span style=\"color:#c0e2a3;font-weight:500\">$ref:</span><span> </span><span style=\"color:#c0e2a3;font-weight:500\">'#/channels/userSignup'</span></span></code>",
+        "language": "unknown",
+        "context": ""
+      }
+    ],
+    "tables": [],
+    "highlights": [
+      {
+        "id": "highlight_0",
+        "content": "operation",
+        "context": "In an AsyncAPI document, operations describe your application's behaviors and capabilities by exchanging messages through channels configured in the AsyncAPI document. An operation represents a particular action or interaction that can be performed. The purpose of operations is to provide a standardized means for describing the process of sending, receiving from, requesting, or replying to messages within the messaging system."
+      },
+      {
+        "id": "highlight_1",
+        "content": "channel",
+        "context": "In the AsyncAPI document, 'operations' are distinct fields located at the root level of the document, alongside 'channels' and other key fields.\nOperations must specify on what channel they are performed by referencing the channel with $ref. For example:"
+      },
+      {
+        "id": "highlight_2",
+        "content": "$ref",
+        "context": "In the AsyncAPI document, 'operations' are distinct fields located at the root level of the document, alongside 'channels' and other key fields.\nOperations must specify on what channel they are performed by referencing the channel with $ref. For example:"
+      },
+      {
+        "id": "highlight_3",
+        "content": "messages",
+        "context": "No messages field means that this operation processes any message coming from the userSignup channel."
+      },
+      {
+        "id": "highlight_4",
+        "content": "userSignup",
+        "context": "No messages field means that this operation processes any message coming from the userSignup channel."
+      },
+      {
+        "id": "highlight_5",
+        "content": "security",
+        "context": "No security field means that there are no special security measures related to this operation and that the security should be applied the same as for other operations. Essentially, the security from the server level should be respected."
+      },
+      {
+        "id": "highlight_6",
+        "content": "reply",
+        "context": "No reply field means that after reacting to the user sign up, this application will not send any reply as a reaction."
+      }
+    ]
+  }
+}
