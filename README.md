@@ -67,15 +67,18 @@ This is an Interactive CLI that can be used to interact with the bot... Nothing 
 1. cd [chatbots](https://github.com/asyncapi/chatbot) to go into the project root
 2. run yarn to install the dependencies
 
-#### make the WIT.ai access tokan.
+#### configure the WIT.ai access tokan.
 
-step 1 : Go to the official website: https://wit.ai
-step 2 : Find the app you created and Click on the app name to open it.
-step 3 : Look at the left sidebar, Click on Settings
-step 4 : You will see: Server Access Token ← (Use this in your backend code)
-Click the copy icon next to the Server Access Token.
-step 5 : make a .env file at "chatbot\packages\server\.env"
+step 1 : Go to the official website: [Wit.ai](http://wit.ai)<br>
+step 2 : Find the app you created and Click on the app name to open it.<br>
+step 3 : Look at the left sidebar, Click on Settings<br>
+step 4 : You will see: Server Access Token ← (Use this in your backend code)<br>
+Click the copy icon next to the Server Access Token.<br>
+step 5 : make a `.env` file at `"chatbot\packages\server\.env"` <br>
+
+```env
 WIT_API_TOKEN=YOUR_SERVER_ACCESS_TOKEN
+```
 
 
 ### Running locally
